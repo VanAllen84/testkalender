@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intimer Adventskalender</title>
+    <style>
+        /* Standard-Farben für Landing-Page: Edles Schwarz & dunkles Rot */
+        :root {
+            --bg-color: #060608;
+            --card-bg: #121217;
+            --accent-color: #c23b4c;
+            --text-color: #d0d0d5;
+            --heading-color: #ffffff;
+            --border-glow: rgba(194, 59, 76, 0.4);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.8s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid var(--border-glow);
+            padding: 30px;
+            box-sizing: border-box;
+            transition: all 0.8s ease;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading-color);
+            text-align: center;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Landing-Page / Bedienungsanleitung (Schwarz-Rot) */
+        .landing-intro {
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .landing-intro p {
+            margin-bottom: 15px;
+        }
+
+        .rules-box {
+            background: rgba(194, 59, 76, 0.08);
+            border-left: 3px solid var(--accent-color);
+            padding: 12px 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            color: #e2e2e6;
+        }
+
+        /* Setup / Start-Screen */
+        .setup-group {
+            margin-bottom: 25px;
+        }
+
+        .setup-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .btn-option {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-glow);
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn-option.selected {
+            background: var(--accent-color);
+            color: #fff;
+            font-weight: bold;
+            border-color: var(--accent-color);
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Story View */
+        .story-text {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin-bottom: 30px;
+            white-space: pre-line;
+        }
+
+        .card-reveal-box {
+            background: rgba(0,0,0,0.4);
+            border: 2px dashed var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .card-title {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .card-instruction-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        /* Test-Modus Leiste */
+        .dev-bar {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.85);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            border: 1px solid #444;
+            z-index: 999;
+            color: #fff;
+        }
+        .dev-bar select {
+            background: #222;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        /* --- NEU: Türchen-Übersicht (Zwischenseite) --- */
+        #calendar-overview {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        #calendar-overview h2 {
+            font-family: serif;
+            color: #d4af37; /* Dezenter Goldton */
+            margin-bottom: 30px;
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .tueren-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .tuer-card {
+            background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+            border: 1px solid #444;
+            border-radius: 12px;
+            height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tuer-card:hover:not(.gesperrt) {
+            transform: translateY(-5px);
+            border-color: #d4af37;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .tuer-card .tag-nummer {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f0f0f0;
+        }
+
+        .tuer-card .tag-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* Stil für zukünftige / gesperrte Türchen */
+        .tuer-card.gesperrt {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #151515;
+            border-color: #222;
+        }
+
+        .tuer-card.gesperrt::after {
+            content: "🔒";
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            font-size: 0.8rem;
+        }
+
+        /* Schickes kleines Modal für die Fehlermeldung bei gesperrten Türchen */
+        #lock-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lock-content {
+            background: #222;
+            border: 1px solid #d4af37;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 0 25px rgba(212,175,55,0.3);
+        }
+
+        .lock-content button {
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: #d4af37;
+            border: none;
+            color: #111;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+		.dev-bar.hidden-dev {
+			display: none !important;
+		}	
+    </style>
+</head>
+<body>
+
+    <!-- Test-Modus / Entwickler-Leiste (Wird per JS automatisch ausgeblendet, wenn testModus = false) -->
+    <div class="dev-bar" id="devBarElement">
+        🧪 Test-Modus: <select id="devDaySelect" onchange="changeDevDay()">
+            <!-- Wird per JS gefüllt -->
+        </select>
+    </div>
+
+    <div class="container" id="appContainer">
+        
+        <!-- STEP 0: Landing-Page & Bedienungsanleitung (Schwarz-Rot) -->
+        <div id="landingScreen">
+            <h1>Dein ganz persönlicher Adventskalender</h1>
+            <p style="text-align: center; color: var(--accent-color); margin-top: -10px; margin-bottom: 25px;">Von deinem dich liebenden Ehemann, nur für dich ganz persönlich entwickelt!</p>
+            
+            <div class="landing-intro">
+                <p>Willkommen zu deinem ganz persönlichen und intimen Adventskalender. Jeden Tag öffnet sich eine neue Geschichte, die dich tief in eine stimmungsvolle, knisternde Atmosphäre entführt und auf die gemeinsamen Aufgaben dieser Adventszeit einstimmen soll.</p>
+                
+                <div class="rules-box">
+                    <strong>Und so funktioniert das Ganze:</strong><br>
+                    1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus und lass den Kalender wissen, falls du gerade deine Tage hast.<br>
+                    2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
+                    3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.
+                </div>
+
+                <p style="text-align: center; font-style: italic; color: var(--text-color);">Der Raum verdunkelt sich, die Erwartung steigt. Bist du bereit, tief in die Geschichten einzutauchen?</p>
+            </div>
+
+            <!-- Führt zur Türchen-Zwischenseite -->
+            <button class="btn-primary" onclick="zeigeTuerenUebersicht()">Tauche ein in den Advent!</button>
+        </div>
+        
+        <!-- --- Die Türchen-Zwischenseite --- -->
+        <div id="calendar-overview" class="hidden">
+            <h2>Wähle das heutige Türchen</h2>
+            <div class="tueren-grid" id="tuerenGridContainer">
+                <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
+            </div>
+            <button class="btn-primary" style="margin-top: 25px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToLanding()">Zurück zur Anleitung</button>
+        </div>
+
+        <!-- Modal für gesperrte Tage -->
+        <div id="lock-modal">
+            <div class="lock-content">
+                <p id="lock-message">Geduld... Manche Geheimnisse enthüllen sich erst zu ihrer Zeit.</p>
+                <button onclick="schliesseModal()">Schade...</button>
+            </div>
+        </div>
+
+        <!-- STEP 1: Tägliches Setup (Stimmung & Periode) -->
+        <div id="setupScreen" class="hidden">
+            <h2>Türchen <span id="displayDayNum">1</span></h2>
+            <p style="text-align: center; color: var(--accent-color);" id="themeCategoryName">Lade Kategorie...</p>
+            <hr style="border: 0; border-top: 1px solid var(--border-glow); margin: 20px 0;">
+
+            <div class="setup-group">
+                <label>1. Wie soll sich die Geschichte heute für dich anfühlen?</label>
+                <div class="options-grid">
+                    <button class="btn-option selected" onclick="setVibe('hingabe', this)">Geborgen</button>
+                    <button class="btn-option" onclick="setVibe('naehe', this)">Verspielt</button>
+                    <button class="btn-option" onclick="setVibe('feuer', this)">Intensiv</button>
+                </div>
+            </div>
+
+            <div class="setup-group">
+                <label>2. Hast du gerade deine Tage?</label>
+                <div class="options-grid" style="grid-template-columns: repeat(2, 1fr);">
+                    <button class="btn-option selected" onclick="setPeriod(false, this)">Nein</button>
+                    <button class="btn-option" onclick="setPeriod(true, this)">Ja</button>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="startStory()">Tauche ein in die heutige Geschichte!</button>
+            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
+        </div>
+
+        <!-- STEP 2: Die Geschichte / Der Teaser -->
+        <div id="storyScreen" class="hidden">
+            <h2 id="storyTitle">Türchen <span id="storyDayNum">1</span></h2>
+            <div class="story-text" id="storyContent">
+                <!-- Dynamischer Text -->
+            </div>
+
+            <div class="card-reveal-box">
+                <div class="card-title" id="cardBoxTitle">Und nun, zieh die passende Karte aus dem Beutel.</div>
+                <div class="card-instruction-text" id="cardInstruction">
+                    <!-- Minimalistische Kartennummer-Anzeige -->
+                </div>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
+            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToSetup()">Lass mich meine Stimmung nochmal überdenken...</button>
+        </div>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // GLOBALTER TESTMODUS-SCHALTER
+        // True = Alle Türchen offen, Dev-Leiste sichtbar
+        // False = Nur echte Tage bis heute offen, Dev-Leiste WEG
+        // ==========================================
+        const testModus = false; 
+
+        // Dev-Bar direkt beim Laden unsichtbar machen, wenn testModus false ist
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!testModus) {
+                const devBar = document.querySelector(".dev-bar");
+                if (devBar) devBar.classList.add("hidden-dev");
+            }
+        });
+
+        // Mapping: Kategorie & Kartennummer pro Tag
+        const calendarData = {
+            1:  { cat: 0, cardNum: 8 },
+            2:  { cat: 0, cardNum: 23 },
+            3:  { cat: 0, cardNum: 10 },
+            4:  { cat: 0, cardNum: 24 },
+            5:  { cat: 0, cardNum: 7 },
+            6:  { cat: 0, cardNum: 20 },
+            
+            7:  { cat: 1, cardNum: 3 },
+            8:  { cat: 1, cardNum: 17 },
+            9:  { cat: 1, cardNum: 9 },
+            10: { cat: 1, cardNum: 18 },
+            11: { cat: 1, cardNum: 12 },
+            12: { cat: 1, cardNum: 21 },
+            
+            13: { cat: 2, cardNum: 6 },
+            14: { cat: 2, cardNum: 14 },
+            15: { cat: 2, cardNum: 4 },
+            16: { cat: 2, cardNum: 19 },
+            17: { cat: 2, cardNum: 11 },
+            18: { cat: 2, cardNum: 22 },
+            
+            19: { cat: 3, cardNum: 1 },
+            20: { cat: 3, cardNum: 13 },
+            21: { cat: 3, cardNum: 2 },
+            22: { cat: 3, cardNum: 16 },
+            23: { cat: 3, cardNum: 5 },
+            24: { cat: 3, cardNum: 15 }
+        };
+
+        const categoryTitles = [
+            "Kategorie 1: Vorfreude & Verführung",
+            "Kategorie 2: Spiel & Abenteuer",
+            "Kategorie 3: Hingabe & Intensität",
+            "Kategorie 4: Wild & Leidenschaftlich"
+        ];
+
+        function applyThemeAndCategory(day) {
+            let data = calendarData[day];
+            let blockIndex = data.cat; 
+            let dayInBlock = (day - 1) % 6; 
+
+            document.getElementById("themeCategoryName").innerText = categoryTitles[blockIndex];
+
+            let root = document.documentElement;
+
+            if (blockIndex === 0) {
+                let lightness = 14 - (dayInBlock * 1.8);
+                let glowAlpha = 0.2 + (dayInBlock * 0.1);
+                root.style.setProperty('--bg-color', `#020308`);
+                root.style.setProperty('--card-bg', `hsl(235, 60%, ${Math.max(4, lightness)}%)`);
+                root.style.setProperty('--accent-color', `#8b78e6`);
+                root.style.setProperty('--border-glow', `rgba(139, 120, 230, ${glowAlpha})`);
+                root.style.setProperty('--text-color', `#d0d3e0`);
+            } else if (blockIndex === 1) {
+                let lightness = 14 - (dayInBlock * 1.8);
+                let glowAlpha = 0.2 + (dayInBlock * 0.1);
+                root.style.setProperty('--bg-color', `#010503`);
+                root.style.setProperty('--card-bg', `hsl(150, 60%, ${Math.max(4, lightness)}%)`);
+                root.style.setProperty('--accent-color', `#4fa874`);
+                root.style.setProperty('--border-glow', `rgba(79, 168, 116, ${glowAlpha})`);
+                root.style.setProperty('--text-color', `#cfe3d7`);
+            } else if (blockIndex === 2) {
+                let lightness = 14 - (dayInBlock * 1.8);
+                let glowAlpha = 0.2 + (dayInBlock * 0.1);
+                root.style.setProperty('--bg-color', `#050301`);
+                root.style.setProperty('--card-bg', `hsl(35, 60%, ${Math.max(4, lightness)}%)`);
+                root.style.setProperty('--accent-color', `#d99b41`);
+                root.style.setProperty('--border-glow', `rgba(217, 155, 65, ${glowAlpha})`);
+                root.style.setProperty('--text-color', `#e3d3c2`);
+            } else {
+                let lightness = 14 - (dayInBlock * 1.8);
+                let glowAlpha = 0.2 + (dayInBlock * 0.1);
+                root.style.setProperty('--bg-color', `#050102`);
+                root.style.setProperty('--card-bg', `hsl(350, 65%, ${Math.max(4, lightness)}%)`);
+                root.style.setProperty('--accent-color', `#c23b4c`);
+                root.style.setProperty('--border-glow', `rgba(194, 59, 76, ${glowAlpha})`);
+                root.style.setProperty('--text-color', `#e6c9cc`);
+            }
+        }
+
+        function applyLandingTheme() {
+            let root = document.documentElement;
+            root.style.setProperty('--bg-color', `#060608`);
+            root.style.setProperty('--card-bg', `#121217`);
+            root.style.setProperty('--accent-color', `#c23b4c`);
+            root.style.setProperty('--border-glow', `rgba(194, 59, 76, 0.4)`);
+            root.style.setProperty('--text-color', `#d0d0d5`);
+        }
+
+        let currentDay = 1;
+        let selectedVibe = 'hingabe';
+        let hasPeriod = false;
+
+        const devSelect = document.getElementById("devDaySelect");
+        if (devSelect) {
+            for (let i = 1; i <= 24; i++) {
+                let opt = document.createElement("option");
+                opt.value = i;
+                opt.innerText = `Tag ${i}`;
+                devSelect.appendChild(opt);
+            }
+        }
+
+        // ==========================================
+        // VORTEST IM NOVEMBER: Der November 2026 wird wie der Dezember behandelt
+        // (1. Nov = Türchen 1 usw.). Zum Ausschalten: VORTEST_NOVEMBER = false
+        // ==========================================
+        const VORTEST_NOVEMBER = true;
+        function jetzt() {
+            const d = new Date();
+            if (VORTEST_NOVEMBER && d.getFullYear() === 2026 && d.getMonth() === 10) d.setMonth(11);
+            return d;
+        }
+
+        function determineActiveDay() {
+            const now = jetzt();
+            if (now.getFullYear() === 2026 && now.getMonth() === 11) {
+                let dayOfMonth = now.getDate();
+                if (dayOfMonth >= 1 && dayOfMonth <= 24) {
+                    currentDay = dayOfMonth;
+                } else if (dayOfMonth > 24) {
+                    currentDay = 24;
+                }
+            }
+            if (devSelect) devSelect.value = currentDay;
+            updateDayUI();
+        }
+
+        function changeDevDay() {
+            if (!devSelect) return;
+            currentDay = parseInt(devSelect.value);
+            updateDayUI();
+            
+            if (document.getElementById("landingScreen").classList.contains("hidden")) {
+                applyThemeAndCategory(currentDay);
+                if (!document.getElementById("storyScreen").classList.contains("hidden")) {
+                    loadStoryContent(currentDay, selectedVibe, hasPeriod);
+                }
+            }
+        }
+
+        function updateDayUI() {
+            document.getElementById("displayDayNum").innerText = currentDay;
+            document.getElementById("storyDayNum").innerText = currentDay;
+        }
+
+        function setVibe(vibe, element) {
+            selectedVibe = vibe;
+            let parent = element.parentElement;
+            Array.from(parent.children).forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function setPeriod(status, element) {
+            hasPeriod = status;
+            let parent = element.parentElement;
+            Array.from(parent.children).forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function resetToLanding() {
+            document.getElementById("setupScreen").classList.add("hidden");
+            document.getElementById("storyScreen").classList.add("hidden");
+            document.getElementById("calendar-overview").classList.add("hidden");
+            document.getElementById("landingScreen").classList.remove("hidden");
+            applyLandingTheme();
+        }
+
+        function startStory() {
+            document.getElementById("setupScreen").classList.add("hidden");
+            document.getElementById("storyScreen").classList.remove("hidden");
+            loadStoryContent(currentDay, selectedVibe, hasPeriod);
+        }
+
+        function resetToSetup() {
+            document.getElementById("storyScreen").classList.add("hidden");
+            document.getElementById("setupScreen").classList.remove("hidden");
+            applyThemeAndCategory(currentDay);
+        }
+
+        function istTagErreicht(tag) {
+            if (testModus) return true;
+            const heute = jetzt();
+            return (heute.getMonth() + 1) === 12 && tag <= heute.getDate();
+        }
+
+        function nextDaySetup() {
+            if (currentDay < 24) {
+                if (!istTagErreicht(currentDay + 1)) {
+                    document.getElementById("lock-modal").style.display = "flex";
+                    return;
+                }
+                currentDay++;
+                if (devSelect) devSelect.value = currentDay;
+                updateDayUI();
+                applyThemeAndCategory(currentDay);
+                resetToSetup();
+            } else {
+                alert("Du hast das große Finale erreicht! Euer gemeinsamer Dezember ist komplett. Frohe Weihnachten! ❤️");
+            }
+        }
+
+        function loadStoryContent(day, vibe, periodActive) {
+            const storyContainer = document.getElementById("storyContent");
+            const instructionContainer = document.getElementById("cardInstruction");
+            const dayData = calendarData[day];
+
+            let oldScript = document.getElementById("dynamicStoryScript");
+            if (oldScript) {
+                oldScript.remove();
+            }
+
+            let script = document.createElement("script");
+            script.id = "dynamicStoryScript";
+            script.src = `story-day${day}.js`;
+            
+            script.onload = function() {
+                if (typeof window.getStoryText === "function") {
+                    storyContainer.innerHTML = window.getStoryText(vibe);
+                } else {
+                    storyContainer.innerHTML = "Die Skript-Funktion wurde nicht gefunden.";
+                }
+            };
+
+            script.onerror = function() {
+                storyContainer.innerHTML = `Die Datei story-day${day}.js wurde noch nicht angelegt.`;
+            };
+
+            document.head.appendChild(script);
+
+            let html = `Die heutige Karte hat die Nummer:<br><br>
+                        <span style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${dayData.cardNum}</span>`;
+
+            if (periodActive) {
+                html += `<br><br><span style="font-size: 0.95rem; font-style: italic; color: #fff;">Heute darfst du auch die Alternativaufgabe wählen!</span>`;
+            }
+
+            instructionContainer.innerHTML = html;
+        }
+
+        window.onload = function() {
+            determineActiveDay();
+            applyLandingTheme(); 
+        };
+
+        // --- Logik für die Türchen-Zwischenseite (werden jetzt immer generiert) ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const grid = document.getElementById("tuerenGridContainer");
+            if (!grid) return;
+
+            for (let i = 1; i <= 24; i++) {
+                const card = document.createElement("div");
+                card.className = "tuer-card";
+                
+                let istGesperrt = false;
+                if (!testModus) {
+                    const heute = jetzt();
+                    const aktuellerMonat = heute.getMonth() + 1; // 12 = Dezember
+                    const aktuellerTag = heute.getDate();
+                    
+                    if (!(aktuellerMonat === 12 && i <= aktuellerTag)) {
+                        istGesperrt = true;
+                    }
+                }
+
+                if (istGesperrt) {
+                    card.classList.add("gesperrt");
+                }
+
+                card.innerHTML = `
+                    <span class="tag-nummer">${i}</span>
+                    <span class="tag-label">Dezember</span>
+                `;
+                card.onclick = () => waehleTag(i);
+                grid.appendChild(card);
+            }
+        });
+
+        function waehleTag(tagNummer) {
+            let istErreicht = testModus;
+
+            if (!testModus) {
+                const heute = jetzt();
+                const aktuellerMonat = heute.getMonth() + 1; // 12 = Dezember
+                const aktuellerTag = heute.getDate();
+
+                if (aktuellerMonat === 12 && tagNummer <= aktuellerTag) {
+                    istErreicht = true;
+                }
+            }
+
+            if (istErreicht) {
+                currentDay = tagNummer;
+                if (devSelect) devSelect.value = currentDay;
+                updateDayUI();
+                
+                document.getElementById("calendar-overview").classList.add("hidden");
+                document.getElementById("setupScreen").classList.remove("hidden");
+                applyThemeAndCategory(currentDay);
+            } else {
+                document.getElementById("lock-modal").style.display = "flex";
+            }
+        }
+
+        function schliesseModal() {
+            document.getElementById("lock-modal").style.display = "none";
+        }
+
+        function zeigeTuerenUebersicht() {
+            document.getElementById("landingScreen").classList.add("hidden");
+            document.getElementById("setupScreen").classList.add("hidden");
+            document.getElementById("storyScreen").classList.add("hidden");
+            
+            document.getElementById("calendar-overview").classList.remove("hidden");
+            applyLandingTheme();
+        }
+    </script>
+</body>
+</html>
