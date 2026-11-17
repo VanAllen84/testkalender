@@ -251,6 +251,19 @@
             font-size: 0.8rem;
         }
 
+
+        /* Illustrationen */
+        .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 1.4s ease; }
+        .story-bild.sichtbar { opacity: 1; }
+        .story-bild img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; border: 1px solid var(--accent-color); background: #efe6d6; display: block; margin: 0 auto; }
+        .tuer-card.geoeffnet { background-size: cover; background-position: center; border-color: #666; }
+        .tuer-card.geoeffnet .tag-nummer { text-shadow: 0 1px 6px #000, 0 0 3px #000; position: relative; }
+        .tuer-card.geoeffnet .tag-label { color: #ddd; text-shadow: 0 1px 4px #000; position: relative; }
+
+        .tuer-card.pix { background-size: cover; background-position: center; image-rendering: pixelated; }
+        .tuer-card.pix .tag-nummer, .tuer-card.pix .tag-label { position: relative; text-shadow: 0 1px 6px #000, 0 0 3px #000; }
+        .tuer-card.geoeffnet { image-rendering: auto; }
+
         /* Schickes kleines Modal für die Fehlermeldung bei gesperrten Türchen */
         #lock-modal {
             display: none;
@@ -378,6 +391,8 @@
                     <!-- Minimalistische Kartennummer-Anzeige -->
                 </div>
             </div>
+
+            <div class="story-bild" id="storyBild" style="display:none;"><img id="storyBildImg" alt="" src=""></div>
 
             <button class="btn-primary" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToSetup()">Lass mich meine Stimmung nochmal überdenken...</button>
@@ -605,7 +620,43 @@
             }
         }
 
+
+        // --- Illustrationen: Bild zur Karte, Türchen-Hintergrund nach dem Öffnen ---
+
+        function pixelSetzen(card, i, gesperrt) {
+            const n = String(calendarData[i].cardNum).padStart(2, "0");
+            const art = gesperrt ? "lock" : "mid";
+            const dunkel = gesperrt ? 0.55 : 0.6;
+            card.classList.add("pix");
+            card.style.backgroundImage = "linear-gradient(rgba(8,8,10," + dunkel + "), rgba(8,8,10," + dunkel + ")), url('bilder/pix-" + art + "-" + n + ".png')";
+        }
+        function bildUrl(day) { return "bilder/karte-" + String(calendarData[day].cardNum).padStart(2, "0") + ".jpg"; }
+        function geoeffnetListe() { try { return JSON.parse(localStorage.getItem("adventGeoeffnet26") || "[]"); } catch (e) { return []; } }
+        function merkeGeoeffnet(day) {
+            try { const l = geoeffnetListe(); if (l.indexOf(day) < 0) { l.push(day); localStorage.setItem("adventGeoeffnet26", JSON.stringify(l)); } } catch (e) {}
+            tuerBildSetzen(day);
+        }
+        function tuerBildSetzen(day) {
+            const el = document.querySelectorAll("#tuerenGridContainer .tuer-card")[day - 1];
+            if (el && !el.classList.contains("gesperrt")) {
+                el.classList.remove("pix");
+                el.classList.add("geoeffnet");
+                el.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.64), rgba(8,8,10,0.64)), url('" + bildUrl(day) + "')";
+            }
+        }
+        function zeigeStoryBild(day) {
+            const box = document.getElementById("storyBild");
+            if (!box) return;
+            box.classList.remove("sichtbar");
+            const img = document.getElementById("storyBildImg");
+            img.onload = function () { box.classList.add("sichtbar"); };
+            img.onerror = function () { box.style.display = "none"; };
+            box.style.display = "";
+            img.src = bildUrl(day);
+        }
+
         function loadStoryContent(day, vibe, periodActive) {
+            try { zeigeStoryBild(day); merkeGeoeffnet(day); } catch (e) {}
             const storyContainer = document.getElementById("storyContent");
             const instructionContainer = document.getElementById("cardInstruction");
             const dayData = calendarData[day];
@@ -676,9 +727,11 @@
                     <span class="tag-nummer">${i}</span>
                     <span class="tag-label">Dezember</span>
                 `;
+                try { pixelSetzen(card, i, istGesperrt); } catch (e) {}
                 card.onclick = () => waehleTag(i);
                 grid.appendChild(card);
             }
+            try { const gl = geoeffnetListe(); if (Array.isArray(gl)) gl.forEach(tuerBildSetzen); } catch (e) {}
         });
 
         function waehleTag(tagNummer) {
