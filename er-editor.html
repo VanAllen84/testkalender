@@ -38,6 +38,14 @@
   .opt b span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--c); color:#000; font-size:.72rem; }
   .opt em { display:block; font-style:normal; font-size:.72rem; opacity:.6; margin:-2px 0 6px; }
 
+  .opt .text { margin:0 0 12px; min-height:3.2em; }
+  .opt .status { font-size:.82rem; margin:0 0 10px; padding-top:10px; border-top:1px solid var(--line); }
+  .opt .status b { display:inline; text-transform:none; letter-spacing:0; font-size:inherit; font-weight:600; color:#fff; margin:0; }
+  .opt .status .alt { display:block; margin-top:2px; color:#f3e7c0; }
+  .opt .btns { display:flex; flex-wrap:wrap; gap:6px; }
+  .opt .btns button { padding:7px 11px; font-size:.82rem; }
+  .opt.bew-A { border-color:#4fa874; } .opt.bew-B { border-color:#d4af37; } .opt.bew-C { border-color:#c23b4c; }
+  .opt.diff { box-shadow:0 0 0 1px rgba(212,175,55,.55); }
   .unten { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
   .status { flex:1 1 220px; font-size:.88rem; }
   .status .alt { display:block; margin-top:2px; color:#f3e7c0; }
@@ -96,13 +104,24 @@ const KAT = ["Kategorie 1 · Vorfreude & Verführung","Kategorie 2 · Spiel & Ab
 const KEY = "adventErEditor26";
 const SYM = { A: "👍", B: "😐", C: "👎" };
 const TXT = { A: "Gefiel mir", B: "War OK", C: "Nicht nochmal" };
-let wahl = {};            // { tag: "A" | "B" | "C" }
+let wahl = {};            // { tag: { a: "A"|"B"|"C", b: ... } }
 let karten = null;        // Kartentexte aus data.js (nicht im Klartext in dieser Datei)
 let kartenStatus = "lädt";
 let base = {};            // Stand aus er.js (zum Vergleichen)
 
 function sichern() { try { localStorage.setItem(KEY, JSON.stringify(wahl)); } catch (e) {} }
-function laden() { try { const r = JSON.parse(localStorage.getItem(KEY) || "null"); if (r && typeof r === "object") { wahl = r; return true; } } catch (e) {} return false; }
+function laden() {
+  try {
+    const r = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (r && typeof r === "object") {
+      // ältere Form (ein Buchstabe pro Türchen) = Aufgabe
+      Object.keys(r).forEach(d => { if (typeof r[d] === "string") r[d] = { a: r[d] }; });
+      wahl = r; return true;
+    }
+  } catch (e) {} return false;
+}
+const VER = [["a", "A", "Aufgabe"], ["b", "B", "Alternative"]];
+function wert(o, d, v) { return (o[d] && o[d][v]) || ""; }
 function meldung(t) { document.getElementById("meldung").innerText = t; }
 function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
@@ -116,58 +135,68 @@ function zeichne() {
     box.appendChild(w);
   }
   TAGE.forEach(t => {
-    const w = wahl[t.d], bis = base[t.d];
-    const geaendert = (w || "") !== (bis || "");
     const k = karten ? karten[t.k] : null;
     const her = (k ? k.w : t.w) !== "Er";
+    const geaendert = VER.some(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0]));
     const z = document.createElement("div");
     z.className = "zeile k" + t.c + (geaendert ? " geaendert" : "");
-    const optionen = k
-      ? '<div class="optionen"><div class="opt"><b><span>A</span>Aufgabe</b>' + esc(k.a) + '</div>' +
-        '<div class="opt"><b><span>B</span>Alternative</b><em>wenn die Aufgabe nicht möglich ist</em>' + esc(k.b) + '</div></div>'
-      : '';
-    const aktuell = w ? SYM[w] + " " + TXT[w] : "noch nicht bewertet";
-    const alt = geaendert ? '<span class="alt">geändert · bisher in er.js: ' + (bis ? SYM[bis] + " " + TXT[bis] : "nicht bewertet") + '</span>' : "";
+    let optionen = '<div class="optionen">';
+    VER.forEach(v => {
+      const w = wert(wahl, t.d, v[0]), bis = wert(base, t.d, v[0]);
+      const diff = w !== bis;
+      const text = k ? esc(v[0] === "a" ? k.a : k.b) : "";
+      const aktuell = w ? SYM[w] + " " + TXT[w] : "nicht gemacht / nicht bewertet";
+      const alt = diff ? '<span class="alt">geändert · bisher in er.js: ' + (bis ? SYM[bis] + " " + TXT[bis] : "nicht bewertet") + '</span>' : "";
+      optionen += '<div class="opt' + (w ? " bew-" + w : "") + (diff ? " diff" : "") + '"><b><span>' + v[1] + '</span>' + (v[0] === "a" ? "Die Aufgabe" : "Die Alternative") + '</b>' +
+        (v[0] === "b" ? '<em>wenn die Aufgabe nicht möglich ist</em>' : '') +
+        '<div class="text">' + text + '</div>' +
+        '<div class="status">Aktuell: <b>' + aktuell + '</b>' + alt + '</div><div class="btns">' +
+        ["A","B","C"].map(c => '<button class="' + c + (w === c ? " sel" : "") + '" onclick="setze(' + t.d + ',\'' + v[0] + '\',\'' + c + '\')" title="' + TXT[c] + '"><span class="e">' + SYM[c] + '</span><span>' + TXT[c] + '</span></button>').join("") +
+        '</div></div>';
+    });
+    optionen += '</div>';
     z.innerHTML =
       '<div class="kopf"><div class="nr"><small>Türchen</small>' + t.d + '</div>' +
       '<div class="chips"><span class="chip kat">' + esc(KAT[t.c]) + '</span>' +
       '<span class="chip ' + (her ? "her" : "his") + '">' + (her ? "Her Pleasure" : "His Pleasure") + '</span></div>' +
-      '<div class="karte">Karte ' + t.k + '</div></div>' + optionen +
-      '<div class="unten"><div class="status">Aktuell: <b>' + aktuell + '</b>' + alt + '</div><div class="btns">' +
-      ["A","B","C"].map(b => '<button class="' + b + (w === b ? " sel" : "") + '" onclick="setze(' + t.d + ',\'' + b + '\')"><span class="e">' + SYM[b] + '</span><span>' + TXT[b] + '</span></button>').join("") +
-      '</div></div>';
+      '<div class="karte">Karte ' + t.k + '</div></div>' + optionen;
     box.appendChild(z);
   });
-  const n = Object.keys(wahl).length;
-  const diff = TAGE.filter(t => (wahl[t.d] || "") !== (base[t.d] || "")).length;
-  document.getElementById("zaehler").innerText = "Bewertet: " + n + " von 24";
-  document.getElementById("balken").style.width = (n / 24 * 100) + "%";
+  const n = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0])).length, 0);
+  const tageMit = TAGE.filter(t => VER.some(v => wert(wahl, t.d, v[0]))).length;
+  const diff = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0])).length, 0);
+  document.getElementById("zaehler").innerText = "Türchen mit Bewertung: " + tageMit + " von 24 · Bewertungen: " + n;
+  document.getElementById("balken").style.width = (tageMit / 24 * 100) + "%";
   const d = document.getElementById("diff");
   d.innerText = "Änderungen gegenüber er.js: " + diff;
   d.className = "chip-diff" + (diff ? " an" : "");
 }
-function setze(d, b) {
-  if (wahl[d] === b) delete wahl[d]; else wahl[d] = b;   // nochmal tippen = zurücknehmen
+function setze(d, ver, c) {
+  if (!wahl[d]) wahl[d] = {};
+  if (wahl[d][ver] === c) delete wahl[d][ver]; else wahl[d][ver] = c;   // nochmal tippen = zurücknehmen
   sichern(); zeichne();
 }
 
 function dateiInhalt() {
-  let s = '// ==========================================================\n' +
+  let s =
+    '// ==========================================================\n' +
     '//  ER-BEWERTUNG (Thilo)  -  wird erst ab dem 25. Dezember geladen\n' +
     '//\n' +
-    '//  Trage hinter jedes Türchen einen Buchstaben in die Anführungszeichen:\n' +
+    '//  Pro Türchen stehen zwei Angaben in den eckigen Klammern:\n' +
+    '//     1. Angabe = Die Aufgabe (Option A)\n' +
+    '//     2. Angabe = Die Alternative (Option B)\n' +
+    '//  Mögliche Buchstaben (in den Anführungszeichen):\n' +
     '//     "A"  = 👍 Gefiel mir\n' +
     '//     "B"  = 😐 War OK\n' +
     '//     "C"  = 👎 Nicht nochmal\n' +
-    '//     ""   = (noch) nicht bewertet\n' +
-    '//  Nur den Buchstaben ändern, Anführungszeichen und Komma stehen lassen.\n' +
-    '//  Hinter // steht ein Stichpunkt zur Aufgabe (nur als Gedächtnisstütze).\n' +
+    '//     ""   = nicht gemacht / nicht bewertet\n' +
+    '//  Nur Buchstaben ändern, Anführungszeichen, Kommas und Klammern stehen lassen.\n' +
     '//  Datei danach im Repo speichern (Commit) - fertig.\n' +
     '// ==========================================================\n' +
     'window.ER_BEWERTUNG = {\n';
   TAGE.forEach(t => {
     const key = (t.d + ":").padEnd(4, " ");
-    s += "    " + key + '"' + (wahl[t.d] || "") + '",   // T' + t.d + " · Karte " + t.k + " \n";
+    s += "    " + key + '["' + wert(wahl, t.d, "a") + '", "' + wert(wahl, t.d, "b") + '"],   // T' + t.d + " · Karte " + t.k + " \n";
   });
   return s + "};\n";
 }
@@ -175,7 +204,7 @@ function exportieren() {
   document.getElementById("exportText").value = dateiInhalt();
   document.getElementById("exportBox").style.display = "";
   document.getElementById("exportText").scrollIntoView({ behavior: "smooth", block: "center" });
-  meldung("er.js erzeugt (" + Object.keys(wahl).length + " Bewertungen).");
+  meldung("er.js erzeugt.");
 }
 function kopieren() {
   const ta = document.getElementById("exportText");
@@ -198,12 +227,23 @@ function ladeAusDatei(still, uebernehmen) {
   sc.src = "er.js?x=" + Date.now();
   sc.onload = function () {
     const roh = window.ER_BEWERTUNG || {};
+    const lies = x => { const v = String(x || "").trim().toUpperCase(); return SYM[v] ? v : ""; };
     const neu = {};
-    Object.keys(roh).forEach(k => { const v = String(roh[k] || "").trim().toUpperCase(); if (SYM[v] && TAGE.some(t => t.d == k)) neu[Number(k)] = v; });
+    let n = 0;
+    Object.keys(roh).forEach(k => {
+      if (!TAGE.some(t => t.d == k)) return;
+      const r = roh[k];
+      const e = {};
+      const a = Array.isArray(r) ? lies(r[0]) : (r && typeof r === "object" ? lies(r.a) : lies(r));
+      const b = Array.isArray(r) ? lies(r[1]) : (r && typeof r === "object" ? lies(r.b) : "");
+      if (a) { e.a = a; n++; }
+      if (b) { e.b = b; n++; }
+      if (a || b) neu[Number(k)] = e;
+    });
     base = neu;
-    if (uebernehmen) { wahl = Object.assign({}, neu); sichern(); }
+    if (uebernehmen) { wahl = JSON.parse(JSON.stringify(neu)); sichern(); }
     zeichne();
-    if (!still) meldung("Aus er.js eingelesen: " + Object.keys(neu).length + " Bewertungen.");
+    if (!still) meldung("Aus er.js eingelesen: " + n + " Bewertungen.");
   };
   sc.onerror = function () { if (!still) meldung("er.js nicht gefunden."); };
   document.head.appendChild(sc);
