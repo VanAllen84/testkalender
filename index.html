@@ -261,7 +261,7 @@
 
 
         /* Illustrationen */
-        .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 3s ease; }
+        .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 6s ease-in-out; }
         .story-bild.sichtbar { opacity: 1; }
         .story-bild img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; border: 1px solid var(--accent-color); background: #efe6d6; display: block; margin: 0 auto; }
         .tuer-card.geoeffnet { background-size: cover; background-position: center; border-color: #666; }
@@ -754,7 +754,11 @@
         // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 3 s langsam)
         let bildBeobachter = null;
         function bildEinblenden(box) {
+            // Zurücksetzen ohne Animation, damit jede Variante gleich von 0 startet
+            box.style.transition = "none";
             box.classList.remove("sichtbar");
+            void box.offsetWidth;
+            box.style.transition = "";
             if (bildBeobachter) { bildBeobachter.disconnect(); bildBeobachter = null; }
             if (!("IntersectionObserver" in window)) { void box.offsetWidth; box.classList.add("sichtbar"); return; }
             bildBeobachter = new IntersectionObserver(function (eintraege, obs) {
