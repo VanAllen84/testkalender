@@ -11,14 +11,14 @@
 //  Datei danach im Repo speichern (Commit) - fertig.
 // ==========================================================
 window.ER_BEWERTUNG = {
-    1:  "",   // T1 · Karte 8 · Musik passend zur Stimmung, intimer Abend (Sie bestimmt)
-    2:  "",   // T2 · Karte 23 · Tagsüber freche Fotos/Nachrichten; er darf nur auf Fragen antworten
-    3:  "",   // T3 · Karte 10 · Ins Ohr flüstern, Verführung in feiner Unterwäsche, Küsse
-    4:  "",   // T4 · Karte 24 · Überraschung im Schlafzimmer: Kerzen, Zettel, Dessous
-    5:  "",   // T5 · Karte 7 · Von ihm verführen lassen, erst auf ihr Bitten Sex
-    6:  "",   // T6 · Karte 20 · Strapse/halterlose Strümpfe nur für ihn
-    7:  "",   // T7 · Karte 3 · Neuer Ort im Haus (Esstisch!), kurzes Vorspiel
-    8:  "",   // T8 · Karte 17 · Spaziergang im Freien mit ferngesteuertem Vibrator
+    1:  "A",   // T1 · Karte 8 · Musik passend zur Stimmung, intimer Abend (Sie bestimmt)
+    2:  "A",   // T2 · Karte 23 · Tagsüber freche Fotos/Nachrichten; er darf nur auf Fragen antworten
+    3:  "A",   // T3 · Karte 10 · Ins Ohr flüstern, Verführung in feiner Unterwäsche, Küsse
+    4:  "C",   // T4 · Karte 24 · Überraschung im Schlafzimmer: Kerzen, Zettel, Dessous
+    5:  "C",   // T5 · Karte 7 · Von ihm verführen lassen, erst auf ihr Bitten Sex
+    6:  "C",   // T6 · Karte 20 · Strapse/halterlose Strümpfe nur für ihn
+    7:  "B",   // T7 · Karte 3 · Neuer Ort im Haus (Esstisch!), kurzes Vorspiel
+    8:  "B",   // T8 · Karte 17 · Spaziergang im Freien mit ferngesteuertem Vibrator
     9:  "",   // T9 · Karte 9 · Neue Kamasutra-Stellung (Sie wählt)
     10: "",   // T10 · Karte 18 · Mund + Saugnapf-Dildo reiten, er sieht zu
     11: "",   // T11 · Karte 12 · Fingern/Dehnen mit Gleitgel (bis Faust?)
