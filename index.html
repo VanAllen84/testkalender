@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intimer Adventskalender</title>
+    <title>Intro</title>
+    <link rel="icon" id="favicon" href="icon-192.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" id="themeColorMeta" content="#060608">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Dezember">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <style>
         /* Standard-Farben für Landing-Page: Edles Schwarz & dunkles Rot */
         :root {
@@ -264,6 +272,17 @@
         .tuer-card.pix .tag-nummer, .tuer-card.pix .tag-label { position: relative; text-shadow: 0 1px 6px #000, 0 0 3px #000; }
         .tuer-card.geoeffnet { image-rendering: auto; }
 
+        .tage-box { margin-top: 22px; padding: 14px 16px 16px; border: 1px solid var(--border-glow); border-radius: 10px; text-align: center; }
+        .tage-box .tage-frage { font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color); }
+        .tage-box .options-grid { grid-template-columns: repeat(2, 1fr); }
+        .setup-hinweis { font-size: 0.9rem; font-style: italic; text-align: center; opacity: 0.85; margin: 5px 0 20px; line-height: 1.5; }
+        .app-tipp { margin-top: 22px; font-size: 0.92rem; line-height: 1.6; border-top: 1px solid var(--border-glow); padding-top: 14px; }
+        .app-tipp summary { cursor: pointer; text-align: center; color: var(--accent-color); }
+        .app-tipp .tipp-block { margin-top: 12px; }
+        .app-tipp ol { margin: 6px 0 0; padding-left: 22px; }
+        .finale-text p { line-height: 1.8; text-align: center; margin: 0 0 16px; }
+        .finale-text .signatur { font-style: italic; margin-top: 22px; }
+
         /* Schickes kleines Modal für die Fehlermeldung bei gesperrten Türchen */
         #lock-modal {
             display: none;
@@ -322,7 +341,7 @@
                 
                 <div class="rules-box">
                     <strong>Und so funktioniert das Ganze:</strong><br>
-                    1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus und lass den Kalender wissen, falls du gerade deine Tage hast.<br>
+                    1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
                     3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.
                 </div>
@@ -332,6 +351,27 @@
 
             <!-- Führt zur Türchen-Zwischenseite -->
             <button class="btn-primary" onclick="zeigeTuerenUebersicht()">Tauche ein in den Advent!</button>
+
+            <details class="app-tipp" id="appTipp">
+                <summary>📱 Tipp: Kalender wie eine App aufs Handy legen</summary>
+                <p style="margin: 12px 0 0;">Dann findest du den Kalender mit einem eigenen Symbol direkt auf deinem Startbildschirm, ganz ohne Adresse eintippen.</p>
+                <div class="tipp-block" id="tippIphone">
+                    <strong>iPhone (Safari):</strong>
+                    <ol>
+                        <li>Tippe unten auf das Teilen-Symbol (das Quadrat mit dem Pfeil nach oben).</li>
+                        <li>Scrolle ein Stück nach unten und tippe auf „Zum Home-Bildschirm“.</li>
+                        <li>Tippe oben rechts auf „Hinzufügen“.</li>
+                    </ol>
+                </div>
+                <div class="tipp-block" id="tippAndroid">
+                    <strong>Android (Chrome):</strong>
+                    <ol>
+                        <li>Tippe oben rechts auf die drei Punkte.</li>
+                        <li>Wähle „Zum Startbildschirm hinzufügen“ (oder „App installieren“).</li>
+                        <li>Bestätige mit „Hinzufügen“.</li>
+                    </ol>
+                </div>
+            </details>
         </div>
         
         <!-- --- Die Türchen-Zwischenseite --- -->
@@ -360,19 +400,13 @@
             <div class="setup-group">
                 <label>1. Wie soll sich die Geschichte heute für dich anfühlen?</label>
                 <div class="options-grid">
-                    <button class="btn-option selected" onclick="setVibe('hingabe', this)">Geborgen</button>
-                    <button class="btn-option" onclick="setVibe('naehe', this)">Verspielt</button>
-                    <button class="btn-option" onclick="setVibe('feuer', this)">Intensiv</button>
+                    <button class="btn-option selected" data-v="hingabe" onclick="setVibe('hingabe', this)">Geborgen</button>
+                    <button class="btn-option" data-v="naehe" onclick="setVibe('naehe', this)">Verspielt</button>
+                    <button class="btn-option" data-v="feuer" onclick="setVibe('feuer', this)">Intensiv</button>
                 </div>
             </div>
 
-            <div class="setup-group">
-                <label>2. Hast du gerade deine Tage?</label>
-                <div class="options-grid" style="grid-template-columns: repeat(2, 1fr);">
-                    <button class="btn-option selected" onclick="setPeriod(false, this)">Nein</button>
-                    <button class="btn-option" onclick="setPeriod(true, this)">Ja</button>
-                </div>
-            </div>
+            <p class="setup-hinweis" id="setupHinweis">Deine Wahl gilt für die Geschichte dieses Tages. Du kannst sie erst ab dem 25. Dezember noch einmal ändern.</p>
 
             <button class="btn-primary" onclick="startStory()">Tauche ein in die heutige Geschichte!</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
@@ -394,8 +428,22 @@
 
             <div class="story-bild" id="storyBild" style="display:none;"><img id="storyBildImg" alt="" src=""></div>
 
-            <button class="btn-primary" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
-            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToSetup()">Lass mich meine Stimmung nochmal überdenken...</button>
+            <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
+            <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
+        </div>
+
+        <!-- FINALE (nach Türchen 24) -->
+        <div id="finaleScreen" class="hidden">
+            <h2>Frohe Weihnachten</h2>
+            <div class="story-text finale-text">
+                <p>Vierundzwanzig Türchen. Vierundzwanzig Abende, die nur uns gehörten.</p>
+                <p>Danke, dass du dich auf jede dieser Geschichten eingelassen hast: auf die leisen und die wilden, auf die, bei denen du lachen musstest, und auf die, bei denen dir der Atem stockte.</p>
+                <p>Die Karten bleiben. Und falls noch eine offen ist: Das Jahr hat noch ein paar Tage.</p>
+                <p>Ein kleines Geschenk noch obendrauf: Ab dem 25. Dezember kannst du in jedem Türchen die Stimmung ändern und die anderen Versionen der Geschichten lesen.</p>
+                <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich.<br>Dein Thilo</p>
+            </div>
+            <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
+            <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
 
     </div>
@@ -579,6 +627,7 @@
         }
 
         function resetToLanding() {
+            document.getElementById("finaleScreen").classList.add("hidden");
             document.getElementById("setupScreen").classList.add("hidden");
             document.getElementById("storyScreen").classList.add("hidden");
             document.getElementById("calendar-overview").classList.add("hidden");
@@ -587,21 +636,20 @@
         }
 
         function startStory() {
-            document.getElementById("setupScreen").classList.add("hidden");
-            document.getElementById("storyScreen").classList.remove("hidden");
-            loadStoryContent(currentDay, selectedVibe, hasPeriod);
+            wahlSpeichern(currentDay, selectedVibe, hasPeriod);
+            zeigeStory();
         }
 
         function resetToSetup() {
             document.getElementById("storyScreen").classList.add("hidden");
             document.getElementById("setupScreen").classList.remove("hidden");
             applyThemeAndCategory(currentDay);
+            setupAufbereiten();
         }
 
         function istTagErreicht(tag) {
             if (testModus) return true;
-            const heute = jetzt();
-            return (heute.getMonth() + 1) === 12 && tag <= heute.getDate();
+            return tagOffen(tag);
         }
 
         function nextDaySetup() {
@@ -610,13 +658,9 @@
                     document.getElementById("lock-modal").style.display = "flex";
                     return;
                 }
-                currentDay++;
-                if (devSelect) devSelect.value = currentDay;
-                updateDayUI();
-                applyThemeAndCategory(currentDay);
-                resetToSetup();
+                oeffneTag(currentDay + 1);
             } else {
-                alert("Du hast das große Finale erreicht! Euer gemeinsamer Dezember ist komplett. Frohe Weihnachten! ❤️");
+                zeigeFinale();
             }
         }
 
@@ -655,6 +699,166 @@
             img.src = bildUrl(day);
         }
 
+
+        // ==========================================
+        // Reset für Tests: index.html?reset=1 löscht gemerkte Wahlen
+        // ==========================================
+        try {
+            if (location.search.indexOf("reset=1") >= 0) {
+                localStorage.removeItem("adventGeoeffnet26");
+                localStorage.removeItem("adventWahl26");
+                history.replaceState(null, "", location.pathname);
+            }
+        } catch (e) {}
+
+        // --- Freischaltung ---
+        function tagOffen(i) {
+            const h = jetzt();
+            const j = h.getFullYear();
+            if (j > 2026) return true;
+            return j === 2026 && (h.getMonth() + 1) === 12 && i <= h.getDate();
+        }
+        // Ab dem 25. Dezember darf die Stimmung wieder geändert werden
+        function alleFreigegeben() {
+            if (testModus) return true;
+            const h = jetzt();
+            const j = h.getFullYear();
+            return j > 2026 || (j === 2026 && h.getMonth() === 11 && h.getDate() >= 25);
+        }
+
+        // --- Gemerkte Wahl pro Tag (Stimmung ist bis 25.12. festgeschrieben) ---
+        const wahlMem = {};
+        function wahlAlle() {
+            let w = {};
+            try { w = JSON.parse(localStorage.getItem("adventWahl26") || "{}") || {}; } catch (e) {}
+            return Object.assign({}, wahlMem, w);
+        }
+        function wahlSpeichern(day, v, p) {
+            wahlMem[day] = { v: v, p: p };
+            try {
+                let w = {};
+                try { w = JSON.parse(localStorage.getItem("adventWahl26") || "{}") || {}; } catch (e) {}
+                w[day] = { v: v, p: p };
+                localStorage.setItem("adventWahl26", JSON.stringify(w));
+            } catch (e) {}
+        }
+        function auswahlButtonsSetzen() {
+            document.querySelectorAll("[data-v]").forEach(b => b.classList.toggle("selected", b.dataset.v === selectedVibe));
+            document.querySelectorAll("[data-p]").forEach(b => b.classList.toggle("selected", (b.dataset.p === "true") === hasPeriod));
+        }
+        function setupAufbereiten() {
+            auswahlButtonsSetzen();
+            const h = document.getElementById("setupHinweis");
+            if (h) h.style.display = alleFreigegeben() ? "none" : "";
+        }
+        function alleScreensAus() {
+            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen"].forEach(id => {
+                document.getElementById(id).classList.add("hidden");
+            });
+        }
+        function zeigeStory() {
+            alleScreensAus();
+            document.getElementById("storyScreen").classList.remove("hidden");
+            auswahlButtonsSetzen();
+            document.getElementById("btnStimmungNeu").style.display = alleFreigegeben() ? "" : "none";
+            document.getElementById("btnWeiter").innerText = currentDay === 24 ? "Zum Finale..." : "Weiter durch das nächste Türchen...";
+            loadStoryContent(currentDay, selectedVibe, hasPeriod);
+        }
+        function oeffneTag(day) {
+            currentDay = day;
+            if (devSelect) devSelect.value = day;
+            updateDayUI();
+            applyThemeAndCategory(day);
+            const w = wahlAlle()[day];
+            if (w) {
+                selectedVibe = w.v;
+                hasPeriod = !!w.p;
+                zeigeStory();
+            } else {
+                selectedVibe = "hingabe";
+                hasPeriod = false;
+                alleScreensAus();
+                document.getElementById("setupScreen").classList.remove("hidden");
+                setupAufbereiten();
+            }
+        }
+        function karteninfoSetzen(day, periodActive) {
+            const box = document.getElementById("cardInstruction");
+            let html = `Die heutige Karte hat die Nummer:<br><br>
+                        <span style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${calendarData[day].cardNum}</span>`;
+            box.innerHTML = html;
+        }
+
+        // --- Finale ---
+        function applyFinaleTheme() {
+            const root = document.documentElement;
+            root.style.setProperty('--bg-color', '#060608');
+            root.style.setProperty('--card-bg', '#14120c');
+            root.style.setProperty('--accent-color', '#d4af37');
+            root.style.setProperty('--border-glow', 'rgba(212, 175, 55, 0.45)');
+            root.style.setProperty('--text-color', '#e8e0cc');
+        }
+        function zeigeFinale() {
+            alleScreensAus();
+            applyFinaleTheme();
+            document.getElementById("finaleScreen").classList.remove("hidden");
+            const box = document.getElementById("finaleBild");
+            const img = document.getElementById("finaleBildImg");
+            box.classList.remove("sichtbar");
+            img.onload = function () { box.style.display = ""; void box.offsetWidth; box.classList.add("sichtbar"); };
+            img.onerror = function () { box.style.display = "none"; };
+            img.src = "bilder/finale.jpg";
+        }
+
+        // --- Seitentitel, Symbol im Tab, Browserleisten-Farbe, nach oben scrollen ---
+        function svgUri(svg) { return "data:image/svg+xml," + encodeURIComponent(svg); }
+        const ICON_INTRO = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><rect x="25" y="28" width="14" height="28" rx="2" fill="#f4f1ea"/><path d="M32 7c6 8 8 12 8 16a8 8 0 0 1-16 0c0-4 2-8 8-16z" fill="#f2b134"/></svg>');
+        const ICON_TUEREN = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><rect x="9" y="9" width="21" height="21" rx="4" fill="#c23b4c"/><rect x="34" y="9" width="21" height="21" rx="4" fill="#8b78e6"/><rect x="9" y="34" width="21" height="21" rx="4" fill="#4fa874"/><rect x="34" y="34" width="21" height="21" rx="4" fill="#d99b41"/></svg>');
+        const ICON_FINALE = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><polygon points="32,8 38.5,25 57,25.5 42.5,37 47.5,55 32,44.5 16.5,55 21.5,37 7,25.5 25.5,25" fill="#d4af37"/></svg>');
+        function iconKalender(tag, farbe) {
+            const fs = tag > 9 ? 30 : 36;
+            return svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="4" y="9" width="56" height="51" rx="8" fill="#f4f1ea"/><path d="M4 17a8 8 0 0 1 8-8h40a8 8 0 0 1 8 8v9H4z" fill="' + farbe + '"/><rect x="16" y="2" width="6" height="13" rx="3" fill="#2a2a30"/><rect x="42" y="2" width="6" height="13" rx="3" fill="#2a2a30"/><text x="32" y="54" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="' + fs + '" fill="#222">' + tag + '</text></svg>');
+        }
+        function seiteAktualisieren() {
+            const sichtbar = id => { const e = document.getElementById(id); return e && !e.classList.contains("hidden"); };
+            const cs = getComputedStyle(document.documentElement);
+            let titel = "Intro", icon = ICON_INTRO;
+            if (sichtbar("finaleScreen")) {
+                titel = "Finale"; icon = ICON_FINALE;
+            } else if (sichtbar("setupScreen") || sichtbar("storyScreen")) {
+                titel = currentDay + ". Dezember";
+                icon = iconKalender(currentDay, (cs.getPropertyValue("--accent-color") || "#c23b4c").trim());
+            } else if (sichtbar("calendar-overview")) {
+                titel = "Die Türchen"; icon = ICON_TUEREN;
+            }
+            document.title = titel;
+            const fav = document.getElementById("favicon");
+            if (fav) { fav.type = "image/svg+xml"; fav.href = icon; }
+            const tc = document.getElementById("themeColorMeta");
+            const bg = (cs.getPropertyValue("--bg-color") || "").trim();
+            if (tc && bg) tc.setAttribute("content", bg);
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            const obs = new MutationObserver(function() {
+                seiteAktualisieren();
+                window.scrollTo(0, 0);
+            });
+            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen"].forEach(id => {
+                obs.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] });
+            });
+            seiteAktualisieren();
+
+            // App-Tipp: nur die passende Anleitung zeigen, in der installierten App gar nicht
+            const ua = navigator.userAgent || "";
+            const ios = /iPhone|iPad|iPod/.test(ua);
+            const android = /Android/.test(ua);
+            const standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone;
+            const tipp = document.getElementById("appTipp");
+            if (standalone && tipp) tipp.style.display = "none";
+            if (ios) { const a = document.getElementById("tippAndroid"); if (a) a.style.display = "none"; }
+            if (android) { const a = document.getElementById("tippIphone"); if (a) a.style.display = "none"; }
+        });
+
         function loadStoryContent(day, vibe, periodActive) {
             try { zeigeStoryBild(day); merkeGeoeffnet(day); } catch (e) {}
             const storyContainer = document.getElementById("storyContent");
@@ -684,14 +888,7 @@
 
             document.head.appendChild(script);
 
-            let html = `Die heutige Karte hat die Nummer:<br><br>
-                        <span style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${dayData.cardNum}</span>`;
-
-            if (periodActive) {
-                html += `<br><br><span style="font-size: 0.95rem; font-style: italic; color: #fff;">Heute darfst du auch die Alternativaufgabe wählen!</span>`;
-            }
-
-            instructionContainer.innerHTML = html;
+            karteninfoSetzen(day, periodActive);
         }
 
         window.onload = function() {
@@ -714,7 +911,7 @@
                     const aktuellerMonat = heute.getMonth() + 1; // 12 = Dezember
                     const aktuellerTag = heute.getDate();
                     
-                    if (!(aktuellerMonat === 12 && i <= aktuellerTag)) {
+                    if (!tagOffen(i)) {
                         istGesperrt = true;
                     }
                 }
@@ -742,19 +939,13 @@
                 const aktuellerMonat = heute.getMonth() + 1; // 12 = Dezember
                 const aktuellerTag = heute.getDate();
 
-                if (aktuellerMonat === 12 && tagNummer <= aktuellerTag) {
+                if (tagOffen(tagNummer)) {
                     istErreicht = true;
                 }
             }
 
             if (istErreicht) {
-                currentDay = tagNummer;
-                if (devSelect) devSelect.value = currentDay;
-                updateDayUI();
-                
-                document.getElementById("calendar-overview").classList.add("hidden");
-                document.getElementById("setupScreen").classList.remove("hidden");
-                applyThemeAndCategory(currentDay);
+                oeffneTag(tagNummer);
             } else {
                 document.getElementById("lock-modal").style.display = "flex";
             }
@@ -765,6 +956,7 @@
         }
 
         function zeigeTuerenUebersicht() {
+            document.getElementById("finaleScreen").classList.add("hidden");
             document.getElementById("landingScreen").classList.add("hidden");
             document.getElementById("setupScreen").classList.add("hidden");
             document.getElementById("storyScreen").classList.add("hidden");
