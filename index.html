@@ -365,7 +365,7 @@
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
                     3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
-                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Möchtest du die Aufgabe erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung eurer gemeinsamer Favoriten.
+                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Möchtest du die Aufgabe erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
                 </div>
 
                 <p style="text-align: center; font-size: 0.88rem; opacity: 0.8;">Lässt sich ein Türchen nicht öffnen, obwohl der Tag schon da ist? Dann stimmt vermutlich das Datum auf deinem Handy nicht. Oder sprich mich einfach an.</p>
@@ -1067,13 +1067,24 @@
             document.getElementById("auswertungScreen").classList.remove("hidden");
             const box = document.getElementById("auswertungInhalt");
             box.innerHTML = '<p class="ausw-leer">Einen Moment...</p>';
-            kartenLaden(function () { erLaden(function () { auswertungRendern(); }); });
+            kartenLaden(function () { erLaden(function () {
+                auswertungRendern();
+                const d = box.getAttribute("data-diag");
+                if (testModus && d) box.insertAdjacentHTML("afterbegin", '<p class="ausw-leer" style="margin:0 0 14px; font-size:0.8rem; color:#d99b41;">🧪 Test: ' + d + '</p>');
+            }); });
         }
         function auswertungRendern() {
             const box = document.getElementById("auswertungInhalt");
             const karten = kartenDaten();
             const bew = bewertungAlle();
             const er = erDaten();
+            if (testModus) {
+                // Nur im Testmodus sichtbar: Diagnose zur er.js
+                const diag = window.ER_BEWERTUNG === undefined
+                    ? "er.js wurde nicht gelesen (Datei fehlt, nicht neu geladen oder Syntaxfehler, z. B. Komma oder Anführungszeichen)."
+                    : "er.js gelesen: " + Object.keys(er).length + " gültige Bewertung(en)" + (Object.keys(er).length ? "" : " (alle leer oder ungültig – erlaubt sind A, B, C)") + ".";
+                box.setAttribute("data-diag", diag);
+            }
             if (Object.keys(er).length) { gemeinsameAuswertung(box, karten, bew, er); return; }
             const tage = Object.keys(bew).map(Number).filter(d => calendarData[d]).sort((a, b) => a - b);
             if (!tage.length) {
