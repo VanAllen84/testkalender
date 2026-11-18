@@ -202,16 +202,19 @@
 
         .tueren-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 20px;
-            padding: 10px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 6px;
+        }
+        @media (min-width: 600px) {
+            .tueren-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 10px; }
         }
 
         .tuer-card {
             background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
             border: 1px solid #444;
             border-radius: 12px;
-            height: 110px;
+            height: 118px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -230,7 +233,7 @@
         }
 
         .tuer-card .tag-nummer {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: bold;
             color: #f0f0f0;
         }
@@ -264,8 +267,12 @@
         .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 7.5s ease-in-out; }
         .story-bild.sichtbar { opacity: 1; }
         .story-bild img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; border: 1px solid var(--accent-color); background: #efe6d6; display: block; margin: 0 auto; }
-        .tuer-card.geoeffnet { background-size: cover; background-position: center; border-color: #666; }
-        .tuer-card.geoeffnet .tag-nummer { text-shadow: 0 1px 6px #000, 0 0 3px #000; position: relative; }
+        .tuer-card.geoeffnet { background-size: cover; background-position: center; border: 2px solid #d4af37; }
+        .tuer-card.frei { background-size: cover; background-position: center; border-color: #666; }
+        .tuer-card.heute { border-color: #d4af37; animation: heuteGlow 2.8s ease-in-out infinite; }
+        @keyframes heuteGlow { 0%, 100% { box-shadow: 0 0 6px rgba(212,175,55,0.25); } 50% { box-shadow: 0 0 22px rgba(212,175,55,0.75); } }
+        @media (prefers-reduced-motion: reduce) { .tuer-card.heute { animation: none; box-shadow: 0 0 14px rgba(212,175,55,0.5); } }
+        .tuer-card.geoeffnet .tag-nummer, .tuer-card.frei .tag-nummer { text-shadow: 0 1px 6px #000, 0 0 3px #000; position: relative; }
         .tuer-card.geoeffnet .tag-label { color: #ddd; text-shadow: 0 1px 4px #000; position: relative; }
 
         .tuer-card.pix { background-size: cover; background-position: center; image-rendering: pixelated; }
@@ -274,8 +281,12 @@
 
         .tage-box { margin-top: 22px; padding: 14px 16px 16px; border: 1px solid var(--border-glow); border-radius: 10px; text-align: center; }
         .tage-box .tage-frage { font-size: 0.95rem; margin-bottom: 10px; color: var(--text-color); }
+        .mood-liste { grid-template-columns: 1fr !important; }
+        .mood-liste .btn-option { display: flex; flex-direction: column; gap: 3px; padding: 13px 14px; }
+        .mood-liste .btn-option strong { font-size: 1.05rem; font-weight: 600; }
+        .mood-liste .mood-sub { font-size: 0.9rem; opacity: 0.9; font-weight: 400; }
         .tage-box .options-grid { grid-template-columns: repeat(2, 1fr); }
-        .setup-hinweis { font-size: 0.9rem; font-style: italic; text-align: center; opacity: 0.85; margin: 5px 0 20px; line-height: 1.5; }
+        .setup-hinweis { font-size: 0.97rem; font-style: italic; text-align: center; opacity: 0.95; margin: 5px 0 20px; line-height: 1.5; }
         .app-tipp { margin-top: 22px; font-size: 0.92rem; line-height: 1.6; border-top: 1px solid var(--border-glow); padding-top: 14px; }
         .app-tipp summary { cursor: pointer; text-align: center; color: var(--accent-color); }
         .app-tipp .tipp-block { margin-top: 12px; }
@@ -285,15 +296,30 @@
         .bewertung-box, .gestern-banner { margin-top: 22px; padding: 14px 16px 16px; border: 1px solid var(--border-glow); border-radius: 10px; text-align: center; }
         .gestern-banner { margin: 0 0 20px; border-color: var(--accent-color); }
         .bewertung-frage { font-size: 1rem; margin-bottom: 4px; color: var(--heading-color); }
-        .bewertung-hinweis { font-size: 0.82rem; opacity: 0.75; margin-bottom: 12px; line-height: 1.45; }
+        .bewertung-hinweis { font-size: 0.9rem; opacity: 0.9; margin-bottom: 12px; line-height: 1.45; }
         .bewertung-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .bew-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; font-size: 0.8rem; }
+        .bew-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; font-size: 0.88rem; }
         .bew-btn .emoji { font-size: 1.6rem; line-height: 1.2; }
-        .bew-spaeter { margin-top: 10px; background: none; border: none; color: var(--text-color); opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.85rem; }
+        .bew-spaeter { margin-top: 10px; background: none; border: none; color: var(--text-color); opacity: 0.88; text-decoration: underline; cursor: pointer; font-size: 0.92rem; }
+        .notiz-box { margin-top: 16px; text-align: left; }
+        .notiz-box label { display: block; font-size: 0.84rem; letter-spacing: 0.4px; opacity: 0.92; margin-bottom: 6px; }
+        .notiz-box textarea { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--border-glow); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 1rem; line-height: 1.5; resize: vertical; min-height: 64px; }
+        .notiz-box textarea:focus { outline: 1px solid var(--accent-color); }
+        .ak-notiz { grid-column: 1 / -1; font-size: 0.92rem; line-height: 1.5; padding: 8px 10px; border-left: 3px solid #d4af37; background: rgba(212,175,55,0.08); border-radius: 6px; white-space: pre-wrap; }
         .bew-zeile { margin-top: 14px; text-align: left; }
-        .bew-label { font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; }
+        .bew-label { font-size: 0.84rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.92; margin-bottom: 6px; }
         .bew-ergebnis { font-size: 1.05rem; padding: 6px 0; }
         .bew-ergebnis .bew-spaeter { margin: 0 0 0 10px; }
+        #portal { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0); transition: background 0.9s ease; cursor: pointer; overflow: hidden; }
+        #portal.an { background: rgba(0,0,0,1); }
+        #portal.aus { opacity: 0; transition: opacity 0.65s ease; pointer-events: none; }
+        #portal .portal-tuer { position: fixed; border: 2px solid #d4af37; border-radius: 12px; background-size: cover; background-position: center; image-rendering: pixelated; box-shadow: 0 0 30px rgba(212,175,55,0.6); transition: left 1.25s cubic-bezier(0.55, 0, 0.85, 0.35), top 1.25s cubic-bezier(0.55, 0, 0.85, 0.35), width 1.25s cubic-bezier(0.55, 0, 0.85, 0.35), height 1.25s cubic-bezier(0.55, 0, 0.85, 0.35), border-radius 1.25s ease, filter 1.25s ease; }
+        #portal.an .portal-tuer { left: 0 !important; top: 0 !important; width: 100vw !important; height: 100vh !important; border-radius: 0; filter: brightness(1.6) blur(2px); }
+        #portal .portal-licht { position: fixed; inset: 0; background: radial-gradient(circle at center, rgba(255,244,214,1) 0%, rgba(240,200,110,0.85) 22%, rgba(212,175,55,0) 62%); opacity: 0; transition: opacity 0.7s ease 0.6s; }
+        #portal.an .portal-licht { opacity: 1; }
+        #leseBalken { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 900; pointer-events: none; }
+        #leseBalken i { display: block; height: 100%; width: 0; background: var(--accent-color); opacity: 0.65; transition: width 0.15s linear; }
+
         /* --- Auswertung (neu) --- */
         .aw-hero { text-align: center; margin: 4px 0 18px; }
         .aw-hero .aw-lead { font-family: Georgia, serif; font-size: 1.15rem; color: #d4af37; letter-spacing: 1px; margin: 0 0 4px; }
@@ -301,39 +327,39 @@
         .aw-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 18px 0 6px; }
         .aw-stat { border: 1px solid var(--border-glow); border-radius: 10px; padding: 10px 4px; text-align: center; background: rgba(255,255,255,0.03); }
         .aw-stat .z { display: block; font-family: Georgia, serif; font-size: 1.7rem; line-height: 1.1; color: #fff; }
-        .aw-stat .t { display: block; font-size: 0.72rem; letter-spacing: 0.4px; opacity: 0.85; margin-top: 3px; }
+        .aw-stat .t { display: block; font-size: 0.8rem; letter-spacing: 0.4px; opacity: 0.95; margin-top: 3px; }
         .aw-matrix-box { margin: 22px 0 6px; padding: 14px 12px 12px; border: 1px solid var(--border-glow); border-radius: 12px; background: rgba(255,255,255,0.03); }
         .aw-matrix-box h3 { margin: 0 0 4px; font-size: 1rem; text-align: center; }
-        .aw-matrix-box .hint { text-align: center; font-size: 0.8rem; opacity: 0.7; margin: 0 0 10px; }
+        .aw-matrix-box .hint { text-align: center; font-size: 0.88rem; opacity: 0.88; margin: 0 0 10px; }
         .aw-matrix { display: grid; grid-template-columns: 40px repeat(3, 1fr); gap: 6px; align-items: stretch; }
         .aw-matrix .ax { display: grid; place-items: center; font-size: 1.2rem; }
-        .aw-matrix .ax.ecke { font-size: 0.6rem; opacity: 0.6; letter-spacing: 0.3px; line-height: 1.2; text-align: center; }
+        .aw-matrix .ax.ecke { font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.3px; line-height: 1.2; text-align: center; }
         .aw-cell { border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); color: #fff; font-family: Georgia, serif; font-size: 1.5rem; padding: 16px 0; cursor: pointer; background: var(--cc, rgba(255,255,255,0.06)); }
         .aw-cell.leer { opacity: 0.35; cursor: default; }
         .aw-cell.aktiv { outline: 2px solid #fff; outline-offset: 1px; }
         .aw-gruppenkopf { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 4px; }
         .aw-gruppenkopf h3 { margin: 0; text-align: left; font-size: 1.15rem; color: var(--gc, #fff); }
         .aw-gruppenkopf .n { opacity: 0.7; font-size: 0.9rem; }
-        .aw-gruppensub { font-size: 0.82rem; opacity: 0.7; margin: 0 0 10px; }
+        .aw-gruppensub { font-size: 0.9rem; opacity: 0.88; margin: 0 0 10px; }
         .aw-karte { --c: #8b78e6; display: grid; grid-template-columns: auto 1fr auto; gap: 8px 12px; align-items: start; margin: 10px 0; padding: 12px 14px 12px 12px; border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--c); border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); animation: awIn 0.9s ease both; animation-delay: calc(var(--i, 0) * 0.12s); }
         .aw-karte .ak-nr { font-family: Georgia, serif; font-size: 1.9rem; line-height: 1; color: #fff; min-width: 2ch; text-align: center; }
-        .aw-karte .ak-nr small { display: block; font-family: 'Segoe UI', sans-serif; font-size: 0.55rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; }
+        .aw-karte .ak-nr small { display: block; font-family: 'Segoe UI', sans-serif; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 2px; }
         .ak-chips { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
         .ak-textbox { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.07); }
-        .ak-chip { font-size: 0.66rem; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
+        .ak-chip { font-size: 0.74rem; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
         .ak-chip.her { border-color: #e58aa0; color: #ffd9e2; background: rgba(229,138,160,0.14); }
         .ak-chip.his { border-color: #7fb3e6; color: #d6e9fb; background: rgba(127,179,230,0.14); }
         .ak-chip.kat { border-color: var(--c); background: color-mix(in srgb, var(--c) 22%, transparent); }
         .ak-text { font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
         .ak-text.offen { display: block; }
-        .ak-mehr { background: none; border: none; color: var(--accent-color); font-size: 0.78rem; padding: 4px 0 0; cursor: pointer; }
+        .ak-mehr { background: none; border: none; color: var(--accent-color); font-size: 0.86rem; padding: 4px 0 0; cursor: pointer; }
         .ak-paar { display: flex; gap: 6px; }
         .ak-kreis { width: 38px; text-align: center; }
         .ak-kreis span { display: grid; place-items: center; width: 34px; height: 34px; margin: 0 auto; border-radius: 50%; font-size: 1.05rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); }
-        .ak-kreis small { display: block; font-size: 0.62rem; opacity: 0.65; margin-top: 2px; }
-        .aw-notiz { text-align: center; font-size: 0.82rem; opacity: 0.75; margin: 14px 0 0; line-height: 1.5; }
+        .ak-kreis small { display: block; font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
+        .aw-notiz { text-align: center; font-size: 0.9rem; opacity: 0.9; margin: 14px 0 0; line-height: 1.5; }
         .aw-btn { display: block; width: 100%; padding: 15px; margin-top: 22px; font-size: 1.05rem; font-weight: 600; border: none; border-radius: 10px; background: linear-gradient(180deg, #d4af37, #b8932a); color: #1a1405; cursor: pointer; }
-        .aw-link { display: block; margin: 14px auto 0; background: none; border: none; color: var(--text-color); opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.88rem; }
+        .aw-link { display: block; margin: 14px auto 0; background: none; border: none; color: var(--text-color); opacity: 0.9; text-decoration: underline; cursor: pointer; font-size: 0.95rem; }
         .aw-intro { text-align: center; padding: 26px 6px 6px; }
         .aw-intro .gross { font-size: 3rem; margin-bottom: 8px; }
         .aw-intro h3 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 1.45rem; color: #d4af37; }
@@ -351,7 +377,7 @@
         .ausw-zahlen { display: flex; justify-content: center; gap: 22px; margin: 16px 0 4px; font-size: 1.15rem; }
         .ausw-gruppe h3 { margin: 26px 0 8px; font-size: 1.05rem; text-align: left; }
         .ausw-item { border-left: 3px solid var(--accent-color); padding: 8px 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.04); border-radius: 6px; font-size: 0.92rem; line-height: 1.55; }
-        .ausw-kopf { font-size: 0.78rem; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; }
+        .ausw-kopf { font-size: 0.82rem; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.9; margin-bottom: 4px; }
         .ausw-item .ausw-b { opacity: 0.75; margin-top: 6px; font-size: 0.86rem; }
         .ausw-leer { text-align: center; opacity: 0.8; margin: 24px 0; line-height: 1.6; }
         .teaser-morgen { margin: 0 0 26px; padding: 16px 18px; border: 1px solid #d4af37; border-radius: 10px; background: rgba(212, 175, 55, 0.08); color: #f3e7c0; font-size: 1.05rem; line-height: 1.6; text-align: center; animation: teaserGlimmer 3.5s ease-in-out infinite; }
@@ -398,6 +424,8 @@
     </style>
 </head>
 <body>
+
+    <div id="leseBalken" style="display:none;"><i></i></div>
 
     <!-- Test-Modus / Entwickler-Leiste (Wird per JS automatisch ausgeblendet, wenn testModus = false) -->
     <div class="dev-bar" id="devBarElement">
@@ -498,10 +526,10 @@
 
             <div class="setup-group">
                 <label>1. Wie soll sich die Geschichte heute für dich anfühlen?</label>
-                <div class="options-grid">
-                    <button class="btn-option selected" data-v="hingabe" onclick="setVibe('hingabe', this)">Geborgen</button>
-                    <button class="btn-option" data-v="naehe" onclick="setVibe('naehe', this)">Verspielt</button>
-                    <button class="btn-option" data-v="feuer" onclick="setVibe('feuer', this)">Intensiv</button>
+                <div class="options-grid mood-liste">
+                    <button class="btn-option selected" data-v="hingabe" onclick="setVibe('hingabe', this)"><strong>Geborgen</strong><span class="mood-sub">Langsam, warm und voller Vertrauen.</span></button>
+                    <button class="btn-option" data-v="naehe" onclick="setVibe('naehe', this)"><strong>Verspielt</strong><span class="mood-sub">Frech, spielerisch und voller Flirt.</span></button>
+                    <button class="btn-option" data-v="feuer" onclick="setVibe('feuer', this)"><strong>Intensiv</strong><span class="mood-sub">Direkt, heiß und ohne Zurückhaltung.</span></button>
                 </div>
             </div>
 
@@ -780,13 +808,49 @@
             return tagOffen(tag);
         }
 
+        // Beim ersten Öffnen eines Türchens: Das Bild wächst auf den Bildschirm zu, als ginge man durch die Tür
+        let portalLaeuft = false;
+        function portalDurch(tag, el, weiter) {
+            const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (window.PORTAL_AUS || portalLaeuft || reduziert) { weiter(); return; }
+            portalLaeuft = true;
+            const n = String(calendarData[tag].cardNum).padStart(2, "0");
+            const r = el ? el.getBoundingClientRect() : { left: window.innerWidth / 2 - 50, top: window.innerHeight / 2 - 75, width: 100, height: 150 };
+            const ov = document.createElement("div");
+            ov.id = "portal";
+            const tuer = document.createElement("div");
+            tuer.className = "portal-tuer";
+            tuer.style.left = r.left + "px"; tuer.style.top = r.top + "px"; tuer.style.width = r.width + "px"; tuer.style.height = r.height + "px";
+            tuer.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.5), rgba(8,8,10,0.5)), url('bilder/pix-mid-" + n + ".png')";
+            const licht = document.createElement("div");
+            licht.className = "portal-licht";
+            ov.appendChild(tuer); ov.appendChild(licht);
+            document.body.appendChild(ov);
+            let gewechselt = false, beendet = false;
+            function wechseln() { if (gewechselt) return; gewechselt = true; try { weiter(); } catch (e) {} }
+            function beenden() {
+                if (beendet) return; beendet = true;
+                wechseln();
+                ov.classList.add("aus");
+                setTimeout(function () { ov.remove(); portalLaeuft = false; }, 700);
+            }
+            ov.addEventListener("click", beenden);   // Tippen = überspringen
+            requestAnimationFrame(function () { requestAnimationFrame(function () { ov.classList.add("an"); }); });
+            setTimeout(wechseln, 1350);
+            setTimeout(beenden, 1500);
+            setTimeout(function () { if (document.body.contains(ov)) { ov.remove(); portalLaeuft = false; } }, 4000);
+        }
+        function istErstesMal(tag) { return geoeffnetListe().indexOf(tag) < 0; }
+
         function nextDaySetup() {
             if (currentDay < 24) {
                 if (!istTagErreicht(currentDay + 1)) {
                     document.getElementById("lock-modal").style.display = "flex";
                     return;
                 }
-                oeffneTag(currentDay + 1);
+                const naechster = currentDay + 1;
+                if (istErstesMal(naechster)) portalDurch(naechster, null, function () { oeffneTag(naechster); });
+                else oeffneTag(naechster);
             } else {
                 zeigeFinale();
             }
@@ -808,13 +872,30 @@
             try { const l = geoeffnetListe(); if (l.indexOf(day) < 0) { l.push(day); localStorage.setItem("adventGeoeffnet26", JSON.stringify(l)); } } catch (e) {}
             tuerBildSetzen(day);
         }
-        function tuerBildSetzen(day) {
-            const el = document.querySelectorAll("#tuerenGridContainer .tuer-card")[day - 1];
-            if (el && !el.classList.contains("gesperrt")) {
-                el.classList.remove("pix");
-                el.classList.add("geoeffnet");
-                el.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.64), rgba(8,8,10,0.64)), url('" + bildUrl(day) + "')";
-            }
+        function tuerBildSetzen(day) { tuerStilAktualisieren(); }
+        // Ab dem 25.12. (ohne Testmodus) sehen alle Türchen gleich aus
+        function ab25() {
+            const h = jetzt();
+            return h.getFullYear() > 2026 || (h.getFullYear() === 2026 && h.getMonth() === 11 && h.getDate() >= 25);
+        }
+        function heuteTag() {
+            const h = jetzt();
+            return (h.getFullYear() === 2026 && h.getMonth() === 11 && h.getDate() >= 1 && h.getDate() <= 24) ? h.getDate() : 0;
+        }
+        // Stil der Kacheln: gesperrt = stark verpixelt; heute (ungeöffnet) = leicht verpixelt + Glühen; geöffnet = Bild + goldener Rahmen
+        function tuerStilAktualisieren() {
+            const karten = document.querySelectorAll("#tuerenGridContainer .tuer-card");
+            const alle = ab25(), offen = geoeffnetListe(), heute = heuteTag();
+            karten.forEach((el, idx) => {
+                const i = idx + 1;
+                el.classList.remove("pix", "geoeffnet", "heute", "frei");
+                el.style.backgroundImage = "";
+                const bild = "linear-gradient(rgba(8,8,10,0.6), rgba(8,8,10,0.6)), url('" + bildUrl(i) + "')";
+                if (alle) { el.classList.add("frei"); el.style.backgroundImage = bild; }
+                else if (el.classList.contains("gesperrt")) pixelSetzen(el, i, true);
+                else if (offen.indexOf(i) >= 0) { el.classList.add("geoeffnet"); el.style.backgroundImage = bild; }
+                else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); }
+            });
         }
         // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 7,5 s langsam)
         let bildBeobachter = null;
@@ -860,6 +941,8 @@
                 localStorage.removeItem("adventWahl26");
                 localStorage.removeItem("adventBewertung26");
                 localStorage.removeItem("adventSpaeter26");
+                localStorage.removeItem("adventNotiz26");
+                localStorage.removeItem("adventLese26");
                 history.replaceState(null, "", location.pathname);
             }
         } catch (e) {}
@@ -910,6 +993,7 @@
             });
         }
         function zeigeStory() {
+            leseBereit = false;
             alleScreensAus();
             document.getElementById("storyScreen").classList.remove("hidden");
             auswahlButtonsSetzen();
@@ -985,6 +1069,45 @@
                 localStorage.setItem("adventBewertung26", JSON.stringify(b));
             } catch (e) {}
         }
+        // Notiz zur Aktion (nur für sie, bleibt im Browser)
+        const notizMem = {};
+        function notizAlle() {
+            let n = {};
+            try { n = JSON.parse(localStorage.getItem("adventNotiz26") || "{}") || {}; } catch (e) {}
+            return Object.assign({}, notizMem, n);
+        }
+        function notizSetzen(day, text) {
+            if (text) notizMem[day] = text; else delete notizMem[day];
+            try {
+                let n = {};
+                try { n = JSON.parse(localStorage.getItem("adventNotiz26") || "{}") || {}; } catch (e) {}
+                if (text) n[day] = text; else delete n[day];
+                localStorage.setItem("adventNotiz26", JSON.stringify(n));
+            } catch (e) {}
+        }
+        function notizTippen(el) { notizSetzen(Number(el.getAttribute("data-day")), el.value.slice(0, 600)); }
+        function notizHtml(day) {
+            const t = notizAlle()[day] || "";
+            return '<div class="notiz-box"><label>\u{1F4DD} Meine Notiz zur Aktion (nur für dich)</label>' +
+                '<textarea rows="2" maxlength="600" data-day="' + day + '" oninput="notizTippen(this)" placeholder="Was war schön? Was bleibt in Erinnerung?">' + esc(t) + '</textarea></div>';
+        }
+        function notizenKopieren(btn) {
+            const n = notizAlle();
+            const tage = Object.keys(n).map(Number).sort((a, b) => a - b);
+            const text = tage.map(d => "Türchen " + d + " (Karte " + calendarData[d].cardNum + "):\n" + n[d]).join("\n\n");
+            const fertig = function () { if (btn) btn.innerText = "Kopiert"; };
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(fertig, function () { kopierenAlt(text); fertig(); });
+            else { kopierenAlt(text); fertig(); }
+        }
+        function kopierenAlt(text) {
+            const ta = document.createElement("textarea");
+            ta.value = text; document.body.appendChild(ta); ta.select();
+            try { document.execCommand("copy"); } catch (e) {}
+            ta.remove();
+        }
+        function notizKnopfHtml() {
+            return Object.keys(notizAlle()).length ? '<button class="aw-link" onclick="notizenKopieren(this)">\u{1F4DD} Alle meine Notizen kopieren</button>' : "";
+        }
         const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
         // Zeilen (Aufgabe / Alternative) für Banner oder Kasten zeichnen
         // modus "banner": bewertet = Ergebnis + "Ändern"; modus "kasten": bewertet = festgeschrieben (außer ab 25.12.)
@@ -1012,7 +1135,7 @@
                 }
                 html += '</div>';
             });
-            return html;
+            return html + notizHtml(day);
         }
         function bewerteVersion(day, ver, val, modus) {
             const aktuell = (bewertungAlle()[day] || {})[ver];
@@ -1156,6 +1279,7 @@
             }
             if (Object.keys(er).length) { gemeinsameAuswertung(box, karten, bew, er); return; }
             // nur ihre Bewertungen
+            notizGezeigt = {};
             const eintraege = [];
             for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => { if (bew[d] && bew[d][v[0]] !== undefined) eintraege.push({ d: d, ver: v[0], a: bew[d][v[0]] }); });
             if (!eintraege.length) {
@@ -1176,6 +1300,7 @@
                 liste.forEach((e, i) => { html += auswKarte(karten, e, i); });
             });
             if (offen.length) html += '<p class="aw-notiz">Noch nicht bewertet: Türchen ' + offen.join(", ") + '</p>';
+            html += notizKnopfHtml();
             box.innerHTML = html;
         }
         // --- Karten-Darstellung der Auswertung ---
@@ -1195,8 +1320,14 @@
                 (her === null ? '' : '<span class="ak-chip ' + (her ? "her" : "his") + '">' + (her ? "Her" : "His") + ' Pleasure</span>') +
                 '<span class="ak-chip">' + (e.ver === "a" ? "Aufgabe" : "Alternative") + '</span><span class="ak-chip">Karte ' + nr + '</span></div>' +
                 '<div class="ak-paar">' + paar + '</div>' +
+                (notizZeige(e.d) ? '<div class="ak-notiz">\u{1F4DD} ' + esc(notizAlle()[e.d]) + '</div>' : '') +
                 (text ? '<div class="ak-textbox"><div class="ak-text">' + text + '</div><button class="ak-mehr" onclick="auswMehr(this)">mehr anzeigen</button></div>' : '') +
                 '</div>';
+        }
+        let notizGezeigt = {};
+        function notizZeige(d) {
+            if (notizGezeigt[d] || !notizAlle()[d]) return false;
+            notizGezeigt[d] = true; return true;
         }
         function auswMehr(btn) {
             const t = btn.previousElementSibling;
@@ -1247,7 +1378,7 @@
             if (AW.nurDu.length) h += '<p class="aw-notiz">Bisher nur von dir bewertet: Türchen ' + AW.nurDu.join(", ") + '</p>';
             if (AW.nurEr.length) h += '<p class="aw-notiz">Bisher nur von mir bewertet: Türchen ' + AW.nurEr.join(", ") + '</p>';
             if (AW.offen.length) h += '<p class="aw-notiz">Noch von keinem bewertet: Türchen ' + AW.offen.join(", ") + '</p>';
-            return h;
+            return h + notizKnopfHtml();
         }
         function awZeichne() {
             if (AW.schritt === -1) awIntro();
@@ -1263,6 +1394,7 @@
             window.scrollTo(0, 0);
         }
         function awSchritt() {
+            notizGezeigt = {};
             const gi = AW.schritte[AW.schritt];
             const g = AW_GRUPPEN[gi];
             const liste = AW.items.filter(e => e.g === gi);
@@ -1285,6 +1417,7 @@
             awUebersicht(true);
         }
         function awUebersicht(ohneScroll) {
+            notizGezeigt = {};
             const items = AW.items, gc = [0, 0, 0, 0, 0, 0];
             items.forEach(e => gc[e.g]++);
             const ges = items.length;
@@ -1383,6 +1516,7 @@
                 seiteAktualisieren();
                 auswertungButtonAktualisieren();
                 window.scrollTo(0, 0);
+                if (window.leseZeichnen) window.leseZeichnen();
             });
             ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen", "auswertungScreen"].forEach(id => {
                 obs.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] });
@@ -1411,6 +1545,47 @@
             if (android) { const a = document.getElementById("tippIphone"); if (a) a.style.display = "none"; }
         });
 
+        // --- Lesefortschritt (dünner Balken) und Leseposition (12 Stunden) ---
+        let leseBereit = false;
+        (function () {
+            const bar = document.getElementById("leseBalken");
+            const fill = bar.firstElementChild;
+            let timer = null;
+            function storyOffen() { return !document.getElementById("storyScreen").classList.contains("hidden"); }
+            function verhaeltnis() {
+                const max = document.documentElement.scrollHeight - window.innerHeight;
+                return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+            }
+            function zeichnen() {
+                if (!storyOffen()) { bar.style.display = "none"; return; }
+                bar.style.display = "";
+                fill.style.width = (verhaeltnis() * 100) + "%";
+            }
+            function speichern() {
+                if (!storyOffen() || !leseBereit) return;
+                const r = verhaeltnis();
+                try {
+                    const o = JSON.parse(localStorage.getItem("adventLese26") || "{}") || {};
+                    if (r > 0.97 || r < 0.02) delete o[currentDay]; else o[currentDay] = { r: r, t: Date.now() };
+                    localStorage.setItem("adventLese26", JSON.stringify(o));
+                } catch (e) {}
+            }
+            window.addEventListener("scroll", function () { zeichnen(); clearTimeout(timer); timer = setTimeout(speichern, 400); }, { passive: true });
+            window.addEventListener("resize", zeichnen);
+            window.leseZeichnen = zeichnen;
+            window.lesePositionHerstellen = function (day) {
+                let p = null;
+                try { const o = JSON.parse(localStorage.getItem("adventLese26") || "{}") || {}; p = o[day]; } catch (e) {}
+                setTimeout(function () {
+                    if (p && p.r > 0.02 && p.r < 0.97 && Date.now() - p.t < 12 * 3600 * 1000) {
+                        window.scrollTo(0, p.r * (document.documentElement.scrollHeight - window.innerHeight));
+                    }
+                    zeichnen();
+                    setTimeout(function () { leseBereit = true; }, 400);
+                }, 150);
+            };
+        })();
+
         function loadStoryContent(day, vibe, periodActive) {
             try { zeigeStoryBild(day); merkeGeoeffnet(day); } catch (e) {}
             const storyContainer = document.getElementById("storyContent");
@@ -1433,6 +1608,7 @@
                     storyContainer.innerHTML = "Die Skript-Funktion wurde nicht gefunden.";
                 }
                 storyBildStatus.text = true; storyBildStart();
+                lesePositionHerstellen(day);
             };
 
             script.onerror = function() {
@@ -1484,18 +1660,15 @@
                     card.classList.add("gesperrt");
                 }
 
-                card.innerHTML = `
-                    <span class="tag-nummer">${i}</span>
-                    <span class="tag-label">Dezember</span>
-                `;
+                card.innerHTML = `<span class="tag-nummer">${i}</span>`;
                 try { pixelSetzen(card, i, istGesperrt); } catch (e) {}
-                card.onclick = () => waehleTag(i);
+                card.onclick = () => waehleTag(i, card);
                 grid.appendChild(card);
             }
-            try { const gl = geoeffnetListe(); if (Array.isArray(gl)) gl.forEach(tuerBildSetzen); } catch (e) {}
+            try { tuerStilAktualisieren(); } catch (e) {}
         });
 
-        function waehleTag(tagNummer) {
+        function waehleTag(tagNummer, el) {
             let istErreicht = testModus;
 
             if (!testModus) {
@@ -1509,7 +1682,8 @@
             }
 
             if (istErreicht) {
-                oeffneTag(tagNummer);
+                if (istErstesMal(tagNummer)) portalDurch(tagNummer, el || null, function () { oeffneTag(tagNummer); });
+                else oeffneTag(tagNummer);
             } else {
                 document.getElementById("lock-modal").style.display = "flex";
             }
@@ -1530,6 +1704,13 @@
             applyLandingTheme();
             // Am 24. Dezember: Vorfreude auf den 25.
             teaserAktualisieren();
+            try { tuerStilAktualisieren(); } catch (e) {}
+            // zum heutigen Türchen scrollen (nach dem automatischen Scrollen nach oben)
+            setTimeout(function () {
+                const h = heuteTag();
+                const el = h ? document.querySelectorAll("#tuerenGridContainer .tuer-card")[h - 1] : null;
+                if (el && !ab25() && !document.getElementById("calendar-overview").classList.contains("hidden")) el.scrollIntoView({ block: "center", behavior: "smooth" });
+            }, 160);
         }
         // Hinweis auf den 25.: nur am 24. Dezember, auf der Türchen-Übersicht und auf der Seite von Türchen 24
         function teaserAktualisieren() {
