@@ -282,6 +282,20 @@
         .app-tipp ol { margin: 6px 0 0; padding-left: 22px; }
         .erinnerung-zeit { background: transparent; color: var(--heading-color); border: 1px solid var(--accent-color); border-radius: 8px; padding: 10px 12px; font-size: 1rem; }
         .erinnerung-zeit option { background: #121217; color: #fff; }
+        .bewertung-box, .gestern-banner { margin-top: 22px; padding: 14px 16px 16px; border: 1px solid var(--border-glow); border-radius: 10px; text-align: center; }
+        .gestern-banner { margin: 0 0 20px; border-color: var(--accent-color); }
+        .bewertung-frage { font-size: 1rem; margin-bottom: 4px; color: var(--heading-color); }
+        .bewertung-hinweis { font-size: 0.82rem; opacity: 0.75; margin-bottom: 12px; line-height: 1.45; }
+        .bewertung-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .bew-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; font-size: 0.8rem; }
+        .bew-btn .emoji { font-size: 1.6rem; line-height: 1.2; }
+        .bew-spaeter { margin-top: 10px; background: none; border: none; color: var(--text-color); opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.85rem; }
+        .ausw-zahlen { display: flex; justify-content: center; gap: 22px; margin: 16px 0 4px; font-size: 1.15rem; }
+        .ausw-gruppe h3 { margin: 26px 0 8px; font-size: 1.05rem; text-align: left; }
+        .ausw-item { border-left: 3px solid var(--accent-color); padding: 8px 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.04); border-radius: 6px; font-size: 0.92rem; line-height: 1.55; }
+        .ausw-kopf { font-size: 0.78rem; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; }
+        .ausw-item .ausw-b { opacity: 0.75; margin-top: 6px; font-size: 0.86rem; }
+        .ausw-leer { text-align: center; opacity: 0.8; margin: 24px 0; line-height: 1.6; }
         .finale-text p { line-height: 1.8; text-align: center; margin: 0 0 16px; }
         .finale-text .signatur { font-style: italic; margin-top: 22px; }
 
@@ -347,7 +361,8 @@
                     <strong>Und so funktioniert das Ganze:</strong><br>
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
-                    3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.
+                    3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
+                    4. Bewerte nach der Aufgabe mit einem Daumen, wie sie war. Ab dem 25. Dezember gibt es daraus eine Auswertung eurer Favoriten.
                 </div>
 
                 <p style="text-align: center; font-style: italic; color: var(--text-color);">Der Raum verdunkelt sich, die Erwartung steigt. Bist du bereit, tief in die Geschichten einzutauchen?</p>
@@ -391,9 +406,20 @@
         <!-- --- Die Türchen-Zwischenseite --- -->
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
+            <div class="gestern-banner" id="gesternBanner" style="display:none;">
+                <div class="bewertung-frage" id="gesternText">Wie war die Aufgabe?</div>
+                <div class="bewertung-hinweis">Ein kurzes Feedback für eure Auswertung am Ende.</div>
+                <div class="bewertung-buttons">
+                    <button class="btn-option bew-btn" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
+                    <button class="btn-option bew-btn" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>Ging so</span></button>
+                    <button class="btn-option bew-btn" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
+                </div>
+                <button class="bew-spaeter" onclick="bannerSpaeter()">Später</button>
+            </div>
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
+            <button class="btn-primary" id="btnAuswertung" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Eure Auswertung ansehen</button>
             <button class="btn-primary" style="margin-top: 25px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToLanding()">Zurück zur Anleitung</button>
         </div>
 
@@ -442,9 +468,26 @@
 
             <div class="story-bild" id="storyBild" style="display:none;"><img id="storyBildImg" alt="" src=""></div>
 
+            <div class="bewertung-box" id="bewertungBox">
+                <div class="bewertung-frage">Wie war die Aufgabe?</div>
+                <div class="bewertung-hinweis">Sobald ihr sie erledigt habt, kannst du hier bewerten. Du kannst es jederzeit ändern. Am Ende gibt es eine Auswertung.</div>
+                <div class="bewertung-buttons">
+                    <button class="btn-option bew-btn" data-b="1" onclick="bewerteTag(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
+                    <button class="btn-option bew-btn" data-b="0" onclick="bewerteTag(0)"><span class="emoji">😐</span><span>Ging so</span></button>
+                    <button class="btn-option bew-btn" data-b="-1" onclick="bewerteTag(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
+                </div>
+            </div>
+
             <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
             <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
+        </div>
+
+        <!-- AUSWERTUNG -->
+        <div id="auswertungScreen" class="hidden">
+            <h2>Eure Auswertung</h2>
+            <div id="auswertungInhalt"></div>
+            <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
 
         <!-- FINALE (nach Türchen 24) -->
@@ -454,7 +497,7 @@
                 <p>Vierundzwanzig Türchen. Vierundzwanzig Abende, die nur uns gehörten.</p>
                 <p>Danke, dass du dich auf jede dieser Geschichten eingelassen hast: auf die leisen und die wilden, auf die, bei denen du lachen musstest, und auf die, bei denen dir der Atem stockte.</p>
                 <p>Die Karten bleiben. Und falls noch eine offen ist: Das Jahr hat noch ein paar Tage.</p>
-                <p>Ein kleines Geschenk noch obendrauf: Ab dem 25. Dezember kannst du in jedem Türchen die Stimmung ändern und die anderen Versionen der Geschichten lesen.</p>
+                <p>Ein kleines Geschenk noch obendrauf: Ab dem 25. Dezember kannst du in jedem Türchen die Stimmung ändern, die anderen Versionen der Geschichten lesen und dir auf der Türchen-Seite eure Auswertung ansehen.</p>
                 <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich.<br>Dein Thilo</p>
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
@@ -643,6 +686,7 @@
 
         function resetToLanding() {
             document.getElementById("finaleScreen").classList.add("hidden");
+            document.getElementById("auswertungScreen").classList.add("hidden");
             document.getElementById("setupScreen").classList.add("hidden");
             document.getElementById("storyScreen").classList.add("hidden");
             document.getElementById("calendar-overview").classList.add("hidden");
@@ -722,6 +766,8 @@
             if (location.search.indexOf("reset=1") >= 0) {
                 localStorage.removeItem("adventGeoeffnet26");
                 localStorage.removeItem("adventWahl26");
+                localStorage.removeItem("adventBewertung26");
+                localStorage.removeItem("adventSpaeter26");
                 history.replaceState(null, "", location.pathname);
             }
         } catch (e) {}
@@ -767,7 +813,7 @@
             if (h) h.style.display = alleFreigegeben() ? "none" : "";
         }
         function alleScreensAus() {
-            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen"].forEach(id => {
+            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen", "auswertungScreen"].forEach(id => {
                 document.getElementById(id).classList.add("hidden");
             });
         }
@@ -777,6 +823,7 @@
             auswahlButtonsSetzen();
             document.getElementById("btnStimmungNeu").style.display = alleFreigegeben() ? "" : "none";
             document.getElementById("btnWeiter").innerText = currentDay === 24 ? "Zum Finale..." : "Weiter durch das nächste Türchen...";
+            bewertungUI();
             loadStoryContent(currentDay, selectedVibe, hasPeriod);
         }
         function oeffneTag(day) {
@@ -809,6 +856,153 @@
             window.location.href = "erinnerung/" + sel.value + ".ics";
         }
 
+
+        // ==========================================
+        // Bewertung der Aufgaben (Daumen) und Auswertung
+        // ==========================================
+        const bewMem = {};
+        const spaeterMem = {};
+        function bewertungAlle() {
+            let b = {};
+            try { b = JSON.parse(localStorage.getItem("adventBewertung26") || "{}") || {}; } catch (e) {}
+            return Object.assign({}, bewMem, b);
+        }
+        function bewertungSetzen(day, val) {
+            // val: 1, 0, -1 oder null (löschen)
+            if (val === null) delete bewMem[day]; else bewMem[day] = val;
+            try {
+                let b = {};
+                try { b = JSON.parse(localStorage.getItem("adventBewertung26") || "{}") || {}; } catch (e) {}
+                if (val === null) delete b[day]; else b[day] = val;
+                localStorage.setItem("adventBewertung26", JSON.stringify(b));
+            } catch (e) {}
+        }
+        function spaeterListe() {
+            let l = [];
+            try { l = JSON.parse(localStorage.getItem("adventSpaeter26") || "[]") || []; } catch (e) {}
+            return l.concat(Object.keys(spaeterMem).map(Number));
+        }
+        function spaeterMerken(day) {
+            spaeterMem[day] = true;
+            try {
+                let l = [];
+                try { l = JSON.parse(localStorage.getItem("adventSpaeter26") || "[]") || []; } catch (e) {}
+                if (l.indexOf(day) < 0) l.push(day);
+                localStorage.setItem("adventSpaeter26", JSON.stringify(l));
+            } catch (e) {}
+        }
+        function bewertungUI() {
+            const b = bewertungAlle()[currentDay];
+            document.querySelectorAll("#bewertungBox [data-b]").forEach(btn => {
+                btn.classList.toggle("selected", b !== undefined && String(b) === btn.dataset.b);
+            });
+        }
+        function bewerteTag(val) {
+            const aktuell = bewertungAlle()[currentDay];
+            bewertungSetzen(currentDay, aktuell === val ? null : val);
+            bewertungUI();
+        }
+        // Banner in der Türchen-Übersicht: "Wie war die Aufgabe von Türchen N?"
+        let bannerTag = null;
+        function bannerKandidat() {
+            const geoeffnet = geoeffnetListe();
+            if (!geoeffnet.length) return null;
+            const bew = bewertungAlle();
+            const spaeter = spaeterListe();
+            const h = jetzt();
+            let limit;
+            if (testModus) limit = Math.max.apply(null, geoeffnet);
+            else if (h.getFullYear() === 2026 && h.getMonth() === 11) limit = h.getDate();
+            else limit = h.getFullYear() > 2026 ? 25 : 0;
+            let kand = null;
+            geoeffnet.forEach(d => {
+                if (d < limit && bew[d] === undefined && spaeter.indexOf(d) < 0 && (kand === null || d > kand)) kand = d;
+            });
+            return kand;
+        }
+        function bannerAktualisieren() {
+            const el = document.getElementById("gesternBanner");
+            if (!el) return;
+            bannerTag = bannerKandidat();
+            if (bannerTag === null) { el.style.display = "none"; return; }
+            document.getElementById("gesternText").innerText = "Wie war die Aufgabe von Türchen " + bannerTag + "?";
+            el.style.display = "";
+        }
+        function bannerBewerten(val) {
+            if (bannerTag === null) return;
+            bewertungSetzen(bannerTag, val);
+            bannerAktualisieren();
+        }
+        function bannerSpaeter() {
+            if (bannerTag === null) return;
+            spaeterMerken(bannerTag);
+            bannerAktualisieren();
+        }
+        function auswertungButtonAktualisieren() {
+            const b = document.getElementById("btnAuswertung");
+            if (b) b.style.display = alleFreigegeben() ? "" : "none";
+        }
+        // Kartentexte werden erst für die Auswertung geladen (data.js)
+        function kartenLaden(cb) {
+            if (window.KARTEN_B64) { cb(); return; }
+            const sc = document.createElement("script");
+            sc.src = "data.js";
+            sc.onload = cb;
+            sc.onerror = function () { cb(); };
+            document.head.appendChild(sc);
+        }
+        function kartenDaten() {
+            try {
+                const bin = atob(window.KARTEN_B64);
+                const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+                return JSON.parse(new TextDecoder("utf-8").decode(bytes));
+            } catch (e) { return null; }
+        }
+        function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+        function zeigeAuswertung() {
+            alleScreensAus();
+            applyFinaleTheme();
+            document.getElementById("auswertungScreen").classList.remove("hidden");
+            const box = document.getElementById("auswertungInhalt");
+            box.innerHTML = '<p class="ausw-leer">Einen Moment...</p>';
+            kartenLaden(function () { auswertungRendern(); });
+        }
+        function auswertungRendern() {
+            const box = document.getElementById("auswertungInhalt");
+            const karten = kartenDaten();
+            const bew = bewertungAlle();
+            const tage = Object.keys(bew).map(Number).filter(d => calendarData[d]).sort((a, b) => a - b);
+            if (!tage.length) {
+                box.innerHTML = '<p class="ausw-leer">Ihr habt noch keine Aufgabe bewertet.<br>Du kannst jederzeit in einem Türchen nachholen, wie die Aufgabe war.</p>';
+                return;
+            }
+            const z = { "1": 0, "0": 0, "-1": 0 };
+            tage.forEach(d => z[String(bew[d])]++);
+            const nichtBewertet = geoeffnetListe().filter(d => bew[d] === undefined).sort((a, b) => a - b);
+            let html = '<div class="ausw-zahlen"><span>👍 ' + z["1"] + '</span><span>😐 ' + z["0"] + '</span><span>👎 ' + z["-1"] + '</span></div>';
+            const gruppen = [["1", "👍 Das hat dir gefallen"], ["0", "😐 Ging so"], ["-1", "👎 Eher nicht"]];
+            gruppen.forEach(g => {
+                const liste = tage.filter(d => String(bew[d]) === g[0]);
+                if (!liste.length) return;
+                html += '<div class="ausw-gruppe"><h3>' + g[1] + ' (' + liste.length + ')</h3>';
+                liste.forEach(d => {
+                    const nr = calendarData[d].cardNum;
+                    const k = karten ? karten[nr] : null;
+                    html += '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + '</div>';
+                    if (k) {
+                        html += '<div class="ausw-a"><b>Aufgabe:</b> ' + esc(k.a) + '</div>';
+                        html += '<div class="ausw-b"><b>Alternative:</b> ' + esc(k.b) + '</div>';
+                    }
+                    html += '</div>';
+                });
+                html += '</div>';
+            });
+            if (nichtBewertet.length) {
+                html += '<p class="ausw-leer" style="margin-bottom:0;">Noch nicht bewertet: Türchen ' + nichtBewertet.join(", ") + '</p>';
+            }
+            box.innerHTML = html;
+        }
+
         // --- Finale ---
         function applyFinaleTheme() {
             const root = document.documentElement;
@@ -835,6 +1029,7 @@
         const ICON_INTRO = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><rect x="25" y="28" width="14" height="28" rx="2" fill="#f4f1ea"/><path d="M32 7c6 8 8 12 8 16a8 8 0 0 1-16 0c0-4 2-8 8-16z" fill="#f2b134"/></svg>');
         const ICON_TUEREN = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><rect x="9" y="9" width="21" height="21" rx="4" fill="#c23b4c"/><rect x="34" y="9" width="21" height="21" rx="4" fill="#8b78e6"/><rect x="9" y="34" width="21" height="21" rx="4" fill="#4fa874"/><rect x="34" y="34" width="21" height="21" rx="4" fill="#d99b41"/></svg>');
         const ICON_FINALE = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><polygon points="32,8 38.5,25 57,25.5 42.5,37 47.5,55 32,44.5 16.5,55 21.5,37 7,25.5 25.5,25" fill="#d4af37"/></svg>');
+        const ICON_AUSWERTUNG = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#121217"/><path d="M32 52C10 36 12 18 24 16c5-1 8 2 8 5 0-3 3-6 8-5 12 2 14 20-8 36z" fill="#d4af37"/></svg>');
         function iconKalender(tag, farbe) {
             const fs = tag > 9 ? 30 : 36;
             return svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect x="4" y="9" width="56" height="51" rx="8" fill="#f4f1ea"/><path d="M4 17a8 8 0 0 1 8-8h40a8 8 0 0 1 8 8v9H4z" fill="' + farbe + '"/><rect x="16" y="2" width="6" height="13" rx="3" fill="#2a2a30"/><rect x="42" y="2" width="6" height="13" rx="3" fill="#2a2a30"/><text x="32" y="54" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="' + fs + '" fill="#222">' + tag + '</text></svg>');
@@ -843,7 +1038,9 @@
             const sichtbar = id => { const e = document.getElementById(id); return e && !e.classList.contains("hidden"); };
             const cs = getComputedStyle(document.documentElement);
             let titel = "Intro", icon = ICON_INTRO;
-            if (sichtbar("finaleScreen")) {
+            if (sichtbar("auswertungScreen")) {
+                titel = "Auswertung"; icon = ICON_AUSWERTUNG;
+            } else if (sichtbar("finaleScreen")) {
                 titel = "Finale"; icon = ICON_FINALE;
             } else if (sichtbar("setupScreen") || sichtbar("storyScreen")) {
                 titel = currentDay + ". Dezember";
@@ -861,9 +1058,11 @@
         document.addEventListener("DOMContentLoaded", function() {
             const obs = new MutationObserver(function() {
                 seiteAktualisieren();
+                bannerAktualisieren();
+                auswertungButtonAktualisieren();
                 window.scrollTo(0, 0);
             });
-            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen"].forEach(id => {
+            ["landingScreen", "calendar-overview", "setupScreen", "storyScreen", "finaleScreen", "auswertungScreen"].forEach(id => {
                 obs.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] });
             });
             seiteAktualisieren();
@@ -987,6 +1186,7 @@
 
         function zeigeTuerenUebersicht() {
             document.getElementById("finaleScreen").classList.add("hidden");
+            document.getElementById("auswertungScreen").classList.add("hidden");
             document.getElementById("landingScreen").classList.add("hidden");
             document.getElementById("setupScreen").classList.add("hidden");
             document.getElementById("storyScreen").classList.add("hidden");
