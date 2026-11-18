@@ -261,7 +261,7 @@
 
 
         /* Illustrationen */
-        .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 1.4s ease; }
+        .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 3s ease; }
         .story-bild.sichtbar { opacity: 1; }
         .story-bild img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; border: 1px solid var(--accent-color); background: #efe6d6; display: block; margin: 0 auto; }
         .tuer-card.geoeffnet { background-size: cover; background-position: center; border-color: #666; }
@@ -751,14 +751,33 @@
                 el.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.64), rgba(8,8,10,0.64)), url('" + bildUrl(day) + "')";
             }
         }
+        // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 3 s langsam)
+        let bildBeobachter = null;
+        function bildEinblenden(box) {
+            box.classList.remove("sichtbar");
+            if (bildBeobachter) { bildBeobachter.disconnect(); bildBeobachter = null; }
+            if (!("IntersectionObserver" in window)) { void box.offsetWidth; box.classList.add("sichtbar"); return; }
+            bildBeobachter = new IntersectionObserver(function (eintraege, obs) {
+                if (eintraege.some(e => e.isIntersecting)) { box.classList.add("sichtbar"); obs.disconnect(); }
+            }, { threshold: 0.3 });
+            bildBeobachter.observe(box);
+        }
+        // Das Bild wird erst beobachtet, wenn Bild UND Text geladen sind (sonst wäre es kurz im Sichtfeld)
+        const storyBildStatus = { bild: false, text: false };
+        function storyBildStart() {
+            if (!storyBildStatus.bild || !storyBildStatus.text) return;
+            const box = document.getElementById("storyBild");
+            requestAnimationFrame(function () { requestAnimationFrame(function () { bildEinblenden(box); }); });
+        }
         function zeigeStoryBild(day) {
             const box = document.getElementById("storyBild");
             if (!box) return;
             box.classList.remove("sichtbar");
             const img = document.getElementById("storyBildImg");
-            img.onload = function () { box.classList.add("sichtbar"); };
+            storyBildStatus.bild = false; storyBildStatus.text = false;
+            img.onload = function () { box.style.display = ""; storyBildStatus.bild = true; storyBildStart(); };
             img.onerror = function () { box.style.display = "none"; };
-            box.style.display = "";
+            box.style.display = "none";
             img.src = bildUrl(day);
         }
 
@@ -1056,7 +1075,7 @@
             const box = document.getElementById("finaleBild");
             const img = document.getElementById("finaleBildImg");
             box.classList.remove("sichtbar");
-            img.onload = function () { box.style.display = ""; void box.offsetWidth; box.classList.add("sichtbar"); };
+            img.onload = function () { box.style.display = ""; void box.offsetWidth; bildEinblenden(box); };
             img.onerror = function () { box.style.display = "none"; };
             img.src = "bilder/finale.jpg";
         }
@@ -1145,6 +1164,7 @@
                 } else {
                     storyContainer.innerHTML = "Die Skript-Funktion wurde nicht gefunden.";
                 }
+                storyBildStatus.text = true; storyBildStart();
             };
 
             script.onerror = function() {
