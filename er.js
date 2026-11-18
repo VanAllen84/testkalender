@@ -11,28 +11,28 @@
 //  Datei danach im Repo speichern (Commit) - fertig.
 // ==========================================================
 window.ER_BEWERTUNG = {
-    1:  "A",   // T1 · Karte 8 · Musik passend zur Stimmung, intimer Abend (Sie bestimmt)
-    2:  "A",   // T2 · Karte 23 · Tagsüber freche Fotos/Nachrichten; er darf nur auf Fragen antworten
-    3:  "A",   // T3 · Karte 10 · Ins Ohr flüstern, Verführung in feiner Unterwäsche, Küsse
-    4:  "C",   // T4 · Karte 24 · Überraschung im Schlafzimmer: Kerzen, Zettel, Dessous
-    5:  "C",   // T5 · Karte 7 · Von ihm verführen lassen, erst auf ihr Bitten Sex
-    6:  "C",   // T6 · Karte 20 · Strapse/halterlose Strümpfe nur für ihn
-    7:  "B",   // T7 · Karte 3 · Neuer Ort im Haus (Esstisch!), kurzes Vorspiel
-    8:  "B",   // T8 · Karte 17 · Spaziergang im Freien mit ferngesteuertem Vibrator
-    9:  "",   // T9 · Karte 9 · Neue Kamasutra-Stellung (Sie wählt)
-    10: "",   // T10 · Karte 18 · Mund + Saugnapf-Dildo reiten, er sieht zu
-    11: "",   // T11 · Karte 12 · Fingern/Dehnen mit Gleitgel (bis Faust?)
-    12: "",   // T12 · Karte 21 · Ungezogene Worte im Bett (dirty talk)
-    13: "",   // T13 · Karte 6 · Gefesselt, Augen verbunden, er führt
-    14: "",   // T14 · Karte 14 · Er liegt nackt bereit, sie setzt sich auf ihn
-    15: "",   // T15 · Karte 4 · Auf dem Esstisch lieben
-    16: "",   // T16 · Karte 19 · Theatralisch laut stöhnen
-    17: "",   // T17 · Karte 11 · Keilkissen, anderer Winkel, tiefer
-    18: "",   // T18 · Karte 22 · Reiten bis zum 1. Höhepunkt, ohne Pause weiter (mehrere Runden)
-    19: "",   // T19 · Karte 1 · Von hinten, er bestimmt das Tempo, Haare ziehen
-    20: "",   // T20 · Karte 13 · Nackt wartend im Bett (Vierfüßler/Rücken), leidenschaftlich
-    21: "",   // T21 · Karte 2 · Sofa, Bein über Lehne, Kissen unterm Po, Blickkontakt
-    22: "",   // T22 · Karte 16 · Kräftig, schnell, ohne Vorspiel, im Dunkeln
-    23: "",   // T23 · Karte 5 · Von hinten, Kleidungsstück um die Hüften, heranziehen
-    24: "",   // T24 · Karte 15 · Am Morgen fordernd wecken
+    1:  "A",   // T1 · Karte 8 · Musik passend zur Stimmung
+    2:  "A",   // T2 · Karte 23 · Tagsüber Fotos/Nachrichten
+    3:  "A",   // T3 · Karte 10 · Ins Ohr flüstern
+    4:  "C",   // T4 · Karte 24 · Überraschung Kerzen, Zettel
+    5:  "C",   // T5 · Karte 7 · Ihn machen lassen und bitten
+    6:  "C",   // T6 · Karte 20 · Strümpfe
+    7:  "B",   // T7 · Karte 3 · Neuer Ort im Haus
+    8:  "B",   // T8 · Karte 17 · Spaziergang
+    9:  "",   // T9 · Karte 9 · Stellung
+    10: "",   // T10 · Karte 18 · Mund + Sauger
+    11: "",   // T11 · Karte 12 · Finger dehnen
+    12: "",   // T12 · Karte 21 · Worte
+    13: "",   // T13 · Karte 6 · Fesseln, verbinden
+    14: "",   // T14 · Karte 14 · Er ist bereit
+    15: "",   // T15 · Karte 4 · Esstisch
+    16: "",   // T16 · Karte 19 · Laut
+    17: "",   // T17 · Karte 11 · Keilkissen
+    18: "",   // T18 · Karte 22 · Reiten (mehrermals)
+    19: "",   // T19 · Karte 1 · Hündchen mit Haaren
+    20: "",   // T20 · Karte 13 · Sie wartet schon
+    21: "",   // T21 · Karte 2 · Sofa
+    22: "",   // T22 · Karte 16 · Kräftig, schnell
+    23: "",   // T23 · Karte 5 · Hündchen mit Leine
+    24: "",   // T24 · Karte 15 · Weckruf
 };
