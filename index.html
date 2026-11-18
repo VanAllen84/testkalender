@@ -472,7 +472,7 @@
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
             <div class="teaser-morgen" id="teaserMorgen" style="display: none;">
-                <strong>✨ Morgen wartet noch etwas auf dich</strong>
+                <strong>&#x2728; Morgen wartet noch etwas auf dich</strong>
                 Schau am 25. Dezember noch einmal vorbei.
             </div>
             <div class="tueren-grid" id="tuerenGridContainer">
@@ -539,7 +539,7 @@
             </div>
 
             <div class="teaser-morgen" id="teaserMorgenStory" style="display: none; margin: 25px 0 0;">
-                <strong>✨ Morgen wartet noch etwas auf dich</strong>
+                <strong>&#x2728; Morgen wartet noch etwas auf dich</strong>
                 Schau am 25. Dezember noch einmal vorbei.
             </div>
 
@@ -1215,12 +1215,12 @@
             return 5;                                         // No-Gos (👎 + 👎)
         }
         const AW_GRUPPEN = [
-            { emoji: "🌟", name: "Top-Favoriten", sub: "Das haben wir beide richtig gut gefunden.", farbe: "#d4af37" },
-            { emoji: "💛", name: "Favoriten", sub: "Einer begeistert, der andere angetan.", farbe: "#e5a94a" },
-            { emoji: "🎭", name: "Geschmackssache", sub: "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden.", farbe: "#a594f0" },
-            { emoji: "🙂", name: "Solide", sub: "Okay für uns beide.", farbe: "#8fb3c7" },
-            { emoji: "⚠️", name: "Flops", sub: "Mindestens einer sagt „Nicht nochmal“.", farbe: "#e08a4d" },
-            { emoji: "🚫", name: "No-Gos", sub: "Beide: Nicht nochmal.", farbe: "#d9475b" }
+            { emoji: "\u{1F31F}", name: "Top-Favoriten", sub: "Das haben wir beide richtig gut gefunden.", farbe: "#d4af37" },
+            { emoji: "\u{1F49B}", name: "Favoriten", sub: "Einer begeistert, der andere angetan.", farbe: "#e5a94a" },
+            { emoji: "\u{1F3AD}", name: "Geschmackssache", sub: "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden.", farbe: "#a594f0" },
+            { emoji: "\u{1F642}", name: "Solide", sub: "Okay für uns beide.", farbe: "#8fb3c7" },
+            { emoji: "\u{26A0}\u{FE0F}", name: "Flops", sub: "Mindestens einer sagt „Nicht nochmal“.", farbe: "#e08a4d" },
+            { emoji: "\u{1F6AB}", name: "No-Gos", sub: "Beide: Nicht nochmal.", farbe: "#d9475b" }
         ];
         let AW = null;
         function gemeinsameAuswertung(box, karten, bew, er) {
@@ -1255,7 +1255,7 @@
             else awSchritt();
         }
         function awIntro() {
-            AW.box.innerHTML = '<div class="aw-intro"><div class="gross">🎁</div><h3>Jetzt wird es spannend</h3>' +
+            AW.box.innerHTML = '<div class="aw-intro"><div class="gross">\u{1F381}</div><h3>Jetzt wird es spannend</h3>' +
                 '<p>Du hast bewertet, ich habe bewertet. Mal sehen, wo wir uns einig sind und wo nicht.</p>' +
                 '<p>Ich zeige dir Schritt für Schritt, wie es ausgegangen ist.</p></div>' +
                 '<button class="aw-btn" onclick="awWeiter()">Enthüllen</button>' +
@@ -1294,7 +1294,7 @@
                 '<div class="aw-stats">' + AW_GRUPPEN.map((g, i) => '<div class="aw-stat" style="border-color:' + g.farbe + '55;"><span class="z" style="color:' + g.farbe + ';">' + gc[i] + '</span><span class="t">' + g.emoji + ' ' + g.name + '</span></div>').join("") + '</div>';
             const vals = [1, 0, -1];
             h += '<div class="aw-matrix-box"><h3>Du und ich</h3><p class="hint">Tippe auf ein Feld, um nur diese Aufgaben zu sehen.</p><div class="aw-matrix">' +
-                '<div class="ax ecke">Du ↓<br>Ich →</div>' + vals.map(v => '<div class="ax">' + SYMBOL[String(v)] + '</div>').join("");
+                '<div class="ax ecke">Du \u{2193}<br>Ich \u{2192}</div>' + vals.map(v => '<div class="ax">' + SYMBOL[String(v)] + '</div>').join("");
             vals.forEach(a => {
                 h += '<div class="ax">' + SYMBOL[String(a)] + '</div>';
                 vals.forEach(b => {
