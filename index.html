@@ -315,8 +315,8 @@
         #portal.aus { opacity: 0; transition: opacity 0.6s ease; pointer-events: none; }
         #portal .portal-wrap { position: fixed; transform-origin: 50% 50%; transform: scale(1); transform-style: preserve-3d; border-radius: 12px; }
         #portal.an .portal-wrap { transform: scale(var(--pz, 14)); transition: transform 1.15s cubic-bezier(0.6, 0, 0.9, 0.5) 1.5s; }
-        #portal .portal-innen { position: absolute; inset: 0; border-radius: 12px; background: radial-gradient(circle at center, rgba(255,246,220,1) 0%, rgba(245,208,120,0.95) 35%, rgba(190,140,40,0.9) 100%); box-shadow: 0 0 30px rgba(212,175,55,0.5); }
-        #portal .portal-fluegel { position: absolute; top: 0; bottom: 0; width: 50%; background-size: 200% 100%; border: 2px solid #d4af37; backface-visibility: hidden; transition: transform 1.5s cubic-bezier(0.4, 0, 0.4, 1) 0.25s; }
+        #portal .portal-innen { position: absolute; inset: 0; border-radius: 12px; background: radial-gradient(circle at center, var(--p1, #fff6dc) 0%, var(--p2, #f5d078) 38%, var(--p3, #be8c28) 100%); box-shadow: 0 0 30px var(--pg, rgba(212,175,55,0.5)); }
+        #portal .portal-fluegel { position: absolute; top: 0; bottom: 0; width: 50%; background-size: 200% 100%; border: 2px solid var(--p2, #d4af37); backface-visibility: hidden; transition: transform 1.5s cubic-bezier(0.4, 0, 0.4, 1) 0.25s; }
         #portal .portal-fluegel.l { left: 0; transform-origin: 0 50%; background-position: 0 0; border-radius: 12px 0 0 12px; border-right-width: 1px; }
         #portal .portal-fluegel.r { right: 0; transform-origin: 100% 50%; background-position: 100% 0; border-radius: 0 12px 12px 0; border-left-width: 1px; }
         #portal.an .portal-fluegel.l { transform: rotateY(-105deg); }
@@ -812,7 +812,7 @@
             return tagOffen(tag);
         }
 
-        // Beim ersten Öffnen eines Türchens: Die Tür klappt auf (Bild auf der Außenseite), man zoomt in den goldenen Schimmer
+        // Beim ersten Öffnen eines Türchens: Die Tür klappt auf (Bild auf der Außenseite), man zoomt in den Schimmer in der Farbe der Kategorie
         let portalLaeuft = false;
         function portalDurch(tag, el, weiter) {
             const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -825,6 +825,8 @@
             const wrap = document.createElement("div");
             wrap.className = "portal-wrap";
             wrap.style.left = r.left + "px"; wrap.style.top = r.top + "px"; wrap.style.width = r.width + "px"; wrap.style.height = r.height + "px";
+            const PF = [["#e6e0ff", "#8b78e6", "#2f2680"], ["#dcf6e6", "#4fa874", "#17502f"], ["#ffebc8", "#d99b41", "#6e4210"], ["#ffdadf", "#c23b4c", "#5e1021"]][calendarData[tag].cat] || ["#fff6dc", "#f5d078", "#be8c28"];
+            ov.style.setProperty("--p1", PF[0]); ov.style.setProperty("--p2", PF[1]); ov.style.setProperty("--p3", PF[2]); ov.style.setProperty("--pg", PF[1] + "99");
             ov.style.setProperty("--pz", String(Math.ceil(Math.max(window.innerWidth / r.width, window.innerHeight / r.height) * 2.2)));
             const innen = document.createElement("div");
             innen.className = "portal-innen";
