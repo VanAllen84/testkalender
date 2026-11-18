@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meine Bewertung</title>
+<style>
+  :root { --bg:#07070a; --card:#121217; --text:#d6d6db; --head:#fff; --gold:#d4af37; --line:rgba(255,255,255,.09); }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:0 16px 60px; background:radial-gradient(1200px 500px at 50% -120px, #1b1620 0%, var(--bg) 70%) no-repeat, var(--bg); color:var(--text); font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; line-height:1.55; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  header { text-align:center; padding:34px 0 14px; }
+  h1 { font-family:Georgia,'Times New Roman',serif; font-weight:400; color:var(--gold); letter-spacing:2px; font-size:2rem; margin:0 0 6px; }
+  .sub { margin:0; opacity:.75; font-size:.95rem; }
+  .leiste { position:sticky; top:0; z-index:10; margin:10px -16px 22px; padding:10px 16px 12px; background:rgba(7,7,10,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+  .leiste-in { max-width:1000px; margin:0 auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:space-between; font-size:.9rem; }
+  .bar { flex:1 1 180px; height:6px; border-radius:6px; background:rgba(255,255,255,.1); overflow:hidden; min-width:120px; }
+  .bar i { display:block; height:100%; width:0; background:linear-gradient(90deg,#4fa874,#d4af37); transition:width .4s; }
+  .chip-diff { padding:3px 10px; border-radius:20px; background:rgba(255,255,255,.07); }
+  .chip-diff.an { background:rgba(212,175,55,.2); color:#f3e7c0; }
+
+  .zeile { --c:#8b78e6; position:relative; background:linear-gradient(180deg,#15151b,#101014); border:1px solid var(--line); border-left:5px solid var(--c); border-radius:14px; padding:18px 20px 18px; margin:0 0 20px; box-shadow:0 8px 24px rgba(0,0,0,.35); }
+  .zeile.k0 { --c:#8b78e6; } .zeile.k1 { --c:#4fa874; } .zeile.k2 { --c:#d99b41; } .zeile.k3 { --c:#c23b4c; }
+  .kopf { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+  .nr { font-family:Georgia,serif; font-size:2.2rem; line-height:1; color:#fff; min-width:2ch; }
+  .nr small { display:block; font-family:'Segoe UI',sans-serif; font-size:.65rem; letter-spacing:2px; text-transform:uppercase; opacity:.6; margin-bottom:2px; }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; }
+  .chip { font-size:.76rem; letter-spacing:.4px; padding:4px 11px; border-radius:20px; border:1px solid var(--line); background:rgba(255,255,255,.05); }
+  .chip.kat { border-color:var(--c); color:#fff; background:color-mix(in srgb, var(--c) 22%, transparent); }
+  .chip.her { border-color:#e58aa0; color:#ffd9e2; background:rgba(229,138,160,.14); }
+  .chip.his { border-color:#7fb3e6; color:#d6e9fb; background:rgba(127,179,230,.14); }
+  .karte { margin-left:auto; font-size:.8rem; opacity:.65; letter-spacing:1px; text-transform:uppercase; }
+
+  .optionen { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .opt { background:rgba(255,255,255,.035); border:1px solid var(--line); border-radius:10px; padding:12px 14px 14px; font-size:.95rem; }
+  .opt b { display:flex; align-items:center; gap:8px; font-size:.72rem; letter-spacing:1px; text-transform:uppercase; font-weight:600; color:var(--c); margin-bottom:6px; }
+  .opt b span { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--c); color:#000; font-size:.72rem; }
+  .opt em { display:block; font-style:normal; font-size:.72rem; opacity:.6; margin:-2px 0 6px; }
+
+  .unten { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  .status { flex:1 1 220px; font-size:.88rem; }
+  .status .alt { display:block; margin-top:2px; color:#f3e7c0; }
+  .btns { display:flex; gap:8px; flex:0 1 auto; }
+  .btns button { display:flex; align-items:center; gap:8px; padding:9px 14px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:var(--text); cursor:pointer; font-size:.88rem; transition:all .15s; }
+  .btns button:hover { border-color:var(--gold); }
+  .btns .e { font-size:1.25rem; line-height:1; }
+  .btns button.sel { color:#fff; font-weight:600; }
+  .btns button.sel.A { background:#2f7d51; border-color:#4fa874; }
+  .btns button.sel.B { background:#8a6d1c; border-color:#d4af37; }
+  .btns button.sel.C { background:#99303f; border-color:#c23b4c; }
+  .zeile.geaendert { box-shadow:0 0 0 1px rgba(212,175,55,.55), 0 8px 24px rgba(0,0,0,.35); }
+
+  .aktion { display:block; width:100%; max-width:520px; margin:12px auto 0; padding:14px; font-size:1.05rem; font-weight:600; border:none; border-radius:10px; background:linear-gradient(180deg,#d4af37,#b8932a); color:#1a1405; cursor:pointer; }
+  .aktion.zweit { background:transparent; border:1px solid var(--line); color:var(--text); font-weight:normal; font-size:.92rem; }
+  textarea { width:100%; max-width:820px; display:block; margin:14px auto 0; height:300px; background:#0b0b0f; color:#d6d6db; border:1px solid var(--line); border-radius:10px; padding:12px; font-family:Consolas,Menlo,monospace; font-size:.78rem; }
+  .hinweis { text-align:center; font-size:.85rem; opacity:.75; margin:12px 0 0; }
+  #meldung { text-align:center; min-height:1.4em; color:var(--gold); margin-top:10px; font-size:.9rem; }
+  .warn { background:rgba(212,175,55,.12); border:1px solid rgba(212,175,55,.4); color:#f3e7c0; padding:8px 12px; border-radius:8px; font-size:.85rem; margin-bottom:12px; }
+  @media (max-width: 700px) {
+    .optionen { grid-template-columns:1fr; }
+    .karte { margin-left:0; }
+    .btns { width:100%; } .btns button { flex:1; justify-content:center; padding:10px 6px; }
+    h1 { font-size:1.6rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Meine Bewertung</h1>
+    <p class="sub">Bewerte die Aufgaben, wann du willst. Am Ende erzeugst du daraus die fertige <b>er.js</b>.</p>
+  </header>
+  <div class="leiste"><div class="leiste-in">
+    <span id="zaehler">Bewertet: 0 von 24</span>
+    <div class="bar"><i id="balken"></i></div>
+    <span class="chip-diff" id="diff">Änderungen: 0</span>
+  </div></div>
+
+  <div id="liste"></div>
+
+  <button class="aktion" onclick="exportieren()">er.js erzeugen</button>
+  <button class="aktion zweit" onclick="ladeAusDatei(false, true)">Auswahl auf den Stand der er.js zurücksetzen</button>
+  <div id="meldung"></div>
+  <div id="exportBox" style="display:none;">
+    <textarea id="exportText" readonly></textarea>
+    <button class="aktion" onclick="kopieren()">In die Zwischenablage kopieren</button>
+    <button class="aktion zweit" onclick="herunterladen()">Als er.js herunterladen</button>
+    <p class="hinweis">Dann auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
+  </div>
+</div>
+
+<script>
+const TAGE = [{"d": 1, "k": 8, "c": 0, "w": "Sie"}, {"d": 2, "k": 23, "c": 0, "w": "Er"}, {"d": 3, "k": 10, "c": 0, "w": "Sie"}, {"d": 4, "k": 24, "c": 0, "w": "Er"}, {"d": 5, "k": 7, "c": 0, "w": "Sie"}, {"d": 6, "k": 20, "c": 0, "w": "Er"}, {"d": 7, "k": 3, "c": 1, "w": "Sie"}, {"d": 8, "k": 17, "c": 1, "w": "Er"}, {"d": 9, "k": 9, "c": 1, "w": "Sie"}, {"d": 10, "k": 18, "c": 1, "w": "Er"}, {"d": 11, "k": 12, "c": 1, "w": "Sie"}, {"d": 12, "k": 21, "c": 1, "w": "Er"}, {"d": 13, "k": 6, "c": 2, "w": "Sie"}, {"d": 14, "k": 14, "c": 2, "w": "Er"}, {"d": 15, "k": 4, "c": 2, "w": "Sie"}, {"d": 16, "k": 19, "c": 2, "w": "Er"}, {"d": 17, "k": 11, "c": 2, "w": "Sie"}, {"d": 18, "k": 22, "c": 2, "w": "Er"}, {"d": 19, "k": 1, "c": 3, "w": "Sie"}, {"d": 20, "k": 13, "c": 3, "w": "Er"}, {"d": 21, "k": 2, "c": 3, "w": "Sie"}, {"d": 22, "k": 16, "c": 3, "w": "Er"}, {"d": 23, "k": 5, "c": 3, "w": "Sie"}, {"d": 24, "k": 15, "c": 3, "w": "Er"}];
+const KAT = ["Kategorie 1 · Vorfreude & Verführung","Kategorie 2 · Spiel & Abenteuer","Kategorie 3 · Hingabe & Intensität","Kategorie 4 · Wild & Leidenschaftlich"];
+const KEY = "adventErEditor26";
+const SYM = { A: "👍", B: "😐", C: "👎" };
+const TXT = { A: "Gefiel mir", B: "War OK", C: "Nicht nochmal" };
+let wahl = {};            // { tag: "A" | "B" | "C" }
+let karten = null;        // Kartentexte aus data.js (nicht im Klartext in dieser Datei)
+let kartenStatus = "lädt";
+let base = {};            // Stand aus er.js (zum Vergleichen)
+
+function sichern() { try { localStorage.setItem(KEY, JSON.stringify(wahl)); } catch (e) {} }
+function laden() { try { const r = JSON.parse(localStorage.getItem(KEY) || "null"); if (r && typeof r === "object") { wahl = r; return true; } } catch (e) {} return false; }
+function meldung(t) { document.getElementById("meldung").innerText = t; }
+function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+function zeichne() {
+  const box = document.getElementById("liste");
+  box.innerHTML = "";
+  if (!karten) {
+    const w = document.createElement("div");
+    w.className = "warn";
+    w.innerText = kartenStatus === "lädt" ? "Kartentexte werden geladen …" : "Volle Kartentexte nicht geladen: " + kartenStatus;
+    box.appendChild(w);
+  }
+  TAGE.forEach(t => {
+    const w = wahl[t.d], bis = base[t.d];
+    const geaendert = (w || "") !== (bis || "");
+    const k = karten ? karten[t.k] : null;
+    const her = (k ? k.w : t.w) !== "Er";
+    const z = document.createElement("div");
+    z.className = "zeile k" + t.c + (geaendert ? " geaendert" : "");
+    const optionen = k
+      ? '<div class="optionen"><div class="opt"><b><span>A</span>Aufgabe</b>' + esc(k.a) + '</div>' +
+        '<div class="opt"><b><span>B</span>Alternative</b><em>wenn die Aufgabe nicht möglich ist</em>' + esc(k.b) + '</div></div>'
+      : '';
+    const aktuell = w ? SYM[w] + " " + TXT[w] : "noch nicht bewertet";
+    const alt = geaendert ? '<span class="alt">geändert · bisher in er.js: ' + (bis ? SYM[bis] + " " + TXT[bis] : "nicht bewertet") + '</span>' : "";
+    z.innerHTML =
+      '<div class="kopf"><div class="nr"><small>Türchen</small>' + t.d + '</div>' +
+      '<div class="chips"><span class="chip kat">' + esc(KAT[t.c]) + '</span>' +
+      '<span class="chip ' + (her ? "her" : "his") + '">' + (her ? "Her Pleasure" : "His Pleasure") + '</span></div>' +
+      '<div class="karte">Karte ' + t.k + '</div></div>' + optionen +
+      '<div class="unten"><div class="status">Aktuell: <b>' + aktuell + '</b>' + alt + '</div><div class="btns">' +
+      ["A","B","C"].map(b => '<button class="' + b + (w === b ? " sel" : "") + '" onclick="setze(' + t.d + ',\'' + b + '\')"><span class="e">' + SYM[b] + '</span><span>' + TXT[b] + '</span></button>').join("") +
+      '</div></div>';
+    box.appendChild(z);
+  });
+  const n = Object.keys(wahl).length;
+  const diff = TAGE.filter(t => (wahl[t.d] || "") !== (base[t.d] || "")).length;
+  document.getElementById("zaehler").innerText = "Bewertet: " + n + " von 24";
+  document.getElementById("balken").style.width = (n / 24 * 100) + "%";
+  const d = document.getElementById("diff");
+  d.innerText = "Änderungen gegenüber er.js: " + diff;
+  d.className = "chip-diff" + (diff ? " an" : "");
+}
+function setze(d, b) {
+  if (wahl[d] === b) delete wahl[d]; else wahl[d] = b;   // nochmal tippen = zurücknehmen
+  sichern(); zeichne();
+}
+
+function dateiInhalt() {
+  let s = '// ==========================================================\n' +
+    '//  ER-BEWERTUNG (Thilo)  -  wird erst ab dem 25. Dezember geladen\n' +
+    '//\n' +
+    '//  Trage hinter jedes Türchen einen Buchstaben in die Anführungszeichen:\n' +
+    '//     "A"  = 👍 Gefiel mir\n' +
+    '//     "B"  = 😐 War OK\n' +
+    '//     "C"  = 👎 Nicht nochmal\n' +
+    '//     ""   = (noch) nicht bewertet\n' +
+    '//  Nur den Buchstaben ändern, Anführungszeichen und Komma stehen lassen.\n' +
+    '//  Hinter // steht ein Stichpunkt zur Aufgabe (nur als Gedächtnisstütze).\n' +
+    '//  Datei danach im Repo speichern (Commit) - fertig.\n' +
+    '// ==========================================================\n' +
+    'window.ER_BEWERTUNG = {\n';
+  TAGE.forEach(t => {
+    const key = (t.d + ":").padEnd(4, " ");
+    s += "    " + key + '"' + (wahl[t.d] || "") + '",   // T' + t.d + " · Karte " + t.k + " \n";
+  });
+  return s + "};\n";
+}
+function exportieren() {
+  document.getElementById("exportText").value = dateiInhalt();
+  document.getElementById("exportBox").style.display = "";
+  document.getElementById("exportText").scrollIntoView({ behavior: "smooth", block: "center" });
+  meldung("er.js erzeugt (" + Object.keys(wahl).length + " Bewertungen).");
+}
+function kopieren() {
+  const ta = document.getElementById("exportText");
+  const fertig = () => meldung("Kopiert. Jetzt in GitHub einfügen.");
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(fertig, () => { ta.select(); document.execCommand("copy"); fertig(); });
+  else { ta.select(); document.execCommand("copy"); fertig(); }
+}
+function herunterladen() {
+  const blob = new Blob([dateiInhalt()], { type: "text/javascript" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "er.js";
+  document.body.appendChild(a); a.click(); a.remove();
+  meldung("er.js heruntergeladen.");
+}
+
+// er.js lesen: ergibt den Vergleichsstand (base); optional auch als aktuelle Auswahl übernehmen
+function ladeAusDatei(still, uebernehmen) {
+  window.ER_BEWERTUNG = undefined;
+  const sc = document.createElement("script");
+  sc.src = "er.js?x=" + Date.now();
+  sc.onload = function () {
+    const roh = window.ER_BEWERTUNG || {};
+    const neu = {};
+    Object.keys(roh).forEach(k => { const v = String(roh[k] || "").trim().toUpperCase(); if (SYM[v] && TAGE.some(t => t.d == k)) neu[Number(k)] = v; });
+    base = neu;
+    if (uebernehmen) { wahl = Object.assign({}, neu); sichern(); }
+    zeichne();
+    if (!still) meldung("Aus er.js eingelesen: " + Object.keys(neu).length + " Bewertungen.");
+  };
+  sc.onerror = function () { if (!still) meldung("er.js nicht gefunden."); };
+  document.head.appendChild(sc);
+}
+
+// Kartentexte aus data.js laden (dieselbe Datei wie bei der Auswertung)
+(function () {
+  const sc = document.createElement("script");
+  sc.src = "data.js?x=" + Date.now();
+  sc.onload = function () {
+    try {
+      if (!window.KARTEN_B64) throw new Error("data.js enthält keine Kartentexte (KARTEN_B64 fehlt) – evtl. alte Version von data.js im Repo?");
+      karten = JSON.parse(new TextDecoder("utf-8").decode(Uint8Array.from(atob(window.KARTEN_B64), c => c.charCodeAt(0))));
+      kartenStatus = "ok";
+    } catch (e) { kartenStatus = e.message; }
+    zeichne();
+  };
+  sc.onerror = function () { kartenStatus = "data.js nicht gefunden (muss im selben Ordner wie er-editor.html liegen)."; zeichne(); };
+  document.head.appendChild(sc);
+})();
+
+const hatGespeichert = laden();
+ladeAusDatei(true, !hatGespeichert);
+zeichne();
+</script>
+</body>
+</html>
