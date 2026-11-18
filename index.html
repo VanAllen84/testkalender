@@ -294,6 +294,60 @@
         .bew-label { font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; }
         .bew-ergebnis { font-size: 1.05rem; padding: 6px 0; }
         .bew-ergebnis .bew-spaeter { margin: 0 0 0 10px; }
+        /* --- Auswertung (neu) --- */
+        .aw-hero { text-align: center; margin: 4px 0 18px; }
+        .aw-hero .aw-lead { font-family: Georgia, serif; font-size: 1.15rem; color: #d4af37; letter-spacing: 1px; margin: 0 0 4px; }
+        .aw-hero .aw-sub { opacity: 0.8; font-size: 0.92rem; margin: 0; }
+        .aw-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 18px 0 6px; }
+        .aw-stat { border: 1px solid var(--border-glow); border-radius: 10px; padding: 10px 4px; text-align: center; background: rgba(255,255,255,0.03); }
+        .aw-stat .z { display: block; font-family: Georgia, serif; font-size: 1.7rem; line-height: 1.1; color: #fff; }
+        .aw-stat .t { display: block; font-size: 0.72rem; letter-spacing: 0.4px; opacity: 0.85; margin-top: 3px; }
+        .aw-matrix-box { margin: 22px 0 6px; padding: 14px 12px 12px; border: 1px solid var(--border-glow); border-radius: 12px; background: rgba(255,255,255,0.03); }
+        .aw-matrix-box h3 { margin: 0 0 4px; font-size: 1rem; text-align: center; }
+        .aw-matrix-box .hint { text-align: center; font-size: 0.8rem; opacity: 0.7; margin: 0 0 10px; }
+        .aw-matrix { display: grid; grid-template-columns: 40px repeat(3, 1fr); gap: 6px; align-items: stretch; }
+        .aw-matrix .ax { display: grid; place-items: center; font-size: 1.2rem; }
+        .aw-matrix .ax.ecke { font-size: 0.6rem; opacity: 0.6; letter-spacing: 0.3px; line-height: 1.2; text-align: center; }
+        .aw-cell { border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); color: #fff; font-family: Georgia, serif; font-size: 1.5rem; padding: 16px 0; cursor: pointer; background: var(--cc, rgba(255,255,255,0.06)); }
+        .aw-cell.leer { opacity: 0.35; cursor: default; }
+        .aw-cell.aktiv { outline: 2px solid #fff; outline-offset: 1px; }
+        .aw-gruppenkopf { display: flex; align-items: baseline; gap: 10px; margin: 28px 0 4px; }
+        .aw-gruppenkopf h3 { margin: 0; text-align: left; font-size: 1.15rem; color: var(--gc, #fff); }
+        .aw-gruppenkopf .n { opacity: 0.7; font-size: 0.9rem; }
+        .aw-gruppensub { font-size: 0.82rem; opacity: 0.7; margin: 0 0 10px; }
+        .aw-karte { --c: #8b78e6; display: grid; grid-template-columns: auto 1fr auto; gap: 8px 12px; align-items: start; margin: 10px 0; padding: 12px 14px 12px 12px; border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--c); border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); animation: awIn 0.9s ease both; animation-delay: calc(var(--i, 0) * 0.12s); }
+        .aw-karte .ak-nr { font-family: Georgia, serif; font-size: 1.9rem; line-height: 1; color: #fff; min-width: 2ch; text-align: center; }
+        .aw-karte .ak-nr small { display: block; font-family: 'Segoe UI', sans-serif; font-size: 0.55rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; }
+        .ak-chips { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
+        .ak-textbox { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.07); }
+        .ak-chip { font-size: 0.66rem; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
+        .ak-chip.her { border-color: #e58aa0; color: #ffd9e2; background: rgba(229,138,160,0.14); }
+        .ak-chip.his { border-color: #7fb3e6; color: #d6e9fb; background: rgba(127,179,230,0.14); }
+        .ak-chip.kat { border-color: var(--c); background: color-mix(in srgb, var(--c) 22%, transparent); }
+        .ak-text { font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .ak-text.offen { display: block; }
+        .ak-mehr { background: none; border: none; color: var(--accent-color); font-size: 0.78rem; padding: 4px 0 0; cursor: pointer; }
+        .ak-paar { display: flex; gap: 6px; }
+        .ak-kreis { width: 38px; text-align: center; }
+        .ak-kreis span { display: grid; place-items: center; width: 34px; height: 34px; margin: 0 auto; border-radius: 50%; font-size: 1.05rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); }
+        .ak-kreis small { display: block; font-size: 0.62rem; opacity: 0.65; margin-top: 2px; }
+        .aw-notiz { text-align: center; font-size: 0.82rem; opacity: 0.75; margin: 14px 0 0; line-height: 1.5; }
+        .aw-btn { display: block; width: 100%; padding: 15px; margin-top: 22px; font-size: 1.05rem; font-weight: 600; border: none; border-radius: 10px; background: linear-gradient(180deg, #d4af37, #b8932a); color: #1a1405; cursor: pointer; }
+        .aw-link { display: block; margin: 14px auto 0; background: none; border: none; color: var(--text-color); opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.88rem; }
+        .aw-intro { text-align: center; padding: 26px 6px 6px; }
+        .aw-intro .gross { font-size: 3rem; margin-bottom: 8px; }
+        .aw-intro h3 { margin: 0 0 10px; font-family: Georgia, serif; font-size: 1.45rem; color: #d4af37; }
+        .aw-intro p { line-height: 1.7; margin: 0 0 8px; }
+        .aw-reveal-kopf { text-align: center; padding: 18px 0 6px; animation: awIn 2.4s ease both; }
+        .aw-reveal-kopf .gross { font-size: 3.2rem; line-height: 1.1; }
+        .aw-reveal-kopf h3 { margin: 6px 0 4px; font-family: Georgia, serif; font-size: 1.7rem; color: var(--gc, #d4af37); letter-spacing: 1px; }
+        .aw-reveal-kopf .sub { opacity: 0.8; font-size: 0.92rem; }
+        .aw-punkte { display: flex; justify-content: center; gap: 7px; margin: 14px 0 4px; }
+        .aw-punkte i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+        .aw-punkte i.an { background: #d4af37; }
+        .aw-filterkopf { display: flex; justify-content: space-between; align-items: baseline; margin: 24px 0 4px; gap: 10px; }
+        @keyframes awIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+        @media (prefers-reduced-motion: reduce) { .aw-karte, .aw-reveal-kopf { animation: none; } }
         .ausw-zahlen { display: flex; justify-content: center; gap: 22px; margin: 16px 0 4px; font-size: 1.15rem; }
         .ausw-gruppe h3 { margin: 26px 0 8px; font-size: 1.05rem; text-align: left; }
         .ausw-item { border-left: 3px solid var(--accent-color); padding: 8px 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.04); border-radius: 6px; font-size: 0.92rem; line-height: 1.55; }
@@ -1103,33 +1157,51 @@
             if (Object.keys(er).length) { gemeinsameAuswertung(box, karten, bew, er); return; }
             // nur ihre Bewertungen
             const eintraege = [];
-            for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => { if (bew[d] && bew[d][v[0]] !== undefined) eintraege.push({ d: d, ver: v[0], val: bew[d][v[0]] }); });
+            for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => { if (bew[d] && bew[d][v[0]] !== undefined) eintraege.push({ d: d, ver: v[0], a: bew[d][v[0]] }); });
             if (!eintraege.length) {
                 box.innerHTML = '<p class="ausw-leer">Ihr habt noch nichts bewertet.<br>Du kannst jederzeit in einem Türchen nachholen, wie es war.</p>';
                 return;
             }
             const z = { "1": 0, "0": 0, "-1": 0 };
-            eintraege.forEach(e => z[String(e.val)]++);
+            eintraege.forEach(e => z[String(e.a)]++);
             const offen = geoeffnetListe().filter(d => !bew[d]).sort((a, b) => a - b);
-            let html = '<div class="ausw-zahlen"><span>👍 ' + z["1"] + '</span><span>😐 ' + z["0"] + '</span><span>👎 ' + z["-1"] + '</span></div>';
+            let html = '<div class="aw-hero"><p class="aw-sub">Das war dein Eindruck:</p></div>' +
+                '<div class="aw-stats"><div class="aw-stat"><span class="z">👍 ' + z["1"] + '</span><span class="t">Gefiel mir</span></div>' +
+                '<div class="aw-stat"><span class="z">😐 ' + z["0"] + '</span><span class="t">War OK</span></div>' +
+                '<div class="aw-stat"><span class="z">👎 ' + z["-1"] + '</span><span class="t">Nicht nochmal</span></div></div>';
             [["1", "👍 Gefiel mir"], ["0", "😐 War OK"], ["-1", "👎 Nicht nochmal"]].forEach(g => {
-                const liste = eintraege.filter(e => String(e.val) === g[0]);
+                const liste = eintraege.filter(e => String(e.a) === g[0]);
                 if (!liste.length) return;
-                html += '<div class="ausw-gruppe"><h3>' + g[1] + ' (' + liste.length + ')</h3>';
-                liste.forEach(e => { html += auswertungItem(karten, e.d, e.ver, ""); });
-                html += '</div>';
+                html += '<div class="aw-gruppenkopf"><h3>' + g[1] + '</h3><span class="n">' + liste.length + '</span></div>';
+                liste.forEach((e, i) => { html += auswKarte(karten, e, i); });
             });
-            if (offen.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Noch nicht bewertet: Türchen ' + offen.join(", ") + '</p>';
+            if (offen.length) html += '<p class="aw-notiz">Noch nicht bewertet: Türchen ' + offen.join(", ") + '</p>';
             box.innerHTML = html;
         }
-        // Ein Eintrag der Auswertung: nur die bewertete Version wird gezeigt
-        function auswertungItem(karten, d, ver, zusatz) {
-            const nr = calendarData[d].cardNum;
+        // --- Karten-Darstellung der Auswertung ---
+        const KAT_FARBE = ["#8b78e6", "#4fa874", "#d99b41", "#c23b4c"];
+        const KAT_KURZ = ["Vorfreude & Verführung", "Spiel & Abenteuer", "Hingabe & Intensität", "Wild & Leidenschaftlich"];
+        function auswKarte(karten, e, index) {
+            const nr = calendarData[e.d].cardNum;
             const k = karten ? karten[nr] : null;
-            const name = ver === "a" ? "Aufgabe" : "Alternative";
-            let html = '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + ' · ' + name + zusatz + '</div>';
-            if (k) html += '<div class="ausw-a">' + esc(ver === "a" ? k.a : k.b) + '</div>';
-            return html + '</div>';
+            const kat = calendarData[e.d].cat;
+            const her = k ? k.w !== "Er" : null;
+            let paar = '<div class="ak-kreis"><span>' + SYMBOL[String(e.a)] + '</span><small>Du</small></div>';
+            if (e.b !== undefined) paar += '<div class="ak-kreis"><span>' + SYMBOL[String(e.b)] + '</span><small>Ich</small></div>';
+            const text = k ? esc(e.ver === "a" ? k.a : k.b) : "";
+            return '<div class="aw-karte" style="--c:' + KAT_FARBE[kat] + '; --i:' + index + ';">' +
+                '<div class="ak-nr"><small>Türchen</small>' + e.d + '</div>' +
+                '<div class="ak-chips"><span class="ak-chip kat">' + KAT_KURZ[kat] + '</span>' +
+                (her === null ? '' : '<span class="ak-chip ' + (her ? "her" : "his") + '">' + (her ? "Her" : "His") + ' Pleasure</span>') +
+                '<span class="ak-chip">' + (e.ver === "a" ? "Aufgabe" : "Alternative") + '</span><span class="ak-chip">Karte ' + nr + '</span></div>' +
+                '<div class="ak-paar">' + paar + '</div>' +
+                (text ? '<div class="ak-textbox"><div class="ak-text">' + text + '</div><button class="ak-mehr" onclick="auswMehr(this)">mehr anzeigen</button></div>' : '') +
+                '</div>';
+        }
+        function auswMehr(btn) {
+            const t = btn.previousElementSibling;
+            const offen = t.classList.toggle("offen");
+            btn.innerText = offen ? "weniger anzeigen" : "mehr anzeigen";
         }
         // Gemeinsame Auswertung: beide Bewertungen zusammen, jede Version (Aufgabe / Alternative) einzeln
         const SYMBOL = { "1": "👍", "0": "😐", "-1": "👎" };
@@ -1142,38 +1214,116 @@
             if (s === -1) return 4;                           // Flops (😐 + 👎)
             return 5;                                         // No-Gos (👎 + 👎)
         }
+        const AW_GRUPPEN = [
+            { emoji: "🌟", name: "Top-Favoriten", sub: "Das haben wir beide richtig gut gefunden.", farbe: "#d4af37" },
+            { emoji: "💛", name: "Favoriten", sub: "Einer begeistert, der andere angetan.", farbe: "#e5a94a" },
+            { emoji: "🎭", name: "Geschmackssache", sub: "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden.", farbe: "#a594f0" },
+            { emoji: "🙂", name: "Solide", sub: "Okay für uns beide.", farbe: "#8fb3c7" },
+            { emoji: "⚠️", name: "Flops", sub: "Mindestens einer sagt „Nicht nochmal“.", farbe: "#e08a4d" },
+            { emoji: "🚫", name: "No-Gos", sub: "Beide: Nicht nochmal.", farbe: "#d9475b" }
+        ];
+        let AW = null;
         function gemeinsameAuswertung(box, karten, bew, er) {
-            const titel = [
-                ["🌟 Top-Favoriten", "Das haben wir beide richtig gut gefunden."],
-                ["💛 Favoriten", "Einer begeistert, der andere angetan."],
-                ["🎭 Geschmackssache", "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden."],
-                ["🙂 Solide", "Okay für uns beide."],
-                ["⚠️ Flops", "Mindestens einer sagt „Nicht nochmal“."],
-                ["🚫 No-Gos", "Beide: Nicht nochmal."]
-            ];
-            const gruppen = [[], [], [], [], [], []];
-            const nurDu = [], nurEr = [];
+            const items = [], nurDu = [], nurEr = [];
             const kurz = (d, ver) => d + (ver === "a" ? " (Aufgabe)" : " (Alternative)");
             for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => {
                 const ver = v[0];
                 const a = bew[d] ? bew[d][ver] : undefined, b = er[d] ? er[d][ver] : undefined;
-                if (a !== undefined && b !== undefined) gruppen[gruppeFuer(a, b)].push({ d: d, ver: ver, a: a, b: b });
+                if (a !== undefined && b !== undefined) items.push({ d: d, ver: ver, a: a, b: b, g: gruppeFuer(a, b) });
                 else if (a !== undefined) nurDu.push(kurz(d, ver));
                 else if (b !== undefined) nurEr.push(kurz(d, ver));
             });
-            let html = '<p class="ausw-leer" style="margin-top:4px;">Eure Bewertungen zusammen: du und ich.</p>';
-            gruppen.forEach((liste, i) => {
-                if (!liste.length) return;
-                html += '<div class="ausw-gruppe"><h3>' + titel[i][0] + ' (' + liste.length + ')</h3><div class="ausw-b" style="margin:-4px 0 8px;">' + titel[i][1] + '</div>';
-                liste.forEach(e => { html += auswertungItem(karten, e.d, e.ver, ' · Du ' + SYMBOL[String(e.a)] + ' · Ich ' + SYMBOL[String(e.b)]); });
-                html += '</div>';
-            });
-            if (nurDu.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von dir bewertet: Türchen ' + nurDu.join(", ") + '</p>';
-            if (nurEr.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von mir bewertet: Türchen ' + nurEr.join(", ") + '</p>';
             const offen = geoeffnetListe().filter(d => !bew[d] && !er[d]).sort((x, y) => x - y);
-            if (offen.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Noch von keinem bewertet: Türchen ' + offen.join(", ") + '</p>';
-            if (!gruppen.some(g => g.length)) html = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + html;
-            box.innerHTML = html;
+            AW = { box: box, karten: karten, items: items, nurDu: nurDu, nurEr: nurEr, offen: offen, schritt: -1, filter: null };
+            AW.schritte = [0, 1, 2, 3, 4, 5].filter(g => items.some(e => e.g === g));
+            if (!items.length) {
+                box.innerHTML = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + awNotizen();
+                return;
+            }
+            awZeichne();
+        }
+        function awNotizen() {
+            let h = "";
+            if (AW.nurDu.length) h += '<p class="aw-notiz">Bisher nur von dir bewertet: Türchen ' + AW.nurDu.join(", ") + '</p>';
+            if (AW.nurEr.length) h += '<p class="aw-notiz">Bisher nur von mir bewertet: Türchen ' + AW.nurEr.join(", ") + '</p>';
+            if (AW.offen.length) h += '<p class="aw-notiz">Noch von keinem bewertet: Türchen ' + AW.offen.join(", ") + '</p>';
+            return h;
+        }
+        function awZeichne() {
+            if (AW.schritt === -1) awIntro();
+            else if (AW.schritt >= AW.schritte.length) awUebersicht();
+            else awSchritt();
+        }
+        function awIntro() {
+            AW.box.innerHTML = '<div class="aw-intro"><div class="gross">🎁</div><h3>Jetzt wird es spannend</h3>' +
+                '<p>Du hast bewertet, ich habe bewertet. Mal sehen, wo wir uns einig sind und wo nicht.</p>' +
+                '<p>Ich zeige dir Schritt für Schritt, wie es ausgegangen ist.</p></div>' +
+                '<button class="aw-btn" onclick="awWeiter()">Enthüllen</button>' +
+                '<button class="aw-link" onclick="awAlles()">Alles direkt anzeigen</button>';
+            window.scrollTo(0, 0);
+        }
+        function awSchritt() {
+            const gi = AW.schritte[AW.schritt];
+            const g = AW_GRUPPEN[gi];
+            const liste = AW.items.filter(e => e.g === gi);
+            let h = '<div class="aw-punkte">' + AW.schritte.map((x, i) => '<i class="' + (i === AW.schritt ? "an" : "") + '"></i>').join("") + '</div>' +
+                '<div class="aw-reveal-kopf" style="--gc:' + g.farbe + ';"><div class="gross">' + g.emoji + '</div><h3>' + g.name + '</h3>' +
+                '<div class="sub">' + liste.length + (liste.length === 1 ? " Aufgabe" : " Aufgaben") + ' · ' + g.sub + '</div></div>';
+            liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i + 4); });
+            const letzter = AW.schritt === AW.schritte.length - 1;
+            const naechste = letzter ? null : AW_GRUPPEN[AW.schritte[AW.schritt + 1]];
+            h += '<button class="aw-btn" onclick="awWeiter()">' + (letzter ? "Zur Übersicht" : "Weiter: " + naechste.emoji + " " + naechste.name) + '</button>' +
+                '<button class="aw-link" onclick="awAlles()">Alles direkt anzeigen</button>';
+            AW.box.innerHTML = h;
+            window.scrollTo(0, 0);
+        }
+        function awWeiter() { AW.schritt++; awZeichne(); }
+        function awAlles() { AW.schritt = AW.schritte.length; awZeichne(); }
+        function awFilter(a, b) {
+            const f = AW.filter;
+            AW.filter = (f && f.a === a && f.b === b) ? null : { a: a, b: b };
+            awUebersicht(true);
+        }
+        function awUebersicht(ohneScroll) {
+            const items = AW.items, gc = [0, 0, 0, 0, 0, 0];
+            items.forEach(e => gc[e.g]++);
+            const ges = items.length;
+            const einig = items.filter(e => e.a === e.b).length;
+            let h = '<div class="aw-hero"><p class="aw-lead">Das ist eure Auswertung</p>' +
+                '<p class="aw-sub">' + ges + (ges === 1 ? " Aufgabe" : " Aufgaben") + ' habt ihr beide bewertet, bei ' + einig + ' wart ihr euch einig.</p></div>' +
+                '<div class="aw-stats">' + AW_GRUPPEN.map((g, i) => '<div class="aw-stat" style="border-color:' + g.farbe + '55;"><span class="z" style="color:' + g.farbe + ';">' + gc[i] + '</span><span class="t">' + g.emoji + ' ' + g.name + '</span></div>').join("") + '</div>';
+            const vals = [1, 0, -1];
+            h += '<div class="aw-matrix-box"><h3>Du und ich</h3><p class="hint">Tippe auf ein Feld, um nur diese Aufgaben zu sehen.</p><div class="aw-matrix">' +
+                '<div class="ax ecke">Du ↓<br>Ich →</div>' + vals.map(v => '<div class="ax">' + SYMBOL[String(v)] + '</div>').join("");
+            vals.forEach(a => {
+                h += '<div class="ax">' + SYMBOL[String(a)] + '</div>';
+                vals.forEach(b => {
+                    const n = items.filter(e => e.a === a && e.b === b).length;
+                    const farbe = AW_GRUPPEN[gruppeFuer(a, b)].farbe;
+                    const aktiv = AW.filter && AW.filter.a === a && AW.filter.b === b;
+                    h += '<button class="aw-cell' + (n ? "" : " leer") + (aktiv ? " aktiv" : "") + '" style="--cc:' + farbe + '3d;"' + (n ? ' onclick="awFilter(' + a + ',' + b + ')"' : ' disabled') + '>' + n + '</button>';
+                });
+            });
+            h += '</div></div>';
+            if (AW.filter) {
+                const liste = items.filter(e => e.a === AW.filter.a && e.b === AW.filter.b);
+                const g = AW_GRUPPEN[gruppeFuer(AW.filter.a, AW.filter.b)];
+                h += '<div class="aw-filterkopf" id="awFilterKopf"><div class="aw-gruppenkopf" style="margin:0;--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">Du ' + SYMBOL[String(AW.filter.a)] + ' · Ich ' + SYMBOL[String(AW.filter.b)] + ' · ' + liste.length + '</span></div>' +
+                    '<button class="aw-link" style="margin:0;" onclick="awFilter(' + AW.filter.a + ',' + AW.filter.b + ')">Alle zeigen</button></div>';
+                liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i); });
+            } else {
+                AW_GRUPPEN.forEach((g, gi) => {
+                    const liste = items.filter(e => e.g === gi);
+                    if (!liste.length) return;
+                    h += '<div class="aw-gruppenkopf" style="--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">' + liste.length + '</span></div><div class="aw-gruppensub">' + g.sub + '</div>';
+                    liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i); });
+                });
+            }
+            h += awNotizen();
+            h += '<button class="aw-link" onclick="AW.schritt = -1; AW.filter = null; awZeichne();">Enthüllung noch einmal ansehen</button>';
+            AW.box.innerHTML = h;
+            if (!ohneScroll) window.scrollTo(0, 0);
+            else if (AW.filter) { const k = document.getElementById("awFilterKopf"); if (k) k.scrollIntoView({ behavior: "smooth", block: "start" }); }
         }
 
         // --- Finale ---
