@@ -688,6 +688,7 @@
             element.classList.add('selected');
         }
 
+        let landingBildFlag = false;
         function resetToLanding() {
             document.getElementById("finaleScreen").classList.add("hidden");
             document.getElementById("auswertungScreen").classList.add("hidden");
@@ -696,6 +697,8 @@
             document.getElementById("calendar-overview").classList.add("hidden");
             document.getElementById("landingScreen").classList.remove("hidden");
             applyLandingTheme();
+            // Bild der Startseite blendet bei jedem Besuch neu ein
+            if (landingBildFlag) { requestAnimationFrame(function () { bildEinblenden(document.getElementById("landingBild")); }); }
         }
 
         function startStory() {
@@ -1131,7 +1134,7 @@
                 const box = document.getElementById("landingBild");
                 const img = document.getElementById("landingBildImg");
                 if (!box || !img) return;
-                img.onload = function () { box.style.display = ""; void box.offsetWidth; box.classList.add("sichtbar"); };
+                img.onload = function () { box.style.display = ""; landingBildFlag = true; bildEinblenden(box); };
                 img.onerror = function () { box.style.display = "none"; };
                 img.src = "bilder/landing.jpg";
             })();
