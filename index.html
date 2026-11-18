@@ -1444,6 +1444,17 @@
             karteninfoSetzen(day, periodActive);
         }
 
+        // --- Datumswechsel: Kommt die Seite aus dem Hintergrund zurück und es ist ein neuer Tag, wird neu geladen ---
+        // (Auswahl und Bewertungen bleiben im Browser gespeichert.)
+        (function () {
+            function tagKey() { const d = jetzt(); return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate(); }
+            const geladenAm = tagKey();
+            function pruefen() { if (tagKey() !== geladenAm) location.reload(); }
+            document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") pruefen(); });
+            window.addEventListener("pageshow", function (e) { if (e.persisted) pruefen(); });
+            window.addEventListener("focus", pruefen);
+        })();
+
         window.onload = function() {
             determineActiveDay();
             applyLandingTheme(); 
