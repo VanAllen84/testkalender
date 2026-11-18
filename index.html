@@ -296,6 +296,9 @@
         .ausw-kopf { font-size: 0.78rem; letter-spacing: 0.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; }
         .ausw-item .ausw-b { opacity: 0.75; margin-top: 6px; font-size: 0.86rem; }
         .ausw-leer { text-align: center; opacity: 0.8; margin: 24px 0; line-height: 1.6; }
+        .teaser-morgen { margin: 0 0 26px; padding: 16px 18px; border: 1px solid #d4af37; border-radius: 10px; background: rgba(212, 175, 55, 0.08); color: #f3e7c0; font-size: 1.05rem; line-height: 1.6; text-align: center; animation: teaserGlimmer 3.5s ease-in-out infinite; }
+        .teaser-morgen strong { display: block; font-family: serif; font-size: 1.25rem; letter-spacing: 1px; color: #d4af37; margin-bottom: 4px; }
+        @keyframes teaserGlimmer { 0%, 100% { box-shadow: 0 0 6px rgba(212, 175, 55, 0.15); } 50% { box-shadow: 0 0 22px rgba(212, 175, 55, 0.5); } }
         .finale-text p { line-height: 1.8; text-align: center; margin: 0 0 16px; }
         .finale-text .signatur { font-style: italic; margin-top: 22px; }
 
@@ -362,14 +365,17 @@
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
                     3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
-                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
+                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Möchtest du die Aufgabe erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
                 </div>
+
+                <p style="text-align: center; font-size: 0.88rem; opacity: 0.8;">Lässt sich ein Türchen nicht öffnen, obwohl der Tag schon da ist? Dann stimmt vermutlich das Datum auf deinem Handy nicht. Oder sprich mich einfach an.</p>
 
                 <p style="text-align: center; font-style: italic; color: var(--text-color);">Der Raum verdunkelt sich, die Erwartung steigt. Bist du bereit, tief in die Geschichten einzutauchen?</p>
             </div>
 
             <!-- Führt zur Türchen-Zwischenseite -->
             <button class="btn-primary" onclick="zeigeTuerenUebersicht()">Tauche ein in den Advent!</button>
+            <button class="btn-primary auswertung-link" style="margin-top: 12px; display: none; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeAuswertung()">Zur Auswertung der Favoriten</button>
 
             <details class="app-tipp" id="erinnerungTipp">
                 <summary>🔔 Tipp: Tägliche Erinnerung im Handy-Kalender</summary>
@@ -407,6 +413,10 @@
         <!-- --- Die Türchen-Zwischenseite --- -->
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
+            <div class="teaser-morgen" id="teaserMorgen" style="display: none;">
+                <strong>✨ Morgen wartet noch etwas auf dich</strong>
+                Schau am 25. Dezember noch einmal vorbei.
+            </div>
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
@@ -483,6 +493,11 @@
                 </div>
             </div>
 
+            <div class="teaser-morgen" id="teaserMorgenStory" style="display: none; margin: 25px 0 0;">
+                <strong>✨ Morgen wartet noch etwas auf dich</strong>
+                Schau am 25. Dezember noch einmal vorbei.
+            </div>
+
             <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
             <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
@@ -506,7 +521,8 @@
                 <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich!</p>
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
-            <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
+            <button class="btn-primary auswertung-link" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
+            <button class="btn-primary" style="margin-top: 12px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
 
     </div>
@@ -857,6 +873,7 @@
             loadStoryContent(currentDay, selectedVibe, hasPeriod);
             bewertungUI();
             bannerAktualisieren();
+            teaserAktualisieren();
         }
         function oeffneTag(day) {
             currentDay = day;
@@ -960,7 +977,7 @@
         // Abfrage zum Vortag: oben auf der Geschichtsseite, vor dem Text
         let bannerTag = null;
         let bannerEdit = false;
-        const BEW_TEXT = { "1": "👍 Gefallen", "0": "😐 Ging so", "-1": "👎 Eher nicht" };
+        const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
         function bannerKandidat() {
             const geoeffnet = geoeffnetListe();
             if (!geoeffnet.length) return null;
@@ -1003,8 +1020,10 @@
             bannerRendern();
         }
         function auswertungButtonAktualisieren() {
+            const an = alleFreigegeben();
             const b = document.getElementById("btnAuswertung");
-            if (b) b.style.display = alleFreigegeben() ? "" : "none";
+            if (b) b.style.display = an ? "" : "none";
+            document.querySelectorAll(".auswertung-link").forEach(e => { e.style.display = an ? "" : "none"; });
         }
         // Kartentexte werden erst für die Auswertung geladen (data.js)
         function kartenLaden(cb) {
@@ -1023,18 +1042,39 @@
             } catch (e) { return null; }
         }
         function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+        // Bewertung von Thilo (er.js, wird nur für die Auswertung ab dem 25.12. geladen)
+        function erLaden(cb) {
+            if (window.ER_BEWERTUNG) { cb(); return; }
+            const sc = document.createElement("script");
+            sc.src = "er.js";
+            sc.onload = cb;
+            sc.onerror = function () { cb(); };
+            document.head.appendChild(sc);
+        }
+        function erDaten() {
+            const m = { A: 1, B: 0, C: -1 };
+            const roh = window.ER_BEWERTUNG || {};
+            const out = {};
+            Object.keys(roh).forEach(k => {
+                const v = String(roh[k] || "").trim().toUpperCase();
+                if (m.hasOwnProperty(v) && calendarData[k]) out[Number(k)] = m[v];
+            });
+            return out;
+        }
         function zeigeAuswertung() {
             alleScreensAus();
             applyFinaleTheme();
             document.getElementById("auswertungScreen").classList.remove("hidden");
             const box = document.getElementById("auswertungInhalt");
             box.innerHTML = '<p class="ausw-leer">Einen Moment...</p>';
-            kartenLaden(function () { auswertungRendern(); });
+            kartenLaden(function () { erLaden(function () { auswertungRendern(); }); });
         }
         function auswertungRendern() {
             const box = document.getElementById("auswertungInhalt");
             const karten = kartenDaten();
             const bew = bewertungAlle();
+            const er = erDaten();
+            if (Object.keys(er).length) { gemeinsameAuswertung(box, karten, bew, er); return; }
             const tage = Object.keys(bew).map(Number).filter(d => calendarData[d]).sort((a, b) => a - b);
             if (!tage.length) {
                 box.innerHTML = '<p class="ausw-leer">Ihr habt noch keine Aufgabe bewertet.<br>Du kannst jederzeit in einem Türchen nachholen, wie die Aufgabe war.</p>';
@@ -1044,7 +1084,7 @@
             tage.forEach(d => z[String(bew[d])]++);
             const nichtBewertet = geoeffnetListe().filter(d => bew[d] === undefined).sort((a, b) => a - b);
             let html = '<div class="ausw-zahlen"><span>👍 ' + z["1"] + '</span><span>😐 ' + z["0"] + '</span><span>👎 ' + z["-1"] + '</span></div>';
-            const gruppen = [["1", "👍 Das hat dir gefallen"], ["0", "😐 Ging so"], ["-1", "👎 Eher nicht"]];
+            const gruppen = [["1", "👍 Gefiel mir"], ["0", "😐 War OK"], ["-1", "👎 Nicht nochmal"]];
             gruppen.forEach(g => {
                 const liste = tage.filter(d => String(bew[d]) === g[0]);
                 if (!liste.length) return;
@@ -1064,6 +1104,58 @@
             if (nichtBewertet.length) {
                 html += '<p class="ausw-leer" style="margin-bottom:0;">Noch nicht bewertet: Türchen ' + nichtBewertet.join(", ") + '</p>';
             }
+            box.innerHTML = html;
+        }
+
+        // Gemeinsame Auswertung: beide Bewertungen zusammen
+        const SYMBOL = { "1": "👍", "0": "😐", "-1": "👎" };
+        function gruppeFuer(a, b) {
+            const s = a + b;
+            if (a === 1 && b === 1) return 0;                 // Top-Favoriten
+            if (s === 1) return 1;                            // Favoriten (👍 + 😐)
+            if (a !== b && s === 0 && a !== 0) return 2;      // Geschmackssache (👍 + 👎)
+            if (a === 0 && b === 0) return 3;                 // Solide
+            if (s === -1) return 4;                           // Flops (😐 + 👎)
+            return 5;                                         // No-Gos (👎 + 👎)
+        }
+        function gemeinsameAuswertung(box, karten, bew, er) {
+            const titel = [
+                ["🌟 Top-Favoriten", "Das haben wir beide richtig gut gefunden."],
+                ["💛 Favoriten", "Einer begeistert, der andere angetan."],
+                ["🎭 Geschmackssache", "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden."],
+                ["🙂 Solide", "Okay für uns beide."],
+                ["⚠️ Flops", "Mindestens einer sagt „Nicht nochmal“."],
+                ["🚫 No-Gos", "Beide: Nicht nochmal."]
+            ];
+            const gruppen = [[], [], [], [], [], []];
+            const nurDu = [], nurEr = [];
+            for (let d = 1; d <= 24; d++) {
+                const a = bew[d], b = er[d];
+                if (a !== undefined && b !== undefined) gruppen[gruppeFuer(a, b)].push(d);
+                else if (a !== undefined) nurDu.push(d);
+                else if (b !== undefined) nurEr.push(d);
+            }
+            let html = '<p class="ausw-leer" style="margin-top:4px;">Eure Bewertungen zusammen: du und ich.</p>';
+            gruppen.forEach((liste, i) => {
+                if (!liste.length) return;
+                html += '<div class="ausw-gruppe"><h3>' + titel[i][0] + ' (' + liste.length + ')</h3><div class="ausw-b" style="margin:-4px 0 8px;">' + titel[i][1] + '</div>';
+                liste.forEach(d => {
+                    const nr = calendarData[d].cardNum;
+                    const k = karten ? karten[nr] : null;
+                    html += '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + ' · Du ' + SYMBOL[String(bew[d])] + ' · Ich ' + SYMBOL[String(er[d])] + '</div>';
+                    if (k) {
+                        html += '<div class="ausw-a"><b>Aufgabe:</b> ' + esc(k.a) + '</div>';
+                        html += '<div class="ausw-b"><b>Alternative:</b> ' + esc(k.b) + '</div>';
+                    }
+                    html += '</div>';
+                });
+                html += '</div>';
+            });
+            if (nurDu.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von dir bewertet: Türchen ' + nurDu.join(", ") + '</p>';
+            if (nurEr.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von mir bewertet: Türchen ' + nurEr.join(", ") + '</p>';
+            const offen = geoeffnetListe().filter(d => bew[d] === undefined && er[d] === undefined).sort((x, y) => x - y);
+            if (offen.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Noch von keinem bewertet: Türchen ' + offen.join(", ") + '</p>';
+            if (!gruppen.some(g => g.length)) html = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + html;
             box.innerHTML = html;
         }
 
@@ -1129,6 +1221,7 @@
                 obs.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] });
             });
             seiteAktualisieren();
+            auswertungButtonAktualisieren();
 
             // Bild der Startseite (optional: bilder/landing.jpg)
             (function () {
@@ -1257,6 +1350,17 @@
             
             document.getElementById("calendar-overview").classList.remove("hidden");
             applyLandingTheme();
+            // Am 24. Dezember: Vorfreude auf den 25.
+            teaserAktualisieren();
+        }
+        // Hinweis auf den 25.: nur am 24. Dezember, auf der Türchen-Übersicht und auf der Seite von Türchen 24
+        function teaserAktualisieren() {
+            const h = jetzt();
+            const am24 = h.getFullYear() === 2026 && h.getMonth() === 11 && h.getDate() === 24;
+            const a = document.getElementById("teaserMorgen");
+            if (a) a.style.display = am24 ? "" : "none";
+            const b = document.getElementById("teaserMorgenStory");
+            if (b) b.style.display = (am24 && currentDay === 24) ? "" : "none";
         }
     </script>
 </body>
