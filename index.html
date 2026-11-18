@@ -290,6 +290,10 @@
         .bew-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 4px; font-size: 0.8rem; }
         .bew-btn .emoji { font-size: 1.6rem; line-height: 1.2; }
         .bew-spaeter { margin-top: 10px; background: none; border: none; color: var(--text-color); opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.85rem; }
+        .bew-zeile { margin-top: 14px; text-align: left; }
+        .bew-label { font-size: 0.78rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.8; margin-bottom: 6px; }
+        .bew-ergebnis { font-size: 1.05rem; padding: 6px 0; }
+        .bew-ergebnis .bew-spaeter { margin: 0 0 0 10px; }
         .ausw-zahlen { display: flex; justify-content: center; gap: 22px; margin: 16px 0 4px; font-size: 1.15rem; }
         .ausw-gruppe h3 { margin: 26px 0 8px; font-size: 1.05rem; text-align: left; }
         .ausw-item { border-left: 3px solid var(--accent-color); padding: 8px 12px; margin: 10px 0; background: rgba(255, 255, 255, 0.04); border-radius: 6px; font-size: 0.92rem; line-height: 1.55; }
@@ -365,7 +369,7 @@
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
                     3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
-                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Möchtest du die Aufgabe erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
+                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte, was ihr gemacht habt (die Aufgabe, die Alternative oder beides), jeweils mit einem Daumen. Möchtest du es erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
                 </div>
 
                 <p style="text-align: center; font-size: 0.88rem; opacity: 0.8;">Lässt sich ein Türchen nicht öffnen, obwohl der Tag schon da ist? Dann stimmt vermutlich das Datum auf deinem Handy nicht. Oder sprich mich einfach an.</p>
@@ -456,19 +460,11 @@
         <!-- STEP 2: Die Geschichte / Der Teaser -->
         <div id="storyScreen" class="hidden">
             <div class="gestern-banner" id="gesternBanner" style="display:none;">
-                <div class="bewertung-frage" id="gesternText">Wie war die gestrige Aufgabe?</div>
-                <div class="bewertung-hinweis" id="gesternHinweis">Ein kurzes Feedback für eure Auswertung am Ende.</div>
-                <div class="bewertung-buttons" id="gesternButtons">
-                    <button class="btn-option bew-btn" data-gb="1" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefiel mir</span></button>
-                    <button class="btn-option bew-btn" data-gb="0" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>War OK</span></button>
-                    <button class="btn-option bew-btn" data-gb="-1" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Nicht nochmal</span></button>
-                </div>
-                <div id="gesternZusammenfassung" style="display:none; font-size: 1.05rem;">
-                    <span id="gesternWahl"></span>
-                    <button class="bew-spaeter" style="margin: 0 0 0 10px;" onclick="bannerAendern()">Ändern</button>
-                </div>
+                <div class="bewertung-frage" id="gesternText">Wie war gestern die Aufgabe?</div>
+                <div class="bewertung-hinweis" id="gesternHinweis">Bewerte, was ihr gemacht habt: die Aufgabe, die Alternative oder beides.</div>
+                <div id="gesternZeilen"></div>
             </div>
-            <h2 id="storyTitle">Türchen <span id="storyDayNum">1</span></h2>
+                        <h2 id="storyTitle">Türchen <span id="storyDayNum">1</span></h2>
             <div class="story-text" id="storyContent">
                 <!-- Dynamischer Text -->
             </div>
@@ -483,14 +479,9 @@
             <div class="story-bild" id="storyBild" style="display:none;"><img id="storyBildImg" alt="" src=""></div>
 
             <div class="bewertung-box" id="bewertungBox">
-                <div class="bewertung-frage">Wie war die Aufgabe?</div>
-                <div class="bewertung-hinweis" id="bewertungHinweis">Du kannst hier nachtragen, wie die Aufgabe war. Am Ende gibt es eine Auswertung.</div>
-                <div id="bewertungFest" style="display:none; font-size: 1.05rem; margin-top: 6px;"></div>
-                <div class="bewertung-buttons" id="bewertungButtons">
-                    <button class="btn-option bew-btn" data-b="1" onclick="bewerteTag(1)"><span class="emoji">👍</span><span>Gefiel mir</span></button>
-                    <button class="btn-option bew-btn" data-b="0" onclick="bewerteTag(0)"><span class="emoji">😐</span><span>War OK</span></button>
-                    <button class="btn-option bew-btn" data-b="-1" onclick="bewerteTag(-1)"><span class="emoji">👎</span><span>Nicht nochmal</span></button>
-                </div>
+                <div class="bewertung-frage">Wie war es?</div>
+                <div class="bewertung-hinweis" id="bewertungHinweis">Bewerte, was ihr gemacht habt: die Aufgabe, die Alternative oder beides. Das geht auch später noch. Am Ende gibt es eine Auswertung.</div>
+                <div id="bewertungZeilen"></div>
             </div>
 
             <div class="teaser-morgen" id="teaserMorgenStory" style="display: none; margin: 25px 0 0;">
@@ -910,59 +901,79 @@
         // Bewertung der Aufgaben (Daumen) und Auswertung
         // ==========================================
         const bewMem = {};
-        const spaeterMem = {};
-        function bewertungAlle() {
+        const VERSIONEN = [["a", "Die Aufgabe"], ["b", "Die Alternative"]];
+        // Gespeichert wird pro Türchen und Version: { tag: { a: 1|0|-1, b: 1|0|-1 } }
+        function bewertungRoh() {
             let b = {};
             try { b = JSON.parse(localStorage.getItem("adventBewertung26") || "{}") || {}; } catch (e) {}
-            return Object.assign({}, bewMem, b);
+            return b;
         }
-        function bewertungSetzen(day, val) {
-            // val: 1, 0, -1 oder null (löschen)
-            if (val === null) delete bewMem[day]; else bewMem[day] = val;
+        function bewertungAlle() {
+            const roh = Object.assign({}, bewMem, bewertungRoh());
+            const out = {};
+            Object.keys(roh).forEach(k => {
+                const v = roh[k];
+                if (v === null || v === undefined) return;
+                if (typeof v === "number") out[k] = { a: v };              // ältere Form: nur eine Bewertung = Aufgabe
+                else if (typeof v === "object") { const o = {}; if (typeof v.a === "number") o.a = v.a; if (typeof v.b === "number") o.b = v.b; if (o.a !== undefined || o.b !== undefined) out[k] = o; }
+            });
+            return out;
+        }
+        function bewertungSetzen(day, ver, val) {
+            // ver: "a" | "b"; val: 1, 0, -1 oder null (löschen)
+            const alle = bewertungAlle();
+            const eintrag = Object.assign({}, alle[day] || {});
+            if (val === null) delete eintrag[ver]; else eintrag[ver] = val;
+            if (eintrag.a === undefined && eintrag.b === undefined) delete bewMem[day]; else bewMem[day] = eintrag;
             try {
-                let b = {};
-                try { b = JSON.parse(localStorage.getItem("adventBewertung26") || "{}") || {}; } catch (e) {}
-                if (val === null) delete b[day]; else b[day] = val;
+                const b = bewertungRoh();
+                if (eintrag.a === undefined && eintrag.b === undefined) delete b[day]; else b[day] = eintrag;
                 localStorage.setItem("adventBewertung26", JSON.stringify(b));
             } catch (e) {}
         }
-        function spaeterListe() {
-            let l = [];
-            try { l = JSON.parse(localStorage.getItem("adventSpaeter26") || "[]") || []; } catch (e) {}
-            return l.concat(Object.keys(spaeterMem).map(Number));
+        const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
+        // Zeilen (Aufgabe / Alternative) für Banner oder Kasten zeichnen
+        // modus "banner": bewertet = Ergebnis + "Ändern"; modus "kasten": bewertet = festgeschrieben (außer ab 25.12.)
+        function bewertungZeilenHtml(day, modus) {
+            const alle = bewertungAlle()[day] || {};
+            let html = "";
+            VERSIONEN.forEach(v => {
+                const ver = v[0];
+                const val = alle[ver];
+                const hat = val !== undefined;
+                let editierbar;
+                if (modus === "banner") editierbar = !hat || bannerEdit[ver];
+                else editierbar = !hat || alleFreigegeben();
+                html += '<div class="bew-zeile"><div class="bew-label">' + v[1] + '</div>';
+                if (editierbar) {
+                    html += '<div class="bewertung-buttons">';
+                    [["1", "👍", "Gefiel mir"], ["0", "😐", "War OK"], ["-1", "👎", "Nicht nochmal"]].forEach(b => {
+                        html += '<button class="btn-option bew-btn' + (hat && String(val) === b[0] ? " selected" : "") + '" onclick="bewerteVersion(' + day + ',\'' + ver + '\',' + b[0] + ',\'' + modus + '\')"><span class="emoji">' + b[1] + '</span><span>' + b[2] + '</span></button>';
+                    });
+                    html += '</div>';
+                } else if (modus === "banner") {
+                    html += '<div class="bew-ergebnis">' + BEW_TEXT[String(val)] + '<button class="bew-spaeter" onclick="bannerAendern(\'' + ver + '\')">Ändern</button></div>';
+                } else {
+                    html += '<div class="bew-ergebnis">Deine Bewertung: ' + BEW_TEXT[String(val)] + '</div>';
+                }
+                html += '</div>';
+            });
+            return html;
         }
-        function spaeterMerken(day) {
-            spaeterMem[day] = true;
-            try {
-                let l = [];
-                try { l = JSON.parse(localStorage.getItem("adventSpaeter26") || "[]") || []; } catch (e) {}
-                if (l.indexOf(day) < 0) l.push(day);
-                localStorage.setItem("adventSpaeter26", JSON.stringify(l));
-            } catch (e) {}
+        function bewerteVersion(day, ver, val, modus) {
+            const aktuell = (bewertungAlle()[day] || {})[ver];
+            // im Kasten: nochmal tippen nimmt die Bewertung zurück (nur dort, wo Ändern erlaubt ist)
+            bewertungSetzen(day, ver, (modus === "kasten" && aktuell === val) ? null : val);
+            if (modus === "banner") bannerEdit[ver] = false;
+            bewertungUI();
+            if (bannerTag !== null) bannerRendern();
         }
         function bewertungUI() {
             const kasten = document.getElementById("bewertungBox");
             if (!kasten) return;
             const vergangen = alleFreigegeben() || tagVergangen(currentDay);
             kasten.style.display = vergangen ? "" : "none";
-            const b = bewertungAlle()[currentDay];
-            const hat = b !== undefined;
-            // Eine abgegebene Bewertung ist festgeschrieben (Ändern nur am Tag der Bewertung, oder ab dem 25.12. möglich)
-            const aenderbar = alleFreigegeben() || !hat;
-            document.getElementById("bewertungButtons").style.display = aenderbar ? "" : "none";
-            document.getElementById("bewertungHinweis").style.display = aenderbar ? "" : "none";
-            const fest = document.getElementById("bewertungFest");
-            fest.style.display = aenderbar ? "none" : "";
-            fest.innerText = hat ? "Deine Bewertung: " + BEW_TEXT[String(b)] : "";
-            document.querySelectorAll("#bewertungBox [data-b]").forEach(btn => {
-                btn.classList.toggle("selected", hat && String(b) === btn.dataset.b);
-            });
-        }
-        function bewerteTag(val) {
-            const aktuell = bewertungAlle()[currentDay];
-            bewertungSetzen(currentDay, aktuell === val ? null : val);
-            bewertungUI();
-            if (bannerTag !== null) bannerRendern();
+            document.getElementById("bewertungZeilen").innerHTML = bewertungZeilenHtml(currentDay, "kasten");
         }
         // Grenze: Tage unterhalb gelten als "vorbei" (Aufgabe vermutlich erledigt)
         function bewertungsGrenze(geoeffnet) {
@@ -976,8 +987,7 @@
         }
         // Abfrage zum Vortag: oben auf der Geschichtsseite, vor dem Text
         let bannerTag = null;
-        let bannerEdit = false;
-        const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
+        let bannerEdit = { a: false, b: false };
         function bannerKandidat() {
             const geoeffnet = geoeffnetListe();
             if (!geoeffnet.length) return null;
@@ -988,35 +998,24 @@
         }
         function bannerAktualisieren() {
             bannerTag = bannerKandidat();
-            bannerEdit = false;
+            bannerEdit = { a: false, b: false };
             bannerRendern();
         }
         function bannerRendern() {
             const el = document.getElementById("gesternBanner");
             if (!el) return;
             if (bannerTag === null) { el.style.display = "none"; return; }
-            const val = bewertungAlle()[bannerTag];
-            const hat = val !== undefined;
             el.style.display = "";
-            document.getElementById("gesternText").innerText = hat && !bannerEdit
+            const alle = bewertungAlle()[bannerTag] || {};
+            const hatEine = alle.a !== undefined || alle.b !== undefined;
+            document.getElementById("gesternText").innerText = hatEine
                 ? "Gestern (Türchen " + bannerTag + "):"
                 : "Wie war gestern die Aufgabe (Türchen " + bannerTag + ")?";
-            document.getElementById("gesternHinweis").style.display = hat ? "none" : "";
-            document.getElementById("gesternButtons").style.display = (!hat || bannerEdit) ? "" : "none";
-            document.getElementById("gesternZusammenfassung").style.display = (hat && !bannerEdit) ? "" : "none";
-            document.getElementById("gesternWahl").innerText = hat ? BEW_TEXT[String(val)] : "";
-            document.querySelectorAll("#gesternButtons [data-gb]").forEach(b => {
-                b.classList.toggle("selected", hat && String(val) === b.dataset.gb);
-            });
+            document.getElementById("gesternHinweis").style.display = hatEine ? "none" : "";
+            document.getElementById("gesternZeilen").innerHTML = bewertungZeilenHtml(bannerTag, "banner");
         }
-        function bannerBewerten(val) {
-            if (bannerTag === null) return;
-            bewertungSetzen(bannerTag, val);
-            bannerEdit = false;
-            bannerRendern();
-        }
-        function bannerAendern() {
-            bannerEdit = true;
+        function bannerAendern(ver) {
+            bannerEdit[ver] = true;
             bannerRendern();
         }
         function auswertungButtonAktualisieren() {
@@ -1052,14 +1051,29 @@
             document.head.appendChild(sc);
         }
         function erDaten() {
+            // Pro Türchen zwei Einträge: [Aufgabe, Alternative]. Auch eine einzelne Angabe ("B") wird als Aufgabe gelesen.
             const m = { A: 1, B: 0, C: -1 };
             const roh = window.ER_BEWERTUNG || {};
+            const lies = x => { const v = String(x || "").trim().toUpperCase(); return m.hasOwnProperty(v) ? m[v] : undefined; };
             const out = {};
             Object.keys(roh).forEach(k => {
-                const v = String(roh[k] || "").trim().toUpperCase();
-                if (m.hasOwnProperty(v) && calendarData[k]) out[Number(k)] = m[v];
+                if (!calendarData[k]) return;
+                let a, b;
+                const r = roh[k];
+                if (Array.isArray(r)) { a = lies(r[0]); b = lies(r[1]); }
+                else if (r && typeof r === "object") { a = lies(r.a); b = lies(r.b); }
+                else a = lies(r);
+                const e = {};
+                if (a !== undefined) e.a = a;
+                if (b !== undefined) e.b = b;
+                if (e.a !== undefined || e.b !== undefined) out[Number(k)] = e;
             });
             return out;
+        }
+        function anzahlBew(o) {
+            let n = 0;
+            Object.keys(o).forEach(d => { if (o[d].a !== undefined) n++; if (o[d].b !== undefined) n++; });
+            return n;
         }
         function zeigeAuswertung() {
             alleScreensAus();
@@ -1080,45 +1094,44 @@
             const er = erDaten();
             if (testModus) {
                 // Nur im Testmodus sichtbar: Diagnose zur er.js
+                const n = anzahlBew(er);
                 const diag = window.ER_BEWERTUNG === undefined
                     ? "er.js wurde nicht gelesen (Datei fehlt, nicht neu geladen oder Syntaxfehler, z. B. Komma oder Anführungszeichen)."
-                    : "er.js gelesen: " + Object.keys(er).length + " gültige Bewertung(en)" + (Object.keys(er).length ? "" : " (alle leer oder ungültig – erlaubt sind A, B, C)") + ".";
+                    : "er.js gelesen: " + n + " gültige Bewertung(en)" + (n ? "" : " (alle leer oder ungültig – erlaubt sind A, B, C)") + ".";
                 box.setAttribute("data-diag", diag);
             }
             if (Object.keys(er).length) { gemeinsameAuswertung(box, karten, bew, er); return; }
-            const tage = Object.keys(bew).map(Number).filter(d => calendarData[d]).sort((a, b) => a - b);
-            if (!tage.length) {
-                box.innerHTML = '<p class="ausw-leer">Ihr habt noch keine Aufgabe bewertet.<br>Du kannst jederzeit in einem Türchen nachholen, wie die Aufgabe war.</p>';
+            // nur ihre Bewertungen
+            const eintraege = [];
+            for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => { if (bew[d] && bew[d][v[0]] !== undefined) eintraege.push({ d: d, ver: v[0], val: bew[d][v[0]] }); });
+            if (!eintraege.length) {
+                box.innerHTML = '<p class="ausw-leer">Ihr habt noch nichts bewertet.<br>Du kannst jederzeit in einem Türchen nachholen, wie es war.</p>';
                 return;
             }
             const z = { "1": 0, "0": 0, "-1": 0 };
-            tage.forEach(d => z[String(bew[d])]++);
-            const nichtBewertet = geoeffnetListe().filter(d => bew[d] === undefined).sort((a, b) => a - b);
+            eintraege.forEach(e => z[String(e.val)]++);
+            const offen = geoeffnetListe().filter(d => !bew[d]).sort((a, b) => a - b);
             let html = '<div class="ausw-zahlen"><span>👍 ' + z["1"] + '</span><span>😐 ' + z["0"] + '</span><span>👎 ' + z["-1"] + '</span></div>';
-            const gruppen = [["1", "👍 Gefiel mir"], ["0", "😐 War OK"], ["-1", "👎 Nicht nochmal"]];
-            gruppen.forEach(g => {
-                const liste = tage.filter(d => String(bew[d]) === g[0]);
+            [["1", "👍 Gefiel mir"], ["0", "😐 War OK"], ["-1", "👎 Nicht nochmal"]].forEach(g => {
+                const liste = eintraege.filter(e => String(e.val) === g[0]);
                 if (!liste.length) return;
                 html += '<div class="ausw-gruppe"><h3>' + g[1] + ' (' + liste.length + ')</h3>';
-                liste.forEach(d => {
-                    const nr = calendarData[d].cardNum;
-                    const k = karten ? karten[nr] : null;
-                    html += '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + '</div>';
-                    if (k) {
-                        html += '<div class="ausw-a"><b>Aufgabe:</b> ' + esc(k.a) + '</div>';
-                        html += '<div class="ausw-b"><b>Alternative:</b> ' + esc(k.b) + '</div>';
-                    }
-                    html += '</div>';
-                });
+                liste.forEach(e => { html += auswertungItem(karten, e.d, e.ver, ""); });
                 html += '</div>';
             });
-            if (nichtBewertet.length) {
-                html += '<p class="ausw-leer" style="margin-bottom:0;">Noch nicht bewertet: Türchen ' + nichtBewertet.join(", ") + '</p>';
-            }
+            if (offen.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Noch nicht bewertet: Türchen ' + offen.join(", ") + '</p>';
             box.innerHTML = html;
         }
-
-        // Gemeinsame Auswertung: beide Bewertungen zusammen
+        // Ein Eintrag der Auswertung: nur die bewertete Version wird gezeigt
+        function auswertungItem(karten, d, ver, zusatz) {
+            const nr = calendarData[d].cardNum;
+            const k = karten ? karten[nr] : null;
+            const name = ver === "a" ? "Aufgabe" : "Alternative";
+            let html = '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + ' · ' + name + zusatz + '</div>';
+            if (k) html += '<div class="ausw-a">' + esc(ver === "a" ? k.a : k.b) + '</div>';
+            return html + '</div>';
+        }
+        // Gemeinsame Auswertung: beide Bewertungen zusammen, jede Version (Aufgabe / Alternative) einzeln
         const SYMBOL = { "1": "👍", "0": "😐", "-1": "👎" };
         function gruppeFuer(a, b) {
             const s = a + b;
@@ -1140,31 +1153,24 @@
             ];
             const gruppen = [[], [], [], [], [], []];
             const nurDu = [], nurEr = [];
-            for (let d = 1; d <= 24; d++) {
-                const a = bew[d], b = er[d];
-                if (a !== undefined && b !== undefined) gruppen[gruppeFuer(a, b)].push(d);
-                else if (a !== undefined) nurDu.push(d);
-                else if (b !== undefined) nurEr.push(d);
-            }
+            const kurz = (d, ver) => d + (ver === "a" ? " (Aufgabe)" : " (Alternative)");
+            for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => {
+                const ver = v[0];
+                const a = bew[d] ? bew[d][ver] : undefined, b = er[d] ? er[d][ver] : undefined;
+                if (a !== undefined && b !== undefined) gruppen[gruppeFuer(a, b)].push({ d: d, ver: ver, a: a, b: b });
+                else if (a !== undefined) nurDu.push(kurz(d, ver));
+                else if (b !== undefined) nurEr.push(kurz(d, ver));
+            });
             let html = '<p class="ausw-leer" style="margin-top:4px;">Eure Bewertungen zusammen: du und ich.</p>';
             gruppen.forEach((liste, i) => {
                 if (!liste.length) return;
                 html += '<div class="ausw-gruppe"><h3>' + titel[i][0] + ' (' + liste.length + ')</h3><div class="ausw-b" style="margin:-4px 0 8px;">' + titel[i][1] + '</div>';
-                liste.forEach(d => {
-                    const nr = calendarData[d].cardNum;
-                    const k = karten ? karten[nr] : null;
-                    html += '<div class="ausw-item"><div class="ausw-kopf">Türchen ' + d + ' · Karte ' + nr + (k ? ' · ' + (k.w === "Er" ? "His" : "Her") + ' Pleasure' : '') + ' · Du ' + SYMBOL[String(bew[d])] + ' · Ich ' + SYMBOL[String(er[d])] + '</div>';
-                    if (k) {
-                        html += '<div class="ausw-a"><b>Aufgabe:</b> ' + esc(k.a) + '</div>';
-                        html += '<div class="ausw-b"><b>Alternative:</b> ' + esc(k.b) + '</div>';
-                    }
-                    html += '</div>';
-                });
+                liste.forEach(e => { html += auswertungItem(karten, e.d, e.ver, ' · Du ' + SYMBOL[String(e.a)] + ' · Ich ' + SYMBOL[String(e.b)]); });
                 html += '</div>';
             });
             if (nurDu.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von dir bewertet: Türchen ' + nurDu.join(", ") + '</p>';
             if (nurEr.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Bisher nur von mir bewertet: Türchen ' + nurEr.join(", ") + '</p>';
-            const offen = geoeffnetListe().filter(d => bew[d] === undefined && er[d] === undefined).sort((x, y) => x - y);
+            const offen = geoeffnetListe().filter(d => !bew[d] && !er[d]).sort((x, y) => x - y);
             if (offen.length) html += '<p class="ausw-leer" style="margin-bottom:0;">Noch von keinem bewertet: Türchen ' + offen.join(", ") + '</p>';
             if (!gruppen.some(g => g.length)) html = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + html;
             box.innerHTML = html;
