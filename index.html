@@ -406,16 +406,6 @@
         <!-- --- Die Türchen-Zwischenseite --- -->
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
-            <div class="gestern-banner" id="gesternBanner" style="display:none;">
-                <div class="bewertung-frage" id="gesternText">Wie war die Aufgabe?</div>
-                <div class="bewertung-hinweis">Ein kurzes Feedback für eure Auswertung am Ende.</div>
-                <div class="bewertung-buttons">
-                    <button class="btn-option bew-btn" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
-                    <button class="btn-option bew-btn" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>Ging so</span></button>
-                    <button class="btn-option bew-btn" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
-                </div>
-                <button class="bew-spaeter" onclick="bannerSpaeter()">Später</button>
-            </div>
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
@@ -454,6 +444,19 @@
 
         <!-- STEP 2: Die Geschichte / Der Teaser -->
         <div id="storyScreen" class="hidden">
+            <div class="gestern-banner" id="gesternBanner" style="display:none;">
+                <div class="bewertung-frage" id="gesternText">Wie war gestern die Aufgabe?</div>
+                <div class="bewertung-hinweis" id="gesternHinweis">Ein kurzes Feedback für eure Auswertung am Ende.</div>
+                <div class="bewertung-buttons" id="gesternButtons">
+                    <button class="btn-option bew-btn" data-gb="1" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
+                    <button class="btn-option bew-btn" data-gb="0" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>Ging so</span></button>
+                    <button class="btn-option bew-btn" data-gb="-1" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
+                </div>
+                <div id="gesternZusammenfassung" style="display:none; font-size: 1.05rem;">
+                    <span id="gesternWahl"></span>
+                    <button class="bew-spaeter" style="margin: 0 0 0 10px;" onclick="bannerAendern()">Ändern</button>
+                </div>
+            </div>
             <h2 id="storyTitle">Türchen <span id="storyDayNum">1</span></h2>
             <div class="story-text" id="storyContent">
                 <!-- Dynamischer Text -->
@@ -470,8 +473,9 @@
 
             <div class="bewertung-box" id="bewertungBox">
                 <div class="bewertung-frage">Wie war die Aufgabe?</div>
-                <div class="bewertung-hinweis">Sobald ihr sie erledigt habt, kannst du hier bewerten. Du kannst es jederzeit ändern. Am Ende gibt es eine Auswertung.</div>
-                <div class="bewertung-buttons">
+                <div class="bewertung-hinweis" id="bewertungHinweis">Du kannst hier nachtragen, wie die Aufgabe war. Am Ende gibt es eine Auswertung.</div>
+                <div id="bewertungFest" style="display:none; font-size: 1.05rem; margin-top: 6px;"></div>
+                <div class="bewertung-buttons" id="bewertungButtons">
                     <button class="btn-option bew-btn" data-b="1" onclick="bewerteTag(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
                     <button class="btn-option bew-btn" data-b="0" onclick="bewerteTag(0)"><span class="emoji">😐</span><span>Ging so</span></button>
                     <button class="btn-option bew-btn" data-b="-1" onclick="bewerteTag(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
@@ -823,8 +827,9 @@
             auswahlButtonsSetzen();
             document.getElementById("btnStimmungNeu").style.display = alleFreigegeben() ? "" : "none";
             document.getElementById("btnWeiter").innerText = currentDay === 24 ? "Zum Finale..." : "Weiter durch das nächste Türchen...";
-            bewertungUI();
             loadStoryContent(currentDay, selectedVibe, hasPeriod);
+            bewertungUI();
+            bannerAktualisieren();
         }
         function oeffneTag(day) {
             currentDay = day;
@@ -892,51 +897,83 @@
             } catch (e) {}
         }
         function bewertungUI() {
+            const kasten = document.getElementById("bewertungBox");
+            if (!kasten) return;
+            const vergangen = alleFreigegeben() || tagVergangen(currentDay);
+            kasten.style.display = vergangen ? "" : "none";
             const b = bewertungAlle()[currentDay];
+            const hat = b !== undefined;
+            // Eine abgegebene Bewertung ist festgeschrieben (Ändern nur am Tag danach über die Abfrage oben, oder ab dem 25.12.)
+            const aenderbar = alleFreigegeben() || !hat;
+            document.getElementById("bewertungButtons").style.display = aenderbar ? "" : "none";
+            document.getElementById("bewertungHinweis").style.display = aenderbar ? "" : "none";
+            const fest = document.getElementById("bewertungFest");
+            fest.style.display = aenderbar ? "none" : "";
+            fest.innerText = hat ? "Deine Bewertung: " + BEW_TEXT[String(b)] : "";
             document.querySelectorAll("#bewertungBox [data-b]").forEach(btn => {
-                btn.classList.toggle("selected", b !== undefined && String(b) === btn.dataset.b);
+                btn.classList.toggle("selected", hat && String(b) === btn.dataset.b);
             });
         }
         function bewerteTag(val) {
             const aktuell = bewertungAlle()[currentDay];
             bewertungSetzen(currentDay, aktuell === val ? null : val);
             bewertungUI();
+            if (bannerTag !== null) bannerRendern();
         }
-        // Banner in der Türchen-Übersicht: "Wie war die Aufgabe von Türchen N?"
+        // Grenze: Tage unterhalb gelten als "vorbei" (Aufgabe vermutlich erledigt)
+        function bewertungsGrenze(geoeffnet) {
+            const h = jetzt();
+            if (testModus) return geoeffnet.length ? Math.max.apply(null, geoeffnet) : 0;
+            if (h.getFullYear() === 2026 && h.getMonth() === 11) return h.getDate();
+            return h.getFullYear() > 2026 ? 25 : 0;
+        }
+        function tagVergangen(day) {
+            return day < bewertungsGrenze(geoeffnetListe());
+        }
+        // Abfrage zum Vortag: oben auf der Geschichtsseite, vor dem Text
         let bannerTag = null;
+        let bannerEdit = false;
+        const BEW_TEXT = { "1": "👍 Gefallen", "0": "😐 Ging so", "-1": "👎 Eher nicht" };
         function bannerKandidat() {
             const geoeffnet = geoeffnetListe();
             if (!geoeffnet.length) return null;
-            const bew = bewertungAlle();
-            const spaeter = spaeterListe();
-            const h = jetzt();
-            let limit;
-            if (testModus) limit = Math.max.apply(null, geoeffnet);
-            else if (h.getFullYear() === 2026 && h.getMonth() === 11) limit = h.getDate();
-            else limit = h.getFullYear() > 2026 ? 25 : 0;
-            let kand = null;
-            geoeffnet.forEach(d => {
-                if (d < limit && bew[d] === undefined && spaeter.indexOf(d) < 0 && (kand === null || d > kand)) kand = d;
-            });
-            return kand;
+            // nur auf der jeweils neuesten geöffneten Seite, und nur zum Vortag
+            if (currentDay !== Math.max.apply(null, geoeffnet)) return null;
+            const v = currentDay - 1;
+            return geoeffnet.indexOf(v) >= 0 ? v : null;
         }
         function bannerAktualisieren() {
+            bannerTag = bannerKandidat();
+            bannerEdit = false;
+            bannerRendern();
+        }
+        function bannerRendern() {
             const el = document.getElementById("gesternBanner");
             if (!el) return;
-            bannerTag = bannerKandidat();
             if (bannerTag === null) { el.style.display = "none"; return; }
-            document.getElementById("gesternText").innerText = "Wie war die Aufgabe von Türchen " + bannerTag + "?";
+            const val = bewertungAlle()[bannerTag];
+            const hat = val !== undefined;
             el.style.display = "";
+            document.getElementById("gesternText").innerText = hat && !bannerEdit
+                ? "Gestern (Türchen " + bannerTag + "):"
+                : "Wie war gestern die Aufgabe (Türchen " + bannerTag + ")?";
+            document.getElementById("gesternHinweis").style.display = hat ? "none" : "";
+            document.getElementById("gesternButtons").style.display = (!hat || bannerEdit) ? "" : "none";
+            document.getElementById("gesternZusammenfassung").style.display = (hat && !bannerEdit) ? "" : "none";
+            document.getElementById("gesternWahl").innerText = hat ? BEW_TEXT[String(val)] : "";
+            document.querySelectorAll("#gesternButtons [data-gb]").forEach(b => {
+                b.classList.toggle("selected", hat && String(val) === b.dataset.gb);
+            });
         }
         function bannerBewerten(val) {
             if (bannerTag === null) return;
             bewertungSetzen(bannerTag, val);
-            bannerAktualisieren();
+            bannerEdit = false;
+            bannerRendern();
         }
-        function bannerSpaeter() {
-            if (bannerTag === null) return;
-            spaeterMerken(bannerTag);
-            bannerAktualisieren();
+        function bannerAendern() {
+            bannerEdit = true;
+            bannerRendern();
         }
         function auswertungButtonAktualisieren() {
             const b = document.getElementById("btnAuswertung");
@@ -1058,7 +1095,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             const obs = new MutationObserver(function() {
                 seiteAktualisieren();
-                bannerAktualisieren();
                 auswertungButtonAktualisieren();
                 window.scrollTo(0, 0);
             });
