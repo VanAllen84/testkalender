@@ -362,7 +362,7 @@
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
                     3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
-                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Ab dem 25. Dezember gibt es daraus eine Auswertung eurer Favoriten.
+                    4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte sie mit einem Daumen. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
                 </div>
 
                 <p style="text-align: center; font-style: italic; color: var(--text-color);">Der Raum verdunkelt sich, die Erwartung steigt. Bist du bereit, tief in die Geschichten einzutauchen?</p>
@@ -382,13 +382,14 @@
             </details>
 
             <details class="app-tipp" id="appTipp">
-                <summary>📱 Tipp: Kalender wie eine App aufs Handy legen</summary>
+                <summary>📱 Tipp: Diesen Advents-Kalender wie eine App aufs Handy legen</summary>
                 <p style="margin: 12px 0 0;">Dann findest du den Kalender mit einem eigenen Symbol direkt auf deinem Startbildschirm, ganz ohne Adresse eintippen.</p>
                 <div class="tipp-block" id="tippIphone">
                     <strong>iPhone (Safari):</strong>
                     <ol>
-                        <li>Tippe unten auf das Teilen-Symbol (das Quadrat mit dem Pfeil nach oben).</li>
+                        <li>Wähle "Teilen" für diese Seite (je nach iOS Version ans verschiedenen Stellen zu finden).</li>
                         <li>Scrolle ein Stück nach unten und tippe auf „Zum Home-Bildschirm“.</li>
+						<li>Passe ggf. den Namen an, falls du möchtest.</li>
                         <li>Tippe oben rechts auf „Hinzufügen“.</li>
                     </ol>
                 </div>
@@ -409,7 +410,7 @@
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
-            <button class="btn-primary" id="btnAuswertung" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Eure Auswertung ansehen</button>
+            <button class="btn-primary" id="btnAuswertung" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
             <button class="btn-primary" style="margin-top: 25px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToLanding()">Zurück zur Anleitung</button>
         </div>
 
@@ -436,7 +437,7 @@
                 </div>
             </div>
 
-            <p class="setup-hinweis" id="setupHinweis">Deine Wahl gilt für die Geschichte dieses Tages. Du kannst sie erst ab dem 25. Dezember noch einmal ändern.</p>
+            <p class="setup-hinweis" id="setupHinweis">Deine Wahl gilt für die Geschichte dieses Tages und kann nicht mehr verändert werden. Erst ab dem 25. Dezember kannst du auch andere Versionen anschauen.</p>
 
             <button class="btn-primary" onclick="startStory()">Tauche ein in die heutige Geschichte!</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
@@ -445,12 +446,12 @@
         <!-- STEP 2: Die Geschichte / Der Teaser -->
         <div id="storyScreen" class="hidden">
             <div class="gestern-banner" id="gesternBanner" style="display:none;">
-                <div class="bewertung-frage" id="gesternText">Wie war gestern die Aufgabe?</div>
+                <div class="bewertung-frage" id="gesternText">Wie war die gestrige Aufgabe?</div>
                 <div class="bewertung-hinweis" id="gesternHinweis">Ein kurzes Feedback für eure Auswertung am Ende.</div>
                 <div class="bewertung-buttons" id="gesternButtons">
-                    <button class="btn-option bew-btn" data-gb="1" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
-                    <button class="btn-option bew-btn" data-gb="0" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>Ging so</span></button>
-                    <button class="btn-option bew-btn" data-gb="-1" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
+                    <button class="btn-option bew-btn" data-gb="1" onclick="bannerBewerten(1)"><span class="emoji">👍</span><span>Gefiel mir</span></button>
+                    <button class="btn-option bew-btn" data-gb="0" onclick="bannerBewerten(0)"><span class="emoji">😐</span><span>War OK</span></button>
+                    <button class="btn-option bew-btn" data-gb="-1" onclick="bannerBewerten(-1)"><span class="emoji">👎</span><span>Nicht nochmal</span></button>
                 </div>
                 <div id="gesternZusammenfassung" style="display:none; font-size: 1.05rem;">
                     <span id="gesternWahl"></span>
@@ -476,9 +477,9 @@
                 <div class="bewertung-hinweis" id="bewertungHinweis">Du kannst hier nachtragen, wie die Aufgabe war. Am Ende gibt es eine Auswertung.</div>
                 <div id="bewertungFest" style="display:none; font-size: 1.05rem; margin-top: 6px;"></div>
                 <div class="bewertung-buttons" id="bewertungButtons">
-                    <button class="btn-option bew-btn" data-b="1" onclick="bewerteTag(1)"><span class="emoji">👍</span><span>Gefallen</span></button>
-                    <button class="btn-option bew-btn" data-b="0" onclick="bewerteTag(0)"><span class="emoji">😐</span><span>Ging so</span></button>
-                    <button class="btn-option bew-btn" data-b="-1" onclick="bewerteTag(-1)"><span class="emoji">👎</span><span>Eher nicht</span></button>
+                    <button class="btn-option bew-btn" data-b="1" onclick="bewerteTag(1)"><span class="emoji">👍</span><span>Gefiel mir</span></button>
+                    <button class="btn-option bew-btn" data-b="0" onclick="bewerteTag(0)"><span class="emoji">😐</span><span>War OK</span></button>
+                    <button class="btn-option bew-btn" data-b="-1" onclick="bewerteTag(-1)"><span class="emoji">👎</span><span>Nicht nochmal</span></button>
                 </div>
             </div>
 
@@ -498,11 +499,11 @@
         <div id="finaleScreen" class="hidden">
             <h2>Frohe Weihnachten</h2>
             <div class="story-text finale-text">
-                <p>Vierundzwanzig Türchen. Vierundzwanzig Abende, die nur uns gehörten.</p>
-                <p>Danke, dass du dich auf jede dieser Geschichten eingelassen hast: auf die leisen und die wilden, auf die, bei denen du lachen musstest, und auf die, bei denen dir der Atem stockte.</p>
+                <p>Vierundzwanzig Türchen. Vierundzwanzig und eventuell noch ein paar mehr Abende, die nur uns gehör(t)en.</p>
+                <p>Danke, dass du dich auf jede dieser Geschichten und die Reise eingelassen hast: auf die leisen und die wilden, auf die, bei denen du lachen musstest, und auf die, bei denen dir der Atem stockte.</p>
                 <p>Die Karten bleiben. Und falls noch eine offen ist: Das Jahr hat noch ein paar Tage.</p>
-                <p>Ein kleines Geschenk noch obendrauf: Ab dem 25. Dezember kannst du in jedem Türchen die Stimmung ändern, die anderen Versionen der Geschichten lesen und dir auf der Türchen-Seite eure Auswertung ansehen.</p>
-                <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich.<br>Dein Thilo</p>
+                <p>Ein kleines Geschenk noch obendrauf: Ab Morgen kannst du in jedem Türchen die Stimmung ändern, die anderen Versionen der Geschichten lesen und dir auf der Türchen-Seite eure Auswertung ansehen.</p>
+                <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich!</p>
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
             <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
@@ -754,7 +755,7 @@
                 el.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.64), rgba(8,8,10,0.64)), url('" + bildUrl(day) + "')";
             }
         }
-        // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 3 s langsam)
+        // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 7,5 s langsam)
         let bildBeobachter = null;
         function bildEinblenden(box) {
             // Zurücksetzen ohne Animation, damit jede Variante gleich von 0 startet
@@ -929,7 +930,7 @@
             kasten.style.display = vergangen ? "" : "none";
             const b = bewertungAlle()[currentDay];
             const hat = b !== undefined;
-            // Eine abgegebene Bewertung ist festgeschrieben (Ändern nur am Tag danach über die Abfrage oben, oder ab dem 25.12.)
+            // Eine abgegebene Bewertung ist festgeschrieben (Ändern nur am Tag der Bewertung, oder ab dem 25.12. möglich)
             const aenderbar = alleFreigegeben() || !hat;
             document.getElementById("bewertungButtons").style.display = aenderbar ? "" : "none";
             document.getElementById("bewertungHinweis").style.display = aenderbar ? "" : "none";
