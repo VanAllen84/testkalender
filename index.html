@@ -280,6 +280,8 @@
         .app-tipp summary { cursor: pointer; text-align: center; color: var(--accent-color); }
         .app-tipp .tipp-block { margin-top: 12px; }
         .app-tipp ol { margin: 6px 0 0; padding-left: 22px; }
+        .erinnerung-zeit { background: transparent; color: var(--heading-color); border: 1px solid var(--accent-color); border-radius: 8px; padding: 10px 12px; font-size: 1rem; }
+        .erinnerung-zeit option { background: #121217; color: #fff; }
         .finale-text p { line-height: 1.8; text-align: center; margin: 0 0 16px; }
         .finale-text .signatur { font-style: italic; margin-top: 22px; }
 
@@ -335,6 +337,8 @@
         <div id="landingScreen">
             <h1>Dein ganz persönlicher Adventskalender</h1>
             <p style="text-align: center; color: var(--accent-color); margin-top: -10px; margin-bottom: 25px;">Von deinem dich liebenden Ehemann, nur für dich ganz persönlich entwickelt!</p>
+
+            <div class="story-bild" id="landingBild" style="display:none; margin-top: 0;"><img id="landingBildImg" alt="" src=""></div>
             
             <div class="landing-intro">
                 <p>Willkommen zu deinem ganz persönlichen und intimen Adventskalender. Jeden Tag öffnet sich eine neue Geschichte, die dich tief in eine stimmungsvolle, knisternde Atmosphäre entführt und auf die gemeinsamen Aufgaben dieser Adventszeit einstimmen soll.</p>
@@ -351,6 +355,16 @@
 
             <!-- Führt zur Türchen-Zwischenseite -->
             <button class="btn-primary" onclick="zeigeTuerenUebersicht()">Tauche ein in den Advent!</button>
+
+            <details class="app-tipp" id="erinnerungTipp">
+                <summary>🔔 Tipp: Tägliche Erinnerung im Handy-Kalender</summary>
+                <p style="margin: 12px 0 8px;">Wähle eine Uhrzeit. Du bekommst dann für jeden Tag vom 1. bis 24. Dezember einen Termin „Türchen 1“ bis „Türchen 24“ mit Erinnerung und Link in deinen Kalender.</p>
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <select id="erinnerungZeit" class="erinnerung-zeit"><option value="1700">17:00 Uhr</option><option value="1730">17:30 Uhr</option><option value="1800">18:00 Uhr</option><option value="1830">18:30 Uhr</option><option value="1900">19:00 Uhr</option><option value="1930">19:30 Uhr</option><option value="2000" selected>20:00 Uhr</option><option value="2030">20:30 Uhr</option><option value="2100">21:00 Uhr</option><option value="2130">21:30 Uhr</option><option value="2200">22:00 Uhr</option></select>
+                    <button class="btn-option" style="width: auto; padding: 10px 16px;" onclick="ladeErinnerung()">Termine hinzufügen</button>
+                </div>
+                <p style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.8;">Dein Handy fragt dann, ob die Termine in den Kalender übernommen werden sollen. Bestätige mit „Alle hinzufügen“ bzw. „Speichern“.</p>
+            </details>
 
             <details class="app-tipp" id="appTipp">
                 <summary>📱 Tipp: Kalender wie eine App aufs Handy legen</summary>
@@ -429,6 +443,7 @@
             <div class="story-bild" id="storyBild" style="display:none;"><img id="storyBildImg" alt="" src=""></div>
 
             <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
+            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
             <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
         </div>
 
@@ -440,7 +455,7 @@
                 <p>Danke, dass du dich auf jede dieser Geschichten eingelassen hast: auf die leisen und die wilden, auf die, bei denen du lachen musstest, und auf die, bei denen dir der Atem stockte.</p>
                 <p>Die Karten bleiben. Und falls noch eine offen ist: Das Jahr hat noch ein paar Tage.</p>
                 <p>Ein kleines Geschenk noch obendrauf: Ab dem 25. Dezember kannst du in jedem Türchen die Stimmung ändern und die anderen Versionen der Geschichten lesen.</p>
-                <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich.</p>
+                <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich.<br>Dein Thilo</p>
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
             <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
@@ -789,6 +804,11 @@
             box.innerHTML = html;
         }
 
+        function ladeErinnerung() {
+            const sel = document.getElementById("erinnerungZeit");
+            window.location.href = "erinnerung/" + sel.value + ".ics";
+        }
+
         // --- Finale ---
         function applyFinaleTheme() {
             const root = document.documentElement;
@@ -847,6 +867,16 @@
                 obs.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] });
             });
             seiteAktualisieren();
+
+            // Bild der Startseite (optional: bilder/landing.jpg)
+            (function () {
+                const box = document.getElementById("landingBild");
+                const img = document.getElementById("landingBildImg");
+                if (!box || !img) return;
+                img.onload = function () { box.style.display = ""; void box.offsetWidth; box.classList.add("sichtbar"); };
+                img.onerror = function () { box.style.display = "none"; };
+                img.src = "bilder/landing.jpg";
+            })();
 
             // App-Tipp: nur die passende Anleitung zeigen, in der installierten App gar nicht
             const ua = navigator.userAgent || "";
