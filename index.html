@@ -280,6 +280,9 @@
         .tuer-card.ausgelassen::after { content: "Noch unge\0000f6ffnet"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: #f0e2b0; text-shadow: 0 1px 4px #000; }
         @media (prefers-reduced-motion: reduce) { .tuer-card.ausgelassen { animation: none; box-shadow: 0 0 10px rgba(212,175,55,0.4); } }
         .landing-countdown { text-align: center; margin: -8px 0 22px; font-size: 1.05rem; color: var(--heading-color); letter-spacing: 0.5px; }
+        .begruessung { text-align: center; font-style: italic; color: var(--accent-color); margin: -6px 0 18px; min-height: 1.4em; line-height: 1.45; opacity: 0; transition: opacity 1.6s ease; }
+        .begruessung.an { opacity: 1; }
+        @media (prefers-reduced-motion: reduce) { .begruessung { transition: none; } }
         .tuer-card.geoeffnet { background-size: cover; background-position: center; border: 2px solid #d4af37; }
         .tuer-card.frei { background-size: cover; background-position: center; border-color: #666; }
         .tuer-card.heute { border-color: #d4af37; animation: heuteGlow 2.8s ease-in-out infinite; }
@@ -562,6 +565,7 @@
         <!-- --- Die Türchen-Zwischenseite --- -->
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
+            <p class="begruessung" id="begruessung"></p>
             <div class="teaser-morgen" id="teaserMorgen" style="display: none;">
                 <strong>&#x2728; Morgen wartet noch etwas auf dich</strong>
                 Schau am 25. Dezember noch einmal vorbei.
@@ -2015,6 +2019,44 @@
             window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
         }
 
+        // Begruessung auf der Uebersicht: pro Tag und Tageszeit eine feste Zeile, jede Zeile max. 3x, nie an zwei Tagen hintereinander
+        const BEGRUESSUNG = {"morgens": ["Guten Morgen, mein Schatz.", "Guten Morgen. Heute habe ich etwas f\u00fcr dich. Wie jeden Tag im Advent.", "Aufgewacht? Gut. Ich habe schon an heute Abend gedacht.", "Guten Morgen, Liebste. Das heutige T\u00fcrchen wartet.", "Ein neuer Morgen, und du denkst scheinbar schon an mich.", "Sch\u00f6n, dass du so fr\u00fch nach mir siehst, mein Schatz.", "Guten Morgen. Der Tag f\u00e4ngt gut an, wenn du schon so fr\u00fch hier bist.", "Erst ein Kaffee, dann ein T\u00fcrchen. Oder umgekehrt?"], "mittags": ["Ich habe an dich gedacht, mein Schatz.", "Eine kleine Pause nur f\u00fcr dich.", "Mitten am Tag, und doch bist du hier. Das gef\u00e4llt mir!", "Nur ein kurzer Blick, oder bleibst du l\u00e4nger?", "Du fehlst mir gerade.", "Das T\u00fcrchen kann warten. Ich eigentlich nicht...", "Sch\u00f6n, dass du vorbeischaust, meine Liebste.", "Heute Abend wird es noch besser. Aber ein Blick jetzt schadet ja auch nicht."], "abends": ["Heute Abend geh\u00f6rst du ganz mir und der Geschichte.", "Guten Abend, Schatz. Mach es dir bequem.", "Der Tag ist fast vorbei. Jetzt beginnt der sch\u00f6ne Teil.", "Guten Abend, mein Schatz. Ich habe schon auf dich gewartet.", "Kerze an, Handy leise, und dann das T\u00fcrchen \u00f6ffnen.", "Jetzt geh\u00f6rt die Zeit nur uns.", "Komm zur Ruhe, Liebste. Das Beste kommt noch.", "Sch\u00f6n, dass du da bist. Jetzt wird es gem\u00fctlich."], "nachts": ["Schon sp\u00e4t, und doch bist du noch hier?", "Noch wach, Schatz? Das gef\u00e4llt mir.", "Die Nacht geh\u00f6rt uns.", "Du kannst wohl auch nicht schlafen?", "Leise jetzt. Nur du und die Geschichte.", "Mitten in der Nacht. Das mag ich an dir!", "Wenn alle schlafen, wird es erst richtig sch\u00f6n.", "Komm, Schatz. Die Nacht hat gerade angefangen."]};
+        function begruessungWaehlen() {
+            const d = (typeof jetzt === "function") ? jetzt() : new Date(), h = d.getHours();
+            const slot = h >= 5 && h < 11 ? "morgens" : h >= 11 && h < 17 ? "mittags" : h >= 17 && h < 22 ? "abends" : "nachts";
+            const ds = function (x) { return x.getFullYear() + "-" + (x.getMonth() + 1) + "-" + x.getDate(); };
+            const heute = ds(d), gestern = ds(new Date(d.getFullYear(), d.getMonth(), d.getDate() - 1));
+            const liste = BEGRUESSUNG[slot];
+            let st = {};
+            try { st = JSON.parse(localStorage.getItem("adventGruss26") || "{}") || {}; } catch (e) {}
+            if (Array.isArray(st[slot])) st[slot] = {};
+            const sl = st[slot] || (st[slot] = { bag: [], log: [] });
+            let eintrag = sl.log.filter(function (e) { return e.d === heute; })[0];
+            if (!eintrag) {
+                if (!sl.bag.length || sl.log.length >= sl.bag.length) {
+                    // Beutel mit jeder Zeile 3x, so gemischt, dass nie dieselbe Zeile direkt hintereinander kommt
+                    let b = [], ok = false;
+                    for (let v = 0; v < 500 && !ok; v++) {
+                        b = []; liste.forEach(function (t, i) { b.push(i, i, i); });
+                        for (let k = b.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); const x = b[k]; b[k] = b[j]; b[j] = x; }
+                        ok = b.every(function (x, k) { return k === 0 || x !== b[k - 1]; });
+                    }
+                    sl.bag = b; sl.log = [];
+                }
+                eintrag = { d: heute, i: sl.bag[sl.log.length] };
+                sl.log.push(eintrag);
+                try { localStorage.setItem("adventGruss26", JSON.stringify(st)); } catch (e) {}
+            }
+            return liste[eintrag.i];
+        }
+        function begruessungZeigen() {
+            const el = document.getElementById("begruessung");
+            if (!el) return;
+            try { el.textContent = begruessungWaehlen(); } catch (e) { return; }
+            el.classList.remove("an"); void el.offsetWidth;
+            setTimeout(function () { el.classList.add("an"); }, 150);
+        }
+
         function schliesseModal() {
             document.getElementById("lock-modal").style.display = "none";
         }
@@ -2028,6 +2070,7 @@
             
             document.getElementById("calendar-overview").classList.remove("hidden");
             applyLandingTheme();
+            begruessungZeigen();
             // Am 24. Dezember: Vorfreude auf den 25.
             teaserAktualisieren();
             try { tuerStilAktualisieren(); } catch (e) {}
