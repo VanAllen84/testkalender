@@ -1895,6 +1895,10 @@
                 ov.style.display = "block"; ov.scrollTop = 0;
                 document.documentElement.style.overflow = "hidden";
                 document.title = "Wetter";
+                try {
+                    const fav = document.getElementById("favicon");
+                    if (fav) { fav.type = "image/svg+xml"; fav.href = svgUri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b6db5"/><stop offset="1" stop-color="#7fb0e2"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g)"/><circle cx="42" cy="22" r="10" fill="#ffd24a"/><path d="M18 50a10 10 0 0 1-1.5-19.9A14 14 0 0 1 43.5 33 8.5 8.5 0 0 1 44 50z" fill="#fff"/></svg>'); }
+                } catch (e) {}
                 el("bossBtn").style.visibility = "hidden";
                 const tc = document.getElementById("themeColorMeta"); if (tc) tc.setAttribute("content", ov.classList.contains("nacht") ? "#0f1b3a" : "#3b6db5");
             }
