@@ -2078,7 +2078,8 @@
                 let gesehen = false;
                 try { gesehen = localStorage.getItem("adventFinaleAn26") === "1"; } catch (e) {}
                 const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                if ((gesehen && !testModus) || reduziert || window.PORTAL_AUS || document.getElementById("finaleAn")) { weiter(); return; }
+                const immer = window.FINALE_FORCE || (typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER);
+                if ((gesehen && !testModus && !immer) || reduziert || window.PORTAL_AUS || document.getElementById("finaleAn")) { weiter(); return; }
                 try { localStorage.setItem("adventFinaleAn26", "1"); } catch (e) {}
                 const W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
                 const ov = document.createElement("div");
@@ -2115,6 +2116,7 @@
                 const m = /[?&]finale=([ab])/i.exec(location.search);
                 if (m) window.FINALE_VAR = m[1].toUpperCase();
                 const v = /[?&]finalevorschau=([ab])/i.exec(location.search);
+                if (v) window.FINALE_FORCE = true;
                 if (v) document.addEventListener("DOMContentLoaded", function () { setTimeout(function () { window.finaleDurch(zeigeFinale, v[1].toUpperCase()); }, 600); });
             })();
             // FINALE-VORSCHAU ENDE
