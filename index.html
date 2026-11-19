@@ -842,9 +842,144 @@
             if (landingBildFlag) { requestAnimationFrame(function () { bildEinblenden(document.getElementById("landingBild")); }); }
         }
 
+
+        // ==========================================
+        // UEBERGANG Stimmungsauswahl -> Geschichte: Die Buchstaben der Seite wirbeln und formen den Anfang der Geschichte
+        // ==========================================
+        let wirbelLaeuft = false;
+        function wirbelUebergang(zeigen, kurz) {
+            const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (window.PORTAL_AUS || reduziert || wirbelLaeuft) { zeigen(); return; }
+            wirbelLaeuft = true;
+            const W = window.innerWidth, H = window.innerHeight;
+            const lerp = (a, b, f) => a + (b - a) * f;
+            const clamp = x => Math.max(0, Math.min(1, x));
+            const eIO = x => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+            const eO = x => { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
+            function buchstaben(wurzeln, max, nurSichtbar) {
+                const out = [];
+                for (const w of wurzeln) {
+                    if (!w) continue;
+                    const tw = document.createTreeWalker(w, NodeFilter.SHOW_TEXT);
+                    let n;
+                    while ((n = tw.nextNode())) {
+                        const el = n.parentElement; if (!el) continue;
+                        const cs = getComputedStyle(el);
+                        if (cs.display === "none" || cs.visibility === "hidden") continue;
+                        const txt = n.nodeValue;
+                        for (let i = 0; i < txt.length; i++) {
+                            if (/\s/.test(txt[i])) continue;
+                            const rg = document.createRange(); rg.setStart(n, i); rg.setEnd(n, i + 1);
+                            const r = rg.getBoundingClientRect();
+                            if (r.width < 1 || r.height < 1) continue;
+                            if (nurSichtbar && (r.top > H * 0.96 || r.bottom < 0)) continue;
+                            out.push({ ch: txt[i], x: r.left, y: r.top, w: r.width, h: r.height, size: parseFloat(cs.fontSize), fam: cs.fontFamily, wt: cs.fontWeight, st: cs.fontStyle, col: cs.color });
+                            if (out.length >= max) return out;
+                        }
+                    }
+                }
+                return out;
+            }
+            window.scrollTo(0, 0);
+            const setup = document.getElementById("setupScreen");
+            const quellen = buchstaben([setup], 640, true);
+            if (quellen.length < 20) { wirbelLaeuft = false; zeigen(); return; }
+            const story = document.getElementById("storyScreen"), inhalt = document.getElementById("storyContent");
+            const accent = (getComputedStyle(document.documentElement).getPropertyValue("--accent-color") || "#d4af37").trim();
+            inhalt.innerHTML = "";
+            story.style.opacity = "0"; story.style.transition = "none";
+            zeigen();
+            window.scrollTo(0, 0);
+            document.documentElement.style.overflow = "hidden";
+            const ov = document.createElement("div");
+            ov.id = "wirbel";
+            ov.style.cssText = "position:fixed;inset:0;z-index:3200;cursor:pointer;overflow:hidden;";
+            const st = document.createElement("style");
+            st.textContent = "#wirbel span{position:fixed;left:0;top:0;display:block;white-space:pre;pointer-events:none;will-change:transform,opacity;transition:color .9s ease,text-shadow .9s ease,opacity .6s ease;transform-origin:50% 50%;} #wirbel span.glut{color:" + accent + " !important;text-shadow:0 0 8px " + accent + ",0 0 18px " + accent + ";}";
+            ov.appendChild(st);
+            // Zufallsbahnen
+            let sd = 1234567; const rnd = () => { sd = (sd * 16807) % 2147483647; return sd / 2147483647; };
+            const L = quellen.map(function (q, i) {
+                const el = document.createElement("span");
+                el.textContent = q.ch;
+                el.style.cssText = "width:" + q.w + "px;height:" + q.h + "px;line-height:" + q.h + "px;font-size:" + q.size + "px;font-family:" + q.fam + ";font-weight:" + q.wt + ";font-style:" + q.st + ";color:" + q.col + ";";
+                ov.appendChild(el);
+                return { el: el, q: q, th: rnd() * 6.2832, rho: (0.12 + rnd() * 0.42) * Math.min(W, H), om: (0.6 + rnd() * 1.1) * (rnd() < 0.5 ? -1 : 1), wob: (rnd() - 0.5) * 2.2, ph: rnd() * 6.2832, ziel: null, stag: 0 };
+            });
+            document.body.appendChild(ov);
+            let beendet = false, t0 = null, ziele = null, tZiel = 0;
+            const CX = W / 2, CY = H * 0.48;
+            function orbit(l, t) {
+                const a = l.th + l.om * (t / 1000) * (1 + 0.25 * Math.sin(t / 900 + l.ph));
+                return [CX + l.rho * Math.cos(a) - l.q.w / 2, CY + l.rho * 0.78 * Math.sin(a) - l.q.h / 2, Math.sin(t / 380 + l.ph) * l.wob];
+            }
+            function fertig() {
+                if (beendet) return; beendet = true;
+                story.style.transition = "opacity 0.7s ease"; story.style.opacity = "1";
+                ov.style.transition = "opacity 0.7s ease"; ov.style.opacity = "0"; ov.style.pointerEvents = "none";
+                document.documentElement.style.overflow = "";
+                setTimeout(function () { story.style.transition = ""; story.style.opacity = ""; if (ov.parentNode) ov.parentNode.removeChild(ov); wirbelLaeuft = false; }, 850);
+            }
+            ov.addEventListener("click", fertig);
+            const T_GLUT = kurz ? 80 : 150, T_AUS = kurz ? 350 : 1000, T_KREIS = kurz ? 700 : 1800, T_ZIEL = kurz ? 1300 : 4200, D_ZIEL = kurz ? 1100 : 1500, T_ENDE_PAD = kurz ? 300 : 500, STAG = kurz ? 250 : 500;
+            function frame(ts) {
+                if (beendet) return;
+                if (t0 === null) t0 = ts;
+                const t = ts - t0;
+                if (t > T_GLUT && !L[0].glut) { L.forEach(l => { l.glut = true; l.el.classList.add("glut"); }); }
+                // Ziele sobald Text geladen und Phase erreicht
+                if (!ziele && t >= T_ZIEL - 300) {
+                    if (inhalt.textContent.trim().length > 40) {
+                        window.scrollTo(0, 0);
+                        ziele = buchstaben([document.getElementById("storyTitle"), inhalt], L.length, true);
+                        const n = Math.min(L.length, ziele.length);
+                        const frei = {}, rest = [];
+                        L.map((_, i) => i).sort(() => rnd() - 0.5).forEach(i => { const c = L[i].q.ch; (frei[c] = frei[c] || []).push(i); rest.push(i); });
+                        const benutzt = {};
+                        for (let k = 0; k < n; k++) {
+                            let i = -1; const g = frei[ziele[k].ch];
+                            if (g) { while (g.length && benutzt[g[g.length - 1]]) g.pop(); if (g.length) i = g.pop(); }
+                            if (i < 0) { while (rest.length && benutzt[rest[rest.length - 1]]) rest.pop(); if (rest.length) i = rest.pop(); }
+                            if (i < 0) break;
+                            benutzt[i] = true; L[i].ziel = ziele[k]; L[i].stag = STAG * k / Math.max(1, n);
+                        }
+                        tZiel = Math.max(t, T_ZIEL);
+                    } else if (t > T_ZIEL + 3000) { fertig(); return; }
+                }
+                const tStart = ziele ? tZiel : Infinity;
+                let letzte = 0;
+                for (let i = 0; i < L.length; i++) {
+                    const l = L[i], q = l.q;
+                    let x, y, rot = 0, sc = 1;
+                    const sAus = eIO((t - T_AUS) / 800);
+                    const o = orbit(l, t);
+                    if (sAus <= 0) { x = q.x; y = q.y; }
+                    else { x = lerp(q.x, o[0], sAus); y = lerp(q.y, o[1], sAus); rot = o[2] * sAus; sc = 1 + 0.15 * sAus; }
+                    if (l.ziel) {
+                        const u = eIO((t - tStart - l.stag) / D_ZIEL);
+                        if (u > 0) {
+                            x = lerp(x, l.ziel.x, u); y = lerp(y, l.ziel.y, u); rot = rot * (1 - u);
+                            sc = lerp(sc, l.ziel.size / q.size, u);
+                            if (u > 0.55 && l.el.textContent !== l.ziel.ch) l.el.textContent = l.ziel.ch;
+                            if (u > 0.8 && l.glut) { l.glut = false; l.el.classList.remove("glut"); l.el.style.color = l.ziel.col; }
+                        }
+                        letzte = Math.max(letzte, tStart + l.stag + D_ZIEL);
+                    } else if (ziele !== null && !l.aus && t > tStart) { l.aus = true; l.el.style.opacity = "0"; }
+                    l.el.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px) rotate(" + rot.toFixed(3) + "rad) scale(" + sc.toFixed(3) + ")";
+                }
+                if (ziele && t >= letzte + T_ENDE_PAD) { fertig(); return; }
+                requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+            setTimeout(fertig, 14000);
+        }
+
         function startStory() {
+            const schonGewaehlt = !!wahlAlle()[currentDay];
             wahlSpeichern(currentDay, selectedVibe, hasPeriod);
-            zeigeStory();
+            const setupSichtbar = !document.getElementById("setupScreen").classList.contains("hidden");
+            if (setupSichtbar && typeof wirbelUebergang === "function") wirbelUebergang(zeigeStory, schonGewaehlt);
+            else zeigeStory();
         }
 
         function resetToSetup() {
@@ -918,8 +1053,7 @@
                     return;
                 }
                 const naechster = currentDay + 1;
-                if (istErstesMal(naechster)) portalDurch(naechster, null, function () { oeffneTag(naechster); });
-                else oeffneTag(naechster);
+                portalDurch(naechster, null, function () { oeffneTag(naechster); });
             } else {
                 finaleDurch(zeigeFinale);
             }
@@ -1799,8 +1933,7 @@
             }
 
             if (istErreicht) {
-                if (istErstesMal(tagNummer)) portalDurch(tagNummer, el || null, function () { oeffneTag(tagNummer); });
-                else oeffneTag(tagNummer);
+                portalDurch(tagNummer, el || null, function () { oeffneTag(tagNummer); });
             } else {
                 document.getElementById("lock-modal").style.display = "flex";
             }
