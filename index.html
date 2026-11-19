@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Dezember">
+    <meta property="og:description" content="Eine kleine &Uuml;berraschung.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Intro</title>
     <link rel="icon" id="favicon" href="icon-192.png">
@@ -267,6 +269,17 @@
         .story-bild { margin: 25px 0 5px; text-align: center; opacity: 0; transition: opacity 7.5s ease-in-out; }
         .story-bild.sichtbar { opacity: 1; }
         .story-bild img { width: 100%; max-width: 560px; height: auto; border-radius: 8px; border: 1px solid var(--accent-color); background: #efe6d6; display: block; margin: 0 auto; }
+        .tuer-card.wackel { animation: tuerWackel 0.5s ease both; }
+        @keyframes tuerWackel { 0%,100% { transform: translateX(0); } 15% { transform: translateX(-7px) rotate(-2deg); } 35% { transform: translateX(6px) rotate(1.6deg); } 55% { transform: translateX(-4px) rotate(-1deg); } 75% { transform: translateX(3px); } }
+        .tuer-card.wackel::after { animation: schlossPuls 0.5s ease both; }
+        @keyframes schlossPuls { 40% { transform: scale(1.9); filter: drop-shadow(0 0 4px #d4af37); } }
+        .bewertung-box.bw-vor { opacity: 0; transform: translateY(14px); }
+        .bewertung-box.bw-ein { opacity: 1; transform: none; transition: opacity 1.1s ease, transform 1.1s ease; }
+        @media (prefers-reduced-motion: reduce) { .tuer-card.wackel, .tuer-card.wackel::after { animation: none; } .bewertung-box.bw-vor { opacity: 1; transform: none; } }
+        .tuer-card.ausgelassen { border-color: #d4af37; animation: heuteGlow 4.2s ease-in-out infinite; }
+        .tuer-card.ausgelassen::after { content: "Noch unge\0000f6ffnet"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: #f0e2b0; text-shadow: 0 1px 4px #000; }
+        @media (prefers-reduced-motion: reduce) { .tuer-card.ausgelassen { animation: none; box-shadow: 0 0 10px rgba(212,175,55,0.4); } }
+        .landing-countdown { text-align: center; margin: -8px 0 22px; font-size: 1.05rem; color: var(--heading-color); letter-spacing: 0.5px; }
         .tuer-card.geoeffnet { background-size: cover; background-position: center; border: 2px solid #d4af37; }
         .tuer-card.frei { background-size: cover; background-position: center; border-color: #666; }
         .tuer-card.heute { border-color: #d4af37; animation: heuteGlow 2.8s ease-in-out infinite; }
@@ -488,6 +501,8 @@
         <div id="landingScreen">
             <h1>Dein ganz persönlicher Adventskalender</h1>
             <p style="text-align: center; color: var(--accent-color); margin-top: -10px; margin-bottom: 25px;">Von deinem dich liebenden Ehemann, nur für dich ganz persönlich entwickelt!</p>
+
+            <p class="landing-countdown" id="landingCountdown" style="display:none;"></p>
 
             <div class="story-bild" id="landingBild" style="display:none; margin-top: 0;"><img id="landingBildImg" alt="" src=""></div>
             
@@ -1001,6 +1016,9 @@
             if (window.PORTAL_AUS || portalLaeuft || reduziert) { weiter(); return; }
             portalLaeuft = true;
             const n = String(calendarData[tag].cardNum).padStart(2, "0");
+            // gleiches Bild wie die Kachel in der Uebersicht: geoeffnet = volles Bild, sonst verpixelt
+            let bereitsOffen = false;
+            try { bereitsOffen = geoeffnetListe().indexOf(tag) >= 0; } catch (e) {}
             let r;
             if (el) r = el.getBoundingClientRect();
             else {
@@ -1025,7 +1043,7 @@
             ["l", "r"].forEach(function (seite) {
                 const f = document.createElement("div");
                 f.className = "portal-fluegel " + seite;
-                f.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.45), rgba(8,8,10,0.45)), url('bilder/pix-mid-" + n + ".png')";
+                f.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.6), rgba(8,8,10,0.6)), url('" + (bereitsOffen ? bildUrl(tag) : "bilder/pix-mid-" + n + ".png") + "')";
                 wrap.appendChild(f);
             });
             ov.appendChild(wrap);
@@ -1091,10 +1109,11 @@
             const alle = ab25(), offen = geoeffnetListe(), heute = heuteTag();
             karten.forEach((el, idx) => {
                 const i = idx + 1;
-                el.classList.remove("pix", "geoeffnet", "heute", "frei");
+                el.classList.remove("pix", "geoeffnet", "heute", "frei", "ausgelassen");
                 el.style.backgroundImage = "";
                 const bild = "linear-gradient(rgba(8,8,10,0.6), rgba(8,8,10,0.6)), url('" + bildUrl(i) + "')";
-                if (alle) { el.classList.add("frei"); el.style.backgroundImage = bild; }
+                if (alle && offen.indexOf(i) >= 0) { el.classList.add("frei"); el.style.backgroundImage = bild; }
+                else if (alle) { pixelSetzen(el, i, false); el.classList.add("ausgelassen"); }
                 else if (el.classList.contains("gesperrt")) pixelSetzen(el, i, true);
                 else if (offen.indexOf(i) >= 0) { el.classList.add("geoeffnet"); el.style.backgroundImage = bild; }
                 else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); }
@@ -1205,6 +1224,7 @@
             document.getElementById("btnWeiter").innerText = currentDay === 24 ? "Zum Finale..." : "Weiter durch das nächste Türchen...";
             loadStoryContent(currentDay, selectedVibe, hasPeriod);
             bewertungUI();
+            bewertungEinblenden();
             bannerAktualisieren();
             teaserAktualisieren();
         }
@@ -1355,6 +1375,24 @@
             const vergangen = alleFreigegeben() || tagVergangen(currentDay);
             kasten.style.display = vergangen ? "" : "none";
             document.getElementById("bewertungZeilen").innerHTML = bewertungZeilenHtml(currentDay, "kasten");
+        }
+        // Bewertungskasten blendet sich sanft ein, wenn man ihn beim Lesen erreicht
+        let bwBeobachter = null;
+        function bewertungEinblenden() {
+            const k = document.getElementById("bewertungBox");
+            if (!k) return;
+            if (bwBeobachter) { try { bwBeobachter.disconnect(); } catch (e) {} bwBeobachter = null; }
+            const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (reduziert || !("IntersectionObserver" in window) || k.style.display === "none") { k.classList.remove("bw-vor", "bw-ein"); return; }
+            k.classList.remove("bw-ein"); k.classList.add("bw-vor");
+            bwBeobachter = new IntersectionObserver(function (es) {
+                if (es.some(function (e) { return e.isIntersecting; })) {
+                    k.classList.add("bw-ein"); k.classList.remove("bw-vor");
+                    bwBeobachter.disconnect(); bwBeobachter = null;
+                }
+            }, { threshold: 0.15 });
+            bwBeobachter.observe(k);
+            setTimeout(function () { k.classList.add("bw-ein"); k.classList.remove("bw-vor"); }, 60000);
         }
         // Grenze: Tage unterhalb gelten als "vorbei" (Aufgabe vermutlich erledigt)
         function bewertungsGrenze(geoeffnet) {
@@ -1935,8 +1973,46 @@
             if (istErreicht) {
                 portalDurch(tagNummer, el || null, function () { oeffneTag(tagNummer); });
             } else {
-                document.getElementById("lock-modal").style.display = "flex";
+                const zeigen = function () { document.getElementById("lock-modal").style.display = "flex"; };
+                if (el && el.classList && !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) {
+                    el.classList.remove("wackel"); void el.offsetWidth; el.classList.add("wackel");
+                    setTimeout(function () { el.classList.remove("wackel"); zeigen(); }, 520);
+                } else zeigen();
             }
+        }
+
+        // Countdown auf der Startseite (nur vor dem 1. Dezember 2026)
+        (function () {
+            const el = document.getElementById("landingCountdown");
+            if (!el) return;
+            const heute = new Date(); heute.setHours(0, 0, 0, 0);
+            const tage = Math.round((new Date(2026, 11, 1) - heute) / 86400000);
+            if (tage <= 0 || tage > 60) return;
+            el.textContent = tage === 1 ? "Morgen \u00f6ffnet sich das erste T\u00fcrchen." : "Noch " + tage + " Tage, dann \u00f6ffnet sich das erste T\u00fcrchen.";
+            el.style.display = "";
+        })();
+
+        // Zur\u00fcck-Wischgeste: aus Geschichte/Auswahl/Finale/Auswertung geht es zur\u00fcck in die \u00dcbersicht, statt die Seite zu verlassen
+        (function () {
+            let gepusht = false;
+            const tief = ["setupScreen", "storyScreen", "finaleScreen", "auswertungScreen"];
+            function tiefOffen() { return tief.some(function (id) { return !document.getElementById(id).classList.contains("hidden"); }); }
+            function sync() {
+                if (tiefOffen()) { if (!gepusht) { try { history.pushState({ adv: 1 }, ""); gepusht = true; } catch (e) {} } }
+                else gepusht = false;
+            }
+            const obs2 = new MutationObserver(sync);
+            tief.forEach(function (id) { obs2.observe(document.getElementById(id), { attributes: true, attributeFilter: ["class"] }); });
+            window.addEventListener("popstate", function () {
+                gepusht = false;
+                if (typeof portalLaeuft !== "undefined" && (portalLaeuft || (typeof wirbelLaeuft !== "undefined" && wirbelLaeuft))) { try { history.pushState({ adv: 1 }, ""); gepusht = true; } catch (e) {} return; }
+                if (tiefOffen()) { const f = document.getElementById("finaleScreen"); zeigeTuerenUebersicht(); }
+            });
+        })();
+
+        // Offline-Speicher (nur \u00fcber https)
+        if ("serviceWorker" in navigator && location.protocol === "https:") {
+            window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
         }
 
         function schliesseModal() {
