@@ -422,6 +422,46 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
+
+        /* --- Rueckblick auf der Finale-Seite --- */
+        .rb-box { margin: 28px 0 6px; padding: 20px 18px; border: 1px solid var(--border-glow); border-radius: 14px; background: rgba(212,175,55,0.05); text-align: center; }
+        .rb-titel { font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-color); margin-bottom: 14px; }
+        .rb-gross { font-size: 2.6rem; font-weight: 700; color: var(--accent-color); line-height: 1.1; }
+        .rb-gross small { font-size: 1.1rem; font-weight: 400; opacity: 0.8; }
+        .rb-unter { font-size: 0.95rem; opacity: 0.85; margin-bottom: 18px; }
+        .rb-kopf { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; margin: 16px 0 8px; }
+        .rb-zeile { display: flex; align-items: center; gap: 10px; margin: 7px 0; font-size: 0.95rem; text-align: left; }
+        .rb-zeile .rb-name { width: 86px; flex: 0 0 auto; }
+        .rb-zeile .rb-bar { flex: 1; height: 9px; border-radius: 5px; background: rgba(255,255,255,0.08); overflow: hidden; }
+        .rb-zeile .rb-bar i { display: block; height: 100%; width: 0; border-radius: 5px; background: var(--accent-color); transition: width 1.4s cubic-bezier(0.2, 0.7, 0.2, 1); }
+        .rb-zeile .rb-zahl { width: 34px; text-align: right; flex: 0 0 auto; font-weight: 700; }
+        .rb-bew { font-size: 0.95rem; margin: 6px 0; line-height: 1.7; }
+        .rb-bew b { color: var(--accent-color); font-weight: 600; }
+        /* --- Boss-Taste (Wetteransicht) --- */
+        #bossBtn { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 10px); right: 10px; z-index: 2500; width: 38px; height: 38px; border: none; border-radius: 50%; background: rgba(255,255,255,0.06); color: #fff; opacity: 0.4; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; -webkit-tap-highlight-color: transparent; }
+        #bossBtn:active { opacity: 0.8; }
+        #bossBtn svg { width: 22px; height: 22px; }
+        #bossOverlay { position: fixed; inset: 0; z-index: 4000; overflow-y: auto; background: linear-gradient(180deg, #3b6db5 0%, #7fb0e2 100%); color: #fff; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-user-select: none; user-select: none; }
+        #bossOverlay.nacht { background: linear-gradient(180deg, #0f1b3a 0%, #2b3f73 100%); }
+        #bossOverlay .bw-in { max-width: 460px; margin: 0 auto; padding: 56px 18px 40px; text-align: center; }
+        .bw-stadt { font-size: 1.7rem; font-weight: 400; text-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+        .bw-temp { font-size: 5.6rem; font-weight: 200; line-height: 1.05; margin: 4px 0 2px; padding: 6px 0; cursor: default; touch-action: manipulation; }
+        .bw-text { font-size: 1.15rem; opacity: 0.95; }
+        .bw-hl { font-size: 1.05rem; margin-top: 4px; opacity: 0.95; }
+        .bw-karte { margin-top: 22px; background: rgba(255,255,255,0.16); border-radius: 14px; padding: 12px 14px; text-align: left; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+        .bw-kopf { font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.8; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.25); margin-bottom: 8px; }
+        .bw-stunden { display: flex; gap: 0; overflow-x: auto; }
+        .bw-std { flex: 0 0 auto; width: 58px; text-align: center; font-size: 0.95rem; }
+        .bw-std div:nth-child(2) { font-size: 1.4rem; margin: 6px 0; }
+        .bw-tag { display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.15); font-size: 1.02rem; }
+        .bw-tag:last-child { border-bottom: none; }
+        .bw-tag span:first-child { width: 80px; }
+        .bw-tag span:nth-child(2) { width: 36px; text-align: center; font-size: 1.3rem; }
+        .bw-tag span:last-child { margin-left: auto; opacity: 0.95; }
+        #bossHint { position: fixed; inset: 0; z-index: 4100; background: rgba(0,0,0,0.78); display: none; align-items: center; justify-content: center; padding: 20px; }
+        #bossHint .bh-box { max-width: 340px; background: #14120c; color: #e8e0cc; border: 1px solid rgba(212,175,55,0.5); border-radius: 12px; padding: 22px 22px 18px; text-align: center; line-height: 1.6; box-shadow: 0 0 25px rgba(212,175,55,0.25); }
+        #bossHint button { margin-top: 14px; padding: 10px 24px; background: #d4af37; border: none; color: #111; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 1rem; }
 		.dev-bar.hidden-dev {
 			display: none !important;
 		}	
@@ -430,6 +470,10 @@
 <body>
 
     <div id="leseBalken" style="display:none;"><i></i></div>
+
+    <button id="bossBtn" type="button" aria-label="Wetter" onclick="bossOeffnen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 .5 9.5z"/></svg></button>
+    <div id="bossHint"><div class="bh-box"><p style="margin:0 0 6px;"><strong>Kleiner Tipp</strong></p><p style="margin:0;">Mit der Wolke oben rechts versteckst du die Seite sofort hinter einer Wetteransicht. Zurück kommst du mit einem Doppeltipp auf die große Temperatur.</p><button type="button" onclick="bossHinweisOk()">Verstanden</button></div></div>
+    <div id="bossOverlay" style="display:none;"><div class="bw-in"><div class="bw-stadt">Grevenbroich</div><div class="bw-temp" id="bwTemp">--&deg;</div><div class="bw-text" id="bwText">&nbsp;</div><div class="bw-hl" id="bwHL">&nbsp;</div><div class="bw-karte"><div class="bw-kopf">St&uuml;ndlich</div><div class="bw-stunden" id="bwStunden"></div></div><div class="bw-karte"><div class="bw-kopf">Vorhersage</div><div id="bwTage"></div></div></div></div>
 
     <!-- Test-Modus / Entwickler-Leiste (Wird per JS automatisch ausgeblendet, wenn testModus = false) -->
     <div class="dev-bar" id="devBarElement">
@@ -598,6 +642,7 @@
                 <p class="signatur">Frohe Weihnachten, mein Schatz. Ich liebe dich!</p>
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
+            <div id="rueckblick"></div>
             <button class="btn-primary auswertung-link" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
             <button class="btn-primary" style="margin-top: 12px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
@@ -865,7 +910,7 @@
                 if (istErstesMal(naechster)) portalDurch(naechster, null, function () { oeffneTag(naechster); });
                 else oeffneTag(naechster);
             } else {
-                zeigeFinale();
+                finaleDurch(zeigeFinale);
             }
         }
 
@@ -983,11 +1028,12 @@
             return Object.assign({}, wahlMem, w);
         }
         function wahlSpeichern(day, v, p) {
-            wahlMem[day] = { v: v, p: p };
+            // "o" = ursprüngliche Wahl: bleibt für den Rückblick erhalten, auch wenn die Stimmung ab dem 25.12. geändert wird
+            wahlMem[day] = { v: v, p: p, o: (wahlMem[day] && wahlMem[day].o) || v };
             try {
                 let w = {};
                 try { w = JSON.parse(localStorage.getItem("adventWahl26") || "{}") || {}; } catch (e) {}
-                w[day] = { v: v, p: p };
+                w[day] = { v: v, p: p, o: (w[day] && w[day].o) || (wahlMem[day] && wahlMem[day].o) || v };
                 localStorage.setItem("adventWahl26", JSON.stringify(w));
             } catch (e) {}
         }
@@ -1472,6 +1518,50 @@
             else if (AW.filter) { const k = document.getElementById("awFilterKopf"); if (k) k.scrollIntoView({ behavior: "smooth", block: "start" }); }
         }
 
+
+        // --- Rueckblick (Finale) ---
+        function rueckblickHtml() {
+            const geo = geoeffnetListe().filter(function (d, i, a) { return d >= 1 && d <= 24 && a.indexOf(d) === i; }).length;
+            const wa = wahlAlle();
+            const ST = [["hingabe", "Geborgen"], ["naehe", "Verspielt"], ["feuer", "Intensiv"]];
+            const zs = { hingabe: 0, naehe: 0, feuer: 0 };
+            let nS = 0;
+            Object.keys(wa).forEach(function (k) { const m = wa[k] && (wa[k].o || wa[k].v); if (zs[m] !== undefined) { zs[m]++; nS++; } });
+            const bw = bewertungAlle();
+            const bz = { a: { "1": 0, "0": 0, "-1": 0 }, b: { "1": 0, "0": 0, "-1": 0 } };
+            let nB = 0;
+            Object.keys(bw).forEach(function (k) { ["a", "b"].forEach(function (v) { if (bw[k][v] !== undefined && bz[v][String(bw[k][v])] !== undefined) { bz[v][String(bw[k][v])]++; nB++; } }); });
+            const nN = Object.keys(notizAlle()).filter(function (k) { return notizAlle()[k]; }).length;
+            let h = '<div class="rb-box"><div class="rb-titel">Dein R\u00fcckblick</div>';
+            h += '<div class="rb-gross"><span data-ziel="' + geo + '">0</span> <small>von 24</small></div><div class="rb-unter">T\u00fcrchen ge\u00f6ffnet</div>';
+            if (nS > 0) {
+                h += '<div class="rb-kopf">Deine Stimmungen</div>';
+                const max = Math.max(zs.hingabe, zs.naehe, zs.feuer, 1);
+                ST.forEach(function (s) { h += '<div class="rb-zeile"><span class="rb-name">' + s[1] + '</span><span class="rb-bar"><i data-breite="' + Math.round(zs[s[0]] / max * 100) + '"></i></span><span class="rb-zahl"><span data-ziel="' + zs[s[0]] + '">0</span>\u00d7</span></div>'; });
+            }
+            if (nB > 0) {
+                h += '<div class="rb-kopf">Deine Bewertungen</div>';
+                [["a", "Die Aufgabe"], ["b", "Die Alternative"]].forEach(function (v) {
+                    const t = bz[v[0]]["1"] + bz[v[0]]["0"] + bz[v[0]]["-1"];
+                    if (t > 0) h += '<div class="rb-bew"><b>' + v[1] + ':</b> \uD83D\uDC4D ' + bz[v[0]]["1"] + ' &nbsp; \uD83D\uDE10 ' + bz[v[0]]["0"] + ' &nbsp; \uD83D\uDC4E ' + bz[v[0]]["-1"] + '</div>';
+                });
+            }
+            if (nN > 0) h += '<div class="rb-kopf">Deine Notizen</div><div class="rb-bew"><span data-ziel="' + nN + '">0</span> ' + (nN === 1 ? "Notiz" : "Notizen") + ' geschrieben</div>';
+            return h + '</div>';
+        }
+        function rueckblickAnimieren() {
+            const box = document.getElementById("rueckblick");
+            if (!box) return;
+            const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            box.querySelectorAll("[data-ziel]").forEach(function (e) {
+                const z = parseInt(e.dataset.ziel, 10);
+                if (reduziert || z === 0) { e.textContent = z; return; }
+                const t0 = performance.now();
+                (function schritt(t) { const f = Math.min(1, (t - t0) / 1400); e.textContent = Math.round(z * (1 - Math.pow(1 - f, 3))); if (f < 1) requestAnimationFrame(schritt); })(t0);
+            });
+            requestAnimationFrame(function () { requestAnimationFrame(function () { box.querySelectorAll("[data-breite]").forEach(function (e) { e.style.width = e.dataset.breite + "%"; }); }); });
+        }
+
         // --- Finale ---
         function applyFinaleTheme() {
             const root = document.documentElement;
@@ -1491,6 +1581,7 @@
             img.onload = function () { box.style.display = ""; void box.offsetWidth; bildEinblenden(box); };
             img.onerror = function () { box.style.display = "none"; };
             img.src = "bilder/finale.jpg";
+            try { document.getElementById("rueckblick").innerHTML = rueckblickHtml(); rueckblickAnimieren(); } catch (e) {}
         }
 
         // --- Seitentitel, Symbol im Tab, Browserleisten-Farbe, nach oben scrollen ---
@@ -1734,6 +1825,300 @@
             const b = document.getElementById("teaserMorgenStory");
             if (b) b.style.display = (am24 && currentDay === 24) ? "" : "none";
         }
+    
+        // ==========================================
+        // BOSS-TASTE: Wetteransicht für Grevenbroich (Doppeltipp auf die Temperatur = zurück)
+        // ==========================================
+        (function () {
+            const WCODE = function (c, tag) {
+                if (c === 0) return tag ? ["\u{2600}\u{FE0F}", "Klar"] : ["\u{1F319}", "Klar"];
+                if (c === 1) return tag ? ["\u{1F324}\u{FE0F}", "Überwiegend klar"] : ["\u{1F319}", "Überwiegend klar"];
+                if (c === 2) return ["\u{26C5}", "Teils bewölkt"];
+                if (c === 3) return ["\u{2601}\u{FE0F}", "Bedeckt"];
+                if (c === 45 || c === 48) return ["\u{1F32B}\u{FE0F}", "Nebel"];
+                if (c >= 51 && c <= 57) return ["\u{1F326}\u{FE0F}", "Nieselregen"];
+                if (c >= 61 && c <= 67) return ["\u{1F327}\u{FE0F}", "Regen"];
+                if (c >= 71 && c <= 77) return ["\u{1F328}\u{FE0F}", "Schnee"];
+                if (c >= 80 && c <= 82) return ["\u{1F326}\u{FE0F}", "Schauer"];
+                if (c === 85 || c === 86) return ["\u{1F328}\u{FE0F}", "Schneeschauer"];
+                if (c >= 95) return ["\u{26C8}\u{FE0F}", "Gewitter"];
+                return ["\u{2601}\u{FE0F}", "Wechselhaft"];
+            };
+            let daten = null, geladenUm = 0, laedt = false;
+            const WTAGE = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+            const el = id => document.getElementById(id);
+            function zeichnen() {
+                const ov = el("bossOverlay");
+                if (!daten) return;
+                try {
+                    const cur = daten.current, tag = cur.is_day === 1;
+                    ov.classList.toggle("nacht", !tag);
+                    el("bwTemp").textContent = Math.round(cur.temperature_2m) + "\u{B0}";
+                    el("bwText").textContent = WCODE(cur.weather_code, tag)[1];
+                    el("bwHL").textContent = "H:" + Math.round(daten.daily.temperature_2m_max[0]) + "\u{B0}  T:" + Math.round(daten.daily.temperature_2m_min[0]) + "\u{B0}";
+                    const jetztStd = cur.time.slice(0, 13);
+                    let i0 = daten.hourly.time.findIndex(t => t.slice(0, 13) >= jetztStd);
+                    if (i0 < 0) i0 = 0;
+                    let h = "";
+                    for (let i = i0; i < Math.min(i0 + 10, daten.hourly.time.length); i++) {
+                        const std = parseInt(daten.hourly.time[i].slice(11, 13), 10);
+                        const istTag = std >= 7 && std < 18;
+                        h += '<div class="bw-std"><div>' + (i === i0 ? "Jetzt" : std) + '</div><div>' + WCODE(daten.hourly.weather_code[i], istTag)[0] + '</div><div>' + Math.round(i === i0 ? cur.temperature_2m : daten.hourly.temperature_2m[i]) + '\u{B0}</div></div>';
+                    }
+                    el("bwStunden").innerHTML = h;
+                    let t = "";
+                    for (let i = 0; i < daten.daily.time.length; i++) {
+                        const d = new Date(daten.daily.time[i] + "T12:00:00");
+                        t += '<div class="bw-tag"><span>' + (i === 0 ? "Heute" : WTAGE[d.getDay()]) + '</span><span>' + WCODE(daten.daily.weather_code[i], true)[0] + '</span><span>' + Math.round(daten.daily.temperature_2m_min[i]) + '\u{B0} / ' + Math.round(daten.daily.temperature_2m_max[i]) + '\u{B0}</span></div>';
+                    }
+                    el("bwTage").innerHTML = t;
+                } catch (e) {}
+            }
+            function laden() {
+                if (laedt || (daten && Date.now() - geladenUm < 10 * 60 * 1000)) return;
+                laedt = true;
+                const url = "https://api.open-meteo.com/v1/forecast?latitude=51.0885&longitude=6.5879&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin&forecast_days=4";
+                fetch(url, { referrerPolicy: "no-referrer" }).then(r => r.json()).then(j => {
+                    if (j && j.current && j.hourly && j.daily) { daten = j; geladenUm = Date.now(); zeichnen(); }
+                }).catch(function () {}).then(function () { laedt = false; });
+            }
+            let gemerkterTitel = "", hinweisGesehen = false;
+            function hinweisGelesen() { try { return localStorage.getItem("adventBossHint26") === "1"; } catch (e) { return hinweisGesehen; } }
+            function wirklichOeffnen() {
+                const ov = el("bossOverlay");
+                gemerkterTitel = document.title;
+                laden(); zeichnen();
+                ov.style.display = "block"; ov.scrollTop = 0;
+                document.documentElement.style.overflow = "hidden";
+                document.title = "Wetter";
+                el("bossBtn").style.visibility = "hidden";
+                const tc = document.getElementById("themeColorMeta"); if (tc) tc.setAttribute("content", ov.classList.contains("nacht") ? "#0f1b3a" : "#3b6db5");
+            }
+            window.bossOeffnen = function () {
+                if (!hinweisGelesen()) { el("bossHint").style.display = "flex"; return; }
+                wirklichOeffnen();
+            };
+            window.bossHinweisOk = function () {
+                hinweisGesehen = true;
+                try { localStorage.setItem("adventBossHint26", "1"); } catch (e) {}
+                el("bossHint").style.display = "none";
+                wirklichOeffnen();
+            };
+            function schliessen() {
+                el("bossOverlay").style.display = "none";
+                document.documentElement.style.overflow = "";
+                el("bossBtn").style.visibility = "";
+                try { seiteAktualisieren(); } catch (e) { document.title = gemerkterTitel; }
+            }
+            let letzterTipp = 0;
+            document.addEventListener("DOMContentLoaded", function () {
+                const temp = el("bwTemp");
+                temp.addEventListener("pointerup", function () {
+                    const jetztMs = Date.now();
+                    if (jetztMs - letzterTipp < 400) { letzterTipp = 0; schliessen(); } else letzterTipp = jetztMs;
+                });
+                temp.addEventListener("dblclick", schliessen);
+                if (typeof testModus !== "undefined" && testModus) el("bossBtn").style.top = "56px";
+                setTimeout(laden, 4000);
+            });
+            document.addEventListener("keydown", function (e) { if (e.key === "Escape" && el("bossOverlay").style.display === "block") schliessen(); });
+        })();
+    
+        // ==========================================
+        // FINALE-ANIMATION (Uebergang von Tuerchen 24 zur Abschlussseite)
+        // Variante A = "Vier Kerzen", Variante B = "Die 24 Lichter"
+        // ==========================================
+        window.FINALE_VAR = "B";
+        (function () {
+            const KAT = ["#8b78e6", "#4fa874", "#d99b41", "#c23b4c"];
+            const clamp = x => Math.max(0, Math.min(1, x));
+            const eIO = x => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+            const eO = x => { x = clamp(x); return 1 - Math.pow(1 - x, 3); };
+            const eI = x => { x = clamp(x); return x * x * x; };
+            const lerp = (a, b, f) => a + (b - a) * f;
+            function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+            function hex(c) { return [parseInt(c.slice(1, 3), 16), parseInt(c.slice(3, 5), 16), parseInt(c.slice(5, 7), 16)]; }
+            function rgba(c, a) { const h = hex(c); return "rgba(" + h[0] + "," + h[1] + "," + h[2] + "," + a + ")"; }
+            function mix(c1, c2, f) { const a = hex(c1), b = hex(c2); return "#" + [0, 1, 2].map(i => Math.round(lerp(a[i], b[i], f)).toString(16).padStart(2, "0")).join(""); }
+            function glow(ctx, x, y, r, c, a) {
+                const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+                g.addColorStop(0, rgba(c, a)); g.addColorStop(0.4, rgba(c, a * 0.35)); g.addColorStop(1, rgba(c, 0));
+                ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+            }
+            // ---------- Variante B: Die 24 Lichter ----------
+            let herz = null;
+            function herzPunkte() {
+                if (herz) return herz;
+                const pts = [];
+                for (let i = 0; i <= 600; i++) { const t = i / 600 * Math.PI * 2; pts.push([16 * Math.pow(Math.sin(t), 3), -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t))]); }
+                const cum = [0];
+                for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+                const L = cum[cum.length - 1], out = [];
+                for (let k = 0; k < 24; k++) { const want = L * k / 24; let j = 0; while (j < cum.length - 1 && cum[j] < want) j++; out.push(pts[j]); }
+                herz = { aus: out, voll: pts };
+                return herz;
+            }
+            let sternB = null;
+            function bildB(ctx, W, H, t) {
+                const k = Math.min(W, H) / 390, R = rng(24);
+                if (!sternB || sternB.W !== W) {
+                    sternB = { W: W, hint: [], start: [] };
+                    for (let i = 0; i < 80; i++) sternB.hint.push([R() * W, R() * H, R() * 1.2 + 0.4, R() * 6.28]);
+                    for (let i = 0; i < 24; i++) sternB.start.push([W * (0.1 + 0.8 * R()), H * (0.12 + 0.76 * R()), R() * 6.28, 4 + R() * 6]);
+                }
+                ctx.fillStyle = "#060608"; ctx.fillRect(0, 0, W, H);
+                ctx.globalCompositeOperation = "lighter";
+                sternB.hint.forEach(s => { ctx.fillStyle = "rgba(255,244,214," + (0.10 + 0.14 * Math.sin(t * 0.002 + s[3])) * clamp(t / 1500) + ")"; ctx.beginPath(); ctx.arc(s[0], s[1], s[2] * k, 0, 7); ctx.fill(); });
+                const hp = herzPunkte(), sc = Math.min(W, H) * 0.0268, cx = W / 2, cy = H * 0.46;
+                const sammeln = eIO((t - 5400) / 2700);
+                const puls = t > 8300 && t < 9300 ? 1 + 0.07 * Math.sin(Math.PI * (t - 8300) / 1000) : 1;
+                const zoom = 1 + eI((t - 9300) / 2300) * 22;
+                const pos = [];
+                for (let i = 0; i < 24; i++) {
+                    const st = sternB.start[i];
+                    const sx = st[0] + Math.sin(t * 0.0006 + st[2]) * 7 * k, sy = st[1] + Math.cos(t * 0.0005 + st[2]) * 7 * k;
+                    const tx = cx + hp.aus[i][0] * sc, ty = cy + hp.aus[i][1] * sc;
+                    const sw = Math.sin(sammeln * Math.PI) * 55 * k * (i % 2 ? 1 : -1);
+                    let x = lerp(sx, tx, sammeln) + sw * (ty - sy) / (Math.hypot(tx - sx, ty - sy) + 1) * 0.6;
+                    let y = lerp(sy, ty, sammeln) - sw * (tx - sx) / (Math.hypot(tx - sx, ty - sy) + 1) * 0.6;
+                    x = cx + (x - cx) * puls * zoom; y = cy + (y - cy) * puls * zoom;
+                    pos.push([x, y]);
+                }
+                // Herz-Umriss
+                const kontur = clamp((t - 7900) / 1200);
+                if (kontur > 0) {
+                    ctx.strokeStyle = "rgba(255,226,150," + (0.55 * kontur) + ")"; ctx.lineWidth = 1.6 * k; ctx.shadowColor = "rgba(255,210,110,0.9)"; ctx.shadowBlur = 14 * k;
+                    ctx.beginPath(); hp.voll.forEach((q, i) => { const x = cx + (q[0] * sc) * puls * zoom, y = cy + (q[1] * sc) * puls * zoom; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+                    ctx.stroke(); ctx.shadowBlur = 0;
+                }
+                for (let i = 0; i < 24; i++) {
+                    const a = eO((t - (700 + i * 190)) / 700); if (a <= 0) continue;
+                    const col = KAT[calendarData[i + 1].cat], tw = 0.82 + 0.18 * Math.sin(t * 0.004 + i * 1.7);
+                    const r = (5 + (i % 3)) * k * (1 + 0.5 * sammeln) * Math.min(3, Math.sqrt(zoom));
+                    glow(ctx, pos[i][0], pos[i][1], r * 4.4, col, 0.8 * a * tw);
+                    ctx.fillStyle = "rgba(255,250,235," + (0.95 * a) + ")"; ctx.beginPath(); ctx.arc(pos[i][0], pos[i][1], r * 0.42, 0, 7); ctx.fill();
+                }
+                // goldenes Herzleuchten und Endblitz
+                const hg = clamp((t - 8300) / 1500);
+                if (hg > 0) glow(ctx, cx, cy, Math.min(W, H) * (0.55 + zoom * 0.08), "#f2c14e", 0.35 * hg);
+                const fl = Math.pow(clamp((t - 10300) / 1100), 1.6);
+                if (fl > 0) { ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = "rgba(255,236,176," + fl + ")"; ctx.fillRect(0, 0, W, H); }
+                ctx.globalCompositeOperation = "source-over";
+            }
+            // ---------- Variante A: Vier Kerzen ----------
+            let kranz = null;
+            function kranzRendern(W, H) {
+                const k = Math.min(W, H) / 390, c = document.createElement("canvas");
+                c.width = W; c.height = H; const x = c.getContext("2d"), R = rng(7);
+                const cx = W / 2, cy = H * 0.62, rx = Math.min(W * 0.42, 190 * k), ry = rx * 0.36;
+                for (let i = 0; i < 900; i++) {
+                    const a = R() * 6.2832, off = (R() - 0.5) * 30 * k;
+                    const px = cx + (rx + off * 0.9) * Math.cos(a), py = cy + (ry + off * 0.3) * Math.sin(a);
+                    x.strokeStyle = ["#1f4d2e", "#2a6a3c", "#16391f", "#357a47"][i % 4]; x.lineWidth = (1.6 + R() * 1.4) * k;
+                    const d = a + 1.57 + (R() - 0.5) * 1.4, l = (9 + R() * 12) * k;
+                    x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(d) * l, py + Math.sin(d) * l * 0.5); x.stroke();
+                }
+                for (let i = 0; i < 14; i++) { const a = R() * 6.2832; x.fillStyle = "#b3262f"; x.beginPath(); x.arc(cx + rx * Math.cos(a), cy + ry * Math.sin(a), (2.4 + R() * 1.2) * k, 0, 7); x.fill(); }
+                kranz = { c: c, W: W, H: H, cx: cx, cy: cy, rx: rx, ry: ry, k: k };
+            }
+            function flamme(ctx, x, y, h, w, col, a, t, i) {
+                const fl = 1 + 0.07 * Math.sin(t * 0.021 + i * 3), dx = Math.sin(t * 0.013 + i * 2) * w * 0.12;
+                h *= fl;
+                ctx.save(); ctx.globalCompositeOperation = "lighter";
+                glow(ctx, x, y - h * 0.15, h * 3.6, col, 0.55 * a);
+                ctx.restore();
+                const g = ctx.createLinearGradient(0, y - h, 0, y + h * 0.5);
+                g.addColorStop(0, rgba(col, 0.95 * a)); g.addColorStop(0.55, rgba("#ffd98a", 0.95 * a)); g.addColorStop(1, rgba("#fffbe8", a));
+                ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(x + dx, y - h);
+                ctx.bezierCurveTo(x + w * 1.3, y - h * 0.2, x + w, y + h * 0.5, x, y + h * 0.5);
+                ctx.bezierCurveTo(x - w, y + h * 0.5, x - w * 1.3, y - h * 0.2, x + dx, y - h); ctx.fill();
+            }
+            function bildA(ctx, W, H, t) {
+                if (!kranz || kranz.W !== W || kranz.H !== H) kranzRendern(W, H);
+                const K = kranz, k = K.k;
+                ctx.fillStyle = "#060608"; ctx.fillRect(0, 0, W, H);
+                const ein = eO((t - 300) / 1200);
+                const zahl = [1800, 3500, 5200, 6900].map(s => eO((t - s) / 900));
+                const lit = zahl.reduce((a, b) => a + b, 0);
+                // Raumlicht
+                ctx.save(); ctx.globalCompositeOperation = "lighter";
+                glow(ctx, K.cx, K.cy - 60 * k, Math.max(W, H) * 0.6, "#f2c14e", 0.07 * lit * ein); ctx.restore();
+                ctx.globalAlpha = ein * (0.55 + 0.1 * lit); ctx.drawImage(K.c, 0, 0); ctx.globalAlpha = 1;
+                const u = [-0.8, -0.32, 0.32, 0.8], ch = H * 0.14, cw = Math.min(W * 0.066, 28 * k);
+                const merge = eIO((t - 8200) / 2300), mx = K.cx, my = K.cy - ch * 2.15;
+                for (let i = 0; i < 4; i++) {
+                    const bx = K.cx + K.rx * u[i], by = K.cy - K.ry * Math.sqrt(1 - u[i] * u[i]) * 0.7 + 8 * k;
+                    const col = KAT[i], cand = 1 - 0.45 * merge;
+                    ctx.globalAlpha = ein * cand;
+                    ctx.fillStyle = mix("#1a1a1f", col, 0.7); ctx.fillRect(bx - cw / 2, by - ch, cw, ch);
+                    ctx.fillStyle = mix("#1a1a1f", col, 1); ctx.beginPath(); ctx.ellipse(bx, by - ch, cw / 2, cw * 0.18, 0, 0, 7); ctx.fill();
+                    ctx.fillStyle = "rgba(255,255,255,0.08)"; ctx.fillRect(bx - cw / 2 + 2 * k, by - ch, 2 * k, ch);
+                    ctx.fillStyle = "#222"; ctx.fillRect(bx - 0.6 * k, by - ch - 6 * k, 1.2 * k, 6 * k);
+                    ctx.globalAlpha = 1;
+                    const a = zahl[i]; if (a <= 0) continue;
+                    const fx = lerp(bx, mx, merge), fy = lerp(by - ch - 7 * k, my, merge);
+                    const fh = 15 * k * a * (1 + 0.7 * merge), fw = 6.2 * k * a * (1 + 0.5 * merge);
+                    flamme(ctx, fx, fy, fh, fw, mix(col, "#f2c14e", merge), 1 - 0.55 * eO((merge - 0.6) / 0.4), t, i);
+                }
+                // vereinte Flamme
+                const m2 = clamp((merge - 0.75) / 0.25);
+                const gross = eI((t - 10500) / 1900);
+                if (m2 > 0) flamme(ctx, mx, my, 26 * k * (1 + gross * 3), 11 * k * (1 + gross * 3), "#f2c14e", m2, t, 9);
+                if (gross > 0) {
+                    ctx.save(); ctx.globalCompositeOperation = "lighter";
+                    glow(ctx, mx, my, lerp(30 * k, Math.hypot(W, H) * 1.2, gross), "#ffe8a8", Math.min(1, 0.4 + gross));
+                    ctx.restore();
+                }
+                const fl = Math.pow(clamp((t - 11500) / 900), 1.5);
+                if (fl > 0) { ctx.fillStyle = "rgba(255,236,176," + fl + ")"; ctx.fillRect(0, 0, W, H); }
+            }
+            window.__finaleBild = function (v, ctx, W, H, t) { (v === "A" ? bildA : bildB)(ctx, W, H, t); };
+            window.finaleDurch = function (weiter, variante) {
+                variante = String(variante || window.FINALE_VAR || "B").toUpperCase();
+                let gesehen = false;
+                try { gesehen = localStorage.getItem("adventFinaleAn26") === "1"; } catch (e) {}
+                const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if ((gesehen && !testModus) || reduziert || window.PORTAL_AUS || document.getElementById("finaleAn")) { weiter(); return; }
+                try { localStorage.setItem("adventFinaleAn26", "1"); } catch (e) {}
+                const W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+                const ov = document.createElement("div");
+                ov.id = "finaleAn";
+                ov.style.cssText = "position:fixed;inset:0;z-index:3500;background:#060608;opacity:0;transition:opacity 0.7s ease;cursor:pointer;";
+                const cv = document.createElement("canvas");
+                cv.width = W * dpr; cv.height = H * dpr; cv.style.cssText = "width:100%;height:100%;display:block;";
+                const ctx = cv.getContext("2d"); ctx.scale(dpr, dpr);
+                ov.appendChild(cv); document.body.appendChild(ov);
+                requestAnimationFrame(function () { ov.style.opacity = "1"; });
+                const dauer = variante === "A" ? 12800 : 11700, wechsel = dauer - 500;
+                let t0 = null, gewechselt = false, beendet = false;
+                function wechselnJetzt() { if (!gewechselt) { gewechselt = true; try { weiter(); } catch (e) {} } }
+                function beenden() {
+                    if (beendet) return; beendet = true; wechselnJetzt();
+                    ov.style.transition = "opacity 0.9s ease"; ov.style.opacity = "0"; ov.style.pointerEvents = "none";
+                    setTimeout(function () { if (ov.parentNode) ov.parentNode.removeChild(ov); }, 1100);
+                }
+                function frame(ts) {
+                    if (beendet) return;
+                    if (t0 === null) t0 = ts;
+                    const t = ts - t0;
+                    (variante === "A" ? bildA : bildB)(ctx, W, H, t);
+                    if (t >= wechsel) wechselnJetzt();
+                    if (t >= dauer) { beenden(); return; }
+                    requestAnimationFrame(frame);
+                }
+                ov.addEventListener("click", beenden);
+                requestAnimationFrame(frame);
+                setTimeout(beenden, dauer + 3000);
+            };
+            // FINALE-VORSCHAU START
+            (function () {
+                const m = /[?&]finale=([ab])/i.exec(location.search);
+                if (m) window.FINALE_VAR = m[1].toUpperCase();
+                const v = /[?&]finalevorschau=([ab])/i.exec(location.search);
+                if (v) document.addEventListener("DOMContentLoaded", function () { setTimeout(function () { window.finaleDurch(zeigeFinale, v[1].toUpperCase()); }, 600); });
+            })();
+            // FINALE-VORSCHAU ENDE
+        })();
     </script>
 </body>
 </html>
