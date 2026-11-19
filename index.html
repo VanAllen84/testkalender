@@ -554,7 +554,8 @@
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
-            <button class="btn-primary" id="btnAuswertung" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
+            <button class="btn-primary" id="btnFinale" style="margin-top: 25px; display: none; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeFinale()">Zum Finale</button>
+            <button class="btn-primary" id="btnAuswertung" style="margin-top: 12px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
             <button class="btn-primary" style="margin-top: 25px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToLanding()">Zurück zur Anleitung</button>
         </div>
 
@@ -644,6 +645,7 @@
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
             <div id="rueckblick"></div>
             <button class="btn-primary auswertung-link" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
+            <button class="btn-primary" style="margin-top: 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="finaleDurch(function () {}, null, true)">&#x2728; Die Animation noch einmal ansehen</button>
             <button class="btn-primary" style="margin-top: 12px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
 
@@ -655,7 +657,7 @@
         // True = Alle Türchen offen, Dev-Leiste sichtbar
         // False = Nur echte Tage bis heute offen, Dev-Leiste WEG
         // ==========================================
-        const testModus = false; 
+        const testModus = true; 
 
         // Dev-Bar direkt beim Laden unsichtbar machen, wenn testModus false ist
         document.addEventListener("DOMContentLoaded", function() {
@@ -1258,6 +1260,8 @@
             const an = alleFreigegeben();
             const b = document.getElementById("btnAuswertung");
             if (b) b.style.display = an ? "" : "none";
+            const bf = document.getElementById("btnFinale");
+            if (bf) bf.style.display = (an || geoeffnetListe().indexOf(24) >= 0) ? "" : "none";
             document.querySelectorAll(".auswertung-link").forEach(e => { e.style.display = an ? "" : "none"; });
         }
         // Kartentexte werden erst für die Auswertung geladen (data.js)
@@ -1958,6 +1962,28 @@
                 herz = { aus: out, voll: pts };
                 return herz;
             }
+            let baum = null;
+            function baumPunkte() {
+                if (baum) return baum;
+                const poly = [[0, -1], [0.38, -0.45], [0.2, -0.45], [0.58, 0.05], [0.34, 0.05], [0.8, 0.62], [0.14, 0.62], [0.14, 0.95], [-0.14, 0.95], [-0.14, 0.62], [-0.8, 0.62], [-0.34, 0.05], [-0.58, 0.05], [-0.2, -0.45], [-0.38, -0.45], [0, -1]];
+                const cum = [0];
+                for (let i = 1; i < poly.length; i++) cum.push(cum[i - 1] + Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]));
+                const L = cum[cum.length - 1], out = [];
+                for (let k = 0; k < 24; k++) {
+                    const want = L * (k + 0.5) / 24; let j = 1; while (j < cum.length - 1 && cum[j] < want) j++;
+                    const f = (want - cum[j - 1]) / (cum[j] - cum[j - 1]);
+                    out.push([lerp(poly[j - 1][0], poly[j][0], f), lerp(poly[j - 1][1], poly[j][1], f)]);
+                }
+                baum = { aus: out, voll: poly };
+                return baum;
+            }
+            function funkeln(ctx, x, y, r, a) {
+                ctx.save(); ctx.globalCompositeOperation = "lighter";
+                ctx.strokeStyle = "rgba(255,240,190," + a + ")"; ctx.lineWidth = Math.max(1, r * 0.08);
+                ctx.beginPath(); ctx.moveTo(x - r, y); ctx.lineTo(x + r, y); ctx.moveTo(x, y - r); ctx.lineTo(x, y + r); ctx.stroke();
+                ctx.lineWidth = Math.max(1, r * 0.05); ctx.beginPath(); ctx.moveTo(x - r * 0.6, y - r * 0.6); ctx.lineTo(x + r * 0.6, y + r * 0.6); ctx.moveTo(x - r * 0.6, y + r * 0.6); ctx.lineTo(x + r * 0.6, y - r * 0.6); ctx.stroke();
+                ctx.restore();
+            }
             let sternB = null;
             function bildB(ctx, W, H, t) {
                 const k = Math.min(W, H) / 390, R = rng(24);
@@ -1969,39 +1995,66 @@
                 ctx.fillStyle = "#060608"; ctx.fillRect(0, 0, W, H);
                 ctx.globalCompositeOperation = "lighter";
                 sternB.hint.forEach(s => { ctx.fillStyle = "rgba(255,244,214," + (0.10 + 0.14 * Math.sin(t * 0.002 + s[3])) * clamp(t / 1500) + ")"; ctx.beginPath(); ctx.arc(s[0], s[1], s[2] * k, 0, 7); ctx.fill(); });
-                const hp = herzPunkte(), sc = Math.min(W, H) * 0.0268, cx = W / 2, cy = H * 0.46;
-                const sammeln = eIO((t - 5400) / 2700);
-                const puls = t > 8300 && t < 9300 ? 1 + 0.07 * Math.sin(Math.PI * (t - 8300) / 1000) : 1;
-                const zoom = 1 + eI((t - 9300) / 2300) * 22;
+                const hp = herzPunkte(), bp = baumPunkte(), m = Math.min(W, H);
+                const scH = m * 0.0268, cx = W / 2, cyH = H * 0.46;
+                const scB = m * 0.40, cyB = H * 0.49;
+                const zumBaum = eIO((t - 5400) / 2600);
+                const zumHerz = eIO((t - 10200) / 2300);
+                const puls = t > 12500 && t < 13400 ? 1 + 0.07 * Math.sin(Math.PI * (t - 12500) / 900) : 1;
+                const zoom = 1 + eI((t - 13100) / 2200) * 22;
+                const bx = i => cx + bp.aus[i][0] * scB, by = i => cyB + bp.aus[i][1] * scB;
+                const hx = i => cx + hp.aus[i][0] * scH, hy = i => cyH + hp.aus[i][1] * scH;
                 const pos = [];
                 for (let i = 0; i < 24; i++) {
                     const st = sternB.start[i];
                     const sx = st[0] + Math.sin(t * 0.0006 + st[2]) * 7 * k, sy = st[1] + Math.cos(t * 0.0005 + st[2]) * 7 * k;
-                    const tx = cx + hp.aus[i][0] * sc, ty = cy + hp.aus[i][1] * sc;
-                    const sw = Math.sin(sammeln * Math.PI) * 55 * k * (i % 2 ? 1 : -1);
-                    let x = lerp(sx, tx, sammeln) + sw * (ty - sy) / (Math.hypot(tx - sx, ty - sy) + 1) * 0.6;
-                    let y = lerp(sy, ty, sammeln) - sw * (tx - sx) / (Math.hypot(tx - sx, ty - sy) + 1) * 0.6;
-                    x = cx + (x - cx) * puls * zoom; y = cy + (y - cy) * puls * zoom;
+                    const dir = i % 2 ? 1 : -1;
+                    let x, y;
+                    if (t < 10200) {
+                        const sw = Math.sin(zumBaum * Math.PI) * 55 * k * dir, d = Math.hypot(bx(i) - sx, by(i) - sy) + 1;
+                        x = lerp(sx, bx(i), zumBaum) + sw * (by(i) - sy) / d * 0.6; y = lerp(sy, by(i), zumBaum) - sw * (bx(i) - sx) / d * 0.6;
+                        if (zumBaum >= 1) { x += Math.sin(t * 0.003 + i) * 1.2 * k; y += Math.cos(t * 0.0027 + i) * 1.2 * k; }
+                    } else {
+                        const sw = Math.sin(zumHerz * Math.PI) * 28 * k * dir, d = Math.hypot(hx(i) - bx(i), hy(i) - by(i)) + 1;
+                        x = lerp(bx(i), hx(i), zumHerz) + sw * (hy(i) - by(i)) / d * 0.6; y = lerp(by(i), hy(i), zumHerz) - sw * (hx(i) - bx(i)) / d * 0.6;
+                    }
+                    x = cx + (x - cx) * puls * zoom; y = cyH + (y - cyH) * puls * zoom;
                     pos.push([x, y]);
                 }
-                // Herz-Umriss
-                const kontur = clamp((t - 7900) / 1200);
+                // Umriss Baum (blendet aus) und Herz (blendet ein)
+                const baumKontur = clamp((t - 7400) / 1100) * (1 - clamp((t - 10300) / 900));
+                if (baumKontur > 0) {
+                    ctx.strokeStyle = "rgba(255,226,150," + (0.5 * baumKontur) + ")"; ctx.lineWidth = 1.5 * k; ctx.shadowColor = "rgba(255,210,110,0.9)"; ctx.shadowBlur = 12 * k;
+                    ctx.beginPath(); bp.voll.forEach((q, i) => { const x = cx + q[0] * scB, y = cyB + q[1] * scB; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); }); ctx.stroke(); ctx.shadowBlur = 0;
+                }
+                const kontur = clamp((t - 11400) / 1100);
                 if (kontur > 0) {
                     ctx.strokeStyle = "rgba(255,226,150," + (0.55 * kontur) + ")"; ctx.lineWidth = 1.6 * k; ctx.shadowColor = "rgba(255,210,110,0.9)"; ctx.shadowBlur = 14 * k;
-                    ctx.beginPath(); hp.voll.forEach((q, i) => { const x = cx + (q[0] * sc) * puls * zoom, y = cy + (q[1] * sc) * puls * zoom; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
+                    ctx.beginPath(); hp.voll.forEach((q, i) => { const x = cx + (q[0] * scH) * puls * zoom, y = cyH + (q[1] * scH) * puls * zoom; if (i) ctx.lineTo(x, y); else ctx.moveTo(x, y); });
                     ctx.stroke(); ctx.shadowBlur = 0;
                 }
                 for (let i = 0; i < 24; i++) {
-                    const a = eO((t - (700 + i * 190)) / 700); if (a <= 0) continue;
+                    const a = eO((t - (600 + i * 170)) / 700); if (a <= 0) continue;
                     const col = KAT[calendarData[i + 1].cat], tw = 0.82 + 0.18 * Math.sin(t * 0.004 + i * 1.7);
-                    const r = (5 + (i % 3)) * k * (1 + 0.5 * sammeln) * Math.min(3, Math.sqrt(zoom));
+                    const r = (5 + (i % 3)) * k * (1 + 0.45 * zumBaum + 0.15 * zumHerz) * Math.min(3, Math.sqrt(zoom));
                     glow(ctx, pos[i][0], pos[i][1], r * 4.4, col, 0.8 * a * tw);
                     ctx.fillStyle = "rgba(255,250,235," + (0.95 * a) + ")"; ctx.beginPath(); ctx.arc(pos[i][0], pos[i][1], r * 0.42, 0, 7); ctx.fill();
                 }
+                // goldener Stern auf dem Baum
+                const stern = eO((t - 8200) / 900) * (1 - clamp((t - 10300) / 1000));
+                if (stern > 0) {
+                    const sxp = cx, syp = cyB - scB * 1.0 - 4 * k, pr = 9 * k * (1 + 0.12 * Math.sin(t * 0.006));
+                    glow(ctx, sxp, syp, pr * 5.5, "#f2c14e", 0.95 * stern);
+                    ctx.fillStyle = "rgba(255,248,220," + stern + ")"; ctx.beginPath(); ctx.arc(sxp, syp, pr * 0.45, 0, 7); ctx.fill();
+                    funkeln(ctx, sxp, syp, pr * 2.6 * stern, 0.8 * stern);
+                }
+                // Baum funkelt kurz
+                const bf = clamp((t - 8800) / 700) * (1 - clamp((t - 10200) / 600));
+                if (bf > 0) for (let i = 0; i < 24; i += 3) funkeln(ctx, pos[(i + Math.floor(t / 350)) % 24][0], pos[(i + Math.floor(t / 350)) % 24][1], 12 * k * bf, 0.5 * bf);
                 // goldenes Herzleuchten und Endblitz
-                const hg = clamp((t - 8300) / 1500);
-                if (hg > 0) glow(ctx, cx, cy, Math.min(W, H) * (0.55 + zoom * 0.08), "#f2c14e", 0.35 * hg);
-                const fl = Math.pow(clamp((t - 10300) / 1100), 1.6);
+                const hg = clamp((t - 11800) / 1500);
+                if (hg > 0) glow(ctx, cx, cyH, m * (0.55 + zoom * 0.08), "#f2c14e", 0.35 * hg);
+                const fl = Math.pow(clamp((t - 14100) / 1100), 1.6);
                 if (fl > 0) { ctx.globalCompositeOperation = "source-over"; ctx.fillStyle = "rgba(255,236,176," + fl + ")"; ctx.fillRect(0, 0, W, H); }
                 ctx.globalCompositeOperation = "source-over";
             }
@@ -2073,12 +2126,12 @@
                 if (fl > 0) { ctx.fillStyle = "rgba(255,236,176," + fl + ")"; ctx.fillRect(0, 0, W, H); }
             }
             window.__finaleBild = function (v, ctx, W, H, t) { (v === "A" ? bildA : bildB)(ctx, W, H, t); };
-            window.finaleDurch = function (weiter, variante) {
+            window.finaleDurch = function (weiter, variante, erzwingen) {
                 variante = String(variante || window.FINALE_VAR || "B").toUpperCase();
                 let gesehen = false;
                 try { gesehen = localStorage.getItem("adventFinaleAn26") === "1"; } catch (e) {}
                 const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-                const immer = window.FINALE_FORCE || (typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER);
+                const immer = erzwingen || window.FINALE_FORCE || (typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER);
                 if ((gesehen && !testModus && !immer) || reduziert || window.PORTAL_AUS || document.getElementById("finaleAn")) { weiter(); return; }
                 try { localStorage.setItem("adventFinaleAn26", "1"); } catch (e) {}
                 const W = window.innerWidth, H = window.innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -2090,7 +2143,7 @@
                 const ctx = cv.getContext("2d"); ctx.scale(dpr, dpr);
                 ov.appendChild(cv); document.body.appendChild(ov);
                 requestAnimationFrame(function () { ov.style.opacity = "1"; });
-                const dauer = variante === "A" ? 12800 : 11700, wechsel = dauer - 500;
+                const dauer = variante === "A" ? 12800 : 15300, wechsel = dauer - 500;
                 let t0 = null, gewechselt = false, beendet = false;
                 function wechselnJetzt() { if (!gewechselt) { gewechselt = true; try { weiter(); } catch (e) {} } }
                 function beenden() {
