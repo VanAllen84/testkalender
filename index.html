@@ -1427,8 +1427,8 @@
         function bannerKandidat() {
             const geoeffnet = geoeffnetListe();
             if (!geoeffnet.length) return null;
-            // nur auf der jeweils neuesten geöffneten Seite, und nur zum Vortag
-            if (currentDay !== Math.max.apply(null, geoeffnet)) return null;
+            // nur auf der Seite von heute (im Testmodus: neueste Seite), und nur zum Vortag
+            if (testModus ? currentDay !== Math.max.apply(null, geoeffnet) : currentDay !== heuteTag()) return null;
             const v = currentDay - 1;
             return geoeffnet.indexOf(v) >= 0 ? v : null;
         }
