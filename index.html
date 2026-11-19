@@ -2057,6 +2057,28 @@
             setTimeout(function () { el.classList.add("an"); }, 150);
         }
 
+        // Bildschirm bleibt an, solange eine Geschichte offen ist (wo vom Geraet unterstuetzt)
+        (function () {
+            if (!("wakeLock" in navigator)) return;
+            let sperre = null;
+            const st = document.getElementById("storyScreen");
+            function offen() { return !st.classList.contains("hidden") && document.visibilityState === "visible"; }
+            function sync() {
+                if (offen()) {
+                    if (!sperre) {
+                        navigator.wakeLock.request("screen").then(function (l) {
+                            sperre = l;
+                            l.addEventListener("release", function () { if (sperre === l) sperre = null; });
+                            if (!offen()) { l.release().catch(function () {}); }
+                        }).catch(function () {});
+                    }
+                } else if (sperre) { const l = sperre; sperre = null; l.release().catch(function () {}); }
+            }
+            new MutationObserver(sync).observe(st, { attributes: true, attributeFilter: ["class"] });
+            document.addEventListener("visibilitychange", sync);
+            sync();
+        })();
+
         function schliesseModal() {
             document.getElementById("lock-modal").style.display = "none";
         }
