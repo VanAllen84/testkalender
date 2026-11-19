@@ -169,6 +169,12 @@
             font-weight: bold;
         }
 
+        .karten-nr { display: inline-block; animation: kartenPuls 2.8s ease-in-out infinite; }
+        @keyframes kartenPuls {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 4px rgba(212,175,55,0.15); }
+            50% { transform: scale(1.09); text-shadow: 0 0 10px rgba(255,226,140,0.85), 0 0 22px rgba(212,175,55,0.55); }
+        }
+        @media (prefers-reduced-motion: reduce) { .karten-nr { animation: none; text-shadow: 0 0 8px rgba(212,175,55,0.5); } }
         .card-instruction-text {
             font-size: 1.05rem;
             line-height: 1.6;
@@ -530,7 +536,7 @@
                     <strong class="rules-kopf" id="rulesKopf" onclick="rulesUmschalten()">Und so funktioniert das Ganze:</strong><div class="rules-inhalt"><br>
                     1. Wähle jeden Tag deine gewünschte Stimmung für die heutige Geschichte aus.<br>
                     2. Lass dich von den – nur für dich – erstellten Geschichten in der ausgewählten Stimmungslage abholen und auf die Tagesaufgabe vorbereiten.<br>
-                    3. Ziehe die am Ende der Geschichte genannte Karte aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
+                    3. Ziehe den am Ende der Geschichte genannten Umschlag aus dem Beutel und habt gemeinsam Spaß mit der Aufgabe.<br>
                     4. Am nächsten Tag fragt dich das Türchen oben, wie die Aufgabe vom Vortag war – bewerte, was ihr gemacht habt (die Aufgabe, die Alternative oder beides), jeweils mit einem Daumen. Möchtest du es erst noch wirken lassen oder mit anderen vergleichen, kannst du die Bewertung auch später nachholen: Öffne dazu einfach das jeweilige Türchen noch einmal. Ab dem 25. Dezember gibt es daraus eine Auswertung deiner Favoriten.
                 </div></div>
 
@@ -634,7 +640,7 @@
             </div>
 
             <div class="card-reveal-box">
-                <div class="card-title" id="cardBoxTitle">Und nun, zieh die passende Karte aus dem Beutel.</div>
+                <div class="card-title" id="cardBoxTitle">Und nun, zieh den passenden Umschlag aus dem Beutel.</div>
                 <div class="card-instruction-text" id="cardInstruction">
                     <!-- Minimalistische Kartennummer-Anzeige -->
                 </div>
@@ -678,6 +684,7 @@
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
             <div id="rueckblick"></div>
             <button class="btn-primary auswertung-link" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
+            <button class="btn-primary" style="margin-top: 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="erinnerungSpeichern(this)">&#128190; Meine Erinnerung speichern (Bilder + Text)</button>
             <button class="btn-primary" style="margin-top: 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="finaleDurch(function () {}, null, true)">&#x2728; Die Animation noch einmal ansehen</button>
             <button class="btn-primary" style="margin-top: 12px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
@@ -1274,8 +1281,8 @@
         }
         function karteninfoSetzen(day, periodActive) {
             const box = document.getElementById("cardInstruction");
-            let html = `Die heutige Karte hat die Nummer:<br><br>
-                        <span style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${calendarData[day].cardNum}</span>`;
+            let html = `Der heutige Umschlag hat die Nummer:<br><br>
+                        <span class="karten-nr" style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${calendarData[day].cardNum}</span>`;
             box.innerHTML = html;
         }
 
@@ -1395,7 +1402,8 @@
             ta.remove();
         }
         function notizKnopfHtml() {
-            return Object.keys(notizAlle()).length ? '<button class="aw-link" onclick="notizenKopieren(this)">\u{1F4DD} Alle meine Notizen kopieren</button>' : "";
+            return (Object.keys(notizAlle()).length ? '<button class="aw-link" onclick="notizenKopieren(this)">\u{1F4DD} Alle meine Notizen kopieren</button>' : "") +
+                '<button class="aw-link" onclick="erinnerungSpeichern(this)">\uD83D\uDCBE Meine Erinnerung speichern (Bilder + Text)</button>';
         }
         const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
         // Zeilen (Aufgabe / Alternative) für Banner oder Kasten zeichnen
@@ -1437,7 +1445,7 @@
         function bewertungUI() {
             const kasten = document.getElementById("bewertungBox");
             if (!kasten) return;
-            const vergangen = alleFreigegeben() || tagVergangen(currentDay);
+            const vergangen = true;   // Bewertungskasten steht auf jeder Tagesseite (auch am selben Tag, auch bei mehreren Tuerchen an einem Tag)
             kasten.style.display = vergangen ? "" : "none";
             document.getElementById("bewertungZeilen").innerHTML = bewertungZeilenHtml(currentDay, "kasten");
         }
@@ -1962,15 +1970,13 @@
                 if (typeof window.getStoryText === "function") {
                     storyContainer.innerHTML = window.getStoryText(vibe);
                 } else {
-                    storyContainer.innerHTML = "Die Skript-Funktion wurde nicht gefunden.";
+                    geschichteFehler(storyContainer);
                 }
                 storyBildStatus.text = true; storyBildStart();
                 lesePositionHerstellen(day);
             };
 
-            script.onerror = function() {
-                storyContainer.innerHTML = `Die Datei story-day${day}.js wurde noch nicht angelegt.`;
-            };
+            script.onerror = function() { geschichteFehler(storyContainer); };
 
             document.head.appendChild(script);
 
@@ -2156,6 +2162,165 @@
         function rulesUmschalten() {
             const b = document.getElementById("rulesBox");
             if (b && b.classList.contains("zu")) b.classList.toggle("auf");
+        }
+        // ==========================================
+        // Erinnerung speichern: Bilder (Rueckblick, Favoriten) + Textdatei mit Notizen und Bewertungen
+        // ==========================================
+        function geschichteNochmal() { loadStoryContent(currentDay, selectedVibe, hasPeriod); }
+        const ERINNERUNG_ST = [["hingabe", "Geborgen"], ["naehe", "Verspielt"], ["feuer", "Intensiv"]];
+        function erinnerungDaten(cb) {
+            kartenLaden(function () { erLaden(function () {
+                const bew = bewertungAlle(), er = erDaten(), wa = wahlAlle(), no = notizAlle(), karten = kartenDaten();
+                const gemeinsam = alleFreigegeben() && Object.keys(er).length > 0;
+                cb({ bew: bew, er: gemeinsam ? er : {}, wa: wa, no: no, karten: karten, gemeinsam: gemeinsam, geo: geoeffnetListe() });
+            }); });
+        }
+        function erinnerungZaehlen(D) {
+            const st = { hingabe: 0, naehe: 0, feuer: 0 };
+            Object.keys(D.wa).forEach(function (k) { const m = D.wa[k] && (D.wa[k].o || D.wa[k].v); if (st[m] !== undefined) st[m]++; });
+            const bz = { a: { "1": 0, "0": 0, "-1": 0 }, b: { "1": 0, "0": 0, "-1": 0 } };
+            Object.keys(D.bew).forEach(function (k) { ["a", "b"].forEach(function (v) { const x = D.bew[k][v]; if (x !== undefined && bz[v][String(x)] !== undefined) bz[v][String(x)]++; }); });
+            const gr = [0, 0, 0, 0, 0, 0], items = [];
+            if (D.gemeinsam) for (let d = 1; d <= 24; d++) ["a", "b"].forEach(function (v) {
+                const a = D.bew[d] ? D.bew[d][v] : undefined, b = D.er[d] ? D.er[d][v] : undefined;
+                if (a !== undefined && b !== undefined) { const g = gruppeFuer(a, b); gr[g]++; items.push({ d: d, ver: v, a: a, b: b, g: g }); }
+            });
+            return { st: st, bz: bz, gr: gr, items: items, notizen: Object.keys(D.no).filter(function (k) { return D.no[k]; }).length };
+        }
+        function erinnerungCanvas(h) {
+            const c = document.createElement("canvas"); c.width = 1080; c.height = h;
+            return c;
+        }
+        function erinnerungHintergrund(ctx, w, h) {
+            const g = ctx.createLinearGradient(0, 0, 0, h);
+            g.addColorStop(0, "#14101a"); g.addColorStop(1, "#08070c");
+            ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+            ctx.strokeStyle = "rgba(212,175,55,0.55)"; ctx.lineWidth = 3; ctx.strokeRect(28, 28, w - 56, h - 56);
+        }
+        function erinnerungKopf(ctx, titel, unter) {
+            ctx.textAlign = "center"; ctx.fillStyle = "#d4af37";
+            ctx.font = "bold 64px Georgia, serif"; ctx.fillText(titel, 540, 135);
+            ctx.fillStyle = "rgba(255,255,255,0.75)"; ctx.font = "30px sans-serif"; ctx.fillText(unter, 540, 185);
+        }
+        function erinnerungBildRueckblick(D, Z) {
+            const zeilenGr = D.gemeinsam ? 6 : 0;
+            const h = 330 + 150 + 3 * 80 + 120 + 2 * 70 + (zeilenGr ? 120 + zeilenGr * 80 : 0) + 230;
+            const c = erinnerungCanvas(h), ctx = c.getContext("2d");
+            erinnerungHintergrund(ctx, 1080, h);
+            erinnerungKopf(ctx, "Mein Advent 2026", "Dein Rückblick");
+            let y = 300;
+            ctx.textAlign = "center"; ctx.fillStyle = "#fff"; ctx.font = "bold 110px Georgia, serif"; ctx.fillText(String(D.geo.length), 540, y + 40);
+            ctx.fillStyle = "rgba(255,255,255,0.75)"; ctx.font = "30px sans-serif"; ctx.fillText("von 24 Türchen geöffnet", 540, y + 90);
+            y += 200;
+            function kopf(t) { ctx.textAlign = "left"; ctx.fillStyle = "#d4af37"; ctx.font = "bold 34px Georgia, serif"; ctx.fillText(t, 100, y); y += 30; }
+            kopf("Deine Stimmungen");
+            const max = Math.max(Z.st.hingabe, Z.st.naehe, Z.st.feuer, 1);
+            ERINNERUNG_ST.forEach(function (s) {
+                y += 50; ctx.textAlign = "left"; ctx.fillStyle = "#fff"; ctx.font = "30px sans-serif"; ctx.fillText(s[1], 100, y);
+                const bw = 560 * (Z.st[s[0]] / max);
+                ctx.fillStyle = "rgba(255,255,255,0.1)"; ctx.fillRect(300, y - 26, 560, 30);
+                ctx.fillStyle = "#c23b4c"; ctx.fillRect(300, y - 26, bw, 30);
+                ctx.fillStyle = "#fff"; ctx.textAlign = "right"; ctx.fillText(Z.st[s[0]] + "×", 980, y); y += 30;
+            });
+            y += 70; kopf("Deine Bewertungen");
+            [["a", "Die Aufgabe"], ["b", "Die Alternative"]].forEach(function (v) {
+                y += 50; ctx.textAlign = "left"; ctx.fillStyle = "#fff"; ctx.font = "30px sans-serif"; ctx.fillText(v[1], 100, y);
+                ctx.textAlign = "right"; ctx.fillText("👍 " + Z.bz[v[0]]["1"] + "    😐 " + Z.bz[v[0]]["0"] + "    👎 " + Z.bz[v[0]]["-1"], 980, y); y += 20;
+            });
+            if (zeilenGr) {
+                y += 90; kopf("Unsere Auswertung");
+                const mg = Math.max.apply(null, Z.gr.concat([1]));
+                AW_GRUPPEN.forEach(function (g, i) {
+                    y += 56; ctx.textAlign = "left"; ctx.fillStyle = "#fff"; ctx.font = "28px sans-serif"; ctx.fillText(g.emoji + " " + g.name, 100, y);
+                    ctx.fillStyle = "rgba(255,255,255,0.1)"; ctx.fillRect(420, y - 24, 440, 28);
+                    ctx.fillStyle = g.farbe; ctx.fillRect(420, y - 24, 440 * (Z.gr[i] / mg), 28);
+                    ctx.fillStyle = "#fff"; ctx.textAlign = "right"; ctx.fillText(String(Z.gr[i]), 980, y); y += 24;
+                });
+            }
+            ctx.textAlign = "center"; ctx.fillStyle = "rgba(255,255,255,0.55)"; ctx.font = "italic 26px Georgia, serif";
+            ctx.fillText(Z.notizen + (Z.notizen === 1 ? " Notiz" : " Notizen") + " geschrieben", 540, h - 90);
+            return c;
+        }
+        function erinnerungBildFavoriten(D, Z) {
+            const gruppen = [0, 1].map(function (g) { return Z.items.filter(function (e) { return e.g === g; }); }).filter(function (l) { return l.length; });
+            if (!gruppen.length) return null;
+            let hoehe = 0; gruppen.forEach(function (l) { hoehe += 74 + l.length * 40; });
+            const h = 300 + hoehe + 90;
+            const c = erinnerungCanvas(h), ctx = c.getContext("2d");
+            erinnerungHintergrund(ctx, 1080, h);
+            erinnerungKopf(ctx, "Unsere Favoriten", "Was uns beiden besonders gefallen hat");
+            let y = 270;
+            gruppen.forEach(function (l) {
+                const g = AW_GRUPPEN[l[0].g];
+                y += 20; ctx.textAlign = "left"; ctx.fillStyle = g.farbe; ctx.font = "bold 34px Georgia, serif"; ctx.fillText(g.emoji + " " + g.name, 100, y); y += 44;
+                l.forEach(function (e) {
+                    const nr = calendarData[e.d].cardNum;
+                    ctx.fillStyle = "#fff"; ctx.font = "28px sans-serif"; ctx.textAlign = "left";
+                    ctx.fillText("Türchen " + e.d + " · " + (e.ver === "a" ? "Aufgabe" : "Alternative") + " · Karte " + nr, 120, y);
+                    ctx.textAlign = "right"; ctx.fillText(SYMBOL[String(e.a)] + " " + SYMBOL[String(e.b)], 980, y); y += 40;
+                });
+                y += 10;
+            });
+            return c;
+        }
+        function erinnerungText(D, Z) {
+            const NAME = { hingabe: "Geborgen", naehe: "Verspielt", feuer: "Intensiv" };
+            const S = { "1": "Gefiel mir", "0": "War OK", "-1": "Nicht nochmal" };
+            let t = "MEIN ADVENT 2026\n================\n\n";
+            t += "Geöffnete Türchen: " + D.geo.length + " von 24\n";
+            t += "Stimmungen: " + ERINNERUNG_ST.map(function (s) { return NAME[s[0]] + " " + Z.st[s[0]] + "×"; }).join(", ") + "\n";
+            t += "Aufgaben: " + Z.bz.a["1"] + " gefielen, " + Z.bz.a["0"] + " waren okay, " + Z.bz.a["-1"] + " nicht nochmal\n";
+            t += "Alternativen: " + Z.bz.b["1"] + " gefielen, " + Z.bz.b["0"] + " waren okay, " + Z.bz.b["-1"] + " nicht nochmal\n";
+            if (D.gemeinsam) { t += "\nUnsere Auswertung:\n"; AW_GRUPPEN.forEach(function (g, i) { t += "  " + g.name + ": " + Z.gr[i] + "\n"; }); }
+            t += "\n\nTÜRCHEN FÜR TÜRCHEN\n-------------------\n";
+            for (let d = 1; d <= 24; d++) {
+                const b = D.bew[d] || {}, e = D.er[d] || {}, w = D.wa[d], n = D.no[d];
+                if (!b.a && b.a !== 0 && !b.b && b.b !== 0 && !n && !w) continue;
+                const nr = calendarData[d].cardNum, k = D.karten ? D.karten[nr] : null;
+                t += "\nTürchen " + d + " (Karte " + nr + ")" + (w ? " – Stimmung: " + NAME[w.o || w.v] : "") + "\n";
+                ["a", "b"].forEach(function (v) {
+                    if (b[v] === undefined && e[v] === undefined) return;
+                    t += "  " + (v === "a" ? "Aufgabe" : "Alternative") + ": ";
+                    t += b[v] !== undefined ? "du – " + S[String(b[v])] : "von dir nicht bewertet";
+                    if (e[v] !== undefined) t += "; ich – " + S[String(e[v])];
+                    t += "\n";
+                    if (k && b[v] !== undefined) t += "    „" + String(v === "a" ? k.a : k.b).replace(/\s+/g, " ").trim() + "“\n";
+                });
+                if (n) t += "  Notiz: " + n + "\n";
+            }
+            return t + "\n";
+        }
+        function erinnerungBlob(c) { return new Promise(function (res) { c.toBlob(res, "image/png"); }); }
+        function erinnerungSpeichern(btn) {
+            const alt = btn ? btn.innerText : "";
+            if (btn) { btn.disabled = true; btn.innerText = "Einen Moment..."; }
+            erinnerungDaten(function (D) {
+                const Z = erinnerungZaehlen(D);
+                const jobs = [];
+                try { jobs.push(erinnerungBlob(erinnerungBildRueckblick(D, Z)).then(function (b) { return new File([b], "Advent2026_Rueckblick.png", { type: "image/png" }); })); } catch (e) {}
+                try { const c = erinnerungBildFavoriten(D, Z); if (c) jobs.push(erinnerungBlob(c).then(function (b) { return new File([b], "Advent2026_Favoriten.png", { type: "image/png" }); })); } catch (e) {}
+                const txt = new File(["﻿" + erinnerungText(D, Z)], "Advent2026_Notizen_und_Bewertungen.txt", { type: "text/plain" });
+                Promise.all(jobs).then(function (dateien) {
+                    dateien = dateien.concat([txt]);
+                    const fertig = function () { if (btn) { btn.disabled = false; btn.innerText = alt; } };
+                    if (navigator.canShare && navigator.canShare({ files: dateien })) {
+                        navigator.share({ files: dateien, title: "Mein Advent 2026" }).then(fertig, fertig);
+                    } else {
+                        dateien.forEach(function (f, i) {
+                            setTimeout(function () {
+                                const a = document.createElement("a"); a.href = URL.createObjectURL(f); a.download = f.name;
+                                document.body.appendChild(a); a.click(); a.remove();
+                                setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+                            }, i * 500);
+                        });
+                        setTimeout(fertig, dateien.length * 500 + 200);
+                    }
+                });
+            });
+        }
+
+        function geschichteFehler(box) {
+            box.innerHTML = '<div style="text-align:center; padding: 30px 6px;"><p style="font-size:1.1rem;">Dieses T\u00fcrchen l\u00e4sst sich gerade nicht laden.</p><p style="opacity:0.85; line-height:1.6;">Vielleicht ist das Netz schwach. Versuch es gleich noch einmal. Und wenn es nicht klappt, sag mir einfach Bescheid.</p><button class="btn-primary" style="margin-top:14px;" onclick="geschichteNochmal()">Nochmal versuchen</button></div>';
         }
         function schliesseModal() {
             document.getElementById("lock-modal").style.display = "none";
