@@ -2003,7 +2003,8 @@
             const el = document.getElementById("landingCountdown");
             if (!el) return;
             const heute = new Date(); heute.setHours(0, 0, 0, 0);
-            const tage = Math.round((new Date(2026, 11, 1) - heute) / 86400000);
+            const start = (typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER) ? new Date(2026, 10, 1) : new Date(2026, 11, 1);
+            const tage = Math.round((start - heute) / 86400000);
             if (tage <= 0 || tage > 60) return;
             el.textContent = tage === 1 ? "Morgen \u00f6ffnet sich das erste T\u00fcrchen." : "Noch " + tage + " Tage, dann \u00f6ffnet sich das erste T\u00fcrchen.";
             el.style.display = "";
