@@ -866,7 +866,16 @@
             if (window.PORTAL_AUS || portalLaeuft || reduziert) { weiter(); return; }
             portalLaeuft = true;
             const n = String(calendarData[tag].cardNum).padStart(2, "0");
-            const r = el ? el.getBoundingClientRect() : { left: window.innerWidth / 2 - 50, top: window.innerHeight / 2 - 75, width: 100, height: 150 };
+            let r;
+            if (el) r = el.getBoundingClientRect();
+            else {
+                // ohne Tuer-Kachel: dieselbe Groesse wie ein Tuerchen der Uebersicht, mittig auf dem Bildschirm
+                const cont = document.getElementById("appContainer"), cs = cont ? getComputedStyle(cont) : null;
+                const cw = cont ? cont.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0) : window.innerWidth;
+                const breit = window.innerWidth >= 600, cols = breit ? 3 : 2, gap = breit ? 18 : 14, pad = breit ? 10 : 6;
+                const tw = Math.max(90, (cw - 2 * pad - gap * (cols - 1)) / cols);
+                r = { left: window.innerWidth / 2 - tw / 2, top: window.innerHeight / 2 - 61, width: tw, height: 122 };
+            }
             const ov = document.createElement("div");
             ov.id = "portal";
             const wrap = document.createElement("div");
