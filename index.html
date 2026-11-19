@@ -284,7 +284,11 @@
         .bewertung-box.bw-vor { opacity: 0; transform: translateY(14px); }
         .bewertung-box.bw-ein { opacity: 1; transform: none; transition: opacity 1.1s ease, transform 1.1s ease; }
         @media (prefers-reduced-motion: reduce) { .tuer-card.wackel, .tuer-card.wackel::after { animation: none; } .bewertung-box.bw-vor { opacity: 1; transform: none; } }
-        .tuer-card.ausgelassen { border-color: #b8932a; animation: ausgelassenGlow 4.2s ease-in-out infinite; }
+        .tuer-card.ausgelassen { border-color: #d4af37; animation: heuteGlow 2.8s ease-in-out infinite; animation-delay: var(--sw, 0s); }
+        .tuer-card.heute { animation-delay: var(--sw, 0s); }
+        .tuer-card.heute::before, .tuer-card.ausgelassen::before { content: ""; position: absolute; top: -10%; bottom: -10%; left: 0; width: 55%; pointer-events: none; background: linear-gradient(105deg, rgba(255,236,170,0) 0%, rgba(255,236,170,0.55) 50%, rgba(255,236,170,0) 100%); transform: translateX(-130%) skewX(-12deg); animation: tuerWelle 3.4s ease-in-out infinite; animation-delay: var(--sw, 0s); }
+        @keyframes tuerWelle { 0% { transform: translateX(-130%) skewX(-12deg); } 55%, 100% { transform: translateX(260%) skewX(-12deg); } }
+        @media (prefers-reduced-motion: reduce) { .tuer-card.heute::before, .tuer-card.ausgelassen::before { display: none; } }
         .tuer-card.heute::after { content: "Heute"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.66rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #ffe9a8; text-shadow: 0 1px 4px #000; }
         @keyframes ausgelassenGlow { 0%, 100% { box-shadow: 0 0 4px rgba(212,175,55,0.15); } 50% { box-shadow: 0 0 12px rgba(212,175,55,0.45); } }
         .tuer-card.ausgelassen::after { content: "Noch unge\0000f6ffnet"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: #f0e2b0; text-shadow: 0 1px 4px #000; }
@@ -955,7 +959,7 @@
                 const sh = document.createElement("div"); sh.className = "skip-hinweis"; sh.textContent = "Tippen zum \u00dcberspringen";
                 ov.appendChild(sh); setTimeout(function () { sh.classList.add("an"); }, 1800);
             }
-            const T_GLUT = kurz ? 80 : 150, T_AUS = kurz ? 350 : 1000, T_KREIS = kurz ? 700 : 1800, T_ZIEL = kurz ? 1300 : 4200, D_ZIEL = kurz ? 1100 : 1500, T_ENDE_PAD = kurz ? 300 : 500, STAG = kurz ? 250 : 500;
+            const T_GLUT = kurz ? 80 : 150, T_AUS = kurz ? 350 : 800, T_KREIS = kurz ? 700 : 1300, T_ZIEL = kurz ? 1300 : 2500, D_ZIEL = kurz ? 1100 : 1300, T_ENDE_PAD = kurz ? 300 : 400, STAG = kurz ? 250 : 450;
             function frame(ts) {
                 if (beendet) return;
                 if (t0 === null) t0 = ts;
@@ -1126,6 +1130,7 @@
         function tuerStilAktualisieren() {
             const karten = document.querySelectorAll("#tuerenGridContainer .tuer-card");
             const alle = ab25(), offen = geoeffnetListe(), heute = heuteTag();
+            let wz = 0;
             karten.forEach((el, idx) => {
                 const i = idx + 1;
                 el.classList.remove("pix", "geoeffnet", "heute", "frei", "ausgelassen");
@@ -1136,6 +1141,8 @@
                 else if (el.classList.contains("gesperrt")) pixelSetzen(el, i, true);
                 else if (offen.indexOf(i) >= 0) { el.classList.add("geoeffnet"); el.style.backgroundImage = bild; }
                 else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); else if (heute && i < heute) el.classList.add("ausgelassen"); }
+                el.style.removeProperty("--sw");
+                if (el.classList.contains("heute") || el.classList.contains("ausgelassen")) el.style.setProperty("--sw", (wz++ * 0.35) + "s");
             });
         }
         // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 7,5 s langsam)
