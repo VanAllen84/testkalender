@@ -284,7 +284,9 @@
         .bewertung-box.bw-vor { opacity: 0; transform: translateY(14px); }
         .bewertung-box.bw-ein { opacity: 1; transform: none; transition: opacity 1.1s ease, transform 1.1s ease; }
         @media (prefers-reduced-motion: reduce) { .tuer-card.wackel, .tuer-card.wackel::after { animation: none; } .bewertung-box.bw-vor { opacity: 1; transform: none; } }
-        .tuer-card.ausgelassen { border-color: #d4af37; animation: heuteGlow 4.2s ease-in-out infinite; }
+        .tuer-card.ausgelassen { border-color: #b8932a; animation: ausgelassenGlow 4.2s ease-in-out infinite; }
+        .tuer-card.heute::after { content: "Heute"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.66rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; color: #ffe9a8; text-shadow: 0 1px 4px #000; }
+        @keyframes ausgelassenGlow { 0%, 100% { box-shadow: 0 0 4px rgba(212,175,55,0.15); } 50% { box-shadow: 0 0 12px rgba(212,175,55,0.45); } }
         .tuer-card.ausgelassen::after { content: "Noch unge\0000f6ffnet"; position: absolute; left: 0; right: 0; bottom: 6px; font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: #f0e2b0; text-shadow: 0 1px 4px #000; }
         @media (prefers-reduced-motion: reduce) { .tuer-card.ausgelassen { animation: none; box-shadow: 0 0 10px rgba(212,175,55,0.4); } }
         .landing-countdown { text-align: center; margin: -8px 0 22px; font-size: 1.05rem; color: var(--heading-color); letter-spacing: 0.5px; }
@@ -1133,7 +1135,7 @@
                 else if (alle) { pixelSetzen(el, i, false); el.classList.add("ausgelassen"); }
                 else if (el.classList.contains("gesperrt")) pixelSetzen(el, i, true);
                 else if (offen.indexOf(i) >= 0) { el.classList.add("geoeffnet"); el.style.backgroundImage = bild; }
-                else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); }
+                else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); else if (heute && i < heute) el.classList.add("ausgelassen"); }
             });
         }
         // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 7,5 s langsam)
@@ -1178,7 +1180,7 @@
             if (location.search.indexOf("reset=1") >= 0) {
                 localStorage.removeItem("adventGeoeffnet26");
                 localStorage.removeItem("adventWahl26");
-                localStorage.removeItem("adventBewertung26");
+                localStorage.removeItem("adventBewertung26"); localStorage.removeItem("adventBewDatum26");
                 localStorage.removeItem("adventSpaeter26");
                 localStorage.removeItem("adventNotiz26");
                 localStorage.removeItem("adventLese26");
@@ -1298,11 +1300,50 @@
             });
             return out;
         }
+        // Datum (Adventstag) der ersten Bewertung je Zeile: danach ist sie bis zum Folgetag aenderbar
+        const bewDatMem = {};
+        function bewNr() {
+            const d = (typeof jetzt === "function") ? jetzt() : new Date();
+            if (d.getFullYear() === 2026 && d.getMonth() === 11) return d.getDate();
+            return d.getFullYear() > 2026 ? 99 : 0;
+        }
+        function bewDatumAlle() {
+            let b = {};
+            try { b = JSON.parse(localStorage.getItem("adventBewDatum26") || "{}") || {}; } catch (e) {}
+            return Object.assign({}, bewDatMem, b);
+        }
+        function bewDatumSetzen(day, ver, nr) {
+            const alle = bewDatumAlle();
+            const e = Object.assign({}, alle[day] || {});
+            if (nr === null) delete e[ver]; else e[ver] = nr;
+            if (Object.keys(e).length) bewDatMem[day] = e; else delete bewDatMem[day];
+            try {
+                const roh = JSON.parse(localStorage.getItem("adventBewDatum26") || "{}") || {};
+                if (Object.keys(e).length) roh[day] = e; else delete roh[day];
+                localStorage.setItem("adventBewDatum26", JSON.stringify(roh));
+            } catch (x) {}
+        }
+        // Darf die Bewertung dieses Tages noch geaendert/gesetzt werden?
+        // Ja: noch gar nicht bewertet, ab 25.12., oder bis zum Tag nach der ersten Bewertung.
+        function bewAenderbar(day, ver, modus) {
+            if (alleFreigegeben()) return true;
+            const alle = bewertungAlle()[day] || {};
+            const dat = bewDatumAlle()[day] || {};
+            const nr = bewNr();
+            const zeileOffen = function (v) { const r = dat[v] !== undefined ? dat[v] : day; return nr <= (r <= day + 1 ? r + 1 : r); };   // am Tag oder Folgetag bewertet: bis zum Tag danach; spaeter bewertet: nur am Bewertungstag
+            const bewertet = ["a", "b"].filter(function (v) { return alle[v] !== undefined; });
+            if (ver !== undefined && alle[ver] !== undefined) return zeileOffen(ver);       // bewertet: bis zum Tag nach der Bewertung
+            if (!bewertet.length) return true;                                              // gar nichts bewertet
+            if (ver !== undefined && modus === "kasten") return true;                       // unbewertete Zeile: auf der eigenen Seite immer
+            return bewertet.some(zeileOffen);                                               // Banner: solange noch eine Zeile im Fenster ist
+        }
         function bewertungSetzen(day, ver, val) {
             // ver: "a" | "b"; val: 1, 0, -1 oder null (löschen)
             const alle = bewertungAlle();
             const eintrag = Object.assign({}, alle[day] || {});
+            const hatteVorher = (alle[day] || {})[ver] !== undefined;
             if (val === null) delete eintrag[ver]; else eintrag[ver] = val;
+            if (val === null) bewDatumSetzen(day, ver, null); else if (!hatteVorher) bewDatumSetzen(day, ver, bewNr());
             if (eintrag.a === undefined && eintrag.b === undefined) delete bewMem[day]; else bewMem[day] = eintrag;
             try {
                 const b = bewertungRoh();
@@ -1360,8 +1401,8 @@
                 const val = alle[ver];
                 const hat = val !== undefined;
                 let editierbar;
-                if (modus === "banner") editierbar = !hat || bannerEdit[ver];
-                else editierbar = !hat || alleFreigegeben();
+                if (modus === "banner") editierbar = bewAenderbar(day, ver, "banner") && (!hat || bannerEdit[ver]);
+                else editierbar = bewAenderbar(day, ver, "kasten");
                 html += '<div class="bew-zeile"><div class="bew-label">' + v[1] + '</div>';
                 if (editierbar) {
                     html += '<div class="bewertung-buttons">';
@@ -1369,7 +1410,7 @@
                         html += '<button class="btn-option bew-btn' + (hat && String(val) === b[0] ? " selected" : "") + '" onclick="bewerteVersion(' + day + ',\'' + ver + '\',' + b[0] + ',\'' + modus + '\')"><span class="emoji">' + b[1] + '</span><span>' + b[2] + '</span></button>';
                     });
                     html += '</div>';
-                } else if (modus === "banner") {
+                } else if (modus === "banner" && bewAenderbar(day, ver, "banner")) {
                     html += '<div class="bew-ergebnis">' + BEW_TEXT[String(val)] + '<button class="bew-spaeter" onclick="bannerAendern(\'' + ver + '\')">Ändern</button></div>';
                 } else {
                     html += '<div class="bew-ergebnis">Deine Bewertung: ' + BEW_TEXT[String(val)] + '</div>';
@@ -1427,10 +1468,13 @@
         function bannerKandidat() {
             const geoeffnet = geoeffnetListe();
             if (!geoeffnet.length) return null;
-            // nur auf der Seite von heute (im Testmodus: neueste Seite), und nur zum Vortag
-            if (testModus ? currentDay !== Math.max.apply(null, geoeffnet) : currentDay !== heuteTag()) return null;
+            // Kasten fuer den Vortag am Anfang der Seite des Folgetages: solange noch nicht bewertet,
+            // und nach der ersten Bewertung noch bis zum Tag danach
             const v = currentDay - 1;
-            return geoeffnet.indexOf(v) >= 0 ? v : null;
+            if (geoeffnet.indexOf(v) < 0) return null;
+            if (testModus) return currentDay === Math.max.apply(null, geoeffnet) ? v : null;
+            if (alleFreigegeben()) return null;
+            return (bewAenderbar(v, "a", "banner") || bewAenderbar(v, "b", "banner")) ? v : null;
         }
         function bannerAktualisieren() {
             bannerTag = bannerKandidat();
@@ -1445,8 +1489,8 @@
             const alle = bewertungAlle()[bannerTag] || {};
             const hatEine = alle.a !== undefined || alle.b !== undefined;
             document.getElementById("gesternText").innerText = hatEine
-                ? "Gestern (Türchen " + bannerTag + "):"
-                : "Wie war gestern die Aufgabe (Türchen " + bannerTag + ")?";
+                ? (bannerTag === heuteTag() - 1 ? "Gestern (Türchen " + bannerTag + "):" : "Deine Bewertung zu Türchen " + bannerTag + ":")
+                : (bannerTag === heuteTag() - 1 ? "Wie war gestern die Aufgabe (Türchen " + bannerTag + ")?" : "Wie war die Aufgabe von Türchen " + bannerTag + "?");
             document.getElementById("gesternHinweis").style.display = hatEine ? "none" : "";
             document.getElementById("gesternZeilen").innerHTML = bewertungZeilenHtml(bannerTag, "banner");
         }
