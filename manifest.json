@@ -1,6 +1,6 @@
 {
-  "name": "Dezember",
-  "short_name": "Dezember",
+  "name": "Dezember TEST",
+  "short_name": "Dez TEST",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
