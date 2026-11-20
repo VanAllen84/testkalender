@@ -310,6 +310,7 @@
         @media (prefers-reduced-motion: reduce) { .tuer-card.heute { animation: none; box-shadow: 0 0 14px rgba(212,175,55,0.5); } }
         .tuer-card.geoeffnet .tag-nummer, .tuer-card.frei .tag-nummer { text-shadow: 0 1px 6px #000, 0 0 3px #000; position: relative; }
         .tuer-card.geoeffnet .tag-label { color: #ddd; text-shadow: 0 1px 4px #000; position: relative; }
+        .tuer-card .tag-kurz { position: absolute; left: 6px; right: 6px; bottom: 5px; font-size: 0.6rem; line-height: 1.18; text-align: center; color: #f0e8cf; text-shadow: 0 1px 4px #000, 0 0 3px #000; pointer-events: none; }
 
         .tuer-card.pix { background-size: cover; background-position: center; image-rendering: pixelated; }
         .tuer-card.pix .tag-nummer, .tuer-card.pix .tag-label { position: relative; text-shadow: 0 1px 6px #000, 0 0 3px #000; }
@@ -1196,6 +1197,7 @@
             return (h.getFullYear() === 2026 && h.getMonth() === 11 && h.getDate() >= 1 && h.getDate() <= 24) ? h.getDate() : 0;
         }
         // Stil der Kacheln: gesperrt = stark verpixelt; heute (ungeöffnet) = leicht verpixelt + Glühen; geöffnet = Bild + goldener Rahmen
+                const KURZ = {"1": "Stimmung mit Musik / Gegenseitiges Zusehen", "2": "Teaser tags\u00fcber / Verw\u00f6hne nur ihn", "3": "Fl\u00fcster in sein Ohr", "4": "Erwarte ihn im Bett / Verw\u00f6hne ihn blind", "5": "Er erkundet dich", "6": "Die Halterlosen / Auf den Knien", "7": "Neuer Ort im Haus / Handarbeit in der K\u00fcche", "8": "Outdoor Vergn\u00fcgen / Hintern versohlt bekommen", "9": "Kamasutra News / Erotische Massage", "10": "Dreier Simulation / Lehre ihn deine Lust", "11": "Fingern und mehr / Liebe auf dem Tuch", "12": "Dirty Talk / Dein Mund und Er", "13": "Gefesselt und Blind / Toy-Shopping", "14": "Reitstunde", "15": "Auf dem Esstisch / Massagestab und mehr", "16": "Laut sein / Vor dem Fernseher", "17": "Das Keilkissen", "18": "Wie oft schafft ihr? / Sexfree joys", "19": "Haare ziehen / Brustwarzenklammern", "20": "Feucht warten", "21": "Auf dem Sofa / Ber\u00fchren auf dem Sofa", "22": "Intensiv und Hart / Blasen ohne Vorspiel", "23": "BH als Z\u00fcgel / Gemeinsam duschen", "24": "Wecken mit Sex / Wecken mit dem Mund"};
         function tuerStilAktualisieren() {
             const karten = document.querySelectorAll("#tuerenGridContainer .tuer-card");
             const alle = ab25(), offen = geoeffnetListe(), heute = heuteTag();
@@ -1211,6 +1213,8 @@
                 else if (offen.indexOf(i) >= 0) { el.classList.add("geoeffnet"); el.style.backgroundImage = bild; }
                 else { pixelSetzen(el, i, false); if (i === heute) el.classList.add("heute"); else if (heute && i < heute) el.classList.add("ausgelassen"); }
                 el.style.removeProperty("--sw");
+                const alt = el.querySelector(".tag-kurz"); if (alt) alt.remove();
+                if ((el.classList.contains("geoeffnet") || el.classList.contains("frei")) && KURZ[i]) { const kz = document.createElement("div"); kz.className = "tag-kurz"; kz.textContent = KURZ[i]; el.appendChild(kz); }
                 if (el.classList.contains("heute") || el.classList.contains("ausgelassen")) el.style.setProperty("--sw", (wz++ * 0.35) + "s");
             });
         }
