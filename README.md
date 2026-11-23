@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795423598`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795424297`.
 
 ---
 
@@ -277,6 +277,7 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Offene Aufgaben (nur verschiebbare Karten):** Verschiebbar sind nur die Karten 3, 4, 8, 15, 17, 19 und 23 (das sind die Türchen 7, 15, 1, 24, 8, 16 und 2). Nur dort steht unter der Bewertung der Knopf „Aufgabe erledigt?“ mit dem Hinweis, dass sie bis zum 31. Dezember nachgeholt werden darf. Wird bewertet, gilt die Aufgabe automatisch als erledigt. Offene Türchen erhalten ein Sanduhr-Zeichen auf der Kachel und eine Zeile „Noch offen bis 31. Dezember: Türchen …“ mit direkten Sprungknöpfen. Nach dem 31.12. verschwindet alles.
 - **Lieblingsgeschichten (Herz):** Unter jeder Geschichte ein Herz-Knopf „Diese Geschichte gefällt mir“. Ein Herz je Türchen und Stimmung; weitere Stimmungen kann sie erst ab dem 25.12. lesen und dann auch dort ein Herz vergeben (dieselbe Geschichte kann also mehrfach in der Liste stehen). Herzchen erscheinen auf der Kachel; ab dem 25.12. zeigt die Übersicht den Bereich „Meine Lieblingsgeschichten“ (Sprungknöpfe zu Türchen und Stimmung).
 - **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; wer es leise will, stellt die Lautstärke am Handy herunter). Fehlt die Datei, passiert nichts (kein Fehler). Die Datei steht bewusst **nicht** in der Vorab-Liste des Service Workers, damit eine fehlende Datei die Installation nicht verhindert. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
+- **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
 
 ---
 
@@ -534,7 +535,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795423598";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795424297";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.

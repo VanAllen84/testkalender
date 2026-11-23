@@ -1106,6 +1106,7 @@
             const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             if (window.PORTAL_AUS || reduziert || wirbelLaeuft) { zeigen(); return; }
             wirbelLaeuft = true;
+            try { tonWirbel(); } catch (e) {}
             const W = window.innerWidth, H = window.innerHeight;
             const lerp = (a, b, f) => a + (b - a) * f;
             const clamp = x => Math.max(0, Math.min(1, x));
@@ -3140,6 +3141,14 @@
     window.tonUmschalten = function () {
         schreib("adventTon26", !tonAn()); tonKnopf();
         if (tonAn()) window.tonSpielen(true);
+    };
+    let wirbelAudio = null;
+    window.tonWirbel = function () {
+        try {
+            if (!wirbelAudio) { wirbelAudio = new Audio("ton/wirbel.mp3"); wirbelAudio.volume = 0.8; }
+            wirbelAudio.currentTime = 0;
+            const p = wirbelAudio.play(); if (p && p.catch) p.catch(function () {});
+        } catch (e) {}
     };
     window.tonSpielen = function (vorschau) {
         if (!tonDa || (!vorschau && !tonAn())) return;
