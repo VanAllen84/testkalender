@@ -525,8 +525,143 @@
 			display: none !important;
 		}	
     </style>
+<style>
+        /* Code-Sperre (Startmaske) */
+        #codeSperre { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; background: #08060a; color: #f4ecd8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: opacity 0.5s ease; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
+        #codeSperre.weg { opacity: 0; pointer-events: none; }
+        #csCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .cs-schleier { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 42%, rgba(8,6,10,0.42) 0%, rgba(8,6,10,0.86) 100%); transition: opacity 0.6s ease; }
+        .cs-box { position: relative; text-align: center; width: min(320px, 88vw); padding: 10px 0; transition: opacity 0.35s ease, transform 0.5s ease; }
+        #codeSperre.offen .cs-box { opacity: 0; transform: scale(1.06); pointer-events: none; }
+        #codeSperre.offen .cs-schleier { opacity: 0; }
+        .cs-stern { color: #d4af37; font-size: 1.25rem; letter-spacing: 8px; margin-bottom: 4px; text-shadow: 0 0 14px rgba(212,175,55,0.55); }
+        .cs-titel { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: 2.1rem; letter-spacing: 0.08em; margin: 0 0 4px; color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,0.7); }
+        .cs-sub { margin: 0 0 24px; font-size: 0.95rem; opacity: 0.85; min-height: 1.3em; text-shadow: 0 1px 8px rgba(0,0,0,0.7); }
+        .cs-punkte { display: flex; gap: 18px; justify-content: center; margin-bottom: 28px; }
+        .cs-punkt { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid rgba(244,236,216,0.75); transition: background 0.15s, border-color 0.15s, transform 0.15s; }
+        .cs-punkt.voll { background: #d4af37; border-color: #d4af37; transform: scale(1.12); }
+        .cs-punkte.falsch { animation: csWackel 0.42s ease; }
+        .cs-punkte.falsch .cs-punkt { border-color: #c23b4c; background: #c23b4c; }
+        @keyframes csWackel { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-9px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(4px); } }
+        .cs-pad { display: grid; grid-template-columns: repeat(3, 72px); gap: 14px; justify-content: center; }
+        .cs-taste { width: 72px; height: 72px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #f6eeda; font-size: 1.7rem; font-family: inherit; cursor: pointer; padding: 0; transition: background 0.12s, transform 0.12s; -webkit-tap-highlight-color: transparent; }
+        .cs-taste:active { background: rgba(212,175,55,0.38); transform: scale(0.94); }
+        .cs-taste.leer { visibility: hidden; }
+        .cs-taste.zurueck { font-size: 1.3rem; }
+    </style>
 </head>
 <body>
+<div id="codeSperre" role="dialog" aria-label="Code eingeben">
+    <canvas id="csCanvas"></canvas>
+    <div class="cs-schleier"></div>
+    <div class="cs-box">
+        <div class="cs-stern">&#10022;</div>
+        <h1 class="cs-titel">Dezember</h1>
+        <p class="cs-sub" id="csSub">Bitte gib deinen Code ein</p>
+        <div class="cs-punkte" id="csPunkte"><span class="cs-punkt"></span><span class="cs-punkt"></span><span class="cs-punkt"></span><span class="cs-punkt"></span></div>
+        <div class="cs-pad" id="csPad">
+            <button type="button" class="cs-taste" data-k="1">1</button><button type="button" class="cs-taste" data-k="2">2</button><button type="button" class="cs-taste" data-k="3">3</button>
+            <button type="button" class="cs-taste" data-k="4">4</button><button type="button" class="cs-taste" data-k="5">5</button><button type="button" class="cs-taste" data-k="6">6</button>
+            <button type="button" class="cs-taste" data-k="7">7</button><button type="button" class="cs-taste" data-k="8">8</button><button type="button" class="cs-taste" data-k="9">9</button>
+            <button type="button" class="cs-taste leer" tabindex="-1" aria-hidden="true"></button><button type="button" class="cs-taste" data-k="0">0</button><button type="button" class="cs-taste zurueck" data-k="x" aria-label="Löschen">&#9003;</button>
+        </div>
+    </div>
+</div>
+<script>
+// Code-Sperre: sperrt beim Start, nach Pause im Hintergrund und beim Verlassen der Wetteransicht
+(function () {
+    const CODE = atob("MjAwOQ==");
+    const PAUSE = 3 * 60 * 1000;
+    const ov = document.getElementById("codeSperre");
+    if (!ov) return;
+    const cv = document.getElementById("csCanvas"), ctx = cv.getContext("2d");
+    const punkte = document.querySelectorAll("#csPunkte .cs-punkt"), pBox = document.getElementById("csPunkte"), sub = document.getElementById("csSub");
+    let eingabe = "", aktiv = true, bild = null, bildOk = false, laeuft = false, versteckt = 0, letzterStempel = 0;
+    const SK = "adventSperreTs26";
+    function stempel() { try { sessionStorage.setItem(SK, String(Date.now())); } catch (e) {} }
+    function stempelLesen() { try { return Number(sessionStorage.getItem(SK) || 0); } catch (e) { return 0; } }
+    function testAus() { try { return typeof testModus !== "undefined" && testModus; } catch (e) { return false; } }
+    function zeichnen(block) {
+        const w = innerWidth, h = innerHeight;
+        if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+        ctx.fillStyle = "#08060a"; ctx.fillRect(0, 0, w, h);
+        if (!bildOk) return;
+        const ar = w / h; let sh = bild.naturalHeight, sw = sh * ar;
+        if (sw > bild.naturalWidth) { sw = bild.naturalWidth; sh = sw / ar; }
+        const sx = (bild.naturalWidth - sw) * 0.62, sy = (bild.naturalHeight - sh) / 2;
+        if (block <= 1) { ctx.imageSmoothingEnabled = true; ctx.drawImage(bild, sx, sy, sw, sh, 0, 0, w, h); return; }
+        const tw = Math.max(8, Math.round(w / block)), th = Math.max(8, Math.round(h / block));
+        const t = document.createElement("canvas"); t.width = tw; t.height = th;
+        t.getContext("2d").drawImage(bild, sx, sy, sw, sh, 0, 0, tw, th);
+        ctx.imageSmoothingEnabled = false; ctx.drawImage(t, 0, 0, tw, th, 0, 0, w, h);
+    }
+    function punkteZeigen() { punkte.forEach(function (p, i) { p.classList.toggle("voll", i < eingabe.length); }); }
+    function verstecken() { ov.style.display = "none"; ov.classList.remove("weg", "offen"); aktiv = false; laeuft = false; const c = document.getElementById("appContainer"); if (c) c.removeAttribute("inert"); }
+    function oeffnen() {
+        laeuft = true; stempel();
+        ov.classList.add("offen");
+        const stufen = [6, 4, 2, 1]; let i = 0;
+        const t = setInterval(function () {
+            zeichnen(stufen[i]); i++;
+            if (i >= stufen.length) {
+                clearInterval(t);
+                setTimeout(function () {
+                    ov.classList.add("weg");
+                    setTimeout(function () { verstecken(); try { seiteAktualisieren(); } catch (e) {} }, 520);
+                }, 180);
+            }
+        }, 120);
+    }
+    function pruefen() {
+        if (eingabe === CODE) { oeffnen(); return; }
+        pBox.classList.add("falsch"); sub.textContent = "Das war nicht der richtige Code";
+        try { if (navigator.vibrate) navigator.vibrate(120); } catch (e) {}
+        setTimeout(function () { pBox.classList.remove("falsch"); eingabe = ""; punkteZeigen(); sub.textContent = "Bitte versuche es noch einmal"; }, 520);
+    }
+    function taste(k) {
+        if (!aktiv || laeuft || pBox.classList.contains("falsch")) return;
+        if (k === "x") { eingabe = eingabe.slice(0, -1); punkteZeigen(); return; }
+        if (eingabe.length >= 4) return;
+        eingabe += k; punkteZeigen();
+        if (eingabe.length === 4) setTimeout(pruefen, 160);
+    }
+    document.getElementById("csPad").addEventListener("click", function (e) {
+        const b = e.target.closest ? e.target.closest("[data-k]") : null;
+        if (b) taste(b.getAttribute("data-k"));
+    });
+    document.addEventListener("keydown", function (e) {
+        if (!aktiv) return;
+        if (/^[0-9]$/.test(e.key)) taste(e.key); else if (e.key === "Backspace") taste("x");
+    });
+    window.sperreZeigen = function () {
+        if (testAus()) return;
+        eingabe = ""; punkteZeigen(); pBox.classList.remove("falsch"); sub.textContent = "Bitte gib deinen Code ein";
+        ov.classList.remove("weg", "offen"); ov.style.display = "flex"; aktiv = true; laeuft = false;
+        zeichnen(6);
+        const c = document.getElementById("appContainer"); if (c) c.setAttribute("inert", "");
+        try { document.title = "Dezember"; } catch (e) {}
+    };
+    // Beim Laden: innerhalb der Pause (gleiche Sitzung) bleibt die App offen, sonst gesperrt
+    bild = new Image();
+    bild.onload = function () { bildOk = true; if (aktiv) zeichnen(6); };
+    bild.src = "bilder/landing.jpg";
+    zeichnen(6);
+    window.addEventListener("resize", function () { if (aktiv && !laeuft) zeichnen(6); });
+    const ts = stempelLesen();
+    if (ts && Date.now() - ts < PAUSE) { verstecken(); }
+    else { const c = document.getElementById("appContainer"); if (c) c.setAttribute("inert", ""); else document.addEventListener("DOMContentLoaded", function () { const c2 = document.getElementById("appContainer"); if (aktiv && c2) c2.setAttribute("inert", ""); }); }
+    document.addEventListener("DOMContentLoaded", function () { if (testAus() && aktiv) verstecken(); });
+    document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "hidden") { versteckt = Date.now(); stempel(); }
+        else if (!aktiv && versteckt && Date.now() - versteckt > PAUSE) window.sperreZeigen();
+    });
+    window.addEventListener("pageshow", function (e) { if (e.persisted && !aktiv && versteckt && Date.now() - versteckt > PAUSE) window.sperreZeigen(); });
+    ["pointerdown", "keydown", "scroll"].forEach(function (ev) {
+        window.addEventListener(ev, function () { if (!aktiv && Date.now() - letzterStempel > 10000) { letzterStempel = Date.now(); stempel(); } }, { passive: true, capture: true });
+    });
+})();
+</script>
+
 
     <div id="leseBalken" style="display:none;"><i></i></div>
 
@@ -2535,6 +2670,7 @@
                 el("bossOverlay").style.display = "none";
                 document.documentElement.style.overflow = "";
                 el("bossBtn").style.visibility = "";
+                try { if (window.sperreZeigen) window.sperreZeigen(); } catch (e) {}
                 try { seiteAktualisieren(); } catch (e) { document.title = gemerkterTitel; }
             }
             let letzterTipp = 0;
