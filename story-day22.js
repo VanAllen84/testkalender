@@ -339,7 +339,7 @@ Als er aufsteht, streift sein Arm deinen, kurz, und er lässt ihn nicht sofort z
 
 „Das war Strategie.“
 
-Die Kirche im Nachbarort ist ein alter Backsteinbau, in dem im Dezember alles nach Wachs und nassem Mantel riecht. Die Bänke sind voll, die Fenster beschlagen, und vorn steht eine Holzkrippe mit einem Puppenkind, das schon bessere Jahre gesehen hat. Ihr findet fünf Plätze in der vierten Reihe: Oma und Opa außen, daneben du, dann er, die Kleine zwischen euch beiden auf deinem Schoß, wie ein Grenzposten.
+Die Kirche im Nachbarort ist ein alter Backsteinbau, in dem im Dezember alles nach {{w:d22_mantel}} riecht. Die Bänke sind voll, die Fenster beschlagen, und vorn steht eine Holzkrippe mit einem Puppenkind, das schon bessere Jahre gesehen hat. Ihr findet fünf Plätze in der vierten Reihe: Oma und Opa außen, daneben du, dann er, die Kleine zwischen euch beiden auf deinem Schoß, wie ein Grenzposten.
 
 „Das ist unfair“, flüsterst du.
 
@@ -520,7 +520,7 @@ Um halb fünf sitzt ihr im Wohnzimmer, und er kniet vor der Großen und befestig
 
 Als er aufsteht, sieht er dich an. Es ist ein ruhiger Blick, ohne zu lächeln, und er sitzt. Du spürst ihn bis in die Zehen, mitten zwischen Gummibändern und Goldpapier. Er sagt nichts. Er wendet sich ab und hilft der Kleinen in den Schneeanzug, und du merkst, dass du das Zettelchen in deiner Manteltasche mit zwei Fingern festhältst.
 
-Die Kirche im Nachbarort riecht nach Wachs und nassem Mantel, die Fenster sind beschlagen, und vorn steht eine Holzkrippe mit einem Puppenkind, das schon bessere Jahre gesehen hat. Ihr sitzt in der vierten Reihe, Oma und Opa außen, du, er, die Kleine zwischen euch auf deinem Schoß. Opa trägt tatsächlich ein gebügeltes Hemd und sieht aus wie ein Mann, der den Atem anhält. Neben dir liegt seine Hand auf seinem Knie, ruhig, groß, und du starrst sie an und denkst an nichts, was in eine Kirche gehört.
+Die Kirche im Nachbarort riecht nach {{w:d22_mantel}}, die Fenster sind beschlagen, und vorn steht eine Holzkrippe mit einem Puppenkind, das schon bessere Jahre gesehen hat. Ihr sitzt in der vierten Reihe, Oma und Opa außen, du, er, die Kleine zwischen euch auf deinem Schoß. Opa trägt tatsächlich ein gebügeltes Hemd und sieht aus wie ein Mann, der den Atem anhält. Neben dir liegt seine Hand auf seinem Knie, ruhig, groß, und du starrst sie an und denkst an nichts, was in eine Kirche gehört.
 
 Dann steht hinter der Krippe auf einem Podest aus zwei Bänken ein weißer Engel mit schiefem Stern. Du siehst, wie die Große die Luft anhält und ihr Blick durch den Raum wandert und bei dir stehen bleibt. Du legst die Hand aufs Herz. Neben dir hebt er die Hand zum Ohr und kratzt sich, ernst, mit sehr unschuldiger Miene.
 

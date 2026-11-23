@@ -12,7 +12,7 @@ Der Rest des Morgens ist ein bekanntes Stück mit einer Hauptrolle weniger. Es g
 
 Gegen halb zwölf vibriert dein Handy.
 
-Ein Foto. Ein Schreibtisch, ein Becher, ein Bildschirm voller Tabellen, und im Hintergrund ein grauer Himmel hinter einer Glasfassade. Darunter schreibt er: „Seit vier Stunden Meetings. Ich habe in der zweiten Besprechung kurz die Augen zugemacht und an unser Sofa gedacht.“
+Ein Foto. Ein Schreibtisch, ein Becher, ein Bildschirm voller Tabellen, und im Hintergrund {{w:d4_fassade}}. Darunter schreibt er: „Seit vier Stunden Meetings. Ich habe in der zweiten Besprechung kurz die Augen zugemacht und an unser Sofa gedacht.“
 
 Du tippst: „Und? War es bequem?“
 
@@ -22,7 +22,7 @@ Du tippst: „Und? War es bequem?“
 
 „Eben. Ich lebe von diesem Gedanken.“ Dahinter das Kuss-Emoji, das ihr euch fast immer am Ende eurer Nachrichten schickt.
 
-Du legst das Handy neben die Tastatur und siehst eine Weile auf den Bildschirm, ohne zu lesen. Draußen auf dem Parkplatz fährt jemand in Schrittgeschwindigkeit vorbei, und der Himmel ist so tief und grau, dass der Tag schon mittags müde wirkt. Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt wie Wasser in einem Becken. Trotzdem ist da etwas Leichtes unter allem, etwas, das aufgegangen ist, seit du heute früh den Zettel gelesen hast.
+Du legst das Handy neben die Tastatur und siehst eine Weile auf den Bildschirm, ohne zu lesen. Draußen auf dem Parkplatz fährt jemand in Schrittgeschwindigkeit vorbei, und {{w:d4_himmel}}. Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt wie Wasser in einem Becken. Trotzdem ist da etwas Leichtes unter allem, etwas, das aufgegangen ist, seit du heute früh den Zettel gelesen hast.
 
 Um vierzehn Uhr schließt du den Rechner, und knapp zehn Minuten später stehst du in deinem Flur. Das Haus ist still, ganz still, auf eine Art, die man nur freitags kennt, wenn niemand oben im Arbeitszimmer sitzt. Kein Murmeln durch die Decke, kein Tonfall für Kollegen, nur die Lüftung in den Wänden und das leise Knacken, das so ein Haus schon mal von sich gibt, ohne dass man wirklich weiß woher es eigentlich kommt. Du hängst den Mantel auf und gehst, ohne es zu planen, die Treppe hinauf.
 
@@ -504,7 +504,7 @@ Du überlegst wirklich. Es ist erstaunlich, wie viel in so einem kleinen Wort st
 
 Die Punkte kreisen, verschwinden, kommen wieder. Dann nur ein Satz: „Gut. Das war die ehrlichste Nachricht des Tages.“
 
-Du lehnst dich zurück. Draußen auf dem Parkplatz ist der Himmel so tief und grau, dass der Tag schon mittags müde wirkt. Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt. Aber unter allem liegt etwas Ruhiges, etwas, das sich fast wie Erleichterung anfühlt. Heute musst du nichts entscheiden.
+Du lehnst dich zurück. Draußen auf dem Parkplatz {{w:d4_himmel2}}. Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt. Aber unter allem liegt etwas Ruhiges, etwas, das sich fast wie Erleichterung anfühlt. Heute musst du nichts entscheiden.
 
 Um vierzehn Uhr schließt du den Rechner, und knapp zehn Minuten später stehst du zu Hause im Flur. Das Haus ist still, auf die Art, die man nur freitags kennt, wenn oben am Schreibtisch niemand sitzt. Kein Tonfall für Kollegen, nur die Lüftung in den Wänden. Du hängst die Tasche an die Garderobe und siehst sie an, dann hängst du eine Jacke darüber, damit du sie nicht mehr siehst. Das funktioniert nicht. Du weißt, dass sie dort ist.
 

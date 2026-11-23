@@ -68,7 +68,7 @@ Er hebt den Kopf, als hätte er den Gedanken gehört.
 
 „Das ist wahr.“ Er lächelt, und das schiefe Lächeln zeigt sich zuerst in den Augenwinkeln. „Aber heute hast du es ernsthaft gedacht.“
 
-Gegen elf zieht ihr euch an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. Draußen ist es kalt und klar, und die Große besteht darauf, ihr neues Pferdebuch mitzunehmen, damit „Oma es sieht, bevor es kaputtgeht“. Ihr geht zu Fuß hinüber zum Nachbarhaus, wo heute der Sonntagskaffee stattfindet, mit Oma und Opa, mit Kuchen und mit viel zu vielen Kerzen, die ihr zu Hause nie anzünden würdet.
+Gegen elf zieht ihr euch an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. {{w:d6_draussen}}, und die Große besteht darauf, ihr neues Pferdebuch mitzunehmen, damit „Oma es sieht, bevor es kaputtgeht“. Ihr geht zu Fuß hinüber zum Nachbarhaus, wo heute der Sonntagskaffee stattfindet, mit Oma und Opa, mit Kuchen und mit viel zu vielen Kerzen, die ihr zu Hause nie anzünden würdet.
 
 Es ist ein ruhiger Nachmittag. Oma hat Streuselkuchen gebacken, und Opa hat ein Brettspiel ausgegraben, das schon sein Vater gespielt hat und dessen Regeln er nur zur Hälfte erinnert. Die Große gewinnt, weil sie die andere Hälfte erfindet. Die Kleine sitzt auf Omas Schoß, den Wau fest im Arm, und isst Kuchen mit einer Konzentration, als müsste sie jeden Krümel prüfen. Du sitzt neben ihm am großen Tisch, so nah, dass sein Knie an deinem liegt. Keiner sagt etwas dazu.
 

@@ -28,7 +28,7 @@ Sie klettert auf ihren Stuhl, mustert den Pancake-Turm und fragt: „Haben wir S
 
 „Mama Butter“, bestätigt er, und das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln. Er sieht dich über die Köpfe der Kinder hinweg an, und es ist ein stiller Blick, ohne Eile, mit so viel Wärme darin, dass du kurz wegsehen musst.
 
-Das Frühstück dauert fast eine Stunde, weil niemand einen Grund hat, es zu beenden. Er backt immer wieder nach, die Große verteilt Zimtbutter mit der Genauigkeit einer Konditorin, und die Kleine hat Sirup bis in die Haare. Draußen wird es langsam hell, ein graues, weiches Dezemberlicht, und irgendwo in der Nachbarschaft läuft schon ein Weihnachtslied, zu laut und etwas schief.
+Das Frühstück dauert fast eine Stunde, weil niemand einen Grund hat, es zu beenden. Er backt immer wieder nach, die Große verteilt Zimtbutter mit der Genauigkeit einer Konditorin, und die Kleine hat Sirup bis in die Haare. Draußen wird es langsam hell, {{w:d24_hell}}, und irgendwo in der Nachbarschaft läuft schon ein Weihnachtslied, zu laut und etwas schief.
 
 „Das ist schön“, sagt er irgendwann leise, mit dem Teller in der Hand. „Das hier. Ich möchte, dass es noch ein bisschen so bleibt.“
 
@@ -36,7 +36,7 @@ Das Frühstück dauert fast eine Stunde, weil niemand einen Grund hat, es zu bee
 
 „Ich weiß. Ich sag es nur, damit ich es nicht vergesse.“
 
-Gegen halb elf zieht ihr euch an, alle vier. Die Kleine steckt in dem Schneeanzug, in dem sie aussieht wie ein sehr entschlossenes Marshmallow, die Große trägt die gute Mütze mit dem Bommel. Es ist kalt und klar, ein Himmel in Hellblau, wie er im Dezember nur selten ist, und er sagt im Auto: „Ich habe eine Idee. Wir fahren zum Aussichtspunkt. Zum Tagebau.“
+Gegen halb elf zieht ihr euch an, alle vier. Die Kleine steckt in dem Schneeanzug, in dem sie aussieht wie ein sehr entschlossenes Marshmallow, die Große trägt die gute Mütze mit dem Bommel. {{w:d24_blau_h}}, und er sagt im Auto: „Ich habe eine Idee. Wir fahren zum Aussichtspunkt. Zum Tagebau.“
 
 „Zu den großen Baggern?“, ruft die Große.
 
@@ -46,7 +46,7 @@ Gegen halb elf zieht ihr euch an, alle vier. Die Kleine steckt in dem Schneeanzu
 
 Es ist eine Fahrt von etwas mehr als zehn Minuten durch flaches Land, vorbei an Feldern mit Reif und an Windrädern, die sich träge drehen. Dann taucht in der Ferne etwas auf, das aussieht wie das Ende der Welt. Der Aussichtspunkt liegt direkt am Rand des Tagebaus, ein Parkplatz mit einer Plattform aus Stahl und Holz, und dahinter öffnet sich die Landschaft in eine gewaltige, stufenförmige Wunde, grau und braun und beige, so tief und weit, dass das Auge Mühe hat, die Größe zu fassen. Tief unten kriechen Bagger wie Spielzeuge, Förderbänder ziehen sich wie Adern durch die Erde, und am Horizont steigt aus den Kühltürmen des Kraftwerks Dampf in die kalte Luft, weiß und gerade wie ein Pinselstrich.
 
-Ihr steht zu viert am Geländer. Der Wind ist schneidend, aber niemand will zurück ins Auto. Die Große hat die Hände fest an die Stäbe gelegt und sieht hinunter, mit großen Augen. „Das ist so groß, dass man gar nicht weiß, was man sagen soll.“
+Ihr steht zu viert am Geländer. {{w:d24_wind}} Die Große hat die Hände fest an die Stäbe gelegt und sieht hinunter, mit großen Augen. „Das ist so groß, dass man gar nicht weiß, was man sagen soll.“
 
 „Dann sag nichts“, sagt er leise.
 
@@ -60,7 +60,7 @@ Ihr steht zu viert am Geländer. Der Wind ist schneidend, aber niemand will zur�
 
 „Bagga! Groß! Hu!“ Sie bläst die Backen auf, weil Dampf aufsteigt, und er lacht leise.
 
-Du stehst neben ihm, Schulter an Schulter, und sein Arm legt sich um deine Taille. Es ist ein seltsamer, erhabener Ort für Heiligabend, kalt, grau, riesig, und doch hast du das Gefühl, dass du dich nie geborgener gefühlt hast. Weil die Welt so groß ist und ihr so nah beieinander steht. Er neigt den Kopf zu dir.
+Du stehst neben ihm, Schulter an Schulter, und sein Arm legt sich um deine Taille. Es ist ein seltsamer, erhabener Ort für Heiligabend, {{w:d24_ort}}, und doch hast du das Gefühl, dass du dich nie geborgener gefühlt hast. Weil die Welt so groß ist und ihr so nah beieinander steht. Er neigt den Kopf zu dir.
 
 „Ich dachte, wir sehen mal etwas, das größer ist als wir“, flüstert er. „Damit wir uns daran erinnern, wie klein und wie gut das hier ist.“
 
@@ -68,7 +68,7 @@ Du stehst neben ihm, Schulter an Schulter, und sein Arm legt sich um deine Taill
 
 „Du. Ich. Die beiden.“
 
-Du lehnst den Kopf an seine Schulter. Der Wind bläst dir die Haare ins Gesicht, und er streicht sie dir aus der Stirn, langsam, mit zwei Fingern.
+Du lehnst den Kopf an seine Schulter. {{w:d24_haare}}, und er streicht sie dir aus der Stirn, langsam, mit zwei Fingern.
 
 Zum Mittag fahrt ihr zum McDonald's an der Landstraße, weil es fast schon eine Familientradition ist, die sich niemand erklären kann. Die Große bestellt Chicken McNuggets und besteht darauf, die Soße selbst zu verwalten, die Kleine bekommt ein paar von ihr ab und er sitzt dir gegenüber, mit einem Burger in der Hand, und sieht dabei so glücklich aus wie ein Mann, der die Weltmeisterschaft gewonnen hat. Unter dem Tisch liegt sein Fuß neben deinem, ganz leicht, nur so, dass du weißt, dass er da ist.
 
@@ -221,7 +221,7 @@ Du streichst Zimtbutter darüber und träufelst Ahornsirup darauf. Die Große ko
 
 Das Frühstück dauert fast eine Stunde. Er backt nach, die Große verteilt Zimtbutter mit der Genauigkeit einer Konditorin, die Kleine hat Sirup bis in die Haare. Unter dem Tisch stößt sein Fuß gegen deinen. Du stößt zurück, zweimal.
 
-Gegen halb elf fahrt ihr zum Aussichtspunkt am Tagebau. Die Kleine sitzt im Schneeanzug auf der Rückbank, die Große trägt die Mütze mit dem Bommel. Es ist kalt und klar, ein hellblauer Himmel. Nach gut zehn Minuten taucht der Rand der Landschaft auf, und dahinter öffnet sich die gewaltige, stufenförmige Grube, grau und braun und beige. Tief unten kriechen Bagger wie Spielzeuge, am Horizont steigt Dampf aus den Kühltürmen.
+Gegen halb elf fahrt ihr zum Aussichtspunkt am Tagebau. Die Kleine sitzt im Schneeanzug auf der Rückbank, die Große trägt die Mütze mit dem Bommel. {{w:d24_blau_nf}} Nach gut zehn Minuten taucht der Rand der Landschaft auf, und dahinter öffnet sich die gewaltige, stufenförmige Grube, grau und braun und beige. Tief unten kriechen Bagger wie Spielzeuge, am Horizont steigt Dampf aus den Kühltürmen.
 
 Die Große hält sich am Geländer fest. „Das ist wie ein Loch in der Welt.“
 
@@ -368,7 +368,7 @@ Die Große kommt im Schlafanzug die Treppe herunter, die Decke wie einen Umhang 
 
 Das Frühstück dauert fast eine Stunde. Er sieht dich nicht an, kein einziges Mal. Er ist so konsequent damit, dass es dich fast wahnsinnig macht. Unter dem Tisch stellt er seinen Fuß gegen deinen, fest, ruhig, ohne Hast, und lässt ihn dort, bis der Teller leer ist.
 
-Gegen halb elf fahrt ihr zum Aussichtspunkt am Tagebau. Es ist kalt und klar, ein hellblauer Himmel. Nach gut zehn Minuten taucht der Rand der Landschaft auf, und dahinter öffnet sich die gewaltige, stufenförmige Grube, grau und braun und beige. Tief unten kriechen Bagger wie Spielzeuge, am Horizont steigt Dampf aus den Kühltürmen.
+Gegen halb elf fahrt ihr zum Aussichtspunkt am Tagebau. {{w:d24_blau_nf}} Nach gut zehn Minuten taucht der Rand der Landschaft auf, und dahinter öffnet sich die gewaltige, stufenförmige Grube, grau und braun und beige. Tief unten kriechen Bagger wie Spielzeuge, am Horizont steigt Dampf aus den Kühltürmen.
 
 Die Große hält sich am Geländer fest. „Das ist wie ein Loch in der Welt.“
 

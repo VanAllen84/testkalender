@@ -86,7 +86,7 @@ Du bleibst stehen. Dann siehst du Oma an, die den Blick hebt, ohne dass sich etw
 
 „Papa Fee“, wiederholt die Kleine mit der Sturheit einer Zweijährigen und steckt dir den Daumen in den Mund, damit du nichts mehr sagen kannst.
 
-Draußen ist es grau und feucht, der Frost von gestern ist weg, die Luft riecht nach nassem Laub. Du setzt die Kleine auf den Arm, und sie legt ihre Wange an deine, warm und rund. Ihr geht langsam nach Hause, an Gärten vorbei, in denen die Lichterketten schon wieder an sind, obwohl es erst nachmittags ist.
+{{w:d9_draussen}}. Du setzt die Kleine auf den Arm, und sie legt ihre Wange an deine, warm und rund. Ihr geht langsam nach Hause, an Gärten vorbei, in denen die Lichterketten schon wieder an sind, obwohl es erst nachmittags ist.
 
 Um zehn vor drei sitzt du im Auto, die Kleine hinten im Sitz. Die Große muss Punkt fünfzehn Uhr abgeholt werden. Als sie aus dem Schultor kommt, entdeckt sie dich sofort und läuft los, den Ranzen auf dem Rücken, und schon von Weitem sieht man, dass sie mit der Zungenspitze in der Lücke herumsucht. Sie reißt die Autotür auf, setzt sich hinein und zieht die Lippen hoch.
 

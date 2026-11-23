@@ -38,7 +38,7 @@ Die Große weckst du allein, ohne Kitzelmonster. Es gibt Brummen, eine Decke üb
 
 „Ich.“ Sie sieht dich im Spiegel an, mit der Lücke im Unterkiefer, und grinst. „Ich habe es beschlossen.“
 
-Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App, ein ruhiges, gleichmäßiges Atmen. Du schreibst Oma kurz, dass du die Große zur Schule bringst, und fährst los, durch eine Straße, in der in den Fenstern nach und nach die Lichter angehen. Es nieselt, ein dünner, kalter Regen, der nicht weiß, ob er Schnee werden will. Vor dem Tor bekommst du deinen zweiten Abschiedskuss, den sich die Große selbst genehmigt, und siehst ihr nach, wie sie mit wippendem Ranzen im Gewühl der Mützen verschwindet.
+Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App, ein ruhiges, gleichmäßiges Atmen. Du schreibst Oma kurz, dass du die Große zur Schule bringst, und fährst los, durch eine Straße, in der in den Fenstern nach und nach die Lichter angehen. {{p:d11_p_nieselt}} Vor dem Tor bekommst du deinen zweiten Abschiedskuss, den sich die Große selbst genehmigt, und siehst ihr nach, wie sie mit wippendem Ranzen im Gewühl der Mützen verschwindet.
 
 Der Vormittag besteht aus Dienstplänen, Kaffee und einer Kollegin, die von ihrem Schwager erzählt, der Plätzchen mit Chili backt. Du hörst zu und lächelst und merkst irgendwann, dass du seit einer Weile auf deine eigenen Hände siehst. Sie liegen auf der Tastatur, ganz normale Hände, ein bisschen trocken vom Winter. Du denkst an seine, an die Wärme von heute früh an deiner Wange, und an etwas, das du nicht genauer benennen kannst, ein stilles Zutrauen, das mit diesen Händen zusammenhängt. Er hat sie dir so oft hingehalten in achtzehn Jahren, ohne dass du es je gezählt hättest.
 
@@ -106,7 +106,7 @@ Der Nachmittag gehört dem Salzteig. Die Große hat die Sterne in der Schule geb
 
 „Deko Bäh“, fasst sie zusammen und macht weiter.
 
-Gegen halb fünf hörst du den Schlüssel. Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Haare nass, die Wangen rot. Er sieht müde aus, wie jeden Freitag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs, mit mehlbestäubten Händen.
+Gegen halb fünf hörst du den Schlüssel. Er kommt herein, mit kalter Luft und {{w:d11_geruch}}, den Rucksack über der Schulter, {{w:d11_haare}}. Er sieht müde aus, wie jeden Freitag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs, mit mehlbestäubten Händen.
 
 „Papa da! Papa da!“
 
@@ -202,7 +202,7 @@ Er kommt herein, das Gesicht frisch gewaschen, die Haare noch feucht an den Schl
 
 „Dann sind wir quitt.“
 
-Ihr bleibt so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. Du trinkst deinen Tee in kleinen Schlucken, und er hält dich, und draußen fällt irgendwann etwas Weiches gegen die Jalousien, Schneeregen vielleicht, vielleicht der erste echte Schnee. Du spürst seinen Herzschlag an deiner Schulter, ruhig und stetig, und deinen eigenen, der sich langsam an ihn anpasst.
+Ihr bleibt so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. Du trinkst deinen Tee in kleinen Schlucken, und er hält dich, {{p:d11_p_weiches}}. Du spürst seinen Herzschlag an deiner Schulter, ruhig und stetig, und deinen eigenen, der sich langsam an ihn anpasst.
 
 „Der Beutel“, sagt er schließlich leise.
 
@@ -384,7 +384,7 @@ Du siehst sie im Rückspiegel an. „Er hat dich eingeweiht?“
 
 „Das darf ich nicht sagen“, wiederholt die Große und sieht mit großer Entschlossenheit aus dem Fenster.
 
-Er kommt um Viertel vor fünf. Du hörst den Schlüssel, die Haustür, das Rascheln des Rucksacks. Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, die Haare nass, die Wangen rot. Die Kleine ist schon unterwegs.
+Er kommt um Viertel vor fünf. Du hörst den Schlüssel, die Haustür, das Rascheln des Rucksacks. Er kommt herein, mit kalter Luft und {{w:d11_geruch}}, {{w:d11_haare}}. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 
@@ -581,7 +581,7 @@ Die Große weckst du allein, ohne Kitzelmonster. Es gibt Brummen, eine Decke üb
 
 „Dann hast du kalte rote Backen.“
 
-Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App. Du schreibst Oma, dass du die Große zur Schule bringst, und fährst los, durch eine Straße, in der in den Fenstern die Lichter angehen. Es nieselt. Vor dem Tor bekommst du deinen zweiten Abschiedskuss und siehst der Großen nach, wie sie mit wippendem Ranzen im Mützengewühl verschwindet.
+Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App. Du schreibst Oma, dass du die Große zur Schule bringst, und fährst los, durch eine Straße, in der in den Fenstern die Lichter angehen. {{p:d11_p_nieselt2}} bekommst du deinen zweiten Abschiedskuss und siehst der Großen nach, wie sie mit wippendem Ranzen im Mützengewühl verschwindet.
 
 Der Vormittag besteht aus Dienstplänen und einer Kollegin, die von Plätzchen mit Chili erzählt. Du hörst zu und merkst, dass du ihr nicht folgen kannst, weil in dir etwas ruhig und gespannt zugleich geworden ist, wie ein Instrument, das gestimmt wird.
 
@@ -637,7 +637,7 @@ Der Nachmittag gehört dem Salzteig. Die Küche versinkt in weißem Staub, die K
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Haare nass, die Wangen rot. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d11_geruch}}, den Rucksack über der Schulter, {{w:d11_haare}}. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 

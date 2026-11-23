@@ -2,7 +2,7 @@ window.getStoryText = function(vibe) {
     if (vibe === 'hingabe') {
         return `Der zweite Dezember beginnt damit, dass er fast verschläft. Nicht richtig, nur um drei Minuten, aber es ist das erste Mal seit Wochen, dass der Wecker vor ihm wach ist.
 
-Es ist sechs Uhr, es nieselt, und der Boden im Schlafzimmer ist kühl wie immer. Du angelst mit den Zehen nach den dicken Socken und bleibst dann doch noch einen Moment sitzen, auf der Bettkante, und siehst ihn an. Er liegt auf dem Bauch, ein Arm unter dem Kissen, der Mund einen Spalt offen, und seine Haare stehen auf der linken Seite ab wie bei einem Jungen, der gerade aus dem Schwimmbad kommt. Auf seiner Wange hat sich die Falte des Kissenbezugs abgedrückt. Du hast diese Falte schon Hunderte Male gesehen und stellst fest, dass du sie trotzdem gern hast.
+Es ist sechs Uhr, {{w:d2_es}}, und der Boden im Schlafzimmer ist kühl wie immer. Du angelst mit den Zehen nach den dicken Socken und bleibst dann doch noch einen Moment sitzen, auf der Bettkante, und siehst ihn an. Er liegt auf dem Bauch, ein Arm unter dem Kissen, der Mund einen Spalt offen, und seine Haare stehen auf der linken Seite ab wie bei einem Jungen, der gerade aus dem Schwimmbad kommt. Auf seiner Wange hat sich die Falte des Kissenbezugs abgedrückt. Du hast diese Falte schon Hunderte Male gesehen und stellst fest, dass du sie trotzdem gern hast.
 
 Gestern Abend war er auf seine Weise so gut zu dir. Er hat dir einen ganzen Abend geschenkt, und jetzt liegt er hier, zerknautscht und völlig wehrlos, und du denkst: Er gibt immer. Er gibt so selbstverständlich, dass es ihm gar nicht mehr auffällt, und dir fällt es manchmal auch nicht mehr auf. Das Gefühl, das dabei in dir aufsteigt, ist warm und ein bisschen verschwörerisch. Du hast eine Idee. Sie ist klein und ein wenig unanständig, und sie bleibt in deinem Kopf kleben wie ein Ohrwurm.
 
@@ -12,7 +12,7 @@ Dann schrillt sein Wecker zum zweiten Mal, er fährt hoch, sieht dich an und sag
 
 „Du hast mich beim Schlafen angestarrt. Ich spüre das.“ Er reibt sich mit der Hand übers Gesicht, und du siehst, wie die Falte langsam verschwindet. Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, ein Gruß in den Tag. Du nimmst ihn mit.
 
-Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Die Brotdosen füllen sich ohne große Worte. Er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Die Weintrauben sind schon wieder fast alle. „Wir müssen aufhören, die selbst zu essen“, sagt er und isst eine. Du nimmst dir auch eine. Das Spülbecken ist voll, draußen nieselt es gegen die Jalousien, und es ist alles so gewöhnlich, dass du fast lachen musst, weil dein Herz klopft, als hättest du etwas vor.
+Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Die Brotdosen füllen sich ohne große Worte. Er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Die Weintrauben sind schon wieder fast alle. „Wir müssen aufhören, die selbst zu essen“, sagt er und isst eine. Du nimmst dir auch eine. Das Spülbecken ist voll, draußen {{w:d2_gegen}}, und es ist alles so gewöhnlich, dass du fast lachen musst, weil dein Herz klopft, als hättest du etwas vor.
 
 Ihr steckt die Dosen in den Ranzen im Flur und setzt euch noch ein paar Minuten aufs Sofa, die Kaffeetasse in deinen Händen, die Decke über den Knien. Er lehnt den Kopf zurück und schließt die Augen. „Mittwoch“, sagt er. „Der Tag, an dem man schon weiß, dass die Woche zu lang ist.“
 
@@ -28,7 +28,7 @@ Du antwortest nicht. Du trinkst deinen Kaffee, und er öffnet ein Auge und sieht
 
 Oben das übliche Spiel. Du verschwindest im Bad, er öffnet die Tür zum Zimmer der Großen, das Murmeln, das Brummen, die Decke über dem Kopf. Du stößt mit der Zahnbürste im Mund dazu, und ihr zählt gemeinsam bis drei, und das große Kitzelmonster muss an diesem Morgen gar nicht erst ausrücken. Die Große findet ihren Pullover heute ausnahmsweise nicht kratzig. „Besonderer Tag“, murmelt er. „Ich vermute einen Fehler im System.“ Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, wie jeden Morgen.
 
-Kurz vor sieben stehst du an der Treppe, im Mantel, die Schuhe an, den Autoschlüssel in der Hand. Die Große rast die Stufen hinunter, verlangt ihren Abschiedskuss und bekommt ihn. Er folgt langsam. Der Routinekuss an der Haustür, kurz, warm, ohne Hintergedanken. Er ahnt nichts. Du gehst hinaus in den Nieselregen und fühlst dich wie jemand, der etwas Verbotenes im Mantel trägt.
+Kurz vor sieben stehst du an der Treppe, im Mantel, die Schuhe an, den Autoschlüssel in der Hand. Die Große rast die Stufen hinunter, verlangt ihren Abschiedskuss und bekommt ihn. Er folgt langsam. Der Routinekuss an der Haustür, kurz, warm, ohne Hintergedanken. Er ahnt nichts. Du gehst hinaus {{w:d2_nieselregen}} und fühlst dich wie jemand, der etwas Verbotenes im Mantel trägt.
 
 Im Auto, auf dem Parkplatz vor der Arbeit, den Motor schon aus, tippst du die erste Nachricht und löschst sie dreimal. Beim vierten Mal schickst du sie ab.
 
@@ -64,7 +64,7 @@ Du schickst es ab, bevor du es dir anders überlegst. Dann liest du noch einmal,
 
 Gelesen, steht unter deiner Nachricht. Und dann, ganz kurz, das Wort „schreibt …“, das länger bleibt als sonst. Du hältst den Atem an. Nichts kommt.
 
-In der Mittagspause sitzt du im Auto auf dem Parkplatz, den Motor aus, die Scheiben beschlagen, der Regen leise auf dem Dach. Du machst ein Foto von deinem eigenen Knie, die Strumpfhose hat sich bis zu den Knöcheln gerollt, daneben im Fußraum liegt sie zusammengeknüllt. Du schreibst darunter: „Ich habe sie ausgezogen, weil es mir zu warm war. Das ist die ganze Geschichte.“
+In der Mittagspause sitzt du im Auto auf dem Parkplatz, den Motor aus, die Scheiben beschlagen, {{w:d2_dach}}. Du machst ein Foto von deinem eigenen Knie, die Strumpfhose hat sich bis zu den Knöcheln gerollt, daneben im Fußraum liegt sie zusammengeknüllt. Du schreibst darunter: „Ich habe sie ausgezogen, weil es mir zu warm war. Das ist die ganze Geschichte.“
 
 Dann, nach einem Moment: „Bist du allein?“
 
@@ -84,7 +84,7 @@ Du lachst laut, im leeren Auto, und es klingt zu laut. „Wie viele Besprechunge
 
 Die Punkte kreisen. Es dauert fast eine Minute. Dann: „Nein.“
 
-Du legst das Handy auf den Schoß und siehst eine Weile durch die beschlagene Scheibe nach draußen, wo ein Kollege mit einem Schirm zum Eingang hastet, und lässt die Wärme in deinem Bauch einfach da sein. Es fühlt sich nicht aufdringlich an. Es fühlt sich an wie das Gegenteil von Eile.
+Du legst das Handy auf den Schoß und siehst eine Weile durch die beschlagene Scheibe nach draußen, wo ein Kollege {{w:d2_schirm}}, und lässt die Wärme in deinem Bauch einfach da sein. Es fühlt sich nicht aufdringlich an. Es fühlt sich an wie das Gegenteil von Eile.
 
 Dann schreibst du etwas, das keine Frage ist und kein Foto, nur ein Satz: „Ich liebe es, dass du mich nach achtzehn Jahren noch so ansiehst. Ich hab heute früh gedacht, ich möchte dir mal etwas zurückgeben.“
 
@@ -98,7 +98,7 @@ Die Antwort kommt sofort. Es ist nur das Kuss-Emoji, das er dir sonst immer schi
 
 Du siehst es an, und es fühlt sich an, als würde jemand im Dezember die Heizung aufdrehen, auch wenn keine Heizkörper da sind.
 
-Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, durch das flache graue Licht, das den Tag schon verschluckt, bevor er richtig angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
+Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, {{w:d2_licht}}, das den Tag schon verschluckt, bevor er richtig angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
 
 Du sagst Ja, und es fühlt sich an, als hätte Oma etwas verstanden, das sie unmöglich verstehen kann.
 
@@ -170,7 +170,7 @@ Du denkst darüber nach, ehrlich, und er wartet, ohne zu drängen. „Ja“, sag
 
 Er sagt nichts. Er küsst dich auf die Schläfe, dann auf das Haar, dann, sehr langsam, auf die Stelle direkt vor dem Ohr. „Danke“, sagt er an deiner Haut.
 
-Du hörst das Feuer, den Regen an den Jalousien, das tiefe Atmen der Lüftung in den Wänden. Er hält dich, du hältst ihn, und für eine Weile ist es völlig gleichgültig, wie spät es ist.
+Du hörst das Feuer, {{w:d2_regenjal}}, das tiefe Atmen der Lüftung in den Wänden. Er hält dich, du hältst ihn, und für eine Weile ist es völlig gleichgültig, wie spät es ist.
 
 Dann hebt er mit zwei Fingern dein Kinn und küsst dich. Es ist ein langsamer Kuss, einer, der den ganzen Tag in sich trägt, die Nachrichten und die Wartezeit, das Klo und die Besprechungen, und er schmeckt nach Erdnüssen und Keksen. Du greifst in seinen Pullover, und er lässt es zu, und als ihr euch löst, bleibt seine Stirn an deiner liegen.
 
@@ -199,7 +199,7 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welch
     } else if (vibe === 'naehe') {
         return `Der zweite Dezember beginnt damit, dass du vor dem Wecker wach bist und ein Grinsen im Gesicht hast, das um diese Uhrzeit nichts zu suchen hat.
 
-Es ist kurz vor sechs, es nieselt, und der Boden im Schlafzimmer ist kühl wie immer. Du liegst auf dem Rücken und starrst an die Decke, und in deinem Kopf läuft seit dem Aufwachen ein Plan. Er ist klein und frech, und du hast ihn gestern Abend noch auf dem Sofa ausgebrütet, während er neben dir mit dem Handy beschäftigt war und nichts gemerkt hat.
+Es ist kurz vor sechs, {{w:d2_es}}, und der Boden im Schlafzimmer ist kühl wie immer. Du liegst auf dem Rücken und starrst an die Decke, und in deinem Kopf läuft seit dem Aufwachen ein Plan. Er ist klein und frech, und du hast ihn gestern Abend noch auf dem Sofa ausgebrütet, während er neben dir mit dem Handy beschäftigt war und nichts gemerkt hat.
 
 Dann schrillt der Wecker. Er tastet blind danach, erwischt ihn beim zweiten Versuch und dreht sich zu dir. „Du grinst“, sagt er, die Stimme noch rau vom Schlaf. „Um sechs Uhr morgens. Das ist verdächtig.“
 
@@ -215,7 +215,7 @@ Er mustert dich mit einem Auge, das andere ist noch zu. „Ich mag das nicht, we
 
 Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, ein Gruß in den Tag. Du nimmst ihn mit und angelst mit den Zehen nach den dicken Socken.
 
-Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Er schneidet, du belegst. Die Gurke für die Große in Stäbchen und ohne Schale, der Apfel geviertelt, die Weintrauben schon wieder fast alle. „Das waren nicht ich“, sagt er und isst eine. „Natürlich nicht“, sagst du und nimmst dir auch eine. Das Spülbecken ist voll, draußen nieselt es gegen die Jalousien, und es ist alles so gewöhnlich, dass du dir auf die Wange beißen musst.
+Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Er schneidet, du belegst. Die Gurke für die Große in Stäbchen und ohne Schale, der Apfel geviertelt, die Weintrauben schon wieder fast alle. „Das waren nicht ich“, sagt er und isst eine. „Natürlich nicht“, sagst du und nimmst dir auch eine. Das Spülbecken ist voll, draußen {{w:d2_gegen}}, und es ist alles so gewöhnlich, dass du dir auf die Wange beißen musst.
 
 Ihr steckt die Dosen in den Ranzen und setzt euch noch ein paar Minuten aufs Sofa, die Kaffeetasse in deinen Händen, die Decke über den Knien. Er lehnt den Kopf zurück. „Mittwoch“, sagt er. „Der Tag, an dem man schon weiß, dass die Woche zu lang ist.“
 
@@ -253,7 +253,7 @@ Er sieht dich an, und in seinem Mundwinkel tut sich etwas. „Das klingt nach ei
 
 „Ist es auch.“
 
-Du gehst hinaus in den Nieselregen und fühlst dich, als hättest du etwas Verbotenes im Mantel versteckt.
+Du gehst hinaus {{w:d2_nieselregen}} und fühlst dich, als hättest du etwas Verbotenes im Mantel versteckt.
 
 Im Auto auf dem Parkplatz vor der Arbeit, den Motor schon aus, tippst du die erste Nachricht und löschst sie zweimal. Beim dritten Mal schickst du sie ab.
 
@@ -293,7 +293,7 @@ Der Kollege fragt, ob Heiligabend bei dir zur Not auch gehen würde. „Ja“, s
 
 Gelesen. Dann, ganz kurz: „schreibt …“. Es verschwindet. Du lächelst auf das leere Display.
 
-In der Mittagspause sitzt du im Auto auf dem Parkplatz, den Motor aus, die Scheiben beschlagen, der Regen leise auf dem Dach. Du rollst die Strumpfhose bis zu den Knöcheln herunter, fotografierst dein Knie und den zusammengeknüllten Stoff im Fußraum und schickst es ohne Text. Dann, nach einem Moment, weil du sehen willst, wie er mit einer echten Frage umgeht: „Bist du allein?“
+In der Mittagspause sitzt du im Auto auf dem Parkplatz, den Motor aus, die Scheiben beschlagen, {{w:d2_dach}}. Du rollst die Strumpfhose bis zu den Knöcheln herunter, fotografierst dein Knie und den zusammengeknüllten Stoff im Fußraum und schickst es ohne Text. Dann, nach einem Moment, weil du sehen willst, wie er mit einer echten Frage umgeht: „Bist du allein?“
 
 Die Punkte erscheinen sofort. „Ja. Seit einer Viertelstunde. Ich habe die Tür abgeschlossen.“
 
@@ -309,9 +309,9 @@ Du hältst das Handy ein Stück von dir weg, als wäre es heiß. Dann schreibst 
 
 „Jetzt ist das eine Frage“, schreibt er, „und ich beantworte sie heute Abend. Laut.“
 
-Du siehst eine Weile durch die beschlagene Scheibe, wo ein Kollege mit einem Schirm zum Eingang hastet. Es ist drei Uhr in deinem Kopf, obwohl es gerade erst halb eins ist. Du hast vier Fragen verbraucht, und er hat dir alle vier zurückgegeben, schärfer, als du sie gestellt hast. Du wirst vorsichtiger sein müssen. Oder weniger vorsichtig. Das weißt du noch nicht genau.
+Du siehst eine Weile durch die beschlagene Scheibe, wo ein Kollege {{w:d2_schirm}}. Es ist drei Uhr in deinem Kopf, obwohl es gerade erst halb eins ist. Du hast vier Fragen verbraucht, und er hat dir alle vier zurückgegeben, schärfer, als du sie gestellt hast. Du wirst vorsichtiger sein müssen. Oder weniger vorsichtig. Das weißt du noch nicht genau.
 
-Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, durch das flache graue Licht, das den Tag schon verschluckt, bevor er angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
+Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, {{w:d2_licht}}, das den Tag schon verschluckt, bevor er angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
 
 Du sagst Ja und hast das Gefühl, dass Oma etwas verstanden hat, das sie unmöglich verstehen kann.
 
@@ -357,7 +357,7 @@ Um neunzehn Uhr tapst die Kleine die Treppe hinauf, ein schlaftrunkener kleiner 
 
 Unten kommt er aus der Küche zurück, mit einem Teller Kekse, den Omas Sterne zu gut gemeint haben, und einer Schale Nüsse, die er auf den Couchtisch stellt. Er kniet sich vor den Kamin, ein Klick, und das Orange-Rot erwacht hinter dem Glas. Er greift in das Holzfach, und das Knistern setzt ein, Holz, das nachgibt, Glut, die sich setzt. Die Jalousien sind längst unten, seit die Dämmerung kam, und aus dem Esszimmer schimmert die Beleuchtung der Vorhangleiste herüber, gerade genug, um den Raum zu erkennen. Er tippt auf sein Handy, und die Lampen im Wohnzimmer sinken in ein weiches Bernstein.
 
-Er setzt sich neben dich, ein Stück weiter weg, als es nötig wäre. Er knackt eine Nuss und hält sie dir hin, ohne dich anzusehen. Du nimmst sie. Das Feuer knistert. Draußen nieselt es leise an die Jalousien.
+Er setzt sich neben dich, ein Stück weiter weg, als es nötig wäre. Er knackt eine Nuss und hält sie dir hin, ohne dich anzusehen. Du nimmst sie. Das Feuer knistert. Draußen {{w:d2_leise}}.
 
 „Ist die Regel jetzt vorbei?“, fragst du.
 
@@ -434,7 +434,7 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welch
     } else {
         return `Der zweite Dezember beginnt damit, dass du wach liegst, bevor der Wecker klingelt, und dir zum ersten Mal seit Langem überlegst, was du anziehst, bevor du aufstehst.
 
-Es ist kurz vor sechs, es nieselt, und der Boden im Schlafzimmer ist kühl wie immer. Neben dir liegt er auf der Seite, ein Arm unter dem Kissen, und atmet tief und gleichmäßig. Du hast gestern Abend, als er schon schlief, noch lange wach gelegen und dir vorgestellt, wie der Tag heute aussehen soll. Du willst ihm etwas schicken, mehrmals, über den ganzen Tag verteilt, und du willst dabei nichts von ihm zurückbekommen. Du willst ihn nur lesen und ansehen lassen. Der Gedanke macht dich verlegen und gleichzeitig ungeheuer wach.
+Es ist kurz vor sechs, {{w:d2_es}}, und der Boden im Schlafzimmer ist kühl wie immer. Neben dir liegt er auf der Seite, ein Arm unter dem Kissen, und atmet tief und gleichmäßig. Du hast gestern Abend, als er schon schlief, noch lange wach gelegen und dir vorgestellt, wie der Tag heute aussehen soll. Du willst ihm etwas schicken, mehrmals, über den ganzen Tag verteilt, und du willst dabei nichts von ihm zurückbekommen. Du willst ihn nur lesen und ansehen lassen. Der Gedanke macht dich verlegen und gleichzeitig ungeheuer wach.
 
 Dann klingelt sein Wecker. Er tastet danach, erwischt ihn beim zweiten Versuch und dreht sich zu dir. „Du bist schon wach“, sagt er mit rauer Stimme. „Du starrst die Decke an.“
 
@@ -444,7 +444,7 @@ Dann klingelt sein Wecker. Er tastet danach, erwischt ihn beim zweiten Versuch u
 
 Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz, warm, auf den Mund, ein Gruß in den Tag. Du nimmst ihn mit und angelst mit den Zehen nach den dicken Socken.
 
-Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Er schneidet, du belegst. Die Gurke für die Große in Stäbchen und ohne Schale, der Apfel geviertelt, die Weintrauben schon wieder fast alle. Er isst eine. Du auch. Draußen nieselt es gegen die Jalousien, das Spülbecken ist voll, und dein Herz schlägt, als hättest du etwas vor, was du ja auch hast.
+Ihr geht die Treppe hinunter, er voran, du mit einer Hand an seinem Rücken. Unten macht er nur das Licht in der Küche an, der Rest des Hauses bleibt im Halbdunkel, und die Kaffeemaschine gluckert. Er schneidet, du belegst. Die Gurke für die Große in Stäbchen und ohne Schale, der Apfel geviertelt, die Weintrauben schon wieder fast alle. Er isst eine. Du auch. Draußen {{w:d2_gegen}}, das Spülbecken ist voll, und dein Herz schlägt, als hättest du etwas vor, was du ja auch hast.
 
 Ihr steckt die Dosen in den Ranzen und setzt euch noch ein paar Minuten aufs Sofa, die Decke über den Knien. Er lehnt den Kopf zurück. „Mittwoch“, sagt er. „Der Tag, an dem man schon weiß, dass die Woche zu lang ist.“
 
@@ -468,7 +468,7 @@ Kurz vor sieben stehst du an der Treppe, im Mantel, die Schuhe an, den Autoschl�
 
 Er sieht dich an. Das Flurlicht ist weich, sein Gesicht noch ein wenig zerknautscht, aber in den Augen liegt plötzlich etwas Waches. „Verstanden“, sagt er. Nur das. Kein Witz, kein Gegenzug.
 
-Du gehst hinaus in den Nieselregen und merkst erst an der Autotür, dass du die ganze Zeit nicht geatmet hast.
+Du gehst hinaus {{w:d2_nieselregen}} und merkst erst an der Autotür, dass du die ganze Zeit nicht geatmet hast.
 
 Im Auto auf dem Parkplatz vor dem Büro, den Motor schon aus, tippst du die erste Nachricht und löschst sie zweimal. Beim dritten Mal schickst du sie ab.
 
@@ -496,7 +496,7 @@ Um elf sitzt du in einer Besprechung, ein Kollege erklärt, wer zwischen den Tag
 
 Gelesen. Dann, ganz kurz, das Wort „schreibt …“, das länger bleibt als sonst und dann wieder verschwindet. Er hat sich selbst gestoppt. Du kaust auf deiner Lippe, um nicht zu lächeln.
 
-In der Mittagspause sitzt du im Auto, die Scheiben beschlagen, der Regen leise auf dem Dach. Du rollst die Strumpfhose bis zu den Knöcheln herunter, fotografierst dein Knie und den zusammengeknüllten Stoff im Fußraum und schickst es ohne Text. Dann, nach einem Moment, weil du dich traust: „Bist du allein?“
+In der Mittagspause sitzt du im Auto, die Scheiben beschlagen, {{w:d2_dach}}. Du rollst die Strumpfhose bis zu den Knöcheln herunter, fotografierst dein Knie und den zusammengeknüllten Stoff im Fußraum und schickst es ohne Text. Dann, nach einem Moment, weil du dich traust: „Bist du allein?“
 
 „Ja. Tür ist zu.“
 
@@ -506,9 +506,9 @@ Die Punkte kreisen lange. Du zählst bis zwanzig. Dann: „Als würde ich unter 
 
 Du lehnst den Kopf gegen die Kopfstütze und schließt die Augen. Das war ehrlicher, als du erwartet hattest, und es trifft dich mitten ins Herz. Du schreibst nichts darauf, weil es keine Frage ist, und weil es nichts gibt, was du dazu sagen könntest, ohne es kaputt zu machen.
 
-Kurz bevor die Pause zu Ende ist, siehst du, wie ein Kollege mit einem Schirm zum Eingang hastet, und es kommt dir vor, als wäre das alles weit weg, eine andere Welt, in der Menschen Besprechungen führen und sich über Urlaubsvertretungen sorgen. Du hast gerade mit deinem Mann gesprochen, ohne dass er etwas gesagt hat, und es war das Intimste, was du seit Wochen erlebt hast.
+Kurz bevor die Pause zu Ende ist, siehst du, wie ein Kollege {{w:d2_schirm}}, und es kommt dir vor, als wäre das alles weit weg, eine andere Welt, in der Menschen Besprechungen führen und sich über Urlaubsvertretungen sorgen. Du hast gerade mit deinem Mann gesprochen, ohne dass er etwas gesagt hat, und es war das Intimste, was du seit Wochen erlebt hast.
 
-Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, durch das flache graue Licht, das den Tag schon verschluckt, bevor er richtig angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
+Um vierzehn Uhr schließt du den Rechner und fährst nach Hause, {{w:d2_licht}}, das den Tag schon verschluckt, bevor er richtig angefangen hat. Im Nachbarhaus brennt ein Licht im Fenster. Oma öffnet die Tür mit dem Duft von frischen Keksen, und die Kleine hängt an ihrem Bein und hat Mehl an der Nase. „Mama! Backen!“ Du nimmst sie kurz auf den Arm. „Wir sind noch nicht fertig“, sagt Oma. „Gib uns noch eine Stunde, bis die Große kommt. Wir machen die Sterne zu Ende.“
 
 Du sagst Ja und bist dir sicher, dass Oma etwas ahnt, was sie unmöglich wissen kann.
 
@@ -584,7 +584,7 @@ Er holt sein Handy aus der Tasche, ohne dass seine andere Hand aufhört, dein Ha
 
 Du lachst, atemlos, und er lässt dich einen Moment lachen. Dann sagt er, leiser: „Ich möchte, dass du mir erzählst, was du dabei gedacht hast. Bei jedem einzelnen. Ganz ehrlich. Ich frage nicht nach. Ich höre zu.“
 
-Und du erzählst. Zuerst stockend, dann leichter, vom Waschraum und von der Kabine und dem Moment, in dem du das Foto geschickt hast, ohne es zu löschen. Vom Knie im Auto, vom Regen auf dem Dach, davon, wie unglaublich es war, ihn nicht zu hören und trotzdem zu wissen, dass er da ist. Von dem Foto im Schlafzimmer, davon, wie du vor dem Spiegel gestanden hast und dich zum ersten Mal seit Langem wieder gesehen hast. Er unterbricht nicht. Seine Hand wandert durch dein Haar, immer im selben ruhigen Rhythmus, und mit jedem Satz wird dein Atem tiefer, bis du merkst, dass du aufgehört hast zu reden und einfach daliegst.
+Und du erzählst. Zuerst stockend, dann leichter, vom Waschraum und von der Kabine und dem Moment, in dem du das Foto geschickt hast, ohne es zu löschen. Vom Knie im Auto, {{w:d2_regendach}}, davon, wie unglaublich es war, ihn nicht zu hören und trotzdem zu wissen, dass er da ist. Von dem Foto im Schlafzimmer, davon, wie du vor dem Spiegel gestanden hast und dich zum ersten Mal seit Langem wieder gesehen hast. Er unterbricht nicht. Seine Hand wandert durch dein Haar, immer im selben ruhigen Rhythmus, und mit jedem Satz wird dein Atem tiefer, bis du merkst, dass du aufgehört hast zu reden und einfach daliegst.
 
 „Gut“, sagt er wieder. „Du hast mir heute etwas Wunderschönes gegeben. Das nehme ich ernst.“
 

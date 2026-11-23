@@ -18,13 +18,13 @@ Um vierzehn Uhr fährst du den Rechner herunter, und knapp zehn Minuten später 
 
 „Das hat sie von ihm.“
 
-„Das habe ich auch gedacht.“ Ein knappes Nicken, der Mundwinkel zuckt. „Geh nur. Es wird windig.“
+„Das habe ich auch gedacht.“ Ein knappes Nicken, der Mundwinkel zuckt. {{p:d18_p_geh}}
 
-„Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. „Wind! Wind da! Hu!“ Sie bläst die Backen auf, und du nimmst sie hoch, dieses warme, schwere Bündel, das nach Wolle und Keksen riecht.
+„Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. {{p:d18_p_kleine1}} nimmst sie hoch, dieses warme, schwere Bündel, das nach Wolle und Keksen riecht.
 
-Es ist wirklich windig geworden. Der Himmel ist tief und gelblich-grau, die Äste vom Haselstrauch schlagen gegeneinander, und aus den Gärten fliegt irgendwo eine Lichterkette gegen eine Hauswand. Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Als die Kinder wie ein Fluss aus Mützen herausströmen, klettert die Große mit rotem Gesicht auf die Rückbank.
+{{p:d18_p_schule1}} Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Als die Kinder wie ein Fluss aus Mützen herausströmen, klettert die Große mit rotem Gesicht auf die Rückbank.
 
-„Mama, der Hausmeister hat gesagt, bei so einem Wind kann der Strom ausfallen.“
+{{p:d18_p_hausmeister}}
 
 „Hat er das gesagt?“
 
@@ -44,9 +44,9 @@ Er kommt um Viertel nach drei. Du hörst den Schlüssel, die Haustür, das Rasch
 
 „Da bin ich.“ Er hebt sie hoch und lässt zu, dass sie ihm die Mütze vom Kopf zieht. Er sieht müde aus, wie jeden Freitag, mit roten Wangen und Schatten unter den Augen, aber in seinem Gesicht liegt auch etwas Gelöstes, als hätte er unterwegs beschlossen, die Woche an der Tür abzustreifen. „Hallo, kleine Maus.“
 
-„Papa Wind!“
+{{p:d18_p_papa1}}
 
-„Papa war im Wind.“
+{{p:d18_p_papa2}}
 
 „Hu!“
 
@@ -90,7 +90,7 @@ Eine halbe Stunde später steht im Wohnzimmer eine Burg. Er hat vier Stühle um 
 
 Du beißt dir auf die Lippe.
 
-Es ist ein Abendessen, wie ihr es nie hattet. Der Wind rüttelt an den Jalousien, irgendwo klappert etwas, und im Schein der Taschenlampen sehen die Gesichter der Kinder aus wie ausgeschnittene Figuren, scharf und hell und rund. Du sitzt neben ihm, eingeklemmt zwischen Decke und Mandarinenschale, und seine Schulter liegt an deiner. Er riecht nach Seife und nach dem Zug.
+Es ist ein Abendessen, wie ihr es nie hattet. {{p:d18_p_essen}} und im Schein der Taschenlampen sehen die Gesichter der Kinder aus wie ausgeschnittene Figuren, scharf und hell und rund. Du sitzt neben ihm, eingeklemmt zwischen Decke und Mandarinenschale, und seine Schulter liegt an deiner. Er riecht nach Seife und nach dem Zug.
 
 Du sagst nichts. Du schiebst deine Hand unter die Decke und findest seine, und er schließt die Finger darum. Die Große erzählt weiter, von einem Geist, der in der Lüftung wohnt und nur ausgeht, wenn der Strom ausfällt, und die Kleine sagt „Huh!“ an den richtigen Stellen.
 
@@ -184,7 +184,7 @@ Er sieht dich an, und das schiefe Lächeln zeigt sich zuerst in seinen Augenwink
 
 „Das ist ein sehr gutes Wort für das, was du tust.“
 
-Du bleibst so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. Draußen rüttelt der Wind noch an den Jalousien, aber das Haus um euch ist warm und still, die Lüftung atmet, und seine Hand findet in der Dunkelheit hinter seinen Lidern deine und hält sie fest.
+Du bleibst so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. {{p:d18_p_sitzen}} um euch ist warm und still, die Lüftung atmet, und seine Hand findet in der Dunkelheit hinter seinen Lidern deine und hält sie fest.
 
 „Weißt du, was ich auf dem Heimweg gedacht habe?“, sagt er irgendwann leise.
 
@@ -259,7 +259,7 @@ Um zehn bekommst du die zweite Nachricht. Ein Foto, aufgenommen im Büro: sein S
 
 „Dann hast du ein Rätsel.“ Und gleich darauf: „Ich verrate dir eines: Es hat mit Ausdauer zu tun.“
 
-Du lehnst dich im Bürostuhl zurück. Draußen auf dem Parkplatz weht der Wind einen Müllsack quer über die Fahrbahn, und der Himmel hängt tief und gelblich-grau. Die Lichterkette am Büro-Weihnachtsbaum blinkt heute tatsächlich, was die Kollegen für ein Zeichen halten, ohne zu wissen, wofür. Gegen halb elf gähnst du in der Kaffeeküche, einmal, unbeabsichtigt, hinter vorgehaltener Hand. Du hast keinen Zeugen. Du tippst trotzdem: „Eins zu sieben.“
+Du lehnst dich im Bürostuhl zurück. {{p:d18_p_parkplatz}} Die Lichterkette am Büro-Weihnachtsbaum blinkt heute tatsächlich, was die Kollegen für ein Zeichen halten, ohne zu wissen, wofür. Gegen halb elf gähnst du in der Kaffeeküche, einmal, unbeabsichtigt, hinter vorgehaltener Hand. Du hast keinen Zeugen. Du tippst trotzdem: „Eins zu sieben.“
 
 „Das war schnell. Ich habe nichts gesehen.“
 
@@ -285,7 +285,7 @@ Um vierzehn Uhr fährst du den Rechner herunter, und knapp zehn Minuten später 
 
 „Und für wen bist du?“
 
-„Für das Kind.“ Ein knappes Nicken. „Geh nur. Es wird windig.“
+„Für das Kind.“ Ein knappes Nicken. {{p:d18_p_geh}}
 
 „Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. „Gaah! Mama gaah!“ Sie reißt den Mund auf, mit einem winzigen, theatralischen Gähnen, und sieht dich streng an. „Nich gaah!“
 
@@ -303,7 +303,7 @@ Du nimmst sie hoch, dieses warme, schwere, noch halb verschlafene Bündel, das n
 
 Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Der Parkplatz ist ein Ballett aus Daunenjacken und Elterntaxis, und als die Kinder wie ein Fluss aus Mützen herausströmen, klettert die Große auf die Rückbank, den Ranzen noch auf dem Rücken.
 
-„Mama, der Wind ist so stark, dass die Lehrerin gesagt hat, wir dürfen heute nicht draußen spielen.“
+{{p:d18_p_lehrerin}}
 
 „Das ist schade.“
 
@@ -313,11 +313,11 @@ Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Der Parkplatz ist 
 
 „Das weiß ich noch nicht. Papa hat gesagt, er überlegt es sich.“ Sie lehnt sich zurück und sieht aus dem Fenster. „Ich glaube, er überlegt ziemlich lange.“
 
-Der Nachmittag ist ein Freitag, wie er sein soll. Die Große übt ihren Engelssatz im Flur, die Kleine daneben in ihrer eigenen Tonlage, und du kochst Kartoffeln, deren Duft nach Muskat im ganzen Erdgeschoss hängt. Draußen wirft der Wind Zweige gegen die Jalousien, aber im Haus ist alles warm und still und gleichmäßig. Die Lüftung rauscht in den Wänden, der Boden unter deinen Socken ist kühl wie immer, und die Lichterkette am Baum glimmt.
+Der Nachmittag ist ein Freitag, wie er sein soll. Die Große übt ihren Engelssatz im Flur, die Kleine daneben in ihrer eigenen Tonlage, und du kochst Kartoffeln, deren Duft nach Muskat im ganzen Erdgeschoss hängt. {{p:d18_p_nachmittag}} ist alles warm und still und gleichmäßig. Die Lüftung rauscht in den Wänden, der Boden unter deinen Socken ist kühl wie immer, und die Lichterkette am Baum glimmt.
 
 Um Viertel vor fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft, dem Geruch von Wind, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot. Man sieht ihm an, dass er seit fünf Uhr morgens auf den Beinen ist. Die Kleine stürzt auf ihn zu, noch bevor er den Rucksack abgesetzt hat.
+Er kommt herein, mit kalter Luft, {{p:d18_p_geruch}}, den Rucksack über der Schulter, die Wangen rot. Man sieht ihm an, dass er seit fünf Uhr morgens auf den Beinen ist. Die Kleine stürzt auf ihn zu, noch bevor er den Rucksack abgesetzt hat.
 
 „Papa da! Papa da!“
 
@@ -395,7 +395,7 @@ Dann dreht er sich zu dir um, und in seinem Gesicht steht keine Müdigkeit mehr.
 
 „Dann ist es Gleichstand.“ Das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln. „Und bei Gleichstand entscheidet die Karte.“
 
-Ihr geht die hölzerne Treppe hinab, Stufe für Stufe, die Lüftung im Rücken. Unten ist das Haus still, die Lichterkette am Baum glimmt, die Jalousien sind unten, und aus dem Esszimmer schimmert die Beleuchtung der Vorhangleiste herüber. Draußen rüttelt der Wind an den Fenstern, aber hier drinnen ist es warm, und der Boden unter euren Socken ist kühl wie immer. Auf dem Couchtisch steht ein Wecker, ein altmodischer, mit zwei Glocken, den du seit Jahren nicht gesehen hast, daneben zwei Gläser Wasser und ein Teller mit Mandarinen. Davor, auf der grauen Wolldecke, liegt der Beutel, dunkelrot, mit einer Kordel zugezogen.
+Ihr geht die hölzerne Treppe hinab, Stufe für Stufe, die Lüftung im Rücken. Unten ist das Haus still, die Lichterkette am Baum glimmt, die Jalousien sind unten, und aus dem Esszimmer schimmert die Beleuchtung der Vorhangleiste herüber. {{p:d18_p_treppe}} ist es warm, und der Boden unter euren Socken ist kühl wie immer. Auf dem Couchtisch steht ein Wecker, ein altmodischer, mit zwei Glocken, den du seit Jahren nicht gesehen hast, daneben zwei Gläser Wasser und ein Teller mit Mandarinen. Davor, auf der grauen Wolldecke, liegt der Beutel, dunkelrot, mit einer Kordel zugezogen.
 
 „Der Wecker ist neu“, sagst du.
 
@@ -482,9 +482,9 @@ Du weißt nicht, was du sagen sollst, und sie wartet nicht. „Sag ihm einfach, 
 
 „Gern.“ Sie reicht dir die Kleine.
 
-„Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. „Wind! Hu!“ Du nimmst sie hoch, dieses warme, schwere Bündel, das nach Wolle und Keksen riecht, und sie legt dir die kalte Hand an den Hals. „Mama warm.“
+„Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. {{p:d18_p_kleine2}} sie hoch, dieses warme, schwere Bündel, das nach Wolle und Keksen riecht, und sie legt dir die kalte Hand an den Hals. „Mama warm.“
 
-Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Es ist windig geworden, der Himmel hängt tief und gelblich-grau, und als die Kinder wie ein Fluss aus Mützen herausströmen, klettert die Große auf die Rückbank.
+Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. {{p:d18_p_schule2}} die Kinder wie ein Fluss aus Mützen herausströmen, klettert die Große auf die Rückbank.
 
 „Mama, Papa hat gesagt, dass ich heute um halb acht im Bett sein muss. Ohne Diskutieren.“
 
@@ -510,9 +510,9 @@ Er kommt um Viertel nach vier. Du hörst den Schlüssel, die Haustür, das Rasch
 
 „Da bin ich.“ Er hebt sie hoch, lässt zu, dass sie ihm die Mütze vom Kopf zieht. Er sieht müde aus, wie jeden Freitag, aber in seinem Gesicht liegt etwas Gelöstes. „Hallo, kleine Maus.“
 
-„Papa Wind!“
+{{p:d18_p_papa1}}
 
-„Papa war im Wind.“
+{{p:d18_p_papa2}}
 
 „Hu!“
 
@@ -536,7 +536,7 @@ Um Viertel nach sieben beginnt das Zubettgehen, und er übernimmt es, ohne ein W
 
 Um zwanzig vor acht ist es still im Kinderzimmer. Er zieht die Tür an, bis nur noch ein Spalt bleibt, und nimmt das Babyphone mit nach unten, leise gestellt. Das Haus ist still.
 
-Die Lüftung atmet in den Wänden, der Boden unter deinen Socken ist kühl wie immer, und draußen rüttelt der Wind an den Jalousien. Er steht am Fuß der Treppe, das Babyphone in der Hand, und dreht sich langsam zu dir um.
+Die Lüftung atmet in den Wänden, der Boden unter deinen Socken ist kühl wie immer, {{p:d18_p_flur}} am Fuß der Treppe, das Babyphone in der Hand, und dreht sich langsam zu dir um.
 
 „Es ist zwanzig vor acht“, sagt er.
 
@@ -556,11 +556,11 @@ Die Lüftung atmet in den Wänden, der Boden unter deinen Socken ist kühl wie i
 
 „Ich räume auf, ich bereite etwas vor, und ich versuche, nicht zu denken.“ Er geht an dir vorbei, ganz dicht, und seine Lippen streifen kurz dein Ohr. „Das wird mir nicht gelingen.“
 
-Die Wanne ist voll bis kurz unter den Rand. Er hat sie eingelassen, bevor du hineingegangen bist, du hast das Wasser rauschen hören, ohne darauf zu achten. Das Licht über dem Waschbecken brennt auf der niedrigsten Stufe, auf dem Hocker liegen zwei Handtücher, noch warm vom Trockner. Du lässt dich ins Wasser gleiten, heiß, genau richtig, an der Grenze, an der man zuerst scharf einatmet und dann ausatmet. Der Wind draußen klingt weit weg.
+Die Wanne ist voll bis kurz unter den Rand. Er hat sie eingelassen, bevor du hineingegangen bist, du hast das Wasser rauschen hören, ohne darauf zu achten. Das Licht über dem Waschbecken brennt auf der niedrigsten Stufe, auf dem Hocker liegen zwei Handtücher, noch warm vom Trockner. Du lässt dich ins Wasser gleiten, heiß, genau richtig, an der Grenze, an der man zuerst scharf einatmet und dann ausatmet. {{p:d18_p_wanne}}
 
 Du denkst nicht darüber nach, was heute Nacht geschieht. Das ist die einzige Regel, und sie fällt dir überraschend leicht. Du denkst an die beiden Brötchen und an den Zettel und an die Art, wie er „Mitternacht? Bis zum Morgen?“ geschrieben hat, wie jemand, der etwas entdeckt hat, das er sich lange nicht zugetraut hat. Du bleibst im Wasser, bis es lauwarm wird, dann steigst du heraus, hüllst dich in das erste Handtuch, dann in den grauen, dicken Bademantel, der immer an der Tür hängt und aussieht wie ein Schlafsack mit Ärmeln.
 
-Im Schlafzimmer ist es still. Die Stehlampe in der Ecke brennt in ihrem tiefen Gelb-Orange, die Jalousien sind unten, das Laminat ist kühl unter deinen nackten Füßen. Du legst dich aufs Bett, nur kurz, und schließt die Augen. Die Lüftung rauscht, und der Wind rüttelt leise am Haus, und du schläfst ein, wie man in einem warmen Bad einschläft, ganz plötzlich und ohne es zu merken.
+Im Schlafzimmer ist es still. Die Stehlampe in der Ecke brennt in ihrem tiefen Gelb-Orange, die Jalousien sind unten, das Laminat ist kühl unter deinen nackten Füßen. Du legst dich aufs Bett, nur kurz, und schließt die Augen. Die Lüftung rauscht, {{p:d18_p_schlaf}} schläfst ein, wie man in einem warmen Bad einschläft, ganz plötzlich und ohne es zu merken.
 
 Als du aufwachst, ist es kurz vor zehn. Du hast über eine Stunde geschlafen. Der Raum ist warm und still, und auf deiner Decke liegt etwas, das vorher nicht dort lag: ein Zettel in seiner eiligen Schrift.
 

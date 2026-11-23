@@ -2245,7 +2245,8 @@
             
             script.onload = function() {
                 if (typeof window.getStoryText === "function") {
-                    storyContainer.innerHTML = window.getStoryText(vibe);
+                    var rohText = window.getStoryText(vibe);
+                    storyContainer.innerHTML = (typeof window.wetterErsetzen === "function") ? window.wetterErsetzen(rohText, day) : String(rohText).replace(/\{\{w:\w+\}\}/g, "");
                 } else {
                     geschichteFehler(storyContainer);
                 }
@@ -3164,6 +3165,10 @@
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
+</script>
+<script>
+// Wetter-Modul laden (Reihenfolge: erst Texte, dann Technik)
+(function () { ["wetter-texte.js", "wetter.js"].forEach(function (u) { var s = document.createElement("script"); s.src = u; s.async = false; document.head.appendChild(s); }); })();
 </script>
 </body>
 </html>

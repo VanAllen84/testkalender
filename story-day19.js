@@ -40,7 +40,7 @@ Mittags sind die Bleche voll, die Kleine hat Zuckerguss bis in die Haare, und Om
 
 „Dann um sieben.“
 
-Der Nachmittag gehört dem Sofa. Die Kleine schläft, die Große liest unter der grauen Wolldecke, und du sitzt neben ihm, den Kopf an seiner Schulter. Draußen hat der Wind nachgelassen, und der Himmel ist hell und ruhig. Die Lichterkette am Baum ist an, obwohl es noch nicht dunkel ist, und auf dem Tisch steht ein Teller mit den ersten Plätzchen, die zu dunkel geworden sind.
+Der Nachmittag gehört dem Sofa. Die Kleine schläft, die Große liest unter der grauen Wolldecke, und du sitzt neben ihm, den Kopf an seiner Schulter. {{w:d19_himmel}} Die Lichterkette am Baum ist an, obwohl es noch nicht dunkel ist, und auf dem Tisch steht ein Teller mit den ersten Plätzchen, die zu dunkel geworden sind.
 
 „Die schmecken trotzdem“, sagt er mit vollem Mund.
 

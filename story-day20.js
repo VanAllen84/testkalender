@@ -38,7 +38,7 @@ Das Frühstück findet im Schlafanzug statt, am Esstisch, mit allem, was sich fi
 
 „Danke. Ich übe seit Jahrzehnten.“
 
-Ihr esst langsam. Draußen liegt ein hellgrauer, windstiller Himmel, und die Straße ist leer bis auf einen Mann mit einem Hund, der gemächlich an den Gartenzäunen entlangzieht. Es ist so friedlich, dass du merkst, wie sich dein Rücken Stück für Stück weitet, Wirbel für Wirbel.
+Ihr esst langsam. {{w:d20_himmel}}, und die Straße ist leer bis auf einen Mann mit einem Hund, der gemächlich an den Gartenzäunen entlangzieht. Es ist so friedlich, dass du merkst, wie sich dein Rücken Stück für Stück weitet, Wirbel für Wirbel.
 
 „Ich habe dir etwas zu sagen“, sagt er irgendwann.
 
@@ -82,7 +82,7 @@ Die Große steht schon im Flur und streift die Stiefel ab. „Mama, ich habe heu
 
 Er steht in der Küchentür, mit einem Geschirrtuch über der Schulter, und kratzt sich mit zwei Fingern am Ohr, ganz langsam, mit sehr unschuldiger Miene. Die Große kreischt vor Begeisterung.
 
-Der Rest des Tages ist ein Sonntag, wie er sein soll. Ihr geht spazieren, zu viert, in den kleinen Wald hinter den Feldern, wo die Luft nach nassem Laub riecht und der Boden unter den Stiefeln weich ist. Die Große sammelt Zapfen für einen Kranz, den sie nächste Woche basteln will, die Kleine sammelt Steine und nennt jeden „Schatz“, und er trägt sie, als sie müde wird, auf den Schultern, die Hände fest um ihre Knöchel. Du gehst neben ihm, und irgendwann schiebt sich seine Hand in deine Jackentasche, mit den Fingern über deine.
+Der Rest des Tages ist ein Sonntag, wie er sein soll. Ihr geht spazieren, zu viert, in den kleinen Wald hinter den Feldern, {{w:d20_wald}}. Die Große sammelt Zapfen für einen Kranz, den sie nächste Woche basteln will, die Kleine sammelt Steine und nennt jeden „Schatz“, und er trägt sie, als sie müde wird, auf den Schultern, die Hände fest um ihre Knöchel. Du gehst neben ihm, und irgendwann schiebt sich seine Hand in deine Jackentasche, mit den Fingern über deine.
 
 „Zählt das?“, fragst du leise.
 

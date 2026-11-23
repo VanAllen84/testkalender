@@ -50,7 +50,7 @@ Mehr sagt er nicht. Er gibt dir deinen allmorgendlichen Abschiedskuss, hält dir
 
 Der Tag auf der Arbeit zieht vorbei wie Landschaft hinter einer Zugscheibe. Du erledigst, was zu erledigen ist, du sprichst mit Kollegen über Dienstpläne und Weihnachtsfeiern, über die Lichterkette für den Büro-Weihnachtsbaum, die schon wieder ausgefallen ist. Aber irgendwo unter allem, tief unter der Oberfläche deiner Konzentration, liegt dieser Satz: Heute Abend gehört er dir. Er pulsiert still wie ein Licht hinter geschlossenen Lidern. Einmal, gegen zwölf, schreibst du ihm: „Was hast du vor?“ Seine Antwort kommt nach Minuten, und sie lautet nur: „Nichts, was du dir nicht schon vorstellst.“ Und das Kuss-Emoji, das ihr euch fast immer am Ende eurer Nachrichten schickt.
 
-Um vierzehn Uhr schließt du den Rechner, ziehst den Mantel an und fährst nach Hause durch ein Licht, das schon jetzt müde ist, ein graues, flaches Dezemberlicht, das den Tag verschluckt, bevor er richtig begonnen hat. Im Nachbarhaus brennt ein Licht im Fenster. Die Kleine hat dort ihren Mittagsschlaf gemacht, und als du hinüberkommst, öffnet Oma schon die Tür, mit einem Schwall von Keksduft, und die Kleine sitzt am Küchentisch mit verschmierten Wangen und hält dir stolz einen halb gegessenen Keks entgegen. „Mama! Backen!“ Du nimmst sie auf den Arm, dieses warme, schwere, klebrige Bündel Leben, und drückst die Nase in ihr Haar. Es riecht nach Keks und nach ihr selbst, diesem Geruch, den du aus allen Gerüchen der Welt herausfinden würdest.
+Um vierzehn Uhr schließt du den Rechner, ziehst den Mantel an und fährst nach Hause {{w:d1_licht}}, das den Tag verschluckt, bevor er richtig begonnen hat. Im Nachbarhaus brennt ein Licht im Fenster. Die Kleine hat dort ihren Mittagsschlaf gemacht, und als du hinüberkommst, öffnet Oma schon die Tür, mit einem Schwall von Keksduft, und die Kleine sitzt am Küchentisch mit verschmierten Wangen und hält dir stolz einen halb gegessenen Keks entgegen. „Mama! Backen!“ Du nimmst sie auf den Arm, dieses warme, schwere, klebrige Bündel Leben, und drückst die Nase in ihr Haar. Es riecht nach Keks und nach ihr selbst, diesem Geruch, den du aus allen Gerüchen der Welt herausfinden würdest.
 
 Zu Hause sitzt dein Mann oben im Arbeitszimmer, du hörst seine Stimme durch die Decke, sachlich, konzentriert, der Tonfall für Kollegen. Du kennst die Unterschiede. Du kennst die Tonlage für Vorgesetzte, die für Kinder, und die eine, tiefste, die nur für dich ist. Du hast sie lange nicht gehört, nicht richtig, nicht ohne einen Rest Eile darin. Heute Abend, denkst du.
 
@@ -66,7 +66,7 @@ Das Abendessen ist laut. Die anschließenden Diskussionen noch lauter. Um neunze
 
 Ihr bleibt im Flur stehen und lauscht. Zwei Atemzüge, die sich langsam angleichen, einer schneller, einer tiefer. Seine Hand liegt auf deinem Rücken, warm, durch den Stoff hindurch, und du merkst, wie sehr du genau diese Wärme gesucht hast, die Ehrlichste in diesem ganzen, wohltemperierten, nie wirklich kalten Haus. Dann geht ihr hinunter, ohne ein Wort, Stufe für Stufe, die Socken leise auf dem Holz.
 
-Das Wohnzimmer ist dunkel bis auf den Schimmer, der aus dem Flur hereinfällt. Der Boden unter deinen Füßen ist kühl, und du spürst das Kühle sogar durch die Wolle. Die Lüftung atmet leise in den Wänden. Draußen hat es angefangen zu regnen, feiner Dezemberregen, den man nur leise an die Jalousien prasseln hört.
+Das Wohnzimmer ist dunkel bis auf den Schimmer, der aus dem Flur hereinfällt. Der Boden unter deinen Füßen ist kühl, und du spürst das Kühle sogar durch die Wolle. Die Lüftung atmet leise in den Wänden. {{w:d1_draussen}}
 
 Er geht an dir vorbei in die Küche. Du setzt dich aufs Sofa, ziehst die Füße unter dich und die Decke über die Knie, die große, schwere, die nach Wolle und nach euch riecht.
 
@@ -74,7 +74,7 @@ Und dann merkst du es. Dieses leise Abfallen, das jedes Mal kommt, als würde et
 
 Er kommt zurück mit einer Tüte Chips. Aber er setzt sich nicht gleich. Er legt die Chips auf den Couchtisch, geht zum Kamin und kniet sich davor hin. Ein Klick, und der Elektrokamin erwacht, ein sanftes, flackerndes Orange-Rot hinter dem Glas, das sich über die Wand legt wie ein warmer Atem. Er greift in das Holzfach darunter, und plötzlich ist da Knistern. Echtes, lebendiges Knistern, das Prasseln von Holz, das nachgibt, dazu das leise Knacken einer Glut, die sich setzt. Es füllt den Raum so selbstverständlich, dass du für einen Augenblick wirklich glaubst, es brenne dort etwas.
 
-Die Jalousien haben sich bereits vor geraumer Zeit, mit Einbruch der Dunkelheit von selbst geschlossen, fast lautlos sind sie heruntergefahren, Handbreit um Handbreit, und mit jeder schob sich die Nacht weiter hinaus: der Regen, die Straße, der Dezember. Als sie unten waren, wurde das Wohnzimmer zu einem geschlossenen, warmen Raum. Aus dem Esszimmer schimmert die Beleuchtung in der Vorhangleiste in das Wohnzimmer, gerade so viel, dass man den Raum erkennen kann, aber nicht zu viel, so dass es sich störend anfühlen würde. Er tippt auf sein Handy, und die Lampen im Wohnzimmer werden weicher, tiefer, sie sinken in ein gedämpftes Bernstein, das die Kanten verwischt und die Wände zum Leuchten bringt wie das Innere einer Laterne.
+Die Jalousien haben sich bereits vor geraumer Zeit, mit Einbruch der Dunkelheit von selbst geschlossen, fast lautlos sind sie heruntergefahren, Handbreit um Handbreit, und mit jeder schob sich die Nacht weiter hinaus: {{w:d1_nacht}}. Als sie unten waren, wurde das Wohnzimmer zu einem geschlossenen, warmen Raum. Aus dem Esszimmer schimmert die Beleuchtung in der Vorhangleiste in das Wohnzimmer, gerade so viel, dass man den Raum erkennen kann, aber nicht zu viel, so dass es sich störend anfühlen würde. Er tippt auf sein Handy, und die Lampen im Wohnzimmer werden weicher, tiefer, sie sinken in ein gedämpftes Bernstein, das die Kanten verwischt und die Wände zum Leuchten bringt wie das Innere einer Laterne.
 
 Dann setzt er sich neben dich, so nah, dass sein Oberschenkel an deinem liegt. Er greift nach der Chipstüte und legt sie auf seinen Schoß, sodass ihr beide euch daran bedienen könnt. Erst du, dann er, dann auf einmal beide, und eure Hände berühren sich sanft.
 
@@ -108,7 +108,7 @@ Du rutschst zu ihm, die Decke folgt dir wie ein Schweif. Er schlingt den Arm um 
 
 Und plötzlich sprudelt es aus dir heraus, zuerst zögernd, dann leichter. Von der Sorge um die Große, die in letzter Zeit abends so still ist und von einer Freundin erzählt, die plötzlich nicht mehr neben ihr sitzen will, von dem Satz, den die Lehrerin im Vorbeigehen gesagt hat, von deiner Mutter, die zu müde aussah, von dem Gefühl, dass der Dezember wie ein Zug auf dich zufährt und du manchmal nicht weißt, ob du aufspringen oder stehen bleiben sollst. Er hört zu. Er unterbricht nicht, er löst nichts, er sagt nur manchmal „hm“ und „ja“ und einmal „das verstehe ich“, und jedes Mal, auch wenn es noch so belanglos klingen mag, klingt es, als nähme er dir ein Stück davon ab und trüge es ein Weilchen für dich.
 
-Als du fertig bist, ist es still. Das „Feuer“ knistert. Der Regen ist nur noch eine Ahnung an den Jalousien, die Lüftung atmet in den Wänden. Er küsst dein Haar, dann die Schläfe, dann, sehr langsam, die Stelle direkt vor deinem Ohr.
+Als du fertig bist, ist es still. Das „Feuer“ knistert. {{w:d1_ahnung}}, die Lüftung atmet in den Wänden. Er küsst dein Haar, dann die Schläfe, dann, sehr langsam, die Stelle direkt vor deinem Ohr.
 
 „Du musst das nicht alles allein tragen“, sagt er.
 
@@ -171,7 +171,7 @@ Du holst tief Luft. Du öffnest die Kordel. Deine Hand taucht in den Beutel, und
     } else if (vibe === 'naehe') {
         return `Der erste Dezember beginnt bei euch mit einer Kriegserklärung, und zwar noch bevor der Kaffee durchgelaufen ist.
 
-Es ist sechs Uhr, draußen ist tiefe Nacht, und der Boden im Schlafzimmer ist kühl wie jeden Morgen, ganz gleich, was die Wärmepumpe behauptet. Du angelst mit den Zehen nach den dicken Socken. Er sitzt schon auf der Bettkante und geht die Push-Nachrichten der Nacht durch, mit dem Gesicht eines Mannes, der Börsenberichte liest, obwohl es nur eine Frostwarnung und eine Versandbenachrichtigung sind.
+Es ist sechs Uhr, draußen ist tiefe Nacht, und der Boden im Schlafzimmer ist kühl wie jeden Morgen, ganz gleich, was die Wärmepumpe behauptet. Du angelst mit den Zehen nach den dicken Socken. Er sitzt schon auf der Bettkante und geht die Push-Nachrichten der Nacht durch, mit dem Gesicht eines Mannes, der Börsenberichte liest, obwohl es nur eine {{w:d1_warnung}} und eine Versandbenachrichtigung sind.
 
 „Es ist Dezember“, sagt er, ohne aufzusehen.
 
@@ -299,7 +299,7 @@ Er greift in die Tüte, nimmt einen Chip und hält ihn dir hin, ohne die Hand n�
 
 „Ich dachte, die gehört zum Regelwerk.“
 
-Ein Moment. Das Feuer knistert. Draußen prasselt der Regen leise an die Jalousien. Du ziehst die Beine auf das Sofa und rutschst, ganz langsam, ein Stück näher, bis die Chipstüte zwischen euch kippt und du sie auf den Boden schiebst. Er sieht ihr nach, dann dir.
+Ein Moment. Das Feuer knistert. {{w:d1_prasselt}} Du ziehst die Beine auf das Sofa und rutschst, ganz langsam, ein Stück näher, bis die Chipstüte zwischen euch kippt und du sie auf den Boden schiebst. Er sieht ihr nach, dann dir.
 
 „Das war Sabotage“, sagt er.
 
@@ -386,7 +386,7 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel, und die Karten fühlen 
     } else {
         return `Der erste Dezember beginnt bei euch mit einem Satz, den er eigentlich gar nicht ausspricht.
 
-Es ist sechs Uhr, draußen ist es noch tiefe Nacht, und der Boden im Schlafzimmer ist kühl wie jeden Morgen, ganz gleich, was die Wärmepumpe behauptet. Du angelst mit den Zehen nach den dicken Socken. Er sitzt schon auf der Bettkante und geht die Push-Nachrichten der Nacht durch, eine Frostwarnung, eine Versandbenachrichtigung, nichts, das einen Mann so lange auf ein Display starren ließe.
+Es ist sechs Uhr, draußen ist es noch tiefe Nacht, und der Boden im Schlafzimmer ist kühl wie jeden Morgen, ganz gleich, was die Wärmepumpe behauptet. Du angelst mit den Zehen nach den dicken Socken. Er sitzt schon auf der Bettkante und geht die Push-Nachrichten der Nacht durch, eine {{w:d1_warnung}}, eine Versandbenachrichtigung, nichts, das einen Mann so lange auf ein Display starren ließe.
 
 „Es ist Dezember“, sagt er.
 
@@ -488,7 +488,7 @@ Du schließt sie.
 
 „Du bist ausgezeichnet darin, wenn du dich traust.“ Seine Finger bleiben einen Moment in deinem Haar stehen, dann ziehen sie weiter. „Heute traust du dich. Ab jetzt denke ich. Du musst nur atmen.“
 
-Du atmest. Es ist erstaunlich, wie lange es dauert, bis du merkst, dass du es den ganzen Tag nicht richtig getan hast. Das Feuer knistert. Draußen prasselt der Regen leise an die Jalousien. Die Lüftung rauscht in den Wänden, und seine Hand bewegt sich in gleichmäßigem Rhythmus durch dein Haar, und mit jedem Zug lösen sich Dinge, die du vor Stunden festgehalten hast: der Satz der Lehrerin, die Liste für Donnerstag, das Gefühl, dass der Dezember wie ein Zug auf dich zufährt. Du fragst dich nicht, ob das eine gute Idee ist. Du fragst dich gar nichts. Es ist das Größte, was du seit Wochen nicht getan hast.
+Du atmest. Es ist erstaunlich, wie lange es dauert, bis du merkst, dass du es den ganzen Tag nicht richtig getan hast. Das Feuer knistert. {{w:d1_prasselt}} Die Lüftung rauscht in den Wänden, und seine Hand bewegt sich in gleichmäßigem Rhythmus durch dein Haar, und mit jedem Zug lösen sich Dinge, die du vor Stunden festgehalten hast: der Satz der Lehrerin, die Liste für Donnerstag, das Gefühl, dass der Dezember wie ein Zug auf dich zufährt. Du fragst dich nicht, ob das eine gute Idee ist. Du fragst dich gar nichts. Es ist das Größte, was du seit Wochen nicht getan hast.
 
 „Gut“, sagt er leise. Nur das eine Wort.
 

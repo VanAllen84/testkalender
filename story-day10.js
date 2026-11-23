@@ -6,7 +6,7 @@ Du findest sie, als du auf dem Parkplatz vor dem Büro nach dem Autoschlüssel k
 
 Du lachst und steckst die Klammer zurück. Der Vormittag hat dir wenig hinterlassen, einen Stapel Dienstpläne und ein Gespräch über eine Weihnachtsfeier, die niemand organisieren will. Die Morgenstunden dagegen hast du noch ganz im Körper: der Boden, der kühl war wie immer, das Gluckern der Kaffeemaschine, das Klappern der Brotdosen, sein Wasserglas im Stehen. Die Große hat beim Anziehen zum dritten Mal in dieser Woche verkündet, dass sie „heute extra nicht nervös“ ist, und dabei so verbissen auf ihre Zahnlücke gebissen, dass du nicht widersprochen hast. Er hat sie mit seiner ruhigsten Stimme zur Schule gebracht. An der Haustür hat er dir den Kuss gegeben, den er dir jeden Morgen gibt, kurz und warm, und weiter nichts.
 
-Du fährst die paar Minuten nach Hause durch ein Licht, das schon wieder ins Graue kippt. Im Flur riecht es nach Orangen. Von oben hörst du seine Stimme, der Tonfall für Vorgesetzte, und gleich darauf das leise Knacken der Treppe, weil er in der Besprechungspause kurz herunterschleicht. Er stellt sich in die Küchentür, den Kopfhörer um den Hals.
+Du fährst die paar Minuten nach Hause {{w:d10_licht}}. Im Flur riecht es nach Orangen. Von oben hörst du seine Stimme, der Tonfall für Vorgesetzte, und gleich darauf das leise Knacken der Treppe, weil er in der Besprechungspause kurz herunterschleicht. Er stellt sich in die Küchentür, den Kopfhörer um den Hals.
 
 „Du hast die Klammer gefunden.“
 
@@ -14,7 +14,7 @@ Du fährst die paar Minuten nach Hause durch ein Licht, das schon wieder ins Gra
 
 „Gut. Dann kann ich weiterarbeiten.“ Er geht wieder hinauf, zwei Stufen auf einmal, und du bleibst im Flur stehen mit dem Gefühl, dass dieser Mann dir seit Wochen mehr Zettel in die Taschen steckt als in achtzehn Jahren zuvor.
 
-Gegen halb drei gehst du zu Fuß hinüber zu Oma, in die Kälte hinein, die trocken ist und nach Rauch riecht. Seine Mutter öffnet mit dem Handy in der Hand, die Kleine schon im Schneeanzug auf dem Flurboden, das eine Bein in der Hose, das andere noch nicht.
+Gegen halb drei gehst du zu Fuß hinüber zu Oma, {{w:d10_kaelte}}. Seine Mutter öffnet mit dem Handy in der Hand, die Kleine schon im Schneeanzug auf dem Flurboden, das eine Bein in der Hose, das andere noch nicht.
 
 „Sie hat bis zehn nach zwei geschlafen“, sagt Oma. „Dann wollte sie raus.“
 
@@ -128,7 +128,7 @@ Auf dem Heimweg trägt er sie. Das hat er sich nicht überlegt, du siehst es an 
 
 „Ich sehe immer, was du machst.“
 
-Du gehst eine Weile neben ihm, ohne etwas zu sagen. Über euch stehen ein paar Sterne, matt hinter dünnen Wolken, und vor den Häusern leuchten die Lichterketten in ihrem ruhigen Gelb. Die Kleine auf deinem Arm ist eingeschlafen, die Nase an deinem Hals, den Mund halb offen, schwer und warm.
+Du gehst eine Weile neben ihm, ohne etwas zu sagen. {{w:d10_sterne}}, und vor den Häusern leuchten die Lichterketten in ihrem ruhigen Gelb. Die Kleine auf deinem Arm ist eingeschlafen, die Nase an deinem Hals, den Mund halb offen, schwer und warm.
 
 Zu Hause schiebt er die Große in ihr Bett, ohne dass sie aufwacht, zieht ihr nur die Stiefel aus und deckt sie zu, mit den Kleidern. „Zähneputzen morgen früh doppelt“, flüstert er. Die Kleine legst du in ihr Gitterbett, auch das gehört zu den Dingen, die du ihm nie sagen musst. Ihr bleibt im Flur stehen und lauscht, ob wirklich alles friedlich ist im Haus.
 
@@ -551,37 +551,23 @@ Du gehst die paar Schritte zum Nachbarhaus. Seine Mutter öffnet, das Handy in d
 
 „Gern.“ Sie mustert dich einen Moment länger, als es nötig wäre.
 
-„Mama! Mama da!“, ruft die Kleine und streckt beide Arme nach dir aus. „Nebe! Draußen Nebe!“
-
-„Ja, es ist Nebel.“
-
-„Mama Nebe gucken!“
-
-Ihr geht in den Garten, du mit ihr auf dem Arm. Die Welt ist weg. Der Zaun verschwimmt nach zwei Metern, der Nachbarbaum steht wie ein Gespenst im Grau, und alle Geräusche klingen gedämpft, als hätte jemand ein Tuch über den Nachmittag gelegt. Die Kleine streckt die Hand aus, fängt Nebel und sieht dann sehr streng auf ihre leere Faust.
-
-„Weg.“
-
-„Ja, er ist weg.“
-
-„Wo hin?“
-
-„Er ist überall. Man kann ihn nur nicht festhalten.“
+{{p:d10_p_f_garten}}
 
 Sie überlegt mit gerunzelter Stirn, dann legt sie dir die kalte Hand an die Wange und sagt: „Mama warm.“ Du schließt kurz die Augen. Du denkst an einen Zettel unter deinem BH-Träger, der inzwischen warm und weich geworden ist, und an einen Mann, der gerade ein gefühltes Dutzend Kilometer entfernt vor seinem Schreibtisch sitzt und deine Gedanken zählt.
 
-Ihr geht langsam. Er hat dir gesagt, du sollst langsam werden, und du merkst, wie das geht: Du hörst auf, auf die Uhr zu sehen. Du lässt die Kleine jede Pfütze besichtigen, jeden nassen Ast, jeden Zaunpfahl, auf den sie „Aua!“ ruft, wenn er zu kalt ist. Du siehst ihr beim Staunen zu und stellst fest, dass dein Körper dabei die ganze Zeit etwas anderes tut: Er wartet. Er wartet ganz ruhig, mit dem sicheren Gefühl, dass er nichts tun muss, außer bereit zu sein.
+Ihr geht langsam. Er hat dir gesagt, du sollst langsam werden, und du merkst, wie das geht: Du hörst auf, auf die Uhr zu sehen. Du lässt die Kleine {{p:d10_p_f_pfuetze}}, jeden Zaunpfahl, auf den sie „Aua!“ ruft, wenn er zu kalt ist. Du siehst ihr beim Staunen zu und stellst fest, dass dein Körper dabei die ganze Zeit etwas anderes tut: Er wartet. Er wartet ganz ruhig, mit dem sicheren Gefühl, dass er nichts tun muss, außer bereit zu sein.
 
 Um zehn vor drei erreicht dich seine Nachricht. „Bin los. Die Große kriegt eine Überraschung. Dir sage ich später, welche.“
 
-Du holst Kekse aus dem Schrank und setzt dich mit der Kleinen an den Tisch. Sie sortiert Buntstifte nach Farben, die nur sie kennt, und singt dazu eine einzige lange, schiefe Silbe. Du lässt sie. Draußen steht der Nebel an den Fenstern wie eine Wand.
+Du holst Kekse aus dem Schrank und setzt dich mit der Kleinen an den Tisch. Sie sortiert Buntstifte nach Farben, die nur sie kennt, und singt dazu eine einzige lange, schiefe Silbe. Du lässt sie. {{p:d10_p_f_fenster}}
 
-Um halb vier hörst du die Haustür. Die Große stürmt herein, rotwangig, mit schiefer Mütze und einem Gesicht, das aussieht, als hätte sie die Weltherrschaft übernommen. Hinter ihr kommt er, den Rucksack über der Schulter, die Wangen vom Nebel feucht, und bleibt in der Tür stehen.
+Um halb vier hörst du die Haustür. Die Große stürmt herein, rotwangig, mit schiefer Mütze und einem Gesicht, das aussieht, als hätte sie die Weltherrschaft übernommen. Hinter ihr kommt er, den Rucksack über der Schulter, {{p:d10_p_f_wangen}}, und bleibt in der Tür stehen.
 
 „Mama, Papa hat mich abgeholt, und wir waren Eis essen!“
 
 „Im Dezember?“
 
-„Er hat gesagt, bei Nebel zählt das nicht als Winter.“
+{{p:d10_p_f_eis}}
 
 „Das habe ich gesagt“, bestätigt er mit ernster Miene. „Wissenschaftlich.“
 
@@ -591,7 +577,7 @@ Er geht dicht an dir vorbei. Seine Hand legt sich einen Atemzug lang in deinen N
 
 Mehr nicht. Dann geht er hinaus und lässt dich mit dem Gefühl zurück, ein Zeugnis bekommen zu haben.
 
-Um zehn vor fünf geht ihr los, alle vier, durch den Nebel. An der Haustür legt die Große ihre Regeln fest, mit der Autorität einer Regisseurin: Wenn sie die erste Zeile vergisst, legt Mama die Hand aufs Herz. „Und Papa kratzt sich am Ohr. Das macht er sowieso immer, wenn er nervös ist.“
+Um zehn vor fünf geht ihr los, alle vier, {{p:d10_p_f_los}} legt die Große ihre Regeln fest, mit der Autorität einer Regisseurin: Wenn sie die erste Zeile vergisst, legt Mama die Hand aufs Herz. „Und Papa kratzt sich am Ohr. Das macht er sowieso immer, wenn er nervös ist.“
 
 „Das tue ich nicht“, sagt er.
 
