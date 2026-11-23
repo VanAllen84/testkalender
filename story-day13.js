@@ -2,91 +2,15 @@ window.getStoryText = function(vibe) {
     if (vibe === 'hingabe') {
         return `Der dreizehnte Dezember beginnt mit einer Stille, die nicht stimmt.
 
-Es ist kurz nach sieben, Sonntag, und du liegst wach, ohne zu wissen, warum. Dann begreifst du es: Das Haus ist zu leise. Kein Trappeln, kein Ruf durch die Wand, keine Kinderstimme, die Hunger anmeldet, obwohl es längst Zeit dafür wäre. Neben dir liegt er auf dem Rücken, die Hände auf der Brust gefaltet wie ein Mann, der sich im Schlaf selbst beaufsichtigt. Das Licht hinter den Jalousien ist anders als sonst, heller und weicher.
+Es ist kurz nach sieben, Sonntag, und du liegst wach, ohne zu wissen, warum. Dann begreifst du es: Das Haus ist zu leise. Kein Trappeln, kein Ruf durch die Wand, keine Kinderstimme, die Hunger anmeldet, obwohl es längst Zeit dafür wäre. Neben dir liegt er auf dem Rücken, die Hände auf der Brust gefaltet wie ein Mann, der sich im Schlaf selbst beaufsichtigt. {{p:d13_p_h1}}
 
-Du stehst auf, der Boden ist kühl wie immer, und schiebst die Jalousie am Schlafzimmerfenster einen Spalt hoch. Der Garten ist weiß. Nicht dünn überzuckert wie neulich, sondern richtig: eine geschlossene, glatte Decke auf Rasen, Gartentisch und Gartenhaus, und noch immer fallen große, langsame Flocken aus einem Himmel, der aussieht wie ungebügelte Wäsche.
-
-„Es hat geschneit“, sagst du leise.
-
-„Ich weiß“, murmelt er, ohne die Augen zu öffnen. „Ich habe es gehört.“
-
-„Schnee hört man nicht.“
-
-„Doch. Daran, dass es so still ist.“ Er öffnet ein Auge. „Komm wieder ins Bett. Fünf Minuten, bevor jemand es merkt.“
-
-Du kriechst zurück unter die Decke, und er zieht dich an sich, mit kalten Füßen und warmen Händen. Ihr liegt da, die Stirn an seiner Schulter, und hört nur die Lüftung in den Wänden. Es sind die schönsten fünf Minuten der Woche, und ihr wisst es beide. Dann kommt von draußen im Garten ein Rumpeln, ein Plumpsen, ein Schrei der reinen Entrüstung, und der Tag geht los.
-
-„Mama! Papa! Weiß! Gaten weiß!“
-
-„Sie hat es entdeckt“, sagt er.
-
-„Sie hat es entdeckt.“
-
-Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, und dann zieht er sich schnell etwas über und geht nach nebenan. Du hörst sein tiefes Murmeln, ihr Jauchzen, und kurz darauf kommt sie auf seinem Arm herein, Pupi im Würgegriff, beide Hände gegen die Fensterscheibe gepresst.
-
-„Schnee! Mama! Schnee!“
-
-„Ja, Schnee.“
-
-„Kalt?“
-
-„Sehr kalt.“
-
-„Rauuus!“, entscheidet sie.
-
-Die Große steht inzwischen in der Tür, im Schlafanzug, die Jacke nur schnell übergestreift und kommentiert die Lage mit der Würde einer Wetterfrau. „Das ist genug zum Schlittenfahren“, verkündet sie. „Ich habe es gerade ausgerechnet.“
-
-„Wie hast du das ausgerechnet?“
-
-„Mit Gucken.“
-
-Das Frühstück dauert zwanzig Minuten, weil niemand bei der Sache ist. Er schneidet Brötchen auf, die Kleine verteilt Butter bis zu den Ellbogen, und die Große isst im Stehen, mit dem Blick auf dem Garten. Dass der Schnee liegen bleibt, ist für sie keine Wettervorhersage, sondern ein persönliches Versprechen. Du siehst, wie er ihr dabei zusieht, und wie er sich, ohne dass sie es merkt, einen Moment lang nichts anderes wünscht, als dass dieser Morgen nie endet.
-
-Um zehn seid ihr angezogen, alle vier. Die Kleine steckt in einem Schneeanzug, in dem sie aussieht wie ein sehr entschlossenes Marshmallow, und die Große hat die Mütze so tief in die Stirn gezogen, dass man nur noch die Lücke im Lächeln sieht. Er holt den Schlitten aus der Garage, einen alten, hölzernen, der schon seine Kindheit überlebt hat und den seine Mutter aufgehoben hat, mit der Begründung, man wisse ja nie.
-
-Der Hügel liegt hinter dem Sportplatz, eigentlich nur eine Aufschüttung, die man im Sommer nie bemerkt. Heute ist sie ein Schlachtfeld aus Kindern. Es wimmelt von Schlitten, Mützen, Eltern mit Thermoskannen und einem Mann, der mit einer Bratwurst in der Hand vor dem Wurstwagen steht, als hätte er sein Lebensziel erreicht. Die Große rennt voraus und klettert die Böschung hinauf, noch bevor ihr Schlitten angekommen ist.
-
-„Papa! Du musst mit mir! Du bist schwerer, du bist schneller!“
-
-„Das ist Physik“, sagt er.
-
-„Das ist Taktik.“
-
-Er setzt sich hinter sie auf den Schlitten, die Knie angewinkelt, die Beine viel zu lang, und sieht dabei aus wie ein Riese auf einem Puppenmöbel. Du stehst unten, mit der Kleinen an der Hand, und hörst das Johlen, bevor du die beiden siehst. Sie rauschen den Hang herunter, die Große kreischend, er mit dem Gesicht eines Mannes, der seinem Schicksal entgegenfährt, und kurz vor dem Ende kippt der Schlitten, und sie landen beide im Schnee, übereinander, lachend.
-
-„Noch mal!“, ruft die Große.
-
-„Ich brauche einen Moment.“
-
-„Du brauchst keinen Moment. Du bist nur alt.“
-
-„Ich bin erfahren“, sagt er aus dem Schnee, die Mütze schief, Flocken in den Wimpern.
-
-Die Kleine zupft an deiner Hand. „Mama Schlitten!“
-
-„Du auch?“
-
-„Ich Schlitten!“ Sie setzt sich auf den Hosenboden, ohne den Schlitten, mitten im Schnee, und rutscht auf dem Popo ein halbes Meter nach vorn. Sie strahlt, als hätte sie gerade die Schwerkraft erfunden. „Schnell!“
-
-„Ja, sehr schnell.“
-
-Du kniest dich zu ihr in den Schnee, in der Jacke, die nass wird, und merkst, dass dir das völlig egal ist. Die Kälte beißt dir in die Wangen. Irgendwo oben auf dem Hügel ruft ein Vater nach seinem Sohn, ein Hund bellt, jemand lacht. Du siehst ihn, wie er den Schlitten wieder nach oben zieht, mit der Großen hinter sich her, und wie er sich auf halber Höhe umdreht und nach dir sucht. Er findet dich, über die ganze Böschung hinweg, und hebt die Hand. Nicht winkend. Nur gehoben, offen, wie jemand, der etwas hinhält.
-
-Gegen halb zwölf sind alle durchgefroren und glücklich. Die Kleine ist auf seinem Arm eingeschlafen, mit rotem Gesicht und Schnee im Kragen, und die Große trägt den Schlitten allein, mit der Miene einer Siegerin. Ihr geht zu Fuß nach Hause, vorbei an Gärten, in denen schon die Schneemänner stehen, krumm und tapfer. In einer Auffahrt steht einer mit einem Eimer auf dem Kopf, und die Große bleibt stehen.
-
-„Der sieht aus wie der Papa vom Hausmeister.“
-
-„Das ist nicht nett.“
-
-„Es ist ein Kompliment. Er hat einen guten Hut.“
+{{p:d13_p_h2}}
 
 Das Mittagessen findet bei Oma statt. Seine Eltern wohnen nebenan, aber ein Sonntag verlangt manchmal, dass man hinübergeht, in die gute Stube, wo das Besteck zu schwer ist und der Tisch zu gerade gedeckt. Seine Mutter hat Essen gemacht. Sein Vater trinkt Wasser und liest die Zeitung, die er schon zweimal gelesen hat, und hebt nur kurz den Blick, als ihr hereinkommt.
 
-„Ihr seid nass“, stellt Oma fest.
+{{p:d13_p_h_oma}}
 
-„Wir waren rodeln.“
-
-„Das sieht man.“ Sie mustert die Große, die in der Tür steht und Schnee auf den Teppich schüttelt, und dann dich. „Zieht die Schuhe aus. Da stehen ein paar warme Hausschuhe.“
+„Das sieht man.“ Sie mustert die Große, die in der Tür steht und {{p:d13_p_h_teppich}}, und dann dich. „Zieht die Schuhe aus. Da stehen ein paar warme Hausschuhe.“
 
 Du reichst ihr die Schüssel, sie reicht dir den Teller, und zwischen zwei Gängen sagt sie, ohne dich anzusehen: „Du hast Farbe im Gesicht.“
 
@@ -96,7 +20,7 @@ Du reichst ihr die Schüssel, sie reicht dir den Teller, und zwischen zwei Gäng
 
 Du weißt nicht, was du sagen sollst. Also sagst du: „Danke.“ Und das reicht.
 
-Er sitzt dir gegenüber, in einem Pullover, der nach Schnee riecht, und schneidet der Kleinen das Essen klein. Als seine Mutter ihm eine zweite Portion aufschiebt, sagt er nur: „Das schmeckt sehr lecker.“ Du siehst, wie sie das Gesicht abwendet, damit niemand den Zug um ihren Mund sieht. Dein Mann hat das nie begriffen, denkst du, wie sehr sie auf diesen Satz wartet, und wie selten er ihn sagt.
+Er sitzt dir gegenüber, {{p:d13_p_h_pulli}}, und schneidet der Kleinen das Essen klein. Als seine Mutter ihm eine zweite Portion aufschiebt, sagt er nur: „Das schmeckt sehr lecker.“ Du siehst, wie sie das Gesicht abwendet, damit niemand den Zug um ihren Mund sieht. Dein Mann hat das nie begriffen, denkst du, wie sehr sie auf diesen Satz wartet, und wie selten er ihn sagt.
 
 Nach dem Essen, als die Große mit Opa ein Brettspiel aufbaut und die Kleine auf dem Sofa unter einer Decke einschläft, steht ihr beide in der Küche. Er trocknet ab, du spülst. Seine Mutter räumt im Hintergrund Schränke ein, die schon eingeräumt sind.
 
@@ -116,7 +40,7 @@ Es ist das Persönlichste, was sie dir in achtzehn Jahren gesagt hat. Du hältst
 
 Gleich nach dem Essen kramt die Große ihr Sachkunde-Blatt hervor: fünf Dinge mit geschlossenen Augen erkennen und aufschreiben, wie sie sich anfühlen. Er baut ihr aus einem Schuhkarton eine Fühlbox, mit einem Loch an der Seite, und legt Dinge hinein, ohne dass sie hinsieht. Ein Tannenzapfen, ein Löffel, ein Apfel. Sie sitzt am Esstisch, die Hände im Karton, die Augen fest zu, mit einer Falte auf der Stirn. „Rau. Es piekst. Wie ein Kegel.“ – „Und?“ – „Ein Tannenzapfen. Das ist zu leicht, Papa.“
 
-Der Nachmittag gehört dem Sofa. Ihr seid wieder zu Hause, der Schnee schmilzt in Pfützen auf dem Flurboden, und die Heizung hält das Haus auf dieser gleichmäßigen, kühlen Wärme, in der man manchmal auch noch Decken braucht. Die Große liest unter der grauen Wolldecke, die Kleine schläft noch eine Stunde im Bett, und du sitzt neben ihm, den Kopf an seiner Schulter, und siehst zu, wie draußen die Dämmerung kommt. Um vier ist es schon dunkel. Die Lichterkette am Baum glimmt, die Jalousien fahren von selbst herunter, mit dem leisen Surren, das du kaum noch bemerkst.
+Der Nachmittag gehört dem Sofa. Ihr seid wieder zu Hause, {{p:d13_p_h_flur}}, und die Heizung hält das Haus auf dieser gleichmäßigen, kühlen Wärme, in der man manchmal auch noch Decken braucht. Die Große liest unter der grauen Wolldecke, die Kleine schläft noch eine Stunde im Bett, und du sitzt neben ihm, den Kopf an seiner Schulter, und siehst zu, wie draußen die Dämmerung kommt. Um vier ist es schon dunkel. Die Lichterkette am Baum glimmt, die Jalousien fahren von selbst herunter, mit dem leisen Surren, das du kaum noch bemerkst.
 
 „Morgen ist Montag“, sagt er.
 
@@ -154,7 +78,7 @@ Er überlegt einen Moment. „Schnee.“
 
 Du musst lachen, leise, an seiner Schulter. „Schnee?“
 
-„Er ist heute das Beste, was wir haben. Und er ist leicht zu merken.“
+{{p:d13_p_h_wort}}
 
 „Schnee“, wiederholst du.
 
@@ -164,7 +88,7 @@ Das Abendessen ist einfach: Kartoffeln mit Würstchen, die er gekocht hat, mit z
 
 Um neunzehn Uhr: Bettzeit für die Kleine.
 
-Die Große hat morgen Schule und darf deshalb nicht lange aufbleiben. Sie liegt in der Wanne, bis die Haut schrumpelt, und du setzt dich auf den Badewannenrand und fragst nach dem Tag. Sie erzählt von dem Schneemann mit dem Eimer, von Opa, der beim Brettspiel geschummelt hat, und davon, dass Oma ihr beim Mittagessen heimlich einen zweiten Nachtisch zugesteckt hat. „Aber sag es nicht“, flüstert sie.
+Die Große hat morgen Schule und darf deshalb nicht lange aufbleiben. Sie liegt in der Wanne, bis die Haut schrumpelt, und du setzt dich auf den Badewannenrand und fragst nach dem Tag. Sie erzählt {{p:d13_p_h_eimer}}, von Opa, der beim Brettspiel geschummelt hat, und davon, dass Oma ihr beim Mittagessen heimlich einen zweiten Nachtisch zugesteckt hat. „Aber sag es nicht“, flüstert sie.
 
 „Ich bin Mitglied im Netzwerk.“
 
@@ -213,87 +137,9 @@ Du holst tief Luft. Du fährst mit den Fingerspitzen über den Stoff, und in dir
 Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welche Karte heute auf dich wartet. Hier ist die Auflösung:`;
 
     } else if (vibe === 'naehe') {
-        return `Der dreizehnte Dezember beginnt mit einem Schneeball, der an dein Schlafzimmerfenster klatscht.
+        return `{{p:d13_p_n1}}
 
-Es ist Viertel nach sieben, Sonntag, und du hast dich gerade erst umgedreht, um weiterzuschlafen. Seine Bettseite ist leer. Dann kommt es noch einmal: ein dumpfes, nasses Klatschen gegen die Jalousie, gefolgt von einem Geräusch, das verdächtig nach unterdrücktem Lachen klingt.
-
-Du schiebst die Jalousie einen Spalt hoch. Der Garten ist weiß, eine geschlossene, glatte Decke auf Rasen, Gartentisch und Gartenhaus, und aus einem Himmel wie ungebügelte Wäsche fallen immer noch langsame, große Flocken. Mitten im Garten steht er, in Mantel und Gummistiefeln, die Hände voller Schnee, und blickt zu deinem Fenster hinauf, als wäre er ein sehr unschuldiger Mann.
-
-Du öffnest das Fenster. Die kalte Luft schlägt dir ins Gesicht.
-
-„Das war ein Angriff.“
-
-„Das war ein Weckruf.“
-
-„Ein Weckruf ist leiser.“
-
-„Ein Weckruf ist wirkungsvoller, wenn er sitzt.“ Er formt den nächsten Ball, ohne den Blick von dir zu nehmen. „Ich habe die Einfahrt freigeschaufelt. Und den Gehweg. Ich bin ein sehr nützlicher Mensch.“
-
-„Du bist ein sehr kindischer Mensch.“
-
-„Beides schließt sich nicht aus.“ Er wirft, und diesmal trifft er den Fensterrahmen, kurz neben deiner Schulter. Ein Schauer aus Flocken rieselt dir in den Ausschnitt.
-
-„Das gibt Revanche“, sagst du.
-
-„Ich bitte darum.“
-
-Du schließt das Fenster, mit klopfendem Herzen, und ziehst die dicken Socken an. Der Boden im Schlafzimmer ist kühl wie immer, aber irgendwo in dir ist etwas aufgewärmt, das vorher noch geschlafen hat.
-
-Aus der anderen Ecke des Gartens kommt ein Rumpeln, ein Plumpsen und ein Schrei der reinen Entrüstung. „Mama! Weiß! Gaten weiß!“ Die Kleine hat es entdeckt. Sie ruft ganz laut „Schnee! Papa da! Papa Schnee!“
-
-„Ja, Papa macht Schnee.“
-
-„Papa Bälle!“, stellt sie fest, mit der Strenge einer Zeugin.
-
-Die Große steht ein paar Meter weg, im Schlafanzug, die Jacke nur schnell übergeworfen. „Das ist genug zum Schlittenfahren“, verkündet sie. „Ich habe es ausgerechnet.“
-
-„Wie denn?“
-
-„Mit Gucken.“
-
-Das Frühstück ist ein Gefecht. Er kommt herein, mit roten Ohren und nassen Hosenbeinen, und die Große verlangt sofort ein Protokoll über die Schneetiefe. Er misst sie mit einem Lineal, draußen, im Mantel, und kommt mit dem Ergebnis zurück: „Elf Zentimeter. Wissenschaftlich gesichert.“ Die Kleine verteilt Honig auf ihrem Brötchen, Pupi und, aus Versehen, auf seinem Ärmel. Er sagt nichts. Er trinkt sein Glas Wasser im Stehen und sieht dich über den Rand hinweg an.
-
-„Revanche“, sagst du leise, im Vorbeigehen.
-
-„Gleich?“
-
-„Wenn du nicht damit rechnest.“
-
-„Ich rechne immer damit.“
-
-„Dann ist es keine Überraschung mehr.“
-
-„Dann ist es ein Duell“, sagt er, und das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln.
-
-Gegen zehn zieht ihr euch an, alle vier. Die Kleine sieht in ihrem Schneeanzug aus wie ein sehr entschlossenes Marshmallow. Die Große hat die Mütze so tief in die Stirn gezogen, dass man nur noch die Lücke im Lächeln sieht. Draußen ist es still, mit der dichten, weichen Stille, die nur Schnee macht. Der Himmel hängt tief, und das Licht ist so hell, dass die Augen blinzeln.
-
-Die Schlacht beginnt ohne Ankündigung. Der erste Ball trifft dich im Rücken, mit einem Plumps, der durch drei Lagen dringt. Du fährst herum. Er steht fünf Meter entfernt und mustert den Himmel mit großem Interesse.
-
-„Das war ein Vogel.“
-
-„Das war ein Mann.“
-
-„Es gibt keine Beweise.“
-
-Du bückst dich, formst einen Ball, einen dichten, festen, und zielst. Er duckt sich, zu spät, du triffst ihn am Oberarm, und er hält sich die Schulter und sinkt in Zeitlupe in den Schnee, wie ein Mann in einem sehr schlechten Film. Die Große kreischt vor Begeisterung. „Mama hat Papa erschossen!“
-
-„Das war kein Schuss, das war ein Treffer“, sagst du.
-
-„Das ist dasselbe!“
-
-Die nächste halbe Stunde gehört den Kindern. Ihr baut eine Festung, die Große kommandiert, die Kleine sammelt Tannenzapfen und legt sie auf die Mauer, wo sie „Tanne! Hier!“ erklärt. Ihr kniet nebeneinander im Schnee und formt Blöcke. Eure Hände berühren sich, einmal, zweimal, durch die nassen Handschuhe hindurch, und er lässt seine einen Moment länger liegen, als nötig wäre. Du siehst ihn nicht an. Du formst weiter, sehr gleichmäßig.
-
-„Zwei“, sagt er leise.
-
-„Zwei was?“
-
-„Berührungen. Ich zähle mit.“
-
-„Das war Bauen.“
-
-„Das war Strategie.“
-
-Gegen elf sind alle durchgefroren und glücklich. Die Große hat die Festung für uneinnehmbar erklärt, die Kleine ist auf seinem Arm eingeschlafen, mit rotem Gesicht und Schnee im Kragen. Ihr geht ins Haus, und im Flur tropft der Schnee von den Jacken und bildet kleine Pfützen auf dem kühlen Boden.
+{{p:d13_p_n2}}
 
 Das Mittagessen hat Oma heute mal vorbereitet, und weil es Sonntag ist, geht ihr hinüber. Seine Mutter hat gekocht und Brötchen aufgebacken, und sein Vater liest die Zeitung, die er schon zweimal gelesen hat. Es ist keine überschwängliche Herzlichkeit, aber es ist auch keine Kälte. Du reichst ihr die Schüssel, sie reicht dir den Teller. Zwischen zwei Gängen sagt sie, ohne dich anzusehen: „Du hast Farbe im Gesicht.“
 
@@ -303,9 +149,9 @@ Das Mittagessen hat Oma heute mal vorbereitet, und weil es Sonntag ist, geht ihr
 
 „Danke.“
 
-Das reicht. Auf dem Heimweg, im Schnee, der unter euren Stiefeln knirscht, nimmt er deine Hand, mitten auf der Straße, wo es jeder sehen könnte, und lässt sie nicht los.
+Das reicht. Auf dem Heimweg, {{p:d13_p_n_heim}} nimmt er deine Hand, mitten auf der Straße, wo es jeder sehen könnte, und lässt sie nicht los.
 
-Die Große rennt voraus, und die Kleine schläft in ihrem Wagen, den er durch den Schnee schiebt, mit der Ruhe eines Mannes, der keinen Zeitplan hat. Du denkst an die Bemerkung, die vorhin kurz in der Küche gefallen ist, flüchtig, im Vorbeigehen. Du denkst an die Art, wie er die Hand hält. Es sind kleine Dinge, aber sie summieren sich, Tag für Tag, zu etwas, das nach Ankommen schmeckt.
+Die Große rennt voraus, und die Kleine schläft in ihrem Wagen, {{p:d13_p_n_wagen}}, mit der Ruhe eines Mannes, der keinen Zeitplan hat. Du denkst an die Bemerkung, die vorhin kurz in der Küche gefallen ist, flüchtig, im Vorbeigehen. Du denkst an die Art, wie er die Hand hält. Es sind kleine Dinge, aber sie summieren sich, Tag für Tag, zu etwas, das nach Ankommen schmeckt.
 
 Der Nachmittag gehört den Hausaufgaben der Großen. Sie hat für Montag in Sachkunde ein Projekt zum Tastsinn: eine Fühlbox, in der sie fünf Dinge mit geschlossenen Augen erkennen muss (Tannenzapfen, Löffel und Apfel hat er schon in einen Schuhkarton gelegt), und dazu Knoten. Die Fühlbox ist schnell erledigt. Die Knoten sind das Problem. Sie hat eine Schnur bekommen, einen Zettel mit Zeichnungen und die Aufgabe, drei verschiedene Knoten zu lernen und vorzuführen. Sie sitzt am Esstisch, die Zunge im Mundwinkel, und kämpft mit einem Achterknoten, der partout nicht halten will.
 
@@ -375,7 +221,7 @@ Er sitzt da, die Schnur in den Händen, und grinst, ganz still, mit diesem schie
 
 „Das erfährt man später“, sagt er.
 
-Das Abendessen ist einfach: Würstchen. Die Kleine nennt die Würstchen „Wuss“ und fischt sie mit den Fingern vom Teller. Die Große erzählt vom Schneeball, der Papa am Ohr getroffen hat, und er gibt zu, dass das ein Volltreffer war. Unter dem Tisch legt sich sein Fuß in Wollsocken neben deinen, ganz leicht. Du lässt ihn dort. Es ist die einzige Berührung, und sie reicht.
+Das Abendessen ist einfach: Würstchen. Die Kleine nennt die Würstchen „Wuss“ und fischt sie mit den Fingern vom Teller. Die Große erzählt {{p:d13_p_n_ball}}, und er gibt zu, dass das ein Volltreffer war. Unter dem Tisch legt sich sein Fuß in Wollsocken neben deinen, ganz leicht. Du lässt ihn dort. Es ist die einzige Berührung, und sie reicht.
 
 Um neunzehn Uhr: Bettzeit für die Kleine.
 
@@ -425,13 +271,7 @@ Es sind genau zwanzig Minuten, als du die Schlafzimmertür öffnest. Die Stehlam
 
 Er steht am Fenster, mit dem Rücken zu dir, die Hände in den Hosentaschen, und sieht durch den Spalt der Jalousie in den Garten. Du hörst, wie er ausatmet.
 
-„Es schneit immer noch“, sagt er, ohne sich umzudrehen.
-
-„Das habe ich gehört.“
-
-„Schnee hört man nicht.“
-
-„Man hört ihn an der Stille.“
+{{p:d13_p_n_abend}}
 
 Er dreht sich um und lächelt. Sein Gesicht ist ruhig, aber in den Augen liegt etwas, das nach Vorfreude aussieht und nach etwas Ernsterem. „Das hast du mir geklaut.“
 
@@ -476,15 +316,15 @@ Dein Herz schlägt so, dass du es im Hals fühlst. Du siehst das weiche, dunkle 
 Du holst tief Luft. Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welche Karte heute auf dich wartet. Hier ist die Auflösung:`;
 
     } else {
-        return `Der dreizehnte Dezember beginnt für dich erst um halb elf, weil der Morgen wie eine Schneedecke über allem liegt und nichts verlangt.
+        return `Der dreizehnte Dezember beginnt für dich erst um halb elf, {{p:d13_p_f_morgen}}.
 
 Du wachst auf, ohne dass jemand ruft. Das Haus ist so still, dass du die Lüftung in den Wänden hörst, und seine Bettseite ist leer und noch warm. Der Boden ist kühl wie immer, du angelst mit den Zehen nach den dicken Socken, und auf dem Nachttisch steht ein Becher Tee mit dem Henkel zu dir gedreht. Daneben liegt ein gelber Zettel in seiner eiligen Schrift.
 
 „Ausgeschlafen? Gut. Die Mädchen sind mit mir im Garten. Du darfst ankommen, wann du willst. Heute geht es nicht um Eile.“
 
-Du liest ihn im Sitzen, den Becher in beiden Händen. Es ist Sonntag, und er hat dich schlafen lassen, bis die Sonne durch die Jalousien drang. Das hat er seit Jahren nicht mehr getan, ohne dass du darum gebeten hättest.
+Du liest ihn im Sitzen, den Becher in beiden Händen. Es ist Sonntag, und er hat dich schlafen lassen, {{p:d13_p_f_licht}}. Das hat er seit Jahren nicht mehr getan, ohne dass du darum gebeten hättest.
 
-Als du die Treppe hinunterkommst, siehst du sie durch die Terrassentür. Der Garten ist weiß, eine geschlossene, glatte Decke auf Rasen, Gartentisch und Gartenhaus, und aus dem Himmel fallen immer noch große, langsame Flocken. Mitten im Schnee steht ein Schneemann, der etwa die Größe einer Teekanne hat, mit einem Sandkasteneimer als Hut, und daneben stehen drei Menschen in dicken Jacken und betrachten ihn mit großem Ernst. Die Kleine zeigt mit dem Fäustling auf die Nase, die aus einer Karotte besteht.
+Als du die Treppe hinunterkommst, siehst du sie durch die Terrassentür. {{p:d13_p_f_garten}}
 
 „Nase! Papa Nase!“
 
@@ -494,15 +334,15 @@ Als du die Treppe hinunterkommst, siehst du sie durch die Terrassentür. Der Gar
 
 „Genau. Eine Karotte-Nase“, sagt er und hebt den Blick und sieht dich hinter dem Glas stehen. Er sagt nichts. Er hebt nur die Hand, offen, wie jemand, der etwas hinhält, und lässt sie dort, bis du die Tür öffnest.
 
-Der Vormittag besteht aus Kleinigkeiten, die sich zu etwas Großem sammeln. Ihr stapft im Schnee um das Haus, die Große sammelt Eiszapfen von der Dachrinne und verteilt sie wie Trophäen, und die Kleine setzt sich in jede Verwehung, die tief genug ist, und ruft „Weich!“. Er geht neben dir her und schiebt dir, während ihr um die Garage biegt, die Hand in die Jackentasche, einfach so, mit den Fingern über deinen. Du lässt es zu. Es ist die erste Berührung des Tages, und sie ist so selbstverständlich, dass du sie fast nicht bemerkst.
+Der Vormittag besteht aus Kleinigkeiten, die sich zu etwas Großem sammeln. {{p:d13_p_f_vormittag}} Er geht neben dir her und schiebt dir, während ihr um die Garage biegt, die Hand in die Jackentasche, einfach so, mit den Fingern über deinen. Du lässt es zu. Es ist die erste Berührung des Tages, und sie ist so selbstverständlich, dass du sie fast nicht bemerkst.
 
 Beim Mittagessen sind alle durchgefroren und hungrig. Es gibt Reste von gestern, Nudeln ein bisschen Gemüse, die die Große mit Parmesan beerdigt, und die Kleine isst die Karotten mit den Fingern und nennt sie „Kaotte“. Danach schläft sie ein, auf dem Sofa, Pupi unter dem Kinn, und er deckt sie zu, mit der Selbstverständlichkeit eines Mannes, der das schon tausendmal getan hat.
 
-Gegen zwei kommt Oma kurz herüber. Sie bringt einen Teller Plätzchen und das Angebot, am Montagmorgen die Große zur Schule zu bringen, falls es schneit und du lieber im Warmen bleibst. Sie sagt es zu einem Punkt in der Mitte des Raums, nicht zu dir, aber es ist freundlich gemeint, und du nimmst es so an.
+Gegen zwei kommt Oma kurz herüber. Sie bringt einen Teller Plätzchen und das Angebot, am Montagmorgen die Große zur Schule zu bringen, {{p:d13_p_f_oma}}. Sie sagt es zu einem Punkt in der Mitte des Raums, nicht zu dir, aber es ist freundlich gemeint, und du nimmst es so an.
 
 „Danke“, sagst du. „Das wäre schön.“
 
-„Gern.“ Sie stellt den Teller ab und sieht dich eine Sekunde länger an als nötig. „Er hat heute früh Schnee geschippt. Ohne dass jemand gefragt hat. Das hat er als Junge auch gemacht.“
+„Gern.“ Sie stellt den Teller ab und sieht dich eine Sekunde länger an als nötig. „{{p:d13_p_f_schippen}} Ohne dass jemand gefragt hat. Das hat er als Junge auch gemacht.“
 
 Du hast keine Antwort darauf. Sie wartet auch nicht. Sie nickt, geht hinaus, und die Tür fällt leise ins Schloss.
 
@@ -548,7 +388,7 @@ Du schiebst die Hände in den Karton. Es ist ein seltsames Gefühl, die Augen zu
 
 Du siehst ihn an, und er sieht dich an, und einen Moment lang ist es still am Tisch, bis die Große fragt, ob sie als Nächstes die Augenbinde von Opa ausprobieren darf, die er für Kartenspiele hat. Er sagt Nein, mit einem Zucken im Mundwinkel, und die Große zieht eine Schnute und kehrt zum Schuhkarton zurück.
 
-Das Abendessen ist einfach: Würstchen. Die Kleine fischt die „Wuss“ mit den Fingern vom Teller, die Große erzählt vom Schneemann, der angeblich „Fritz“ heißt, und er hört zu, nickt an den richtigen Stellen und isst langsam, mit der Ruhe eines Mannes, der den ganzen Tag nichts anderes vorhatte, als da zu sein. Unter dem Tisch stellt er seinen Fuß gegen deinen, fest, schwer, ohne Hast. Er sagt nichts. Der Fuß bleibt, bis die Teller leer sind.
+Das Abendessen ist einfach: Würstchen. Die Kleine fischt die „Wuss“ mit den Fingern vom Teller, die Große erzählt {{p:d13_p_f_fritz}}, und er hört zu, nickt an den richtigen Stellen und isst langsam, mit der Ruhe eines Mannes, der den ganzen Tag nichts anderes vorhatte, als da zu sein. Unter dem Tisch stellt er seinen Fuß gegen deinen, fest, schwer, ohne Hast. Er sagt nichts. Der Fuß bleibt, bis die Teller leer sind.
 
 Um neunzehn Uhr: Bettzeit für die Kleine.
 

@@ -2,7 +2,7 @@ window.getStoryText = function(vibe) {
     if (vibe === 'hingabe') {
         return `Der dritte Dezember beginnt mit einer freien Windschutzscheibe.
 
-Es ist kurz vor sieben, minus drei Grad, klarer Himmel, und die Welt ist mit Raureif überzogen wie mit Puderzucker. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen abgekratzter Eissplitter, sauber zur Seite gefegt.
+Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen abgekratzter Eissplitter, sauber zur Seite gefegt.
 
 Du drehst dich um. Er steht in der Tür, Socken, Schlafshirt, in der einen Hand die Haarbürste der Großen, und tut so, als wäre nichts.
 
@@ -30,7 +30,7 @@ Du hängst den Mantel auf, und auf dem Sofa liegt etwas. Die dicke graue Wolldec
 
 „Sitzen. Nichts tun. Bis 14:50 hast du Zeit. Ich komme in der Pause kurz vorbei.“
 
-Du lachst leise und setzt dich. Die Spülmaschine könnte ausgeräumt werden, die Wäsche liegt im Korb, und irgendwo im Haus fehlt garantiert ein Hausschuh. Du lässt das alles liegen. Du ziehst die Decke über die Knie, nimmst den Becher in beide Hände und sitzt in diesem hellen Dezembernachmittag im Wohnzimmer, vor dem Fenster das graue Licht, das schon wieder müde wird. Die Lüftung atmet in den Wänden. Du merkst, wie lange du nicht einfach gesessen hast. Nicht gescrollt, nicht gedacht, nur dagesessen.
+Du lachst leise und setzt dich. Die Spülmaschine könnte ausgeräumt werden, die Wäsche liegt im Korb, und irgendwo im Haus fehlt garantiert ein Hausschuh. Du lässt das alles liegen. Du ziehst die Decke über die Knie, nimmst den Becher in beide Hände und sitzt in diesem hellen Dezembernachmittag im Wohnzimmer, {{w:d3_fenster}}. Die Lüftung atmet in den Wänden. Du merkst, wie lange du nicht einfach gesessen hast. Nicht gescrollt, nicht gedacht, nur dagesessen.
 
 Um zwanzig nach zwei hörst du seine Schritte auf der Treppe. Er kommt herein, das Headset noch um den Hals, ein Hemd über dem Schlafanzug-Gefühl, und schaut dich an, wie du dort sitzt.
 
@@ -68,7 +68,7 @@ Er beugt sich vor und küsst dich auf die Stirn, lang, ohne Eile, und sagt dicht
 
 Dann hebt er deine Füße vorsichtig von seinem Schoß, steht auf und geht die Treppe hinauf, das Headset im Gehen aufsetzend. Du bleibst zurück, mit warmen Füßen und einem Gefühl, das sich nicht in Worte fassen lässt, ohne kitschig zu klingen.
 
-Um zehn vor drei stehst du auf, ziehst die Stiefel an und setzt dich ins Auto. Es sind knapp zehn Minuten bis zur Schule, und die Luft ist so klar, dass dir schon auf dem Weg zum Auto die Nase kalt wird. Auf den Dächern der Nachbarschaft liegt noch der Raureif, und über den Feldern hinter dem Haus hängt ein bisschen Nebel. Punkt fünfzehn Uhr stehst du vor dem Schultor, zwischen anderen Eltern in Daunenjacken und Elterntaxis, und die Tür geht auf, und die Kinder strömen heraus wie ein Fluss aus Mützen.
+Um zehn vor drei stehst du auf, ziehst die Stiefel an und setzt dich ins Auto. Es sind knapp zehn Minuten bis zur Schule, und {{w:d3_luft}}. {{w:d3_daecher}} Punkt fünfzehn Uhr stehst du vor dem Schultor, zwischen anderen Eltern in Daunenjacken und Elterntaxis, und die Tür geht auf, und die Kinder strömen heraus wie ein Fluss aus Mützen.
 
 Die Große erkennt dich schon von weitem, macht ihrem Freund mit einer Handbewegung klar, dass sie jetzt gehen muss, und läuft dir entgegen. „Mama, wir hatten heute Wärmeraum, weil unsere Heizung kaputt war. Alle in der Turnhalle. Die Frauen aus der OGS haben Kakao gekocht.“
 
@@ -92,7 +92,7 @@ Bei Oma ist die Kleine heute schon wach. Sie sitzt im Wohnzimmer auf dem Teppich
 
 „Regen draußen?“, fragt die Große.
 
-„Nee, Nebel“, sagst du. „Aber das ist ein bisschen so wie Regen.“
+{{w:d3_nee}}
 
 Die Kleine nickt mit dem Ernst einer Wissenschaftlerin und streckt dir die Arme entgegen. Du nimmst sie hoch, dieses warme, schwere, noch halb schlafende Bündel, und sie legt dir den Kopf auf die Schulter und seufzt, wie nur Kinder seufzen können, die gerade zu hundert Prozent angekommen sind.
 
@@ -193,7 +193,7 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welch
     } else if (vibe === 'naehe') {
         return `Der dritte Dezember beginnt mit einem Zettel unter dem Scheibenwischer.
 
-Es ist kurz vor sieben, minus drei Grad, klarer Himmel, und die Welt ist mit Raureif überzogen wie mit Puderzucker. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Nur ein kleiner Haufen abgekratzter Eissplitter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel, den du aus der Entfernung sofort an der Schrift erkennst, die immer aussieht, als hätte sie es eilig.
+Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Nur ein kleiner Haufen abgekratzter Eissplitter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel, den du aus der Entfernung sofort an der Schrift erkennst, die immer aussieht, als hätte sie es eilig.
 
 „Eisfrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“
 
@@ -263,7 +263,7 @@ Gegen halb drei hörst du seine Schritte auf der Treppe. Er kommt herunter, das 
 
 Du siehst ihm nach, die Hand noch auf der Arbeitsplatte, und stellst fest, dass du in der letzten halben Minute vergessen hast, was du eigentlich tun wolltest.
 
-Um zehn vor drei ziehst du die Stiefel an und fährst los. Es sind knapp zehn Minuten bis zur Schule, und die Luft ist so klar, dass dir schon auf dem Weg zum Auto die Nase kalt wird. Auf den Dächern der Nachbarschaft liegt noch der Raureif, und über den Feldern hinter dem Haus hängt ein bisschen Nebel. Punkt fünfzehn Uhr stehst du vor dem Schultor, zwischen anderen Eltern in Daunenjacken und Elterntaxis, und die Tür geht auf, und die Kinder strömen heraus wie ein Fluss aus Mützen.
+Um zehn vor drei ziehst du die Stiefel an und fährst los. Es sind knapp zehn Minuten bis zur Schule, und {{w:d3_luft}}. {{w:d3_daecher}} Punkt fünfzehn Uhr stehst du vor dem Schultor, zwischen anderen Eltern in Daunenjacken und Elterntaxis, und die Tür geht auf, und die Kinder strömen heraus wie ein Fluss aus Mützen.
 
 Die Große erkennt dich schon von Weitem, macht ihrem Freund mit einer Handbewegung klar, dass sie jetzt gehen muss, und läuft dir entgegen.
 
@@ -285,9 +285,9 @@ Bei Oma ist die Kleine heute schon wach. Sie sitzt im Wohnzimmer auf dem Teppich
 
 „Ja, Mama ist da.“
 
-„Eis!“, ruft sie dann und zeigt zum Fenster. „Eis aus! Kalt!“
+{{w:d3_eis}}
 
-„Ja, draußen ist alles gefroren“, sagst du.
+„{{w:d3_gefroren}}“, sagst du.
 
 Die Kleine nickt mit dem Ernst einer Wissenschaftlerin und streckt dir die Arme entgegen. Du nimmst sie hoch, dieses warme, schwere, noch halb schlafende Bündel, und sie legt dir den Kopf auf die Schulter und seufzt, wie nur Kinder seufzen können, die gerade zu hundert Prozent angekommen sind.
 
@@ -462,7 +462,7 @@ Kurz vor sieben stehst du an der Treppe, im Mantel, den Autoschlüssel in der Ha
 
 Mehr sagt er nicht. Er legt dir die Hand in den Nacken, fest, ruhig, genau auf die Stelle, die seit Tagen verspannt ist, und gibt dir den Abschiedskuss. Er ist kurz und warm wie immer, aber die Hand bleibt einen Atemzug länger liegen, als sie müsste. Dann öffnet er dir die Haustür.
 
-Draußen sind minus drei Grad, der Himmel ist klar, und die Welt sieht aus wie mit Puderzucker bestäubt. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, nur ein kleiner Haufen abgeschobener Eissplitter auf dem Asphalt, sauber zur Seite gefegt.
+Draußen {{w:d3_morgen2}}. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, nur ein kleiner Haufen abgeschobener Eissplitter auf dem Asphalt, sauber zur Seite gefegt.
 
 Du drehst dich um. Er steht noch in der Tür, Socken, Schlafshirt, die Haarbürste der Großen in der Hand.
 
@@ -532,7 +532,7 @@ Bei Oma ist die Kleine heute schon wach. Sie sitzt auf dem Teppich, die Wange no
 
 „Fost!“, ruft sie und zeigt zum Fenster. „Fost! Kalt!“
 
-„Ja, draußen ist alles gefroren“, sagst du.
+„{{w:d3_gefroren}}“, sagst du.
 
 Sie nickt mit dem Ernst einer Wissenschaftlerin und streckt die Arme aus. Du nimmst sie hoch, dieses warme, schwere, noch halb schlafende Bündel, und sie legt dir den Kopf auf die Schulter.
 

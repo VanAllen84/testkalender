@@ -56,11 +56,11 @@ Das ist die Art, wie er zu dir spricht, wenn andere dabei sind.
 
 Der Vormittag gehört den Brötchen, die er holt, und dem Frühstück, das bis halb zehn dauert, weil niemand einen Grund hat, es zu beenden. Die Große erklärt, wie man Stiefel putzt, mit einem alten Socken und viel Spucke, und er sagt, das sei Sachbeschädigung, und sie sagt, es sei Tradition. Die Kleine isst ein halbes Brötchen mit Honig, den sie „Honi“ nennt, und verteilt die andere Hälfte im Gesicht. Du sitzt am Tisch, den Becher in beiden Händen, und siehst ihnen zu, und es gibt nichts, was du tun musst.
 
-Gegen elf zieht ihr euch an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. Ihr fahrt zum Waldrand, nicht weit entfernt, wo der Parkplatz noch halb leer ist und die Luft so klar riecht, dass dir die Nase sofort kalt wird. Der Boden ist hart gefroren, die Pfützen haben eine dünne Eisschicht, und die Große rennt voraus, um jede einzelne mit dem Stiefel zu zerbrechen, so laut sie kann.
+Gegen elf zieht ihr euch an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. Ihr fahrt zum Waldrand, nicht weit entfernt, wo der Parkplatz noch halb leer ist {{w:d5_luft}}. {{w:d5_boden}}
 
-„Fost!“, ruft die Kleine und zeigt auf einen Ast, an dem der Raureif wie Zucker liegt. „Fost! Kalt!“
+{{w:d5_fost}}
 
-„Ja, alles gefroren.“
+{{w:d5_ja}}
 
 „Mama, Arm!“
 
@@ -235,7 +235,7 @@ Auf dem Becher klebt ein gelber Zettel in seiner eiligen Schrift.
 
 Du trinkst den Kaffee, noch im Liegen, und überlegst, was für einen Vorsprung ein Mann haben kann, der um halb acht Pfannkuchen macht.
 
-Unten in der Küche ist das Licht an, obwohl es draußen schon hell wird, ein graues, weiches Dezemberlicht. Die Große sitzt auf der Arbeitsplatte und sieht ihm beim Wenden zu, mit der Strenge einer Prüferin. Die Kleine thront im Hochstuhl und hat Pfannkuchenteig in den Haaren, was nicht daran liegt, dass sie mitgeholfen hat, sondern daran, dass sie mitgeholfen haben möchte.
+Unten in der Küche ist das Licht an, obwohl es draußen schon hell wird, {{w:d5_hell}}. Die Große sitzt auf der Arbeitsplatte und sieht ihm beim Wenden zu, mit der Strenge einer Prüferin. Die Kleine thront im Hochstuhl und hat Pfannkuchenteig in den Haaren, was nicht daran liegt, dass sie mitgeholfen hat, sondern daran, dass sie mitgeholfen haben möchte.
 
 „Mama!“, ruft sie. „Papa bäckt!“
 
@@ -291,7 +291,7 @@ Die Große blickt von ihren Stiefeln auf. „Warum redet ihr so geheimnisvoll?�
 
 Nachmittags fahrt ihr zum Weihnachtsmarkt, zu viert, weil es Samstag ist und weil die Große seit zwei Wochen jeden Tag danach fragt. Die Kleine schläft im Auto kurz ein, wacht auf dem Parkplatz auf und verkündet: „Lichta!“, womit sie die Lichterketten meint, die schon von weitem über den Buden hängen.
 
-Es ist früh dunkel, der Himmel hängt tief und violett über den Dächern, und die Luft riecht nach gebrannten Mandeln, Tannenholz und Bratwurst. Der Boden ist hart gefroren, und der Atem steht in kleinen Wolken vor den Gesichtern. Du trägst die Kleine auf dem Arm, sie hat dir die kalte Hand an den Hals gelegt und sagt: „Mama warm.“
+Es ist früh dunkel, {{w:d5_himmel}}, und die Luft riecht nach gebrannten Mandeln, Tannenholz und Bratwurst. {{w:d5_atem}} Du trägst die Kleine auf dem Arm, sie hat dir die kalte Hand an den Hals gelegt und sagt: „Mama warm.“
 
 Die Große rennt voraus, bleibt vor jeder Bude stehen und bewertet sie wie eine Kunstkritikerin. Er geht neben dir, die Hände in den Jackentaschen, und du spürst seinen Blick von der Seite, aber jedes Mal, wenn du den Kopf drehst, sieht er gerade woanders hin.
 
@@ -311,7 +311,7 @@ Du siehst ihnen nach, wie er die Kleine auf ein hölzernes Pferd setzt und die G
 
 Dir wird klar, dass er genau das geplant hat. Du hast zwanzig Minuten allein auf dem Weihnachtsmarkt, und er weiß, was du damit vorhast.
 
-Du kaufst bei einem kleinen Stand am Rand ein Paar dicke, graue Wollsocken, die in der Mitte einen dunkelroten Streifen haben. Sie sind viel zu weich für Männerfüße, und du denkst an seine Hausschuhe, die im Schnee gelitten haben. Daneben, am nächsten Stand, steht ein Schokoladen-Nikolaus in Dunkelrot, mit Goldfolie, und auf dem Weg zurück kaufst du bei einer Schreibwarenbude eine Karte. Du schreibst darauf nur einen Satz, im Stehen, die Karte gegen die Bude gedrückt.
+Du kaufst bei einem kleinen Stand am Rand ein Paar dicke, graue Wollsocken, die in der Mitte einen dunkelroten Streifen haben. Sie sind viel zu weich für Männerfüße, und du denkst an seine Hausschuhe, {{w:d5_hausschuhe}}. Daneben, am nächsten Stand, steht ein Schokoladen-Nikolaus in Dunkelrot, mit Goldfolie, und auf dem Weg zurück kaufst du bei einer Schreibwarenbude eine Karte. Du schreibst darauf nur einen Satz, im Stehen, die Karte gegen die Bude gedrückt.
 
 Als du die Tüte in die Handtasche schiebst, vibriert dein Handy.
 
@@ -331,7 +331,7 @@ Du siehst zu ihm hinüber. Er lächelt. Dann dreht er die Kleine so, dass sie di
 
 „Pferd“, sagst du laut genug, dass er es hört. „Ja. Ein sehr schönes Pferd.“
 
-Auf dem Heimweg sitzen alle erschöpft im Auto, die Große lehnt den Kopf gegen das Fenster, die Kleine ist in ihrem Sitz eingeschlafen, mit einem halben Lebkuchenherz in der Faust. Es ist still. Die Scheibenwischer schieben Schneeregen zur Seite, und aus dem Radio kommt etwas Leises.
+Auf dem Heimweg sitzen alle erschöpft im Auto, die Große lehnt den Kopf gegen das Fenster, die Kleine ist in ihrem Sitz eingeschlafen, mit einem halben Lebkuchenherz in der Faust. Es ist still. {{w:d5_wischer}}
 
 Er fährt, die Hände ruhig am Lenkrad, und dann streckt er, ohne den Blick von der Straße zu nehmen, die rechte Hand aus und legt sie auf dein Knie. Nicht fest, nicht fordernd. Nur dort, warm durch die Strumpfhose. Du siehst ihn an. Er sieht auf die Straße.
 
@@ -502,7 +502,7 @@ Um dreizehn Uhr stehst du an der Tür, im Mantel, die Tasche mit dem Handtuch ü
 
 „Du versuchst es nicht. Du tust es.“ Er lächelt, und es ist nicht das schiefe, sondern ein ruhigeres, das nichts verspricht und alles meint. „Das ist eine Anweisung.“
 
-Du fährst los durch ein flaches graues Licht, in dem schon die ersten Lichterketten an den Fenstern hängen. Die Straße ist frei, im Radio läuft etwas Leises, und du merkst, wie lange du allein im Auto nicht einfach gefahren bist, ohne an eine Einkaufsliste zu denken.
+Du fährst los {{w:d5_licht2}}, in dem schon die ersten Lichterketten an den Fenstern hängen. Die Straße ist frei, im Radio läuft etwas Leises, und du merkst, wie lange du allein im Auto nicht einfach gefahren bist, ohne an eine Einkaufsliste zu denken.
 
 Die Therme ist warm und so leer, wie sie es an einem Samstagnachmittag im Dezember sein kann, wenn alle anderen Weihnachtsgeschenke jagen. Du lässt dich im Becken treiben, die Schultern unter Wasser, und das Wasser trägt dich, ohne etwas zu verlangen. Du liegst später in der Sauna, auf dem obersten Brett, mit geschlossenen Augen, und der Schweiß läuft dir den Rücken hinab, genau dort, wo heute früh seine Hände lagen. Du denkst an nichts, und es dauert eine ganze Weile, bis dir auffällt, dass du an nichts denkst.
 

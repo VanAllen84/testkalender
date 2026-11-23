@@ -178,7 +178,7 @@ Er sagt nichts. Seine Augen sind im gedämpften Licht dunkler, als sie sind, und
 
 „Dann ist das Kissen nur ein Statist.“ Er küsst dich auf die Schläfe, lang, ohne Eile. „Aber ein sehr guter.“
 
-Ihr bleibt so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. Du spürst seinen Herzschlag an deiner Schulter, ruhig und stetig, und deinen eigenen, der sich langsam an ihn anpasst. Draußen fällt irgendetwas Weiches gegen die Jalousien, Schneeregen vielleicht, und das Haus atmet um euch, die Lüftung, das Holz, der kühle Boden unter deinen Füßen. Niemand erwartet etwas. Alles, was heute Abend geschehen wird, geschieht in deinem Tempo, und das weißt du, noch bevor er es sagt.
+Ihr bleibt so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in solchen Momenten ihre eigene Dehnbarkeit. Du spürst seinen Herzschlag an deiner Schulter, ruhig und stetig, und deinen eigenen, der sich langsam an ihn anpasst. Draußen {{w:d17_weiches}}, und das Haus atmet um euch, die Lüftung, das Holz, der kühle Boden unter deinen Füßen. Niemand erwartet etwas. Alles, was heute Abend geschehen wird, geschieht in deinem Tempo, und das weißt du, noch bevor er es sagt.
 
 „Du entscheidest“, sagt er leise, an deinem Haar. „Wann du anfängst, wie weit. Und wenn dir irgendetwas nicht gefällt, sagst du es. Ein Wort, und wir legen den Käse wieder in den Karton und trinken Tee.“
 

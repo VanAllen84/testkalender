@@ -12,7 +12,7 @@ Du tippst: „Was ist mit dem Schreibtisch?“
 
 „In die Eiche. Sie ist erstaunlich solide. Ich überlege, ihr einen Heiratsantrag zu machen.“ Dahinter das Kuss-Emoji, das ihr euch fast immer am Ende eurer Nachrichten schickt. Und gleich danach: „Ich sehe diesen Tisch seit Jahren, aber ich glaube, heute sehe ich ihn zum ersten Mal richtig an.“
 
-Du lachst allein im Auto und wischst mit dem Handschuh ein Guckloch in die beschlagene Scheibe. Draußen läuft ein Kollege mit Schal bis zur Nase zum Eingang, und der Himmel hängt tief und weiß über dem Parkplatz. Es sieht nach Schnee aus, aber es kommt keiner. Der Dezember hat sich offenbar entschieden, heute nur zu drohen.
+Du lachst allein im Auto und wischst mit dem Handschuh ein Guckloch in die beschlagene Scheibe. {{w:d15_kollege}} Der Dezember hat sich offenbar entschieden, heute nur zu drohen.
 
 Der Morgen liegt schon hinter dir wie ein Stück Alltag, das man nicht erzählen muss. Du erinnerst dich nur an Kleinigkeiten: den kühlen Boden im Schlafzimmer, die Brotdose, die Gurke für die Große in Stäbchen und ohne Schale, den Kuss an der Haustür, kurz und warm, ohne Hintergedanken. Er stand im Schlafshirt im Flurlicht, die Haarbürste der Großen in der Hand, und hat gesagt: „Fahr vorsichtig.“ Mehr nicht. Du hast es mitgenommen, wie man einen kleinen warmen Stein in die Manteltasche steckt.
 
@@ -187,7 +187,7 @@ Es ist kurz nach sechs, der Boden im Schlafzimmer war kühl wie immer, und du ko
 
 „Das ist Vorbereitung.“
 
-Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, und schiebt dir die Tasse hin, bevor du danach greifst. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Er trinkt sein Glas Wasser im Stehen, du deinen Kaffee. Draußen ist es noch tiefe Nacht, aber hinter dem Fenster steht ein klarer Himmel mit einem einzigen hellen Stern.
+Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, und schiebt dir die Tasse hin, bevor du danach greifst. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Er trinkt sein Glas Wasser im Stehen, du deinen Kaffee. Draußen ist es noch tiefe Nacht, {{w:d15_stern}}.
 
 Gegen halb sieben geht der Alltag weiter. Im Bad ist das Licht über dem Spiegel nüchtern wie immer. Nebenan öffnet er die Tür zum Zimmer der Großen, das Murmeln, das Brummen, die Decke über dem Kopf. Du stößt mit der Zahnbürste im Mund dazu, ihr zählt bis drei, das Kitzelmonster rückt aus, der Pulli kratzt, der Pulli wird getauscht. Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App.
 
@@ -217,7 +217,7 @@ Du tippst: „Ich bin noch nicht angetreten.“
 
 Gegen zwölf kommt das nächste Foto, diesmal schief aufgenommen, mit einem Stück vom Puzzle im Bild.
 
-Du lachst im Auto auf dem Parkplatz, die Scheiben beschlagen, und wischst mit dem Handschuh ein Guckloch. Es hat noch nicht geschneit, aber der Himmel ist weiß und tief. Um halb eins schreibst du: „Du hast die Wette schon verloren, bevor sie angefangen hat.“
+Du lachst im Auto auf dem Parkplatz, die Scheiben beschlagen, und wischst mit dem Handschuh ein Guckloch. {{w:d15_nochnicht}} Um halb eins schreibst du: „Du hast die Wette schon verloren, bevor sie angefangen hat.“
 
 „Warum?“
 

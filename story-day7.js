@@ -72,9 +72,9 @@ Um zwanzig nach sieben ruft es von oben: „Mama! Mama da?“ Du nimmst zwei Stu
 
 „Tut tut“, bestätigt sie ernst und lässt sich hochheben, dieses warme, schwere, verschlafene Bündel, das nach Windel und Schlaf riecht und dir die Nase an den Hals drückt.
 
-Der Vormittag gehört euch beiden. Es regnet, ein dünner, hartnäckiger Dezemberregen, der alles grau macht, und die Kleine besteht darauf, trotzdem raus zu müssen. „Rege! Pütze!“, ruft sie am Fenster, mit einer Dringlichkeit, die wohl nur eine Zweijährige verstehen kann. Also zieht ihr die Regenhose an und geht eine Runde spazieren, wobei sie jede Pfütze auf dem Weg mit beiden Stiefeln besichtigt.
+Der Vormittag gehört euch beiden. {{w:d7_runde_h}}
 
-Nach einer gefühlten Ewigkeit im Kalten und Nassen kehrt ihr wieder nach Hause zurück. Es war nur eine kleine Runde durchs Dorf, ein kurzer Abstecher auf den Feldweg, weil dort nach Meinung der Kleinen die besten Pfützen zu finden sind.
+Nach einer gefühlten Ewigkeit {{w:d7_ewigkeit}} kehrt ihr wieder nach Hause zurück. Es war nur eine kleine Runde durchs Dorf, ein kurzer Abstecher auf den Feldweg, weil {{w:d7_abstecher}}.
 
 „Mama Kuss“, stellt sie fest.
 
@@ -86,7 +86,7 @@ Nach einer gefühlten Ewigkeit im Kalten und Nassen kehrt ihr wieder nach Hause 
 
 „Papa da“, sagt sie, als sei das eine Abmachung, und beißt in ihr Mürbchen.
 
-Mittags schläft sie, im Bett, mit Pupi im Arm. Du schließt die Tür bis auf einen Spalt und gehst die Treppe hinunter. Das Haus ist still. Draußen trommelt der Regen gegen die Jalousien, und die Lüftung atmet leise in den Wänden. Du hast zwei Stunden, vielleicht drei, und eine ganze Liste von Dingen, die du tun könntest. Die Wäsche. Die Spülmaschine. Das Geschenk für die Schulfeier, das noch nicht gekauft ist.
+Mittags schläft sie, im Bett, mit Pupi im Arm. Du schließt die Tür bis auf einen Spalt und gehst die Treppe hinunter. Das Haus ist still. {{w:d7_trommelt}}, und die Lüftung atmet leise in den Wänden. Du hast zwei Stunden, vielleicht drei, und eine ganze Liste von Dingen, die du tun könntest. Die Wäsche. Die Spülmaschine. Das Geschenk für die Schulfeier, das noch nicht gekauft ist.
 
 Stattdessen machst du dir einen Tee und setzt dich damit an die Küchentheke.
 
@@ -142,11 +142,11 @@ Als ihr zu Hause ankommt, steht Oma schon in der Tür, die Kleine auf dem Arm. S
 
 „Tut tut!“
 
-Der Nachmittag zieht sich dunkel und warm. Die Große macht am Esstisch ihre Hausaufgaben, mit der Zunge im Mundwinkel, die Kleine sortiert Bauklötze nach Regeln, die nur sie kennt, und du machst Kartoffelauflauf mit viel zu viel Käse. Gegen vier ist es draußen so dunkel, dass das Küchenfenster nur noch dein eigenes Spiegelbild zeigt, und die Lichterketten der Nachbarn leuchten durch den Regen wie kleine Inseln.
+Der Nachmittag zieht sich dunkel und warm. Die Große macht am Esstisch ihre Hausaufgaben, mit der Zunge im Mundwinkel, die Kleine sortiert Bauklötze nach Regeln, die nur sie kennt, und du machst Kartoffelauflauf mit viel zu viel Käse. Gegen vier ist es draußen so dunkel, dass das Küchenfenster nur noch dein eigenes Spiegelbild zeigt, und die Lichterketten der Nachbarn {{w:d7_inseln}}.
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot, die Haare nass. Er sieht müde aus, wie jeden Montag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Schulter, {{w:d7_haare}}. Er sieht müde aus, wie jeden Montag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 
@@ -160,7 +160,7 @@ Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, d
 
 „Genau.“
 
-Die Große ruft aus dem Esszimmer, dass sie ihre Hausaufgaben fertig hat und etwas zeigen muss, und er sagt, gleich, und sieht dabei über den Kopf der Kleinen hinweg zu dir. Es ist kein langer Blick. Aber er sieht dich an wie jemand, der den ganzen Tag unterwegs war und endlich angekommen ist. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst eine Hand flach auf seine Brust, durch den nassen Mantel hindurch.
+Die Große ruft aus dem Esszimmer, dass sie ihre Hausaufgaben fertig hat und etwas zeigen muss, und er sagt, gleich, und sieht dabei über den Kopf der Kleinen hinweg zu dir. Es ist kein langer Blick. Aber er sieht dich an wie jemand, der den ganzen Tag unterwegs war und endlich angekommen ist. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst eine Hand flach auf seine Brust, {{w:d7_mantel}}.
 
 „Hallo“, sagst du leise.
 
@@ -375,7 +375,7 @@ Du nimmst zwei Stufen auf einmal. Die Kleine steht in ihrem Bett, mit beiden Hä
 
 „Tut tut“, bestätigt sie ernst und lässt sich hochheben, dieses warme, schwere, verschlafene Bündel, das nach Windel und Schlaf riecht und dir die Nase an den Hals drückt.
 
-Der Vormittag gehört euch beiden. Es regnet, ein dünner, hartnäckiger Dezemberregen, der alles grau macht, und die Kleine besteht darauf, trotzdem raus zu müssen. „Rege! Pütze!“, ruft sie am Fenster. Also zieht ihr die Regenhose an und geht eine Runde durchs Dorf, bis zum Feldweg, wo nach Meinung der Kleinen die besten Pfützen zu finden sind. Sie besichtigt jede mit beiden Stiefeln. Du lässt sie.
+Der Vormittag gehört euch beiden. {{w:d7_runde_n}}
 
 Zu Hause gibt es ein Mürbchen und warme Milch, und du hörst, wie sie beim Kauen vor sich hin brabbelt.
 
@@ -389,7 +389,7 @@ Zu Hause gibt es ein Mürbchen und warme Milch, und du hörst, wie sie beim Kaue
 
 „Papa da“, sagt sie, als sei das eine Abmachung.
 
-Mittags schläft sie, im Bett, mit Pupi im Arm. Du lässt die Tür einen Spalt offen und gehst die Treppe hinunter, das Handy mit der App in der Hand. Das Haus ist still. Draußen trommelt der Regen gegen die Jalousien, und die Lüftung atmet leise in den Wänden. Du hast zwei Stunden, vielleicht etwas mehr, und eine ganze Liste von Dingen, die du tun könntest. Die Wäsche. Die Spülmaschine. Das Geschenk für die Schulfeier.
+Mittags schläft sie, im Bett, mit Pupi im Arm. Du lässt die Tür einen Spalt offen und gehst die Treppe hinunter, das Handy mit der App in der Hand. Das Haus ist still. {{w:d7_trommelt}}, und die Lüftung atmet leise in den Wänden. Du hast zwei Stunden, vielleicht etwas mehr, und eine ganze Liste von Dingen, die du tun könntest. Die Wäsche. Die Spülmaschine. Das Geschenk für die Schulfeier.
 
 Stattdessen setzt du dich mit einer Tasse Tee an die Küchentheke.
 
@@ -489,7 +489,7 @@ Du lächelst und legst das Handy weg, mit dem Display nach unten, und schiebst d
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot, die Haare nass. Er sieht müde aus, wie jeden Montag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Schulter, {{w:d7_haare}}. Er sieht müde aus, wie jeden Montag, aber etwas in seinem Gesicht verändert sich, als er dich sieht. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 
@@ -678,7 +678,7 @@ Du nimmst zwei Stufen auf einmal. Die Kleine steht in ihrem Bett, mit beiden Hä
 
 „Tut tut“, bestätigt sie ernst und lässt sich hochheben, dieses warme, schwere, verschlafene Bündel, das nach Schlaf riecht und dir die Nase an den Hals drückt.
 
-Der Vormittag gehört euch beiden, und er ist nass. Es regnet, ein dünner, hartnäckiger Dezemberregen, und die Kleine besteht darauf, trotzdem raus zu müssen. „Rege! Pütze!“, ruft sie am Fenster. Also zieht ihr die Regenhose an und geht eine Runde durchs Dorf, bis zum Feldweg, wo nach ihrer Meinung die besten Pfützen liegen. Sie besichtigt jede mit beiden Stiefeln. Du lässt sie und tust dabei so, als würdest du aufpassen.
+{{w:d7_runde_f}}
 
 In Wahrheit läufst du mit deinen Gedanken durch das Haus. Du tust es nicht, weil du es dir vorgenommen hast. Der Spiegel hat es dir aufgetragen, und der Satz läuft in dir mit, wie ein Lied. Ein Ort im Haus. Nicht das Schlafzimmer. Du gehst Zimmer für Zimmer durch und merkst, dass du nicht nach dem Praktischen suchst, sondern nach dem, was dich nervös macht. Bei manchen Orten kannst du sofort Nein sagen. Bei anderen bekommst du einen kleinen, unerwarteten Stich im Bauch.
 
@@ -686,9 +686,9 @@ In Wahrheit läufst du mit deinen Gedanken durch das Haus. Du tust es nicht, wei
 
 „Das ist ein See.“
 
-„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie. Du lachst, und für einen Moment bist du nur eine Frau mit einer Zweijährigen auf einem Feldweg im Regen. Dann fällt dir der Satz wieder ein, und du spürst, wie dir von den Wangen abwärts die Wärme in den Körper sinkt.
+„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie. Du lachst, und für einen Moment bist du nur eine Frau mit einer Zweijährigen {{w:d7_feldweg}}. Dann fällt dir der Satz wieder ein, und du spürst, wie dir von den Wangen abwärts die Wärme in den Körper sinkt.
 
-Zu Hause gibt es ein Mürbchen und warme Milch, und du hörst, wie die Kleine beim Kauen vor sich hin brabbelt. Mittags schläft sie, im Bett, mit Pupi im Arm. Du lässt die Tür einen Spalt offen und gehst mit dem Handy in der Hand die Treppe hinunter. Das Haus ist still. Draußen trommelt der Regen gegen die Jalousien, und die Lüftung atmet leise in den Wänden.
+Zu Hause gibt es ein Mürbchen und warme Milch, und du hörst, wie die Kleine beim Kauen vor sich hin brabbelt. Mittags schläft sie, im Bett, mit Pupi im Arm. Du lässt die Tür einen Spalt offen und gehst mit dem Handy in der Hand die Treppe hinunter. Das Haus ist still. {{w:d7_trommelt}}, und die Lüftung atmet leise in den Wänden.
 
 Um zehn nach zwölf vibriert das Handy.
 
@@ -716,7 +716,7 @@ Du legst das Handy mit dem Display nach unten auf die Küchentheke. Es dauert ke
 
 Du stehst da und merkst, dass dir gleichzeitig heiß und kalt ist, und dass es ein Gefühl ist, das du seit Langem nicht mehr hattest: Du darfst entscheiden, aber nicht darüber reden. Du darfst wählen, und er führt. Es ist verrückt, wie sehr dich das beruhigt.
 
-Um zehn vor drei schreibst du Oma, dass die Kleine noch schläft und du die Große holst. Sie schickt wieder einen Daumen. Die Kleine ist inzwischen aufgewacht, und als du das auf der App siehst, nimmst du sie einfach mit. Sie sitzt hinten in ihrem Sitz, Pupi im Arm, und erklärt dem Regen auf der Scheibe etwas, das nur sie versteht.
+Um zehn vor drei schreibst du Oma, dass die Kleine noch schläft und du die Große holst. Sie schickt wieder einen Daumen. Die Kleine ist inzwischen aufgewacht, und als du das auf der App siehst, nimmst du sie einfach mit. Sie sitzt hinten in ihrem Sitz, Pupi im Arm, und erklärt {{w:d7_scheibe}} etwas, das nur sie versteht.
 
 Um Punkt fünfzehn Uhr steht ihr vor der Schule, im Ballett aus Daunenjacken und Elterntaxis. Die Tür geht auf, die Kinder strömen heraus wie ein Fluss aus Mützen, und die Große entdeckt dich sofort und klettert auf die Rückbank.
 
@@ -742,7 +742,7 @@ Der Nachmittag zieht sich dunkel und warm. Die Große macht am Esstisch ihre Hau
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot, die Haare nass. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Schulter, {{w:d7_haare}}. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 

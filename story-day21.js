@@ -34,7 +34,7 @@ Sie nimmt die Zahnbürste aus dem Mund und sieht dich im Spiegel an. „Wirklich
 
 „Das ist fast echt“, stellt sie fest, spuckt aus und ist offenbar versöhnt. Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App. Du schreibst Oma kurz, dass du die Große zur Schule bringst, und sie antwortet mit einem Daumen. Vor dem Tor bekommst du deinen zweiten Abschiedskuss, den sie sich selbst genehmigt, und siehst ihr nach, wie sie mit wippendem Ranzen im Mützengewühl verschwindet.
 
-Der Vormittag gehört dir und der Kleinen, und er ist grau und feucht. Als du zurückkommst, steht sie schon in ihrem Bett, mit beiden Händen an der Kante, die Haare in alle Richtungen.
+Der Vormittag gehört dir und der Kleinen, {{w:d21_vormittag}}. Als du zurückkommst, steht sie schon in ihrem Bett, mit beiden Händen an der Kante, die Haare in alle Richtungen.
 
 „Mama da!“
 
@@ -92,7 +92,7 @@ Der Nachmittag verwandelt das Esszimmer in eine Werkstatt. Die Marmeladengläser
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d21_geruch}}, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 
@@ -102,7 +102,7 @@ Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, d
 
 „Die längste“, sagt er. „Und wir sind bereit.“
 
-Er sieht dich über ihren Kopf hinweg an, und es ist kein langer Blick, aber er trägt eine Erleichterung in sich, so groß wie ein Zimmer. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst die Hand flach auf seine Brust, durch den nassen Mantel hindurch.
+Er sieht dich über ihren Kopf hinweg an, und es ist kein langer Blick, aber er trägt eine Erleichterung in sich, so groß wie ein Zimmer. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst die Hand flach auf seine Brust, {{w:d21_mantel}}.
 
 „Hallo“, sagst du leise.
 
@@ -112,7 +112,7 @@ Er sieht dich über ihren Kopf hinweg an, und es ist kein langer Blick, aber er 
 
 „Ich wollte es nur nicht vergessen.“
 
-Gegen halb sechs, als die Laternen fertig sind, ziehst du die Mäntel an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. Draußen ist es schon lange dunkel, und der Regen hat aufgehört. Ihr stellt die Laternen nacheinander auf die Stufe vor der Haustür, auf die Bank auf der Einfahrt, auf den Tisch im Garten. Er zündet sie an, eine nach der anderen, mit einem langen Streichholz, und mit jedem Licht wird das Dunkel um euch weicher und größer zugleich.
+Gegen halb sechs, als die Laternen fertig sind, ziehst du die Mäntel an, alle vier, was ungefähr so lange dauert wie ein kleiner Umzug. Draußen ist es schon lange dunkel, {{w:d21_aufh_h}}. Ihr stellt die Laternen nacheinander auf die Stufe vor der Haustür, auf die Bank auf der Einfahrt, auf den Tisch im Garten. Er zündet sie an, eine nach der anderen, mit einem langen Streichholz, und mit jedem Licht wird das Dunkel um euch weicher und größer zugleich.
 
 Die Kleine steht mit offenem Mund davor, Pupi im Arm. „Schön“, sagt sie wieder, ganz leise.
 
@@ -257,7 +257,7 @@ Um Punkt fünfzehn Uhr stehst du mit dem Auto vor der Schule. Die Große kletter
 
 Der Nachmittag verwandelt das Esszimmer in eine Werkstatt. Marmeladengläser, Transparentpapier, Draht, Sterne, die die Große mit der Zunge im Mundwinkel ausschneidet. Die Kleine sortiert Teelichter nach Farben, die nur sie kennt, und ruft bei jedem Fehlgriff ein ruhiges „Oh nee“.
 
-Um halb fünf hörst du den Schlüssel. Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
+Um halb fünf hörst du den Schlüssel. Er kommt herein, mit kalter Luft und {{w:d21_geruch}}, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da! Lich!“
 
@@ -269,7 +269,7 @@ Er sieht dich über ihren Kopf hinweg an. „Hast du Streichhölzer?“
 
 „Ich zähle sie nicht.“
 
-Gegen halb sechs zieht ihr alle vier die Mäntel an. Draußen ist es dunkel, der Regen hat aufgehört, und die Luft riecht nach nassem Laub. Ihr stellt die Gläser nacheinander auf die Stufen, auf die Gartenmauer, auf den Tisch im Garten. Die Große steht mit einer Taschenlampe daneben und führt feierlich Protokoll.
+Gegen halb sechs zieht ihr alle vier die Mäntel an. Draußen ist es dunkel, {{w:d21_aufh_nf}}. Ihr stellt die Gläser nacheinander auf die Stufen, auf die Gartenmauer, auf den Tisch im Garten. Die Große steht mit einer Taschenlampe daneben und führt feierlich Protokoll.
 
 „Papa darf zuerst. Dann Mama. Wenn es ausgeht, gilt es nicht.“
 
@@ -358,7 +358,7 @@ Um halb sieben klingelt dein Wecker. Die Große weckst du allein, ohne Kitzelmon
 
 Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App. Vor dem Schultor bekommst du deinen zweiten Abschiedskuss, den sie sich selbst genehmigt.
 
-Der Vormittag gehört dir und der Kleinen, und er ist grau und still. Sie steht schon in ihrem Bett, als du die Treppe hochkommst, beide Hände an der Kante, die Haare in alle Richtungen.
+Der Vormittag gehört dir und der Kleinen, {{w:d21_vormittag2}}. Sie steht schon in ihrem Bett, als du die Treppe hochkommst, beide Hände an der Kante, die Haare in alle Richtungen.
 
 „Mama da!“
 
@@ -414,7 +414,7 @@ Der Nachmittag ist ein Montag, wie er sein soll, und doch ist alles ein bisschen
 
 Um halb fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d21_geruch}}, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da! Lich!“
 
@@ -436,7 +436,7 @@ Er sieht dich über ihren Kopf hinweg an, ruhig, ohne zu lächeln. Es ist kein l
 
 „Gut.“ Mehr sagt er nicht. Er nimmt die Hand weg und geht mit der Kleinen ins Esszimmer, um sich die Laterne der Großen zeigen zu lassen.
 
-Um halb sechs zieht ihr alle vier die Mäntel an. Draußen ist es lange dunkel, der Regen hat aufgehört, und die Luft riecht nach nassem Laub. Ihr stellt die Laternen auf die Stufe vor der Haustür, auf die Bank auf der Einfahrt, auf den Tisch im Garten. Er zündet sie an, eine nach der anderen, mit einem langen Streichholz, und die Große darf ihre eigene anzünden, mit dem Feuerzeug und seiner Hand über ihrer. Die Flamme fängt, hält, wird ruhig. Sie strahlt, mit mehr Zähnen im Lächeln, als sie noch hat.
+Um halb sechs zieht ihr alle vier die Mäntel an. Draußen ist es lange dunkel, {{w:d21_aufh_nf}}. Ihr stellt die Laternen auf die Stufe vor der Haustür, auf die Bank auf der Einfahrt, auf den Tisch im Garten. Er zündet sie an, eine nach der anderen, mit einem langen Streichholz, und die Große darf ihre eigene anzünden, mit dem Feuerzeug und seiner Hand über ihrer. Die Flamme fängt, hält, wird ruhig. Sie strahlt, mit mehr Zähnen im Lächeln, als sie noch hat.
 
 Die Kleine steht mit offenem Mund davor, Pupi im Arm. „Schön“, flüstert sie.
 

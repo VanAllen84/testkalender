@@ -30,7 +30,7 @@ Du bist schon auf den Beinen. Die Kleine steht in ihrem Bett, mit beiden Händen
 
 Der Vormittag gehört euch beiden, und du hast beschlossen, ihn zu verschenken.
 
-Draußen ist der Schnee von gestern zu Matsch geworden, braun an den Rändern der Straße und grau auf den Wegen, aber der Himmel hat sich aufgeklart, und die Sonne steht flach und blass über den Dächern. Ihr zieht die Regenhose an, packt eine Tüte mit Spekulatius und eine mit selbstgemachtem Apfelmus ein und fahrt zu deinen Eltern.
+{{v:d14_v_a}}{{w:d14_a}} {{v:d14_v_hose}}, packt eine Tüte mit Spekulatius und eine mit selbstgemachtem Apfelmus ein und fahrt zu deinen Eltern.
 
 Sie wohnen etwa zwanzig Minuten entfernt, in der Wohnung, in der du den großen Teil deiner Jugend verbracht hast, mit dem Küchenfenster, hinter dem fast immer jemand steht. Als du das Glück hast, einen Parkplatz direkt vor der Tür zu finden, ist die Tür schon offen. Dein Vater steht im Flur, in der Strickjacke, die du seit deiner Kindheit kennst, und breitet die Arme aus.
 
@@ -80,7 +80,7 @@ Der Nachmittag zieht sich dunkel und warm. Die Große schreibt ihre Sachkundezet
 
 Um Viertel vor fünf hörst du den Schlüssel.
 
-Er kommt herein, mit kalter Luft und dem Geruch von Regen, Bahnhof und Winter, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
+Er kommt herein, mit kalter Luft und {{w:d14_geruch}}, den Rucksack über der Schulter, die Wangen rot. Die Kleine ist schon unterwegs.
 
 „Papa da! Papa da!“
 
@@ -197,7 +197,7 @@ Um zehn kommt die erste Nachricht.
 
 „Ich bin Informatiker. Wir nennen das Dokumentation.“
 
-Du legst das Handy auf die Küchentheke und siehst der Kleinen zu, wie sie Pantoffeln nach Größe sortiert, nach einem System, das nur sie versteht. Draußen ist der Schnee von gestern zu grauem Matsch geworden, aber der Himmel hat aufgeklart, und die Sonne steht flach über den Dächern. Du beschließt, den Vormittag nicht totzuschlagen, sondern zu verschenken.
+Du legst das Handy auf die Küchentheke und siehst der Kleinen zu, wie sie Pantoffeln nach Größe sortiert, nach einem System, das nur sie versteht. {{v:d14_v_b}}{{w:d14_b}} Du beschließt, den Vormittag nicht totzuschlagen, sondern zu verschenken.
 
 Ihr geht in den Baumarkt. Das war ursprünglich seine Idee, eine Glühbirne für die Stehlampe im Schlafzimmer, die seit Tagen leise flackert, aber heute fühlt es sich an wie ein Ausflug. Die Kleine sitzt im Einkaufswagen, Pupi im Arm, und jedes Regal ist eine Offenbarung.
 
@@ -401,7 +401,7 @@ Es ist seltsam, wie entspannend es ist, nichts zu leisten, außer zuzusehen. Du 
 
 Danach gehst du ins Café an der Ecke, das du seit Jahren kennst und nie benutzt hast. Die Kleine thront auf einem Hochstuhl, vor sich ein Stück Apfelkuchen, das sie mit beiden Händen bearbeitet. „Kuche! Lecka!“ Du bestellst einen Tee und einen Streuselkuchen und sitzt am Fenster, ohne Handy, ohne Liste, ohne Plan, und siehst Menschen vorbeigehen, die alle irgendwohin müssen.
 
-Der Tee ist heiß. Die Sonne steht flach und blass über den Dächern, und der Schnee von gestern liegt als grauer Matsch an den Straßenrändern. Du merkst, dass dein Rücken weich geworden ist. Dass du seit dem Frühstück kein einziges Mal an etwas gedacht hast, das mit Müssen zu tun hat.
+Der Tee ist heiß. {{w:d14_c}}{{v:d14_v_c}}. Du merkst, dass dein Rücken weich geworden ist. Dass du seit dem Frühstück kein einziges Mal an etwas gedacht hast, das mit Müssen zu tun hat.
 
 Um zehn nach elf vibriert dein Handy.
 

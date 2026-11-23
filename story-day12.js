@@ -48,7 +48,7 @@ Er lacht leise und reicht der Großen, die nass in ihr Handtuch gewickelt vor eu
 
 Er hält es, mit zwei Fingern, wie ein sehr zerbrechliches Ding, und gibt es ihr mit einem Nicken zurück.
 
-Zu Hause schläft die Kleine im Auto ein, und er trägt sie die Treppe hinauf in ihr Bett, ohne dass sie aufwacht. Die Große sitzt in ihrem Bademantel auf dem Sofa, das Abzeichen auf dem Knie, und isst Nudeln mit Butter, die er in zehn Minuten gekocht hat. Draußen nieselt es. Das Wohnzimmer ist grau, die Lichterkette am Baum glimmt, und du setzt dich neben die Große und lässt sie erzählen, vom Ring, vom Wasser, von dem Jungen, der aufgegeben hat. Sie erzählt es dreimal, jedes Mal ein bisschen anders. Du hörst jedes Mal zu.
+Zu Hause schläft die Kleine im Auto ein, und er trägt sie die Treppe hinauf in ihr Bett, ohne dass sie aufwacht. Die Große sitzt in ihrem Bademantel auf dem Sofa, das Abzeichen auf dem Knie, und isst Nudeln mit Butter, die er in zehn Minuten gekocht hat. {{w:d12_niesel}} Das Wohnzimmer ist grau, die Lichterkette am Baum glimmt, und du setzt dich neben die Große und lässt sie erzählen, vom Ring, vom Wasser, von dem Jungen, der aufgegeben hat. Sie erzählt es dreimal, jedes Mal ein bisschen anders. Du hörst jedes Mal zu.
 
 Später räumt ihr zusammen die Küche auf. Er spült, du trocknest ab, und die Große liegt in ihrem Zimmer und liest in einem Buch über Pferde, das Abzeichen im Bett neben sich. Draußen ist es früh dunkel geworden, und das Küchenfenster zeigt nur noch dein Spiegelbild und seins, nebeneinander, mit gesenkten Köpfen. Er reicht dir einen Teller, und du nimmst ihn, und eure Finger bleiben eine Sekunde zu lang aufeinander.
 
