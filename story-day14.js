@@ -40,7 +40,7 @@ Sie wohnen etwa zwanzig Minuten entfernt, in der Wohnung, in der du den großen 
 
 „Ich habe lange geschlafen.“
 
-Die Küche riecht nach Zimt und Kaffee, und auf dem Tisch steht schon ein Teller mit Plätzchen, die so aussehen, als wären sie seit Tagen für diesen Besuch aufgehoben worden. Die Kleine sitzt auf dem Küchenstuhl, der für sie immer ein Kissen hat, und isst einen Stern mit beiden Händen. „Keks! Lecka!“ Deine Mutter schenkt Tee ein, und ihr sitzt am Fenster, und draußen tropft der Schnee von den Ästen.
+Die Küche riecht nach Zimt und Kaffee, und auf dem Tisch steht schon ein Teller mit Plätzchen, die so aussehen, als wären sie seit Tagen für diesen Besuch aufgehoben worden. Die Kleine sitzt auf dem Küchenstuhl, der für sie immer ein Kissen hat, und isst einen Stern mit beiden Händen. „Keks! Lecka!“ Deine Mutter schenkt Tee ein, und ihr sitzt am Fenster, {{v:d14_v_aeste}}.
 
 „Wie geht es euch?“, fragt sie.
 
@@ -66,7 +66,7 @@ Du tippst: „Und?“
 
 Um zwanzig vor drei weckst du die Kleine, die zerknautscht und mit roter Wange aus dem Bett kommt, und setzt sie ins Auto. Die Große muss Punkt fünfzehn Uhr abgeholt werden, und der Parkplatz vor der Schule ist ein Ballett aus Daunenjacken und Elterntaxis. Als die Tür aufgeht und die Kinder wie ein Fluss aus Mützen herausströmen, entdeckt dich die Große sofort und klettert auf die Rückbank.
 
-„Mama, Oma hat mich heute gebracht. Sie hat die ganze Zeit gesagt, ich soll auf die Pfützen aufpassen. Sie hat selbst in eine getreten.“
+„Mama, Oma hat mich heute gebracht. Sie hat die ganze Zeit gesagt, ich soll auf die Stufen aufpassen. Sie ist selbst gestolpert.“
 
 „Das ist nicht nett, das zu sagen.“
 
@@ -431,7 +431,7 @@ Du sitzt eine Weile mit dem Handy in der Hand da und merkst, wie unfassbar gut e
 
 Um zehn vor drei weckst du die Kleine, die zerknautscht und mit roter Wange aus dem Bett kommt, und setzt sie ins Auto. Die Große muss Punkt fünfzehn Uhr abgeholt werden. Der Parkplatz vor der Schule ist ein Ballett aus Daunenjacken und Elterntaxis, und als die Kinder wie ein Fluss aus Mützen herausströmen, entdeckt dich die Große sofort und klettert auf die Rückbank.
 
-„Mama, Oma hat mich heute gebracht und in eine Pfütze getreten, und dann hat sie so getan, als wäre es Papa gewesen.“
+„Mama, Oma hat mich heute gebracht und ist über meine Mütze gestolpert, und dann hat sie so getan, als wäre es Papa gewesen.“
 
 „Papa war nicht dabei.“
 

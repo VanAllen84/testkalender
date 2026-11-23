@@ -152,11 +152,7 @@ Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Sch
 
 „Da bin ich.“ Er hebt sie hoch, ohne den Rucksack abzusetzen, und lässt zu, dass sie ihm mit beiden Händen die Mütze vom Kopf zieht. „Hallo, kleine Maus.“
 
-„Papa nass.“
-
-„Papa war im Rege.“
-
-„Rege! Pütze!“
+{{w:d7_papa}}
 
 „Genau.“
 
@@ -495,11 +491,7 @@ Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Sch
 
 „Da bin ich.“ Er hebt sie hoch, ohne den Rucksack abzusetzen, und lässt zu, dass sie ihm mit beiden Händen die Mütze vom Kopf zieht. „Hallo, kleine Maus.“
 
-„Papa nass.“
-
-„Papa war im Rege.“
-
-„Rege! Pütze!“
+{{w:d7_papa}}
 
 „Genau.“
 
@@ -682,11 +674,7 @@ Du nimmst zwei Stufen auf einmal. Die Kleine steht in ihrem Bett, mit beiden Hä
 
 In Wahrheit läufst du mit deinen Gedanken durch das Haus. Du tust es nicht, weil du es dir vorgenommen hast. Der Spiegel hat es dir aufgetragen, und der Satz läuft in dir mit, wie ein Lied. Ein Ort im Haus. Nicht das Schlafzimmer. Du gehst Zimmer für Zimmer durch und merkst, dass du nicht nach dem Praktischen suchst, sondern nach dem, was dich nervös macht. Bei manchen Orten kannst du sofort Nein sagen. Bei anderen bekommst du einen kleinen, unerwarteten Stich im Bauch.
 
-„Mama Pütze!“, ruft die Kleine und zeigt auf eine besonders große.
-
-„Das ist ein See.“
-
-„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie. Du lachst, und für einen Moment bist du nur eine Frau mit einer Zweijährigen {{w:d7_feldweg}}. Dann fällt dir der Satz wieder ein, und du spürst, wie dir von den Wangen abwärts die Wärme in den Körper sinkt.
+{{w:d7_see}} Du lachst, und für einen Moment bist du nur eine Frau mit einer Zweijährigen {{w:d7_feldweg}}. Dann fällt dir der Satz wieder ein, und du spürst, wie dir von den Wangen abwärts die Wärme in den Körper sinkt.
 
 Zu Hause gibt es ein Mürbchen und warme Milch, und du hörst, wie die Kleine beim Kauen vor sich hin brabbelt. Mittags schläft sie, im Bett, mit Pupi im Arm. Du lässt die Tür einen Spalt offen und gehst mit dem Handy in der Hand die Treppe hinunter. Das Haus ist still. {{w:d7_trommelt}}, und die Lüftung atmet leise in den Wänden.
 
@@ -748,11 +736,7 @@ Er kommt herein, mit kalter Luft und {{w:d7_geruch}}, den Rucksack über der Sch
 
 „Da bin ich.“ Er hebt sie hoch, ohne den Rucksack abzusetzen, und lässt zu, dass sie ihm mit beiden Händen die Mütze vom Kopf zieht. „Hallo, kleine Maus.“
 
-„Papa nass.“
-
-„Papa war im Rege.“
-
-„Rege! Pütze!“
+{{w:d7_papa}}
 
 „Genau.“
 

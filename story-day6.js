@@ -190,7 +190,7 @@ Ihr bleibt so sitzen, eine Minute, vielleicht zehn. Die Zeit hat in solchen Mome
 
 „Du bist verrückt.“
 
-„Du hast mir vor ein paar Tagen die Windschutzscheibe freigekratzt. Das ist das Mindeste.“
+„Du hast mir vor ein paar Tagen die Windschutzscheibe freigemacht. Das ist das Mindeste.“
 
 „Das war ein Hightech-Spachtel.“
 
@@ -580,7 +580,7 @@ Den Vormittag verbringt ihr mit Schokoladennikoläusen, die offiziell nicht zum 
 
 Gegen elf wollt ihr den Baum holen. Das ist ein alter Plan, und er hat ihn sich für den Nikolaustag aufgehoben, weil der Verkauf am Ortsrand sonntags geöffnet hat und weil die Große seit Tagen einen Zettel mit ihren Anforderungen an der Kühlschranktür hängen hat. Er steht in Großbuchstaben darauf: „NICHT ZU KLEIN. NICHT ZU SCHIEF. GUT RIECHEN.“
 
-Der Baumverkauf liegt hinter dem Sportplatz, ein umzäuntes Stück Wiese, auf dem Hunderte Tannen in Reihen lehnen, eingehüllt in einen Geruch, der kälter und grüner ist als alles andere in diesem Monat. Der Boden ist hart gefroren. Aus einem Lautsprecher dudelt etwas Leises, und an einer Feuertonne steht ein Mann in einer Wattejacke und reicht Kindern Kinderpunsch in Pappbechern.
+Der Baumverkauf liegt hinter dem Sportplatz, ein umzäuntes Stück Wiese, auf dem Hunderte Tannen in Reihen lehnen, eingehüllt in einen Geruch, der kälter und grüner ist als alles andere in diesem Monat. {{w:d6_boden}} Aus einem Lautsprecher dudelt etwas Leises, und an einer Feuertonne steht ein Mann in einer Wattejacke und reicht Kindern Kinderpunsch in Pappbechern.
 
 „Baum!“, ruft die Kleine auf deinem Arm. „Baum! Goß!“
 

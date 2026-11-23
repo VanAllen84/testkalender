@@ -42,7 +42,7 @@ Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deine
 
 Der Vormittag besteht aus Dienstplänen, Kaffee und einer Kollegin, die von ihrem Schwager erzählt, der Plätzchen mit Chili backt. Du hörst zu und lächelst und merkst irgendwann, dass du seit einer Weile auf deine eigenen Hände siehst. Sie liegen auf der Tastatur, ganz normale Hände, ein bisschen trocken vom Winter. Du denkst an seine, an die Wärme von heute früh an deiner Wange, und an etwas, das du nicht genauer benennen kannst, ein stilles Zutrauen, das mit diesen Händen zusammenhängt. Er hat sie dir so oft hingehalten in achtzehn Jahren, ohne dass du es je gezählt hättest.
 
-Um zwölf kommt ein Foto von ihm. Eine Bahnhofsuhr, ein Pappbecher, daneben sein Rucksack. Darunter: „Mittagspause. Es regnet auch in der Stadt. Ich habe an einem Kiosk Handschuhe gekauft, die ich nicht brauche, nur damit jemand mein Geld nimmt, der freundlich ist.“
+Um zwölf kommt ein Foto von ihm. Eine Bahnhofsuhr, ein Pappbecher, daneben sein Rucksack. Darunter: „Mittagspause. In der Stadt regnet es. Ich habe an einem Kiosk Handschuhe gekauft, die ich nicht brauche, nur damit jemand mein Geld nimmt, der freundlich ist.“
 
 Du tippst: „Das ist eine sehr seltsame Art, nett zu sein.“
 
@@ -52,7 +52,7 @@ Du tippst: „Das ist eine sehr seltsame Art, nett zu sein.“
 
 „Langsamer als alles, was wir diese Woche hatten.“
 
-Du legst das Handy hin und lehnst dich im Stuhl zurück. Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf, und der Himmel ist so tief und grau, dass der Tag schon mittags müde wirkt. Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt. Trotzdem ist da etwas Leichtes unter allem, wie ein warmer Stein, den man in der Manteltasche hält.
+Du legst das Handy hin und lehnst dich im Stuhl zurück. {{w:d11_wischer1}} Es ist Freitag, und du spürst, wie sich die Woche in deinen Schultern sammelt. Trotzdem ist da etwas Leichtes unter allem, wie ein warmer Stein, den man in der Manteltasche hält.
 
 Um vierzehn Uhr fährst du den Rechner herunter, und knapp zehn Minuten später stehst du im Flur. Das Haus ist still, auf die Art, die man nur freitags kennt, wenn oben am Schreibtisch niemand sitzt. Du hängst den Mantel auf und gehst die paar Schritte zum Nachbarhaus. Oma öffnet, bevor du klingelst, die Kleine schon im Schneeanzug, ein Bein in der Hose, das andere noch nicht.
 
@@ -68,11 +68,7 @@ Um vierzehn Uhr fährst du den Rechner herunter, und knapp zehn Minuten später 
 
 Mehr sagt sie nicht, und das ist in Ordnung so. Aber du nimmst es mit, auf dem Arm, zusammen mit einer Zweijährigen, die dir die Nase an den Hals drückt.
 
-„Mama! Mama da! Nasse!“, ruft die Kleine und zeigt zum Himmel. „Wasse kommt!“
-
-„Ja, es regnet.“
-
-„Mama, Pütze!“
+{{w:d11_nasse}}
 
 „Gleich, wenn die Große da ist.“
 
@@ -112,15 +108,11 @@ Gegen halb fünf hörst du den Schlüssel. Er kommt herein, mit kalter Luft und 
 
 „Da bin ich.“ Er hebt sie hoch, mit Mehl und allem, und lässt zu, dass sie ihm die Mütze vom Kopf zieht und dabei weiße Abdrücke auf seiner Stirn hinterlässt. „Hallo, kleine Maus.“
 
-„Papa nass.“
-
-„Papa war im Regen.“
-
-„Rege! Pütze!“
+{{w:d11_papa_h}}
 
 „Genau.“
 
-Die Große ruft, dass er sich ihre Sterne ansehen muss, und er sagt, gleich, und sieht dabei über den Kopf der Kleinen hinweg zu dir. Es ist kein langer Blick. Aber er trägt eine Erleichterung in sich, so groß wie ein Zimmer. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst eine Hand flach auf seine Brust, durch den nassen Mantel hindurch.
+Die Große ruft, dass er sich ihre Sterne ansehen muss, und er sagt, gleich, und sieht dabei über den Kopf der Kleinen hinweg zu dir. Es ist kein langer Blick. Aber er trägt eine Erleichterung in sich, so groß wie ein Zimmer. Du gehst zu ihm, nimmst ihm den Rucksack ab und legst eine Hand flach auf seine Brust, {{w:d11_mantel1}}.
 
 „Hallo“, sagst du leise.
 
@@ -136,7 +128,7 @@ Die Große ruft, dass er sich ihre Sterne ansehen muss, und er sagt, gleich, und
 
 Er zieht aus der Manteltasche ein Paar Handschuhe, grau, dick, mit einem winzigen roten Faden am Bündchen, und legt sie dir in die Hand. Sie sind weich und warm, als hätte er sie den ganzen Weg an der Brust getragen. „Für die Fahrten“, sagt er. „Du reibst jeden Morgen das Lenkrad auf, bevor du losfährst. Ich habe es gesehen.“
 
-Du siehst auf die Handschuhe. Du kannst nichts sagen. Du nickst nur, und er nimmt dich kurz in den Arm, mit dem nassen Mantel und dem Mehl auf der Stirn, und flüstert dicht an deinem Ohr: „Du musst nichts sagen.“
+Du siehst auf die Handschuhe. Du kannst nichts sagen. Du nickst nur, und er nimmt dich kurz in den Arm, {{w:d11_mantel2}}, und flüstert dicht an deinem Ohr: „Du musst nichts sagen.“
 
 Das Abendessen ist mal wieder Pizza, die die Große im Ofen beaufsichtigt wie ein Feuerwehrmann. Sie ist warm. Unter dem Tisch liegt sein Fuß in Wollsocken neben deinem, ganz leicht, nur so, dass du weißt, dass er da ist. Es ist die einzige Berührung, und sie reicht.
 
@@ -284,7 +276,7 @@ Der Vormittag besteht aus Dienstplänen, einem kahlen Büro-Weihnachtsbaum und N
 
 Du siehst auf das Wort. „Nein?“
 
-„Nein. Das Pfand gehört mir. Die Lösung ist Nebel. Es regnet in der Stadt, und ich habe heute Morgen nichts gesehen.“
+„Nein. Das Pfand gehört mir. Die Lösung ist Nebel. {{w:d11_raetsel_nebel}}“
 
 „Das war Betrug. Beides stimmt.“
 
@@ -294,7 +286,7 @@ Du siehst auf das Wort. „Nein?“
 
 „Das ist ein Spiel.“ Dahinter das Kuss-Emoji, und gleich darauf: „Dein Pfand. Gib mir eine Bedingung für heute Abend. Eine einzige, kleine.“
 
-Du lehnst dich im Stuhl zurück. Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf. Dann tippst du: „Du darfst mich heute Abend nicht anfassen, bevor ich es sage.“
+Du lehnst dich im Stuhl zurück. {{w:d11_wischer2}} Dann tippst du: „Du darfst mich heute Abend nicht anfassen, bevor ich es sage.“
 
 Die Punkte erscheinen, verschwinden, erscheinen wieder. Es dauert fast eine Minute. Dann schreibt er nur: „Das ist keine kleine Bedingung.“
 
@@ -643,9 +635,7 @@ Er kommt herein, mit kalter Luft und {{w:d11_geruch}}, den Rucksack über der Sc
 
 „Da bin ich.“ Er hebt sie hoch, mit Mehl und allem. „Hallo, kleine Maus.“
 
-„Papa nass.“
-
-„Papa war im Regen.“
+{{w:d11_papa_f}}
 
 Er sieht dich über ihren Kopf hinweg an, ruhig, ohne zu lächeln. Es ist kein langer Blick, aber er sitzt. Du spürst ihn bis in die Zehen. Dann geht er an dir vorbei, ganz dicht, und seine Hand legt sich einen Atemzug lang in deinen Nacken, fest, warm.
 

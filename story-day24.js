@@ -112,7 +112,7 @@ Nach dreißig Minuten klingelt Omas Telefon, auf dem kleinen Tisch neben dem Ses
 
 „Wir gehen nachsehen.“
 
-Ihr zieht euch an, in einer Eile, die sonst nur Brände auslöst. Die Kleine wacht verwirrt auf und fragt: „Kistkind da?“ Du sagst: „Wir sehen nach.“ Draußen ist es schon dunkel, kalt und klar, über den Dächern stehen die ersten Sterne, und in den Fenstern brennen überall Lichterketten. Die Große hüpft vor euch her, aufgeregt, und hält deine Hand so fest, dass es fast wehtut.
+Ihr zieht euch an, in einer Eile, die sonst nur Brände auslöst. Die Kleine wacht verwirrt auf und fragt: „Kistkind da?“ Du sagst: „Wir sehen nach.“ {{w:d24_abend1}} Die Große hüpft vor euch her, aufgeregt, und hält deine Hand so fest, dass es fast wehtut.
 
 Vor eurem Haus steht er, im Mantel, mit rotem Gesicht, und starrt in den Himmel. Neben ihm der Onkel, die Hände in den Taschen. Als er euch sieht, hebt er den Arm und zeigt auf einen Punkt über dem Dach des Nachbarn.
 
@@ -275,7 +275,7 @@ Nach dreißig Minuten klingelt Omas Telefon. Alle zucken zusammen. Oma hört kur
 
 „Wir gehen nachsehen.“
 
-Draußen ist es dunkel, kalt und klar, über den Dächern stehen die ersten Sterne. Vor eurem Haus steht er im Mantel, mit rotem Gesicht, den Blick im Himmel, neben ihm der Onkel mit den Händen in den Taschen.
+{{w:d24_abend2}} Vor eurem Haus steht er im Mantel, mit rotem Gesicht, den Blick im Himmel, neben ihm der Onkel mit den Händen in den Taschen.
 
 „Da!“, ruft er. „Habt ihr das gesehen? Ein Schweif aus Licht, gerade eben!“
 
@@ -416,7 +416,7 @@ Nach dreißig Minuten klingelt Omas Telefon. Alle zucken zusammen. Oma hört kur
 
 „Wir gehen nachsehen.“
 
-Draußen ist es dunkel, kalt und klar, über den Dächern stehen die ersten Sterne. Vor eurem Haus steht er im Mantel, mit rotem Gesicht, den Blick im Himmel, neben ihm der Onkel mit den Händen in den Taschen.
+{{w:d24_abend2}} Vor eurem Haus steht er im Mantel, mit rotem Gesicht, den Blick im Himmel, neben ihm der Onkel mit den Händen in den Taschen.
 
 „Da!“, ruft er. „Habt ihr das gesehen? Ein Schweif aus Licht, gerade eben!“
 
@@ -466,7 +466,7 @@ Seine Hand legt sich flach an deinen Rücken. Er beugt sich zu deinem Ohr.
 
 „Dann bleibt sie offen.“ Das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln.
 
-Die Wanne ist voll bis kurz unter den Rand. Du lässt dich ins heiße Wasser gleiten und denkst nicht darüber nach, was kommt. Du denkst an vierundzwanzig Abende, an Zettel, Wärmflaschen, Schneebälle, an einen Mann, der jeden einzelnen davon geplant hat, als wäre er ein Geschenk. Dann ziehst du den grauen Bademantel an, den dicken, der immer an der Tür hängt und aussieht wie ein Schlafsack mit Ärmeln.
+Die Wanne ist voll bis kurz unter den Rand. Du lässt dich ins heiße Wasser gleiten und denkst nicht darüber nach, was kommt. Du denkst an vierundzwanzig Abende, an Zettel, Wärmflaschen, Handschuhe, an einen Mann, der jeden einzelnen davon geplant hat, als wäre er ein Geschenk. Dann ziehst du den grauen Bademantel an, den dicken, der immer an der Tür hängt und aussieht wie ein Schlafsack mit Ärmeln.
 
 Um halb zehn sitzt du auf der Bettkante. Die Stehlampe in der Ecke brennt in ihrem tiefen Gelb-Orange, die Jalousien sind unten, das Laminat ist kühl unter deinen nackten Füßen. Der Raum riecht nach frischer Bettwäsche, nach ein wenig Knoblauch aus dem Erdgeschoss und nach Tannenzweig. Zwischen den Kissen liegt zum letzten Mal in diesem Dezember der Beutel, dunkelrot, mit einer Kordel zugezogen. Du berührst ihn nicht.
 

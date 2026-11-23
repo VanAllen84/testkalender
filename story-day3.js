@@ -2,7 +2,7 @@ window.getStoryText = function(vibe) {
     if (vibe === 'hingabe') {
         return `Der dritte Dezember beginnt mit einer freien Windschutzscheibe.
 
-Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen abgekratzter Eissplitter, sauber zur Seite gefegt.
+Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. {{w:d3_auto_h}}
 
 Du drehst dich um. Er steht in der Tür, Socken, Schlafshirt, in der einen Hand die Haarbürste der Großen, und tut so, als wäre nichts.
 
@@ -16,7 +16,7 @@ Du drehst dich um. Er steht in der Tür, Socken, Schlafshirt, in der einen Hand 
 
 „Dann war ich eben beim Auto.“ Er zuckt mit den Schultern. „Man soll Menschen, die man mag, nicht gefrieren lassen.“
 
-„Womit hast du gekratzt?“
+{{w:d3_womit_h}}
 
 „Mit dem Küchenspachtel. Das ist kein Spachtel, das ist ein Hightech-Spachtel.“
 
@@ -193,9 +193,9 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welch
     } else if (vibe === 'naehe') {
         return `Der dritte Dezember beginnt mit einem Zettel unter dem Scheibenwischer.
 
-Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Nur ein kleiner Haufen abgekratzter Eissplitter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel, den du aus der Entfernung sofort an der Schrift erkennst, die immer aussieht, als hätte sie es eilig.
+Es ist kurz vor sieben, {{w:d3_morgen}}. Du trittst aus der Haustür, den Autoschlüssel schon in der Hand, und bleibst stehen. {{w:d3_auto}} den du aus der Entfernung sofort an der Schrift erkennst, die immer aussieht, als hätte sie es eilig.
 
-„Eisfrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“
+{{w:d3_zettel}}
 
 Du drehst dich um. Er steht in der Tür, Socken, Schlafshirt, in der einen Hand die Haarbürste der Großen, und sieht aus wie ein Mann, der nichts getan hat.
 
@@ -219,9 +219,9 @@ Der Vormittag ist unspektakulär. Stundenkorrekturen, Kaffee, ein Kollege, der e
 
 Gegen halb zehn vibriert dein Handy.
 
-„Zwischenstand: Ich habe heute früh zwanzig Minuten lang Eis gekratzt. Du schuldest mir also mindestens zwanzig Minuten. Mit Zinsen.“
+„Zwischenstand: {{w:d3_sms1}} Du schuldest mir also mindestens zwanzig Minuten. Mit Zinsen.“
 
-Du tippst: „Ich habe die Rechnung gelesen. Sie enthält einen Rechenfehler. Du hast das Eis nicht mit Gewalt entfernt, du hast es mit einem Küchenspachtel geschoben.“
+Du tippst: „Ich habe die Rechnung gelesen. Sie enthält einen Rechenfehler. {{w:d3_sms2}}“
 
 „Das war ein Hightech-Gerät.“
 
@@ -462,7 +462,7 @@ Kurz vor sieben stehst du an der Treppe, im Mantel, den Autoschlüssel in der Ha
 
 Mehr sagt er nicht. Er legt dir die Hand in den Nacken, fest, ruhig, genau auf die Stelle, die seit Tagen verspannt ist, und gibt dir den Abschiedskuss. Er ist kurz und warm wie immer, aber die Hand bleibt einen Atemzug länger liegen, als sie müsste. Dann öffnet er dir die Haustür.
 
-Draußen {{w:d3_morgen2}}. Dein Auto steht frei. Keine Eisschicht, kein Kratzen, nur ein kleiner Haufen abgeschobener Eissplitter auf dem Asphalt, sauber zur Seite gefegt.
+Draußen {{w:d3_morgen2}}. {{w:d3_auto_f}}
 
 Du drehst dich um. Er steht noch in der Tür, Socken, Schlafshirt, die Haarbürste der Großen in der Hand.
 
@@ -472,7 +472,7 @@ Du drehst dich um. Er steht noch in der Tür, Socken, Schlafshirt, die Haarbürs
 
 „Dann war ich eben beim Auto.“ Er zuckt mit den Schultern. „Ich möchte nicht, dass du schon morgens schlechte Laune hast.“
 
-„Womit hast du eigentlich gekratzt?“
+{{w:d3_womit_f}}
 
 „Mit dem Küchenspachtel. Hightech.“
 

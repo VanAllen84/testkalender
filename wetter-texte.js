@@ -190,6 +190,78 @@ window.WETTER_TEXTE = {
 "s": "„Sne!“, ruft sie dann und zeigt zum Fenster. „Sne aus! Kalt!“",
 "kf": "„Eis!“, ruft sie dann und zeigt zum Fenster. „Eis aus! Kalt!“"
 },
+"d3_auto": {
+"x": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Nur ein kleiner Haufen abgekratzter Eissplitter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"r": "Dein Auto steht frei. Kein nasses Laub auf der Scheibe, kein Fegen, kein Fluchen. Nur ein kleiner Haufen nasser Blätter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"k": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Nur ein kleiner Haufen zerknüllter Küchentücher liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"b": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Nur ein kleiner Haufen zerknüllter Küchentücher liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"n": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Nur ein kleiner Haufen zerknüllter Küchentücher liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"s": "Dein Auto steht frei. Keine Schneehaube, kein Kehren, kein Fluchen. Nur ein kleiner Haufen Schnee liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,",
+"kf": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Nur ein kleiner Haufen abgekratzter Eissplitter liegt auf dem Asphalt, sauber zur Seite gefegt, und unter dem Scheibenwischer klemmt ein Zettel,"
+},
+"d3_zettel": {
+"x": "„Eisfrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"r": "„Blattfrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"k": "„Klarsicht. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"b": "„Klarsicht. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"n": "„Klarsicht. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"s": "„Schneefrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“",
+"kf": "„Eisfrei. Das macht dann einen Gefallen. Zahlbar heute Abend. Keine Ratenzahlung.“"
+},
+"d3_sms1": {
+"x": "Ich habe heute früh zwanzig Minuten lang Eis gekratzt.",
+"r": "Ich habe heute früh zwanzig Minuten lang nasses Laub von deinem Auto gefegt.",
+"k": "Ich habe heute früh zwanzig Minuten lang deine Scheiben abgewischt.",
+"b": "Ich habe heute früh zwanzig Minuten lang deine Scheiben abgewischt.",
+"n": "Ich habe heute früh zwanzig Minuten lang deine Scheiben abgewischt.",
+"s": "Ich habe heute früh zwanzig Minuten lang Schnee von deinem Auto gekehrt.",
+"kf": "Ich habe heute früh zwanzig Minuten lang Eis gekratzt."
+},
+"d3_sms2": {
+"x": "Du hast das Eis nicht mit Gewalt entfernt, du hast es mit einem Küchenspachtel geschoben.",
+"r": "Du hast das Laub nicht mit Gewalt entfernt, du hast es mit einem Küchenspachtel geschoben.",
+"k": "Du hast die Scheiben nicht mit Gewalt abgewischt, du hast sie mit einem Küchenspachtel geschoben.",
+"b": "Du hast die Scheiben nicht mit Gewalt abgewischt, du hast sie mit einem Küchenspachtel geschoben.",
+"n": "Du hast die Scheiben nicht mit Gewalt abgewischt, du hast sie mit einem Küchenspachtel geschoben.",
+"s": "Du hast den Schnee nicht mit Gewalt entfernt, du hast ihn mit einem Küchenspachtel geschoben.",
+"kf": "Du hast das Eis nicht mit Gewalt entfernt, du hast es mit einem Küchenspachtel geschoben."
+},
+"d3_auto_h": {
+"x": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen abgekratzter Eissplitter, sauber zur Seite gefegt.",
+"r": "Dein Auto steht frei. Kein nasses Laub auf der Scheibe, kein Fegen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen nasser Blätter, sauber zur Seite gefegt.",
+"k": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen zerknüllter Küchentücher, sauber zur Seite gelegt.",
+"b": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen zerknüllter Küchentücher, sauber zur Seite gelegt.",
+"n": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen zerknüllter Küchentücher, sauber zur Seite gelegt.",
+"s": "Dein Auto steht frei. Keine Schneehaube, kein Kehren, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen Schnee, sauber zur Seite geschoben.",
+"kf": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, kein Fluchen. Auf dem Asphalt daneben liegt ein kleiner Haufen abgekratzter Eissplitter, sauber zur Seite gefegt."
+},
+"d3_womit_h": {
+"x": "„Womit hast du gekratzt?“",
+"r": "„Womit hast du gefegt?“",
+"k": "„Womit hast du gewischt?“",
+"b": "„Womit hast du gewischt?“",
+"n": "„Womit hast du gewischt?“",
+"s": "„Womit hast du gekehrt?“",
+"kf": "„Womit hast du gekratzt?“"
+},
+"d3_auto_f": {
+"x": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, nur ein kleiner Haufen abgeschobener Eissplitter auf dem Asphalt, sauber zur Seite gefegt.",
+"r": "Dein Auto steht frei. Kein nasses Laub auf der Scheibe, kein Fegen, nur ein kleiner Haufen nasser Blätter auf dem Asphalt, sauber zur Seite gefegt.",
+"k": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, nur ein kleiner Haufen zerknüllter Küchentücher auf dem Asphalt, sauber zur Seite gelegt.",
+"b": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, nur ein kleiner Haufen zerknüllter Küchentücher auf dem Asphalt, sauber zur Seite gelegt.",
+"n": "Dein Auto steht frei. Keine beschlagenen Scheiben, kein Wischen, nur ein kleiner Haufen zerknüllter Küchentücher auf dem Asphalt, sauber zur Seite gelegt.",
+"s": "Dein Auto steht frei. Keine Schneehaube, kein Kehren, nur ein kleiner Haufen Schnee auf dem Asphalt, sauber zur Seite geschoben.",
+"kf": "Dein Auto steht frei. Keine Eisschicht, kein Kratzen, nur ein kleiner Haufen abgeschobener Eissplitter auf dem Asphalt, sauber zur Seite gefegt."
+},
+"d3_womit_f": {
+"x": "„Womit hast du eigentlich gekratzt?“",
+"r": "„Womit hast du eigentlich gefegt?“",
+"k": "„Womit hast du eigentlich gewischt?“",
+"b": "„Womit hast du eigentlich gewischt?“",
+"n": "„Womit hast du eigentlich gewischt?“",
+"s": "„Womit hast du eigentlich gekehrt?“",
+"kf": "„Womit hast du eigentlich gekratzt?“"
+},
 "d4_fassade": {
 "x": "ein Himmel hinter einer Glasfassade",
 "r": "ein grauer, regenschwerer Himmel hinter einer Glasfassade",
@@ -306,6 +378,15 @@ window.WETTER_TEXTE = {
 "n": "Draußen ist es neblig und kalt",
 "s": "Draußen schneit es"
 },
+"d6_boden": {
+"x": "Der Boden ist hart gefroren.",
+"r": "Der Boden ist weich und matschig.",
+"k": "Der Boden ist fest und kühl.",
+"b": "Der Boden ist feucht und kühl.",
+"n": "Der Boden ist feucht und kühl.",
+"s": "Der Boden liegt unter Schnee.",
+"kf": "Der Boden ist hart gefroren."
+},
 "d7_runde_h": {
 "x": "Es ist ein grauer Vormittag, und die Kleine besteht darauf, trotzdem raus zu müssen. „Raus! Stiefel!“, ruft sie am Fenster, mit einer Dringlichkeit, die wohl nur eine Zweijährige verstehen kann. Also zieht ihr die dicken Jacken an und geht eine Runde spazieren, wobei sie jeden Stein und jeden Stock auf dem Weg mit beiden Händen besichtigt.",
 "r": "Es regnet, ein dünner, hartnäckiger Dezemberregen, der alles grau macht, und die Kleine besteht darauf, trotzdem raus zu müssen. „Rege! Pütze!“, ruft sie am Fenster, mit einer Dringlichkeit, die wohl nur eine Zweijährige verstehen kann. Also zieht ihr die Regenhose an und geht eine Runde spazieren, wobei sie jede Pfütze auf dem Weg mit beiden Stiefeln besichtigt.",
@@ -406,6 +487,24 @@ window.WETTER_TEXTE = {
 "b": "auf einem Feldweg im Grau",
 "n": "auf einem Feldweg im Nebel",
 "s": "auf einem Feldweg im Schnee"
+},
+"d7_papa": {
+"x": "„Papa nass.“\n\n„Papa war im Rege.“\n\n„Rege! Pütze!“",
+"r": "„Papa nass.“\n\n„Papa war im Rege.“\n\n„Rege! Pütze!“",
+"k": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“",
+"b": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“",
+"n": "„Papa nass.“\n\n„Papa war im Nebel.“\n\n„Nebe! Pütze!“",
+"s": "„Papa weiß.“\n\n„Papa war im Schnee.“\n\n„Sne! Mütze!“",
+"kf": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“"
+},
+"d7_see": {
+"x": "„Mama Pütze!“, ruft die Kleine und zeigt auf eine besonders große.\n\n„Das ist ein See.“\n\n„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie.",
+"r": "„Mama Pütze!“, ruft die Kleine und zeigt auf eine besonders große.\n\n„Das ist ein See.“\n\n„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie.",
+"k": "„Mama Laub!“, ruft die Kleine und zeigt auf einen besonders großen Haufen.\n\n„Das ist ein Berg.“\n\n„Berg!“ Sie springt mit beiden Füßen hinein, und das Laub fliegt bis an deine Knie.",
+"b": "„Mama Pütze!“, ruft die Kleine und zeigt auf eine besonders große.\n\n„Das ist ein See.“\n\n„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie.",
+"n": "„Mama Pütze!“, ruft die Kleine und zeigt auf eine besonders große.\n\n„Das ist ein See.“\n\n„See!“ Sie springt mit beiden Füßen hinein, und das Wasser spritzt bis an deine Knie.",
+"s": "„Mama Sne!“, ruft die Kleine und zeigt auf eine besonders große Verwehung.\n\n„Das ist ein Berg.“\n\n„Berg!“ Sie springt mit beiden Füßen hinein, und der Schnee stäubt bis an deine Knie.",
+"kf": "„Mama Eis!“, ruft die Kleine und zeigt auf eine besonders große Fläche.\n\n„Das ist ein See.“\n\n„See!“ Sie stampft mit beiden Füßen darauf, und das Eis knackt, dass es dir bis in die Knie fährt."
 },
 "d8_p_titel": {
 "x": "Der achte Dezember beginnt mit einem Frost, der härter ist als jeder Vorsatz.",
@@ -908,6 +1007,78 @@ window.WETTER_TEXTE = {
 "s": "Es schneit. Vor dem Tor",
 "kf": "Es ist eiskalt und klar. Vor dem Tor"
 },
+"d11_papa_h": {
+"x": "„Papa nass.“\n\n„Papa war im Regen.“\n\n„Rege! Pütze!“",
+"r": "„Papa nass.“\n\n„Papa war im Regen.“\n\n„Rege! Pütze!“",
+"k": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“",
+"b": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“",
+"n": "„Papa nass.“\n\n„Papa war im Nebel.“\n\n„Nebe! Pütze!“",
+"s": "„Papa weiß.“\n\n„Papa war im Schnee.“\n\n„Sne! Mütze!“",
+"kf": "„Papa kalt.“\n\n„Papa war in der Kälte.“\n\n„Kalt! Mütze!“"
+},
+"d11_papa_f": {
+"x": "„Papa nass.“\n\n„Papa war im Regen.“",
+"r": "„Papa nass.“\n\n„Papa war im Regen.“",
+"k": "„Papa kalt.“\n\n„Papa war in der Kälte.“",
+"b": "„Papa kalt.“\n\n„Papa war in der Kälte.“",
+"n": "„Papa nass.“\n\n„Papa war im Nebel.“",
+"s": "„Papa weiß.“\n\n„Papa war im Schnee.“",
+"kf": "„Papa kalt.“\n\n„Papa war in der Kälte.“"
+},
+"d11_nasse": {
+"x": "„Mama! Mama da! Nasse!“, ruft die Kleine und zeigt zum Himmel. „Wasse kommt!“\n\n„Ja, es regnet.“\n\n„Mama, Pütze!“",
+"r": "„Mama! Mama da! Nasse!“, ruft die Kleine und zeigt zum Himmel. „Wasse kommt!“\n\n„Ja, es regnet.“\n\n„Mama, Pütze!“",
+"k": "„Mama! Mama da! Hell!“, ruft die Kleine und zeigt zum Himmel. „Sonne da!“\n\n„Ja, die Sonne scheint.“\n\n„Mama, raus!“",
+"b": "„Mama! Mama da! Grau!“, ruft die Kleine und zeigt zum Himmel. „Wolke da!“\n\n„Ja, viele Wolken.“\n\n„Mama, raus!“",
+"n": "„Mama! Mama da! Nebe!“, ruft die Kleine und zeigt zum Himmel. „Nebe kommt!“\n\n„Ja, es ist neblig.“\n\n„Mama, raus!“",
+"s": "„Mama! Mama da! Sne!“, ruft die Kleine und zeigt zum Himmel. „Sne kommt!“\n\n„Ja, es schneit.“\n\n„Mama, raus!“",
+"kf": "„Mama! Mama da! Hell!“, ruft die Kleine und zeigt zum Himmel. „Sonne da!“\n\n„Ja, die Sonne scheint.“\n\n„Mama, raus!“"
+},
+"d11_wischer1": {
+"x": "Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf, und der Himmel ist so tief und grau, dass der Tag schon mittags müde wirkt.",
+"r": "Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf, und der Himmel ist so tief und grau, dass der Tag schon mittags müde wirkt.",
+"k": "Draußen auf dem Parkplatz springt ein Auto an, und der Himmel ist so klar und blass, dass der Tag schon mittags müde wirkt.",
+"b": "Draußen auf dem Parkplatz springt ein Auto an, und der Himmel ist so tief und grau, dass der Tag schon mittags müde wirkt.",
+"n": "Draußen auf dem Parkplatz springt ein Auto an, und der Nebel ist so dicht, dass der Tag schon mittags müde wirkt.",
+"s": "Draußen auf dem Parkplatz kratzt jemand Schnee von einer Scheibe, und der Himmel ist so weiß und tief, dass der Tag schon mittags müde wirkt.",
+"kf": "Draußen auf dem Parkplatz springt ein Auto an, und der Himmel ist so klar und blass, dass der Tag schon mittags müde wirkt."
+},
+"d11_wischer2": {
+"x": "Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf.",
+"r": "Draußen auf dem Parkplatz drehen sich die Scheibenwischer eines Autos im Leerlauf.",
+"k": "Draußen auf dem Parkplatz springt ein Auto an.",
+"b": "Draußen auf dem Parkplatz springt ein Auto an.",
+"n": "Draußen auf dem Parkplatz springt ein Auto an.",
+"s": "Draußen auf dem Parkplatz kratzt jemand Schnee von einer Scheibe.",
+"kf": "Draußen auf dem Parkplatz springt ein Auto an."
+},
+"d11_mantel1": {
+"x": "durch den nassen Mantel hindurch",
+"r": "durch den nassen Mantel hindurch",
+"k": "durch den kalten Mantel hindurch",
+"b": "durch den kalten Mantel hindurch",
+"n": "durch den feuchten Mantel hindurch",
+"s": "durch den nassen Mantel hindurch",
+"kf": "durch den kalten Mantel hindurch"
+},
+"d11_mantel2": {
+"x": "mit dem nassen Mantel und dem Mehl auf der Stirn",
+"r": "mit dem nassen Mantel und dem Mehl auf der Stirn",
+"k": "mit dem kalten Mantel und dem Mehl auf der Stirn",
+"b": "mit dem kalten Mantel und dem Mehl auf der Stirn",
+"n": "mit dem feuchten Mantel und dem Mehl auf der Stirn",
+"s": "mit dem nassen Mantel und dem Mehl auf der Stirn",
+"kf": "mit dem kalten Mantel und dem Mehl auf der Stirn"
+},
+"d11_raetsel_nebel": {
+"x": "Es ist dunstig in der Stadt, und ich habe heute Morgen nichts gesehen.",
+"r": "Es regnet in der Stadt, und ich habe heute Morgen nichts gesehen.",
+"k": "Es ist hell in der Stadt, und ich habe heute Morgen trotzdem nichts gesehen.",
+"b": "Es ist trüb in der Stadt, und ich habe heute Morgen nichts gesehen.",
+"n": "Es hängt dick über der Stadt, und ich habe heute Morgen nichts gesehen.",
+"s": "Es schneit in der Stadt, und ich habe heute Morgen nichts gesehen.",
+"kf": "Es ist eisig in der Stadt, und ich habe heute Morgen nichts gesehen."
+},
 "d12_niesel": {
 "x": "Draußen ist es still.",
 "r": "Draußen nieselt es.",
@@ -1176,6 +1347,15 @@ window.WETTER_TEXTE = {
 "n": "braunes Laub liegt an den Straßenrändern",
 "s": "der Schnee von gestern liegt als grauer Matsch an den Straßenrändern",
 "kf": "braunes Laub liegt an den Straßenrändern"
+},
+"d14_v_aeste": {
+"x": "und draußen tropft der Schnee von den Ästen",
+"r": "und draußen tropft der Regen von den Ästen",
+"k": "und draußen stehen die Äste kahl und still",
+"b": "und draußen stehen die Äste kahl und still",
+"n": "und draußen stehen die Äste kahl und still",
+"s": "und draußen tropft der Schnee von den Ästen",
+"kf": "und draußen stehen die Äste kahl und still"
 },
 "d15_kollege": {
 "x": "Draußen läuft ein Kollege mit Schal bis zur Nase zum Eingang.",
@@ -1509,5 +1689,23 @@ window.WETTER_TEXTE = {
 "b": "Der Wind bläst dir die Haare ins Gesicht",
 "n": "Die feuchte Luft klebt dir die Haare ins Gesicht",
 "s": "Der Wind bläst dir Flocken und Haare ins Gesicht"
+},
+"d24_abend1": {
+"x": "Draußen ist es schon dunkel, kalt und klar, über den Dächern stehen die ersten Sterne, und in den Fenstern brennen überall Lichterketten.",
+"r": "Draußen ist es schon dunkel, nass und still, über den Dächern hängen die Wolken tief, und in den Fenstern brennen überall Lichterketten.",
+"k": "Draußen ist es schon dunkel, kalt und klar, über den Dächern stehen die ersten Sterne, und in den Fenstern brennen überall Lichterketten.",
+"b": "Draußen ist es schon dunkel, kalt und still, der Himmel hängt tief und geschlossen, und in den Fenstern brennen überall Lichterketten.",
+"n": "Draußen ist es schon dunkel, kalt und neblig, die Dächer verschwinden im Dunst, und in den Fenstern brennen überall Lichterketten.",
+"s": "Draußen ist es schon dunkel, kalt und weiß, über den Dächern fallen vereinzelt Flocken, und in den Fenstern brennen überall Lichterketten.",
+"kf": "Draußen ist es schon dunkel, kalt und klar, über den Dächern stehen die ersten Sterne, und in den Fenstern brennen überall Lichterketten."
+},
+"d24_abend2": {
+"x": "Draußen ist es dunkel, kalt und klar, über den Dächern stehen die ersten Sterne.",
+"r": "Draußen ist es dunkel, nass und still, über den Dächern hängen die Wolken tief.",
+"k": "Draußen ist es dunkel, kalt und klar, über den Dächern stehen die ersten Sterne.",
+"b": "Draußen ist es dunkel, kalt und still, der Himmel hängt tief und geschlossen.",
+"n": "Draußen ist es dunkel, kalt und neblig, die Dächer verschwinden im Dunst.",
+"s": "Draußen ist es dunkel, kalt und weiß, über den Dächern fallen vereinzelt Flocken.",
+"kf": "Draußen ist es dunkel, kalt und klar, über den Dächern stehen die ersten Sterne."
 }
 };
