@@ -1,6 +1,6 @@
-# Erotischer Adventskalender 2026 – TEST-Version
+# Adventskalender 2026 – TEST-Version
 
-Persönlicher, erotischer Adventskalender für Anja („Schatz“), geschrieben und gebaut von Thilo. Alles auf Deutsch.
+Persönlicher Adventskalender für Anja („Schatz“), geschrieben und gebaut von Thilo. Alles auf Deutsch.
 Eine statische Web-App aus HTML, CSS und JavaScript, **ohne Server-Logik, ohne Datenbank, ohne Anmeldung**. Alles, was sie eingibt oder auswählt, bleibt im Browser ihres Geräts.
 
 Vom 1. bis 24. Dezember öffnet sich jeden Tag ein Türchen. Dahinter steckt:
@@ -10,7 +10,7 @@ Vom 1. bis 24. Dezember öffnet sich jeden Tag ein Türchen. Dahinter steckt:
 3. **eine Bewertung** (Daumen) am nächsten Tag,
 4. ab dem 25. Dezember eine **Auswertung der Favoriten**, abgeglichen mit Thilos eigenen Bewertungen, ein Rückblick und ein Finale.
 
-Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckchen, Gimmick-Zettel, siehe [Abschnitt 27](#27-begleitmaterial-gedruckt-und-gebastelt)).
+Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckchen, Gimmick-Zettel, siehe [Abschnitt 27](#27-begleitmaterial-gedruckt-und-gebastelt)). 
 
 > **Dies ist die TEST-Version.** Sie ist eine eigene Instanz mit eigenem Repository. Hier werden Änderungen gebaut und geprüft, **bevor** sie in die LIVE-Version (https://kalender2026.tkagel.de, ebenfalls eigenes Repository) übernommen werden.
 > Der Gesamtüberblick unten gilt für beide Versionen; die Unterschiede stehen in [Abschnitt 4](#4-live--und-test-version).
@@ -285,7 +285,7 @@ Alle lassen sich durch Antippen überspringen. Bei „Bewegung reduzieren“ am 
 Nach „Tauche ein in die heutige Geschichte!“ lösen sich die Buchstaben der Seite, kreisen um die Mitte und setzen sich zur Geschichte zusammen. Antippen überspringt.
 
 ### 8.3 Finale-Animation
-Variante B „Die 24 Lichter“: 24 Lichter formen einen Tannenbaum, dann einen Stern, am Ende ein Lichtblitz. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
+Variante B „Die 24 Lichter“: 24 Lichter formen einen Tannenbaum, dann ein Herz, am Ende ein Lichtblitz. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
 
 ### 8.4 Kleinere Effekte
 - Wasserzeichen-Bild im Hintergrund (`wm-anker`, `wm-img`).
