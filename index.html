@@ -3129,11 +3129,11 @@
 
     // ---------- Ton (optional, nur wenn ton/knarren.mp3 vorhanden ist) ----------
     const TON_URL = "ton/knarren.mp3";
-    let tonDa = false, tonAudio = null;
-    function tonAn() { return !!lies("adventTon26", false); }
+    let tonDa = true, tonAudio = null;
+    function tonAn() { return true; }
     function tonKnopf() {
         const b = $("tonBtn"); if (!b) return;
-        b.style.display = tonDa ? "block" : "none";
+        b.style.display = "none";
         b.textContent = tonAn() ? "🔊 Ton an" : "🔈 Ton aus";
     }
     window.tonUmschalten = function () {
@@ -3150,7 +3150,7 @@
     };
     function init() {
         leseAnwenden();
-        try { fetch(TON_URL, { method: "HEAD" }).then(function (r) { if (r.ok) { tonDa = true; tonKnopf(); } }).catch(function () {}); } catch (e) {}
+        try { tonAudio = new Audio(TON_URL); tonAudio.preload = "auto"; tonAudio.volume = 0.8; } catch (e) {}
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
