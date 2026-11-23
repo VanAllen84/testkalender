@@ -14,17 +14,9 @@ Der Boden im Schlafzimmer ist kühl wie immer. Du angelst mit den Zehen nach den
 
 „Dienstag. Aber irgendwie mit Reserve.“ Er schiebt dir die Tasse hin, bevor du danach greifst. „Ich habe das Gefühl, dass es heute etwas Gutes gibt. Ich weiß nicht, was.“
 
-Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, ein Gruß in den Tag. Du nimmst ihn mit. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Weintrauben sind schon wieder fast alle, und keiner von euch hat Lust, sich dafür zu rechtfertigen. Aus dem Fenster siehst du, dass das Gras im Garten weiß ist. Der erste echte Frost, nicht nur Raureif an den Rändern, sondern ein dichter, glitzernder Belag, der im Licht der Terrassenlampe aussieht wie Zucker.
+Er gibt dir den Kuss, den er dir jeden Morgen gibt, kurz und warm, auf den Mund, ein Gruß in den Tag. Du nimmst ihn mit. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Weintrauben sind schon wieder fast alle, und keiner von euch hat Lust, sich dafür zu rechtfertigen. {{p:d8_p_h_garten}}
 
-„Es ist klar heute“, sagt er, deinem Blick folgend. „Heute Nacht gibt es Sterne.“
-
-„Woher weißt du das?“
-
-„Ich habe in die Wetter-App geschaut. Sie sagt: sternenklar, minus fünf.“ Er lächelt das schiefe Lächeln, das sich zuerst in den Augenwinkeln zeigt. „Ich habe das Wort sternenklar seit Jahren nicht mehr gelesen. Es klingt wie aus einem anderen Leben.“
-
-„Es klingt wie ein Kinderbuch.“
-
-„Es klingt wie etwas, das man mal wieder anschauen sollte.“
+{{p:d8_p_h_wetter}}
 
 Du siehst ihn an, aber er sieht schon wieder auf die Gurke. Gegen halb sieben gehst du nach oben, um dich fertig zu machen, und das Licht über dem Spiegel ist nüchtern wie immer. Durch die Tür hörst du, wie er die Große weckt, mit der Mischung aus Zählen und Drohen, die ihr beide inzwischen im Schlaf beherrscht. Du stößt mit der Zahnbürste im Mund dazu, ihr zählt bis drei, das Kitzelmonster rückt aus, der Pulli kratzt, der Pulli wird getauscht. Die Kleine schläft nebenan weiter, ausgestreckt wie ein Seestern, und auf deinem Handy läuft die Babyphone-App, ein ruhiges, gleichmäßiges Atmen.
 
@@ -36,7 +28,7 @@ An der Haustür gibt er dir den Abschiedskuss, kurz und warm, aber seine Hand li
 
 „Auf dich.“
 
-Mehr sagt er nicht. Du gehst hinaus in die Kälte, die dir ins Gesicht greift wie eine Hand, und der Frost knirscht unter deinen Stiefeln. Über dir steht noch ein Rest Nachthimmel, tief und dunkel, mit zwei, drei Sternen, die nicht aufgeben wollen. Du bleibst einen Moment stehen und siehst hinauf. Dann steigst du ins Auto.
+Mehr sagt er nicht. Du gehst hinaus in die Kälte, die dir ins Gesicht greift wie eine Hand, {{p:d8_p_h_tuer}} Du bleibst einen Moment stehen und siehst hinauf. Dann steigst du ins Auto.
 
 Der Arbeitstag zieht vorbei wie Landschaft hinter einer Zugscheibe. Dienstpläne, Kaffee, eine Kollegin, die erzählt, dass die Lichterkette am Büro-Weihnachtsbaum nun endgültig den Geist aufgegeben hat. Du hörst zu und merkst, dass du dabei lächelst, ohne dass dich jemand etwas Lustiges gefragt hätte.
 
@@ -54,19 +46,17 @@ Oma öffnet, bevor du klingelst. Sie hat die Kleine schon im Schneeanzug, ein Be
 
 „Wir gehen gleich raus.“
 
-„Weiß!“, sagt sie und deutet auf den Rasen. „Alles weiß! Kalt!“
-
-„Ja, alles weiß. Und kalt.“
+{{p:d8_p_h_weiss}}
 
 Sie nickt mit dem Ernst einer Wissenschaftlerin und legt dir die kalte Hand an den Hals. „Mama warm.“
 
-Ihr geht noch eine kleine Runde durch den Garten, bevor die Große kommt. Die Kleine besichtigt jeden einzelnen Grashalm, hockt sich hin und tippt mit dem Finger auf den Frost, bis er schmilzt, und verkündet dann: „Kaputt!“ Du lässt sie. Du stehst im Garten, in dem klaren, blassen Licht des Nachmittags, und siehst zu, wie ein kleiner Mensch den Winter entdeckt, als wäre er ein neues Spielzeug.
+Ihr geht noch eine kleine Runde durch den Garten, bevor die Große kommt. {{p:d8_p_h_kaputt}} und siehst zu, wie ein kleiner Mensch den Winter entdeckt, als wäre er ein neues Spielzeug.
 
 Um zehn vor drei schreibst du ihm kurz, dass du die Große holst. Er antwortet mit einem Kuss-Emoji, dem, das ihr euch fast immer schickt, und dann, nach einer Minute: „Wärm dich vorher noch einmal auf.“
 
 Du holst die Große um Punkt fünfzehn Uhr mit dem Auto ab. Der Parkplatz vor der Schule ist ein Ballett aus Daunenjacken und Elterntaxis mit laufenden Motoren, und als die Tür aufgeht und die Kinder wie ein Fluss aus Mützen herausströmen, entdeckt dich die Große sofort und klettert auf die Rückbank.
 
-„Mama, wir haben heute über Sterne gesprochen. Die Lehrerin hat gesagt, dass man heute Nacht besonders viele sieht. Wegen der Kälte.“
+{{p:d8_p_h_lehrerin}}
 
 „Das stimmt.“
 
@@ -120,27 +110,27 @@ Du siehst ihn an, und in seinem Gesicht liegt etwas, das du nicht ganz greifen k
 
 Die Große ruft aus dem Wohnzimmer, wann es endlich Essen gibt, und ihr geht auseinander, ein Schritt, zwei, und du merkst, dass dein Herz schneller schlägt als vorhin.
 
-Das Abendessen ist laut und warm. Die Große erzählt von den Sternen und davon, dass die Lehrerin einen echten Meteor gesehen hat, jedenfalls behauptet sie das, und die Kleine löffelt das Essen mit beiden Händen und nennt sie „heiß“, in einem Wort, aber mit unerschütterlicher Überzeugung. Er schneidet ihr das Brot in Stücke. Unter dem Tisch liegt sein Fuß neben deinem, ganz leicht, nur so, dass du weißt, dass er da ist.
+Das Abendessen ist laut und warm. Die Große erzählt {{p:d8_p_hn_essen}}, und die Kleine löffelt das Essen mit beiden Händen und nennt sie „heiß“, in einem Wort, aber mit unerschütterlicher Überzeugung. Er schneidet ihr das Brot in Stücke. Unter dem Tisch liegt sein Fuß neben deinem, ganz leicht, nur so, dass du weißt, dass er da ist.
 
-„Mama, Stern!“, ruft die Kleine plötzlich und zeigt zum Fenster.
+{{p:d8_p_stern1}}
 
-Du siehst hin. Über dem Dach des Nachbarhauses steht ein einzelner Stern, heller als alle anderen, scharf wie mit dem Messer geschnitten.
+Du siehst hin. {{p:d8_p_stern2}}
 
-„Ja“, sagst du. „Das ist ein Stern.“
+„Ja“, sagst du. {{p:d8_p_stern3}}
 
 „Schön“, sagt die Kleine, mit einem Ernst, der dir die Kehle eng macht.
 
-„Sehr schön“, sagt er leise, und er sieht dabei nicht den Stern an.
+„Sehr schön“, sagt er leise, {{p:d8_p_stern4}}
 
 Um neunzehn Uhr tapst die Kleine die Treppe hinauf, und er folgt ihr, um sie bettfertig zu machen. Nach dem Abendritual wird es oben still.
 
-Die Große steht inzwischen am Wohnzimmerfenster, die Nase an der Scheibe, und zählt. „Eins. Zwei. Drei. Mama, das sind schon sieben!“
+Die Große steht inzwischen am Wohnzimmerfenster, die Nase an der Scheibe, {{p:d8_p_h_zaehlt}}
 
 „Ich sehe sie.“
 
-„Das sind die hellen. Die kleinen sieht man erst, wenn man lange guckt.“
+{{p:d8_p_h_hellen}}
 
-Du stellst dich neben sie, den Arm um ihre Schultern, und gemeinsam seht ihr in den Himmel. Das Glas ist kalt, der Atem beschlägt es. Über den Dächern steht ein Nachthimmel, so klar, dass man jeden einzelnen Stern für sich unterscheiden kann, tief und scharf, mit der Art von Kälte, die nur im Dezember so schön ist. Die Große lehnt sich an dich, und du spürst ihr kleines, warmes Gewicht.
+Du stellst dich neben sie, den Arm um ihre Schultern, {{p:d8_p_h_himmel}} Die Große lehnt sich an dich, und du spürst ihr kleines, warmes Gewicht.
 
 „Mama?“
 
@@ -156,7 +146,7 @@ Du stellst dich neben sie, den Arm um ihre Schultern, und gemeinsam seht ihr in 
 
 „Dann zähl ich bis ich müde bin“, sagt sie und gähnt.
 
-Er kommt die Treppe herunter, bleibt im Türrahmen stehen und sieht euch an, die Große am Fenster, dich daneben, den Himmel über euch. Es ist ein stiller Blick, ohne Eile, mit so viel Wärme darin, dass du kurz wegsehen musst.
+Er kommt die Treppe herunter, bleibt im Türrahmen stehen {{p:d8_p_h_tuerrahmen}} Es ist ein stiller Blick, ohne Eile, mit so viel Wärme darin, dass du kurz wegsehen musst.
 
 „Zeit“, sagt er sanft zur Großen.
 
@@ -166,7 +156,7 @@ Er kommt die Treppe herunter, bleibt im Türrahmen stehen und sieht euch an, die
 
 „Dann vier.“
 
-„Null“, sagt er, nimmt sie auf den Arm, und sie protestiert nur halbherzig. Du gehst hinter ihm her die Treppe hinauf, eine Hand an seinem Rücken, und schlägst im Kinderzimmer die Decke zurück. Sie legt sich hinein, sie murmelt etwas von Sternen und Lehrerinnen, und du deckst sie zu. Er streicht ihr einmal über die Haare. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus.
+„Null“, sagt er, nimmt sie auf den Arm, und sie protestiert nur halbherzig. Du gehst hinter ihm her die Treppe hinauf, eine Hand an seinem Rücken, und schlägst im Kinderzimmer die Decke zurück. Sie legt sich hinein, sie murmelt {{p:d8_p_h_murmelt}}, und du deckst sie zu. Er streicht ihr einmal über die Haare. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus.
 
 Seine Hand liegt flach an deinem Rücken. „Geh schon runter“, sagt er leise. „Ich komme gleich.“
 
@@ -204,7 +194,7 @@ Er kommt die Treppe herunter, leise, zwei Stufen auf einmal, wie ein Mann, der e
 
 Du hebst den Kopf und siehst ihn an. Er sieht zurück, ruhig, mit diesem Blick, der immer wieder einen Satz findet, der ihm neu ist. Es ist kein Spiel in seinem Gesicht, nur Wärme, die ein bisschen mehr weiß, als sie sagt.
 
-„Weißt du“, sagst du leise, „ich habe heute im Garten gestanden, mit der Kleinen. Sie hat den Frost angetippt, bis er geschmolzen ist, und gesagt, es sei kaputt. Und ich habe gedacht: Wie lange ist es her, dass ich irgendetwas so angeschaut habe? Mit Zeit. Ohne es zu bewerten.“
+„Weißt du“, sagst du leise, „ich habe heute im Garten gestanden, mit der Kleinen. {{p:d8_p_h_kaputt2}} Und ich habe gedacht: Wie lange ist es her, dass ich irgendetwas so angeschaut habe? Mit Zeit. Ohne es zu bewerten.“
 
 „Und?“
 
@@ -228,11 +218,7 @@ Ihr bleibt so sitzen, vielleicht eine Minute, vielleicht zehn. Die Zeit hat in s
 
 Du lächelst und greifst zwischen die Kissen. Der Stoff ist weich und ein wenig kühl, und darunter spürst du die festen Kanten der Karten. Er hält still neben dir, den Arm noch um deine Schultern, und seine Wärme ist das Erste und das Letzte, was du fühlst.
 
-„Heute Abend gehört der Himmel uns“, flüstert er. „Das habe ich mir vorgenommen.“
-
-„Der Himmel?“
-
-„Das war nur eine Redewendung.“
+{{p:d8_p_h_himmel2}}
 
 Du siehst ihn an. Er sieht zurück, völlig unschuldig, und das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln.
 
@@ -241,11 +227,11 @@ Du holst tief Luft. Du fährst mit den Fingerspitzen über den Stoff, und in dir
 Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welche Karte heute auf dich wartet. Hier ist die Auflösung:`;
 
     } else if (vibe === 'naehe') {
-        return `Der achte Dezember beginnt mit einem Frost, der härter ist als jeder Vorsatz.
+        return `{{p:d8_p_titel}}
 
 Es ist kurz nach sechs, draußen ist es tiefe Nacht, und der Boden im Schlafzimmer ist kühl wie immer. Du angelst mit den Zehen nach den dicken Socken. Neben dir sitzt er schon auf der Bettkante, das Handy in der Hand, und geht die Push-Nachrichten der Nacht durch.
 
-„Minus fünf“, sagt er. „Sternenklar. Das steht da wirklich so.“
+{{p:d8_p_n_wetter}}
 
 „Du liest Wetterberichte wie andere Leute Krimis.“
 
@@ -263,7 +249,7 @@ Es ist kurz nach sechs, draußen ist es tiefe Nacht, und der Boden im Schlafzimm
 
 „Siehst du? Schon die erste Frage. Die zählt noch nicht. Ab jetzt zählen sie.“
 
-Er steht auf und geht die Treppe hinunter, und du bleibst mit dem Gefühl zurück, dass du gerade etwas unterschrieben hast, ohne es zu lesen. Unten brennt nur das Licht in der Küche. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Er trinkt sein Glas Wasser im Stehen, wie jeden Morgen, du deine Tasse Kaffee. Im Garten liegt ein dichter, glitzernder Frost auf dem Gras, kein Raureif an den Rändern, sondern eine ganze weiße Decke.
+Er steht auf und geht die Treppe hinunter, und du bleibst mit dem Gefühl zurück, dass du gerade etwas unterschrieben hast, ohne es zu lesen. Unten brennt nur das Licht in der Küche. Ihr arbeitet euch durch die Brotdosen, er schneidet, du belegst, die Gurke für die Große in Stäbchen und ohne Schale. Er trinkt sein Glas Wasser im Stehen, wie jeden Morgen, du deine Tasse Kaffee. {{p:d8_p_n_garten}}
 
 „Das sieht gefährlich aus“, sagst du.
 
@@ -285,13 +271,13 @@ Er gibt dir an der Haustür den Abschiedskuss, kurz und warm, aber diesmal legt 
 
 „Das ist Fürsorge. Der Unterschied ist, dass ich es hinterher beweisen kann.“
 
-Du gehst hinaus in die Kälte, die dir ins Gesicht greift wie eine Hand, und der Frost knirscht unter deinen Stiefeln. Über dem Haus steht noch ein Rest Nachthimmel, scharf und dunkel, mit zwei, drei Sternen, die nicht aufgeben wollen.
+Du gehst hinaus in die Kälte, die dir ins Gesicht greift wie eine Hand, {{p:d8_p_n_tuer}}
 
 Der Vormittag besteht aus Dienstplänen, Besprechungen und einer Kollegin, die verkündet, dass die Lichterkette am Büro-Weihnachtsbaum nun endgültig tot sei. Du hörst zu und denkst die ganze Zeit an einen Satz: Wer als Erster sagt, dass ihm kalt ist.
 
 Gegen halb elf vibriert dein Handy.
 
-„Zwischenstand: Ich habe die Große pünktlich abgeliefert, sie hat mir erklärt, wie man Meteore erkennt, und ich habe mir dabei einmal die Hände an ihrer Mütze gewärmt. Das zählt nicht, weil sie nicht du ist.“
+„Zwischenstand: Ich habe die Große pünktlich abgeliefert, {{p:d8_p_n_meteore}}, und ich habe mir dabei einmal die Hände an ihrer Mütze gewärmt. Das zählt nicht, weil sie nicht du ist.“
 
 Du tippst: „Du verlierst schon, bevor es angefangen hat.“
 
@@ -327,19 +313,17 @@ Oma öffnet, bevor du klingelst. Sie hat die Kleine schon im Schneeanzug, ein Be
 
 „Wir gehen gleich raus.“
 
-„Weiß! Alles weiß! Kalt!“
-
-„Ja, alles weiß. Und kalt.“
+{{p:d8_p_n_weiss}}
 
 Sie legt dir die kalte Hand an den Hals und sagt mit dem Ernst einer Wissenschaftlerin: „Mama warm.“
 
-Ihr dreht eine Runde durch den Garten. Sie hockt sich hin und tippt mit dem Finger auf den Frost, bis er schmilzt, und verkündet: „Kaputt!“ Du lässt sie. Du stehst da, mit kalten Ohren und warmem Herzen, und überlegst, was ein Mann meint, der sagt, du sollst die dickeren Handschuhe nehmen.
+Ihr dreht eine Runde durch den Garten. {{p:d8_p_n_kaputt}} Du lässt sie. Du stehst da, mit kalten Ohren und warmem Herzen, und überlegst, was ein Mann meint, der sagt, du sollst die dickeren Handschuhe nehmen.
 
 Um zehn vor drei schreibst du ihm, dass du die Große holst. Er antwortet nicht. Das ist ungewöhnlich, und du merkst, dass es dich nervös macht.
 
 Du holst die Große um Punkt fünfzehn Uhr mit dem Auto ab. Der Parkplatz vor der Schule ist ein Ballett aus Daunenjacken und Elterntaxis, und als die Tür aufgeht und die Kinder wie ein Fluss aus Mützen herausströmen, entdeckt dich die Große sofort und klettert auf die Rückbank.
 
-„Mama, heute Nacht sieht man ganz viele Sterne. Die Lehrerin hat gesagt, wegen der Kälte. Darf ich fünf Minuten am Fenster gucken?“
+{{p:d8_p_n_lehrerin}}
 
 „Fünf Minuten, ja.“
 
@@ -355,7 +339,7 @@ Du hältst das Lenkrad etwas fester. „Hat er das?“
 
 „Und was glaubst du?“
 
-„Ich glaube, ihr guckt Sterne“, sagt die Große mit der Würde einer Gutachterin. „Das ist doch klar.“
+{{p:d8_p_n_gutachter}} mit der Würde einer Gutachterin. „Das ist doch klar.“
 
 „Das ist klar.“
 
@@ -459,13 +443,13 @@ Du hältst den Löffel an. „Zwei Fragen“, sagst du. „Ich habe noch zwei. I
 
 Die Große ruft aus dem Wohnzimmer, wann es endlich Essen gibt, und ihr geht auseinander wie zwei Fechter nach einer Runde.
 
-Das Abendessen ist laut und warm. Die Große erzählt von den Sternen und davon, dass die Lehrerin einen echten Meteor gesehen hat, jedenfalls behauptet sie das, und die Kleine löffelt das Essen mit beiden Händen und nennt es „heiß“, in einem Wort, aber mit unerschütterlicher Überzeugung. Unter dem Tisch tastet sich sein Fuß in Wollsocken an deinem entlang. Du lässt ihn dort.
+Das Abendessen ist laut und warm. Die Große erzählt {{p:d8_p_hn_essen}}, und die Kleine löffelt das Essen mit beiden Händen und nennt es „heiß“, in einem Wort, aber mit unerschütterlicher Überzeugung. Unter dem Tisch tastet sich sein Fuß in Wollsocken an deinem entlang. Du lässt ihn dort.
 
-„Mama, Stern!“, ruft die Kleine plötzlich und zeigt zum Fenster.
+{{p:d8_p_stern1}}
 
-Über dem Dach des Nachbarhauses steht ein einzelner Stern, heller als alle anderen, scharf wie mit dem Messer geschnitten.
+{{p:d8_p_stern2}}
 
-„Das ist ein Stern.“
+{{p:d8_p_stern3}}
 
 „Schön“, sagt die Kleine mit einem Ernst, der dir die Kehle eng macht.
 
@@ -473,7 +457,7 @@ Das Abendessen ist laut und warm. Die Große erzählt von den Sternen und davon,
 
 Um neunzehn Uhr tapst die Kleine die Treppe hinauf, und er folgt ihr, um sie bettfertig zu machen. Nach dem allabendlichen Ritual wird es still oben.
 
-Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, und zählt Sterne, laut, bis sieben, dann bis zwölf, dann hört sie auf, weil es zu viele werden. Du stellst dich neben sie, den Arm um ihre Schultern. Das Glas ist kalt, ihr Atem beschlägt es.
+Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, {{p:d8_p_n_zaehlt}}, dann bis zwölf, dann hört sie auf, weil es zu viele werden. Du stellst dich neben sie, den Arm um ihre Schultern. Das Glas ist kalt, ihr Atem beschlägt es.
 
 „Mama, wenn man ganz lange guckt, sieht man alle?“
 
@@ -485,7 +469,7 @@ Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, und zählt Stern
 
 „Dann vier.“
 
-Er kommt die Treppe herunter, bleibt im Türrahmen stehen und lehnt sich an, die Arme verschränkt. „Null“, sagt er sanft. Sie protestiert nur halbherzig, als er sie auf den Arm nimmt. Um zwanzig Uhr bringt ihr sie nach oben, du deckst sie zu, er streicht ihr einmal über die Haare, und sie murmelt etwas von Meteoren und Lehrerinnen. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus.
+Er kommt die Treppe herunter, bleibt im Türrahmen stehen und lehnt sich an, die Arme verschränkt. „Null“, sagt er sanft. Sie protestiert nur halbherzig, als er sie auf den Arm nimmt. Um zwanzig Uhr bringt ihr sie nach oben, du deckst sie zu, er streicht ihr einmal über die Haare, und sie murmelt {{p:d8_p_nf_murmelt}}. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus.
 
 Dann dreht er sich zu dir um.
 
@@ -505,7 +489,7 @@ Dann dreht er sich zu dir um.
 
 Du ziehst dich an wie für eine Expedition: Thermostrumpfhose, Wollsocken, der dicke Pullover, den du nur im tiefsten Winter trägst, die Mütze mit dem Bommel, den Schal bis zur Nase. Du stehst in der Ankleide vor dem Spiegel und siehst dich an. Du siehst aus wie ein Michelin-Männchen, und trotzdem schlägt dein Herz so, dass du es im Hals fühlst.
 
-Unten in der Garderobe steht er schon, im dicken Mantel, mit dicken Schuhen, einem Rucksack über der Schulter, aus dem eine graue Ecke Wolldecke herausschaut. Die Haustür steht einen Spalt offen, und die Kälte kriecht herein, trocken und klar. Das Handy mit der Babyphone-App steckt in seiner Brusttasche, du siehst das Display glimmen.
+Unten in der Garderobe steht er schon, im dicken Mantel, mit dicken Schuhen, einem Rucksack über der Schulter, aus dem eine graue Ecke Wolldecke herausschaut. Die Haustür steht einen Spalt offen, {{p:d8_p_n_kaelte}} Das Handy mit der Babyphone-App steckt in seiner Brusttasche, du siehst das Display glimmen.
 
 „Du hast die Decke eingepackt“, sagst du.
 
@@ -541,7 +525,7 @@ Du siehst ihn an. Er sieht dich an.
 
 Das schiefe Lächeln zeigt sich zuerst in seinen Augenwinkeln. „Dann sage ich es dir. Und du tust es.“
 
-Du hältst den Beutel in der Hand. Der Stoff ist weich und ein wenig kühl, und darunter spürst du die festen Kanten der Karten. Draußen steht der Himmel offen, scharf und schwarz, und irgendwo darunter wartet etwas, das nach Frost und Sternen und nach ihm riecht.
+Du hältst den Beutel in der Hand. Der Stoff ist weich und ein wenig kühl, und darunter spürst du die festen Kanten der Karten. {{p:d8_p_n_riecht}}
 
 „Ich verliere nicht“, sagst du.
 
@@ -560,7 +544,7 @@ Du öffnest die Kordel. Deine Hand taucht in den Beutel. Du bist gespannt, welch
 
 „20:45.“
 
-Den Vormittag hast du schon hinter dir gelassen, ohne dass er etwas hinterlassen hätte. Der Frost auf dem Rasen, die Brotdosen, der Kuss an der Haustür, kurz und warm, ohne Hintergedanken. Er hat dir beim Gehen den Schal zurechtgezogen und gesagt: „Heute Abend ist es kalt.“ Mehr nicht. Du hast es für Wetter gehalten.
+Den Vormittag hast du schon hinter dir gelassen, ohne dass er etwas hinterlassen hätte. {{p:d8_p_f_vormittag}} der Kuss an der Haustür, kurz und warm, ohne Hintergedanken. Er hat dir beim Gehen den Schal zurechtgezogen und gesagt: „Heute Abend ist es kalt.“ Mehr nicht. Du hast es für Wetter gehalten.
 
 Du sitzt in der Mittagspause im Auto, auf dem Parkplatz, die Scheiben beschlagen, und siehst auf die vier Ziffern. Dann tippst du: „Was passiert um 20:45?“
 
@@ -572,7 +556,7 @@ Die Antwort kommt sofort.
 
 „Ab jetzt stellst du keine mehr. Heute Abend entscheide ich. Du musst nur drei Dinge tun. Erstens: Du denkst nicht darüber nach, was ich vorhabe. Zweitens: Du ziehst dich warm an, wenn ich es sage, und nicht früher. Drittens: Wenn dir etwas zu viel wird, sagst du es laut. Dann höre ich sofort auf. Ohne Fragen.“
 
-Du liest es zweimal. Draußen läuft ein Kollege mit hochgezogenen Schultern zum Eingang, und der Atem steht ihm vor dem Gesicht. Du tippst: „Verstanden.“
+Du liest es zweimal. Draußen läuft ein Kollege mit hochgezogenen Schultern zum Eingang, {{p:d8_p_f_kollege}}. Du tippst: „Verstanden.“
 
 „Gut.“ Dahinter das Kuss-Emoji, das ihr euch fast immer am Ende eurer Nachrichten schickt. Und gleich danach: „Das war das Letzte, was ich heute zu dir sage, bevor wir uns sehen. Antworte nicht.“
 
@@ -592,13 +576,13 @@ Oma öffnet, bevor du klingelst. Sie hat die Kleine schon im Schneeanzug, ein Be
 
 „Wir gehen gleich raus.“
 
-„Weiß! Alles weiß!“
+{{p:d8_p_f_weiss}}
 
-Ihr dreht eine Runde durch den Garten. Der Frost liegt so dicht auf dem Rasen, dass er bei jedem Schritt knirscht, und die Kleine hockt sich hin, tippt mit dem Finger darauf, bis er schmilzt, und verkündet: „Kaputt!“ Du lässt sie. Du stehst im blassen Licht des Nachmittags, mit kalten Ohren, und stellst fest, dass du auf die Uhr siehst, obwohl noch Stunden bleiben.
+Ihr dreht eine Runde durch den Garten. {{p:d8_p_f_kaputt}} mit kalten Ohren, und stellst fest, dass du auf die Uhr siehst, obwohl noch Stunden bleiben.
 
 Um zehn vor drei sitzt du im Auto. Die Große muss Punkt fünfzehn Uhr abgeholt werden, und der Parkplatz vor der Schule ist ein Ballett aus Daunenjacken und Elterntaxis mit laufenden Motoren. Die Tür geht auf, die Kinder strömen heraus wie ein Fluss aus Mützen, und die Große entdeckt dich sofort und klettert auf die Rückbank.
 
-„Mama, heute Nacht sieht man ganz viele Sterne. Die Lehrerin hat gesagt, wegen der Kälte. Darf ich fünf Minuten am Fenster gucken?“
+{{p:d8_p_n_lehrerin}}
 
 „Fünf Minuten, ja.“
 
@@ -616,13 +600,13 @@ Er kommt erst gegen halb fünf herunter, den Laptop zugeklappt, das Hemd aufgekn
 
 Dann nimmt er sie weg und geht zu den Kindern, hebt die Kleine hoch, hört der Großen zu und deckt den Tisch. Er sieht dich nicht an. Er ist so konsequent damit, dass es dich fast wahnsinnig macht.
 
-Das Abendessen ist laut und warm. Die Große erzählt von einem Meteor, den die Lehrerin angeblich gesehen hat, die Kleine löffelt mit beiden Händen und nennt es „heiß“, und er schneidet ihr das Brot klein. Unter dem Tisch stellt er seinen Fuß gegen deinen, fest, schwer, ohne Hast. Er sagt nichts, er sieht nicht her. Der Fuß bleibt, bis die Schüsseln leer sind, und dein Löffel ist nicht mehr ganz gerade.
+Das Abendessen ist laut und warm. Die Große erzählt {{p:d8_p_f_essen}}, die Kleine löffelt mit beiden Händen und nennt es „heiß“, und er schneidet ihr das Brot klein. Unter dem Tisch stellt er seinen Fuß gegen deinen, fest, schwer, ohne Hast. Er sagt nichts, er sieht nicht her. Der Fuß bleibt, bis die Schüsseln leer sind, und dein Löffel ist nicht mehr ganz gerade.
 
-„Mama, Stern!“, ruft die Kleine und zeigt zum Fenster.
+{{p:d8_p_stern1f}}
 
-Über dem Dach des Nachbarhauses steht ein einzelner Stern, heller als alle anderen, scharf wie mit dem Messer geschnitten.
+{{p:d8_p_stern2}}
 
-„Das ist ein Stern.“
+{{p:d8_p_stern3}}
 
 „Schön“, sagt die Kleine mit einem Ernst, der dir die Kehle eng macht.
 
@@ -630,7 +614,7 @@ Das Abendessen ist laut und warm. Die Große erzählt von einem Meteor, den die 
 
 Um neunzehn Uhr tapst die Kleine die Treppe hinauf, und er folgt ihr, um sie bettfertig zu machen. Nach dem allabendlichen Ritual wird es oben still.
 
-Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, und zählt laut. „Eins, zwei, drei. Mama, sieben! Das sind nur die hellen, die kleinen sieht man erst, wenn man lange guckt.“ Du stellst dich neben sie, den Arm um ihre Schultern, und gemeinsam seht ihr in einen Himmel, der so klar ist, dass jeder Stern für sich steht. Das Glas ist kalt, der Atem beschlägt es.
+Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, und zählt laut. {{p:d8_p_f_hellen}} Du stellst dich neben sie, den Arm um ihre Schultern, {{p:d8_p_f_himmel}} Das Glas ist kalt, der Atem beschlägt es.
 
 „Mama, wenn man ganz lange guckt, sieht man dann alle?“
 
@@ -642,7 +626,7 @@ Die Große steht am Wohnzimmerfenster, die Nase an der Scheibe, und zählt laut.
 
 „Du hast gesagt, fünf!“
 
-„Mama hat gesagt, fünf. Ich habe nur mitgezählt.“ Er nimmt sie auf den Arm, und sie protestiert nur halbherzig, den Kopf schon schwer an seiner Schulter. Um zwanzig Uhr schickt ihr sie nach oben, du deckst sie zu, er streicht ihr einmal über die Haare, und sie murmelt etwas von Meteoren und Lehrerinnen. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus. Zwei Atemzüge, die sich langsam angleichen, einer schneller, einer tiefer.
+„Mama hat gesagt, fünf. Ich habe nur mitgezählt.“ Er nimmt sie auf den Arm, und sie protestiert nur halbherzig, den Kopf schon schwer an seiner Schulter. Um zwanzig Uhr schickt ihr sie nach oben, du deckst sie zu, er streicht ihr einmal über die Haare, und sie murmelt {{p:d8_p_nf_murmelt}}. Im Flur bleibt ihr stehen und lauscht, ob wirklich alles friedlich ist im Haus. Zwei Atemzüge, die sich langsam angleichen, einer schneller, einer tiefer.
 
 Seine Hand legt sich flach an deinen Rücken. Er beugt sich zu deinem Ohr.
 
@@ -654,7 +638,7 @@ Du öffnest den Mund. Er hebt einen Finger, nur einen.
 
 Du schließt den Mund wieder. Er sieht es und nickt, sehr zufrieden. Dann geht er die Treppe hinunter, ohne sich umzudrehen, und du bleibst im Flur zurück, mit einem Herzschlag, der so laut ist, dass du sicher bist, er müsste die Kinder wecken.
 
-Das Wasser läuft heiß über deine Schultern, und du lehnst die Stirn an die Fliesen. Du denkst nicht darüber nach, was er vorhat. Das ist die erste Regel, und es ist erstaunlich schwer. Du denkst stattdessen an den Frost und an die Sterne, an das Wort „sternenklar“ und daran, dass er seit Tagen bei jeder Gelegenheit etwas von Kälte gesagt hat. Du drehst das Wasser ab und stehst eine Weile in der plötzlichen Stille, mit dem Tropfen und dem Rauschen der Lüftung in der Wand.
+Das Wasser läuft heiß über deine Schultern, und du lehnst die Stirn an die Fliesen. Du denkst nicht darüber nach, was er vorhat. Das ist die erste Regel, und es ist erstaunlich schwer. Du denkst stattdessen {{p:d8_p_f_dusche}}, dass er seit Tagen bei jeder Gelegenheit etwas von Kälte gesagt hat. Du drehst das Wasser ab und stehst eine Weile in der plötzlichen Stille, mit dem Tropfen und dem Rauschen der Lüftung in der Wand.
 
 Du ziehst die weiche Leggings an und den großen grauen Pullover, den er neulich im Flur liegen gelassen hat. Er riecht nach ihm. Du siehst in den Spiegel der Ankleide und siehst eine Frau mit nassen Haaren, die lächelt, langsam, mit einem Blick, den du lange nicht an dir gesehen hast.
 
@@ -688,7 +672,7 @@ Du spürst, wie dir etwas durch den Körper läuft, von den Schultern bis in die
 
 „Laut.“
 
-„Gut.“ Er lässt dein Kinn los und tritt einen halben Schritt zurück. „Draußen ist es minus fünf. Du wirst dich daran erinnern, dass es draußen eine Decke gibt, und dass ich bei dir bin. Das ist alles, was du wissen musst.“
+„Gut.“ Er lässt dein Kinn los und tritt einen halben Schritt zurück. „{{p:d8_p_f_minus}} Du wirst dich daran erinnern, dass es draußen eine Decke gibt, und dass ich bei dir bin. Das ist alles, was du wissen musst.“
 
 Er setzt sich neben dich auf die Bettkante, so nah, dass eure Schultern sich berühren, und nimmt den Beutel von der Mitte des Bettes. Er hält ihn einen Moment in beiden Händen und wiegt ihn, als wäre er schwerer, als er ist. Dann legt er ihn dir in den Schoß, und seine Hände bleiben einen Atemzug lang auf deinen liegen, warm und fest.
 

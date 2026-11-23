@@ -698,7 +698,7 @@
 
     <button id="bossBtn" type="button" aria-label="Wetter" onclick="bossOeffnen()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 .5 9.5z"/></svg></button>
     <div id="bossHint"><div class="bh-box"><p style="margin:0 0 6px;"><strong>Kleiner Tipp</strong></p><p style="margin:0;">Mit der Wolke oben rechts versteckst du die Seite sofort hinter einer Wetteransicht. Zurück kommst du mit einem Doppeltipp auf die große Temperatur.</p><button type="button" onclick="bossHinweisOk()">Verstanden</button></div></div>
-    <div id="bossOverlay" style="display:none;"><div class="bw-in"><div class="bw-stadt">Grevenbroich</div><div class="bw-temp" id="bwTemp">--&deg;</div><div class="bw-text" id="bwText">&nbsp;</div><div class="bw-hl" id="bwHL">&nbsp;</div><div class="bw-karte"><div class="bw-kopf">St&uuml;ndlich</div><div class="bw-stunden" id="bwStunden"></div></div><div class="bw-karte"><div class="bw-kopf">Vorhersage</div><div id="bwTage"></div></div></div></div>
+    <div id="bossOverlay" style="display:none;"><div class="bw-in"><div class="bw-stadt" id="bwStadt">Grevenbroich</div><div class="bw-temp" id="bwTemp">--&deg;</div><div class="bw-text" id="bwText">&nbsp;</div><div class="bw-hl" id="bwHL">&nbsp;</div><div class="bw-karte"><div class="bw-kopf">St&uuml;ndlich</div><div class="bw-stunden" id="bwStunden"></div></div><div class="bw-karte"><div class="bw-kopf">Vorhersage</div><div id="bwTage"></div></div></div></div>
 
     <!-- Test-Modus / Entwickler-Leiste (Wird per JS automatisch ausgeblendet, wenn testModus = false) -->
     <div class="dev-bar" id="devBarElement">
@@ -795,6 +795,7 @@
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
             <p class="begruessung" id="begruessung"></p>
+            <p id="wxOrtZeile" style="text-align: center; font-size: 0.78rem; opacity: 0.6; margin: -4px 0 10px;"></p>
             <p class="naechstes-cd" id="naechstesCd" style="display:none;"></p>
             <button type="button" id="tonBtn" onclick="tonUmschalten()">&#128264; Ton aus</button>
             <div class="offen-zeile" id="offenZeile" style="display:none;"></div>
@@ -2685,7 +2686,9 @@
                 if (c >= 95) return ["\u{26C8}\u{FE0F}", "Gewitter"];
                 return ["\u{2601}\u{FE0F}", "Wechselhaft"];
             };
-            let daten = null, geladenUm = 0, laedt = false;
+            let daten = null, geladenUm = 0, laedt = false, datenOrt = "";
+            function bwOrt() { try { const o = window.wetterOrt ? window.wetterOrt() : null; return o ? o : { lat: 51.0885, lon: 6.5879 }; } catch (e) { return { lat: 51.0885, lon: 6.5879 }; } }
+            function bwStadtSetzen() { try { const an = window.wetterStandortStatus && window.wetterStandortStatus() === "an"; const e = el("bwStadt"); if (e) e.textContent = an ? "Dein Standort" : "Grevenbroich"; } catch (e) {} }
             const WTAGE = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
             const el = id => document.getElementById(id);
             function zeichnen() {
@@ -2716,11 +2719,12 @@
                 } catch (e) {}
             }
             function laden() {
-                if (laedt || (daten && Date.now() - geladenUm < 10 * 60 * 1000)) return;
+                const bo = bwOrt(), bk = bo.lat + "," + bo.lon;
+                if (laedt || (daten && datenOrt === bk && Date.now() - geladenUm < 10 * 60 * 1000)) return;
                 laedt = true;
-                const url = "https://api.open-meteo.com/v1/forecast?latitude=51.0885&longitude=6.5879&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin&forecast_days=4";
+                const url = "https://api.open-meteo.com/v1/forecast?latitude=" + bo.lat + "&longitude=" + bo.lon + "&current=temperature_2m,weather_code,is_day&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FBerlin&forecast_days=4";
                 fetch(url, { referrerPolicy: "no-referrer" }).then(r => r.json()).then(j => {
-                    if (j && j.current && j.hourly && j.daily) { daten = j; geladenUm = Date.now(); zeichnen(); }
+                    if (j && j.current && j.hourly && j.daily) { daten = j; datenOrt = bk; geladenUm = Date.now(); zeichnen(); }
                 }).catch(function () {}).then(function () { laedt = false; });
             }
             let gemerkterTitel = "", hinweisGesehen = false;
@@ -2728,7 +2732,7 @@
             function wirklichOeffnen() {
                 const ov = el("bossOverlay");
                 gemerkterTitel = document.title;
-                laden(); zeichnen();
+                bwStadtSetzen(); laden(); zeichnen();
                 ov.style.display = "block"; ov.scrollTop = 0;
                 document.documentElement.style.overflow = "hidden";
                 document.title = "Wetter";
@@ -3223,6 +3227,7 @@
         const b = el("wxOrtBtn"), t = el("wxOrtStatus"); if (!b || !t) return;
         const an = window.wetterStandortStatus && window.wetterStandortStatus() === "an";
         b.textContent = an ? "Standort-Wetter ausschalten" : "Standort für das Wetter freigeben";
+        const z = el("wxOrtZeile"); if (z) z.textContent = "Wetter in den Geschichten: " + (an ? "dein aktueller Ort" : "Grevenbroich");
         t.textContent = msg || (an ? "Aktiv: Die Geschichten richten sich nach dem Wetter an deinem aktuellen Ort (grob, auf etwa 10 km gerundet)." : "Aus: Die Geschichten richten sich nach dem Wetter in Grevenbroich.");
     };
     window.wxOrtKlick = function () {

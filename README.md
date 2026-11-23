@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795433769`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795436125`.
 
 ---
 
@@ -303,12 +303,12 @@ Viele Geschichten spielen an einem bestimmten Tag mit einem bestimmten Wetter: S
 
 #### Was Anja davon bemerkt
 - Wetterstellen, die nebenbei vorkommen („Draußen prasselt der Regen“, „der Himmel ist grau“), zeigen das echte Wetter. Sie sieht keinen Hinweis darauf, dass Text getauscht wurde.
-- In vier Türchen (13, 14, 18 und der dritten Stimmung von Türchen 10) ändert sich eine ganze Szene. Beispiel: Türchen 13 ist im Original ein Schneetag mit Schlittenhügel. Regnet es, wird daraus ein Regentag mit Matsch-Rutschbahn; ist es trocken und kalt, ein Tag mit Drachen und Rollen im Gras. Ablauf, Gespräche und Höhepunkte bleiben gleich, nur die Kulisse passt zum Wetter.
+- In mehreren Türchen (8, 13, 14, 18 und der dritten Stimmung von Türchen 10) ändert sich eine ganze Szene. Beispiel: Türchen 13 ist im Original ein Schneetag mit Schlittenhügel. Regnet es, wird daraus ein Regentag mit Matsch-Rutschbahn; ist es trocken und kalt, ein Tag mit Drachen und Rollen im Gras. Ablauf, Gespräche und Höhepunkte bleiben gleich, nur die Kulisse passt zum Wetter.
 - Weiß die App das Wetter nicht (kein Netz, Abruf gescheitert), läuft immer der Originaltext. Es gibt keine Fehlermeldung.
-- Türchen 8 (Sternenhimmel) bleibt bewusst unverändert, weil der Sternenhimmel der Kern der Geschichte ist.
+- Türchen 8 (Sternenhimmel) hat Fassungen für das Wetter des Tages: klar mit Frost (Original), klar ohne Frost (Tau statt Frost, die Sterne bleiben), Regen (Regentropfen am Fenster), bedeckt oder Nebel (keine Sterne, stattdessen die Lichter im Dorf) und Schnee (Flocken im Laternenlicht). Ablauf, Gespräche und Höhepunkte bleiben in allen Fassungen gleich.
 
 #### Woher das Wetter kommt
-Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Grevenbroich. Das ist dieselbe Quelle wie die Wolke. Es werden nur die Koordinaten des Ortes übertragen, keine Daten über Anja oder ihr Gerät. `wetter.js` ruft beim Start einmal die Werte des Tages ab (Wettercode und Temperatur je Stunde) und merkt sie sich im Browser (`adventWetter26`). Nach 45 Minuten wird neu abgerufen; ohne Netz gelten die gemerkten Werte bis zu 6 Stunden. Gelesen wird die Stunde, in der Anja gerade liest.
+Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Grevenbroich. Das ist dieselbe Quelle wie die Wolke. Es werden nur die Koordinaten des Ortes übertragen, keine Daten über Anja oder ihr Gerät. `wetter.js` ruft beim Start einmal die Werte des Tages ab (Wettercode und Temperatur je Stunde) und merkt sie sich im Browser (`adventWetter26`). Nach 45 Minuten wird neu abgerufen; ohne Netz gelten die gemerkten Werte bis zu 6 Stunden. Für die laufenden Wettersätze (`w`) zählt die Stunde, in der Anja gerade liest. Für festgehaltene Szenen (`p`) zählt das **Tageswetter**: Aus den Stunden von 8 bis 18 Uhr wird das vorherrschende Wetter gewählt (Schnee ab 2 Stunden, Regen ab 3, Nebel ab 4, sonst die Mehrheit aus klar oder bedeckt; klar bei höchstens 0,5 °C gilt als Frost). So entscheidet nicht die eine Lesestunde über den ganzen Tag. Liegen nicht genug Stundenwerte vor, gilt das Wetter der Lesestunde.
 
 **Wetterklassen:** `r` Regen (auch Niesel, Schauer, Gewitter), `s` Schnee, `n` Nebel, `k` klar oder heiter, `b` bedeckt, `kf` klar mit Frost (Temperatur ≤ 0,5 °C), `x` unbekannt.
 
@@ -316,7 +316,7 @@ Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Gr
 - **Marken im Text:** In den Dateien `story-dayN.js` ist jeder Wettersatz durch eine Marke ersetzt, z. B. `{{w:d5_boden}}`. In `wetter-texte.js` steht zu jeder Marke der Text je Wetterklasse. Fehlt eine Klasse, gilt die neutrale (`x`); Nebel und Schnee fallen zur Not auf `b` zurück, Frost auf `k`.
 - **Drei Arten von Marken:**
   - `w` zeigt das Wetter **jetzt**. Kommt der Abruf erst nach dem Aufbau der Seite, tauscht `wetterAktualisieren` nur den Text aus, die Seite springt nicht.
-  - `p` zeigt das Wetter beim **ersten Lesen** des Türchens und hält es fest (`adventWetterTag26`). So bleibt eine Szene stehen, wenn Anja dieselbe Geschichte später noch einmal liest. Das gilt für die ganzen Szenen in den Türchen 10, 13 und 18.
+  - `p` zeigt das Wetter beim **ersten Lesen** des Türchens und hält es fest (`adventWetterTag26`). So bleibt eine Szene stehen, wenn Anja dieselbe Geschichte später noch einmal liest. Das gilt für die ganzen Szenen in den Türchen 8, 10, 13 und 18.
   - `v` liest das festgehaltene Wetter des **Vortags**. So greift Türchen 14 auf, was gestern passiert ist („Schnee von gestern“, „Regen von gestern“, „kalte Luft von gestern“). Fehlt der Vortag (z. B. Türchen 13 nicht gelesen), gilt das Original.
 - **Einbau in `index.html`:** Die Funktion, die die Geschichte anzeigt, ruft `wetterErsetzen(text, tag)` auf und ersetzt die Marken durch `<span class="wx" …>`. Das Modul `wetter.js` wird am Seitenende geladen. Fehlt es, werden die Marken entfernt und die Geschichte bleibt lesbar.
 - **Temperatur:** Ein Baustein darf `[[T]]` enthalten; das wird durch die Temperatur in Worten ersetzt („minus drei Grad“).
@@ -332,12 +332,12 @@ Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Gr
 | 14 | Greift das Wetter von Türchen 13 auf (`v`) und passt den heutigen Himmel an. |
 | 15 bis 17 | Keine Schnee-Rückbezüge nötig; einzelne Wettersätze sind angepasst. |
 | 18, 19 | Türchen 18 ist im Original ein Sturmtag mit Stromausfall (nur bei unbekanntem Wetter). Bei bekanntem Wetter fällt der Strom wegen Baggerarbeiten vor der Schule aus (der Hausmeister warnt davor), dazu passen Regen oder kalte Stille. Türchen 19 passt seinen Himmel dem Wetter an. |
-| 8 | Unverändert (Sternenhimmel ist die Handlung). |
+| 8 | Sternenhimmel-Tag. Original bei klar mit Frost oder unbekanntem Wetter. Klar ohne Frost: Tau statt Frost. Regen: Regentropfen am Fenster statt Sterne. Bedeckt oder Nebel: Lichter im Dorf statt Sterne. Schnee: Flocken im Laternenlicht. In allen drei Stimmungen; die Wette, die Gespräche und der Abend bleiben gleich. |
 
-Insgesamt gibt es 133 Bausteine in 72 Fassungen (24 Türchen mal drei Stimmungen).
+Insgesamt gibt es 174 Bausteine in 72 Fassungen (24 Türchen mal drei Stimmungen).
 
-#### Standort statt fest Grevenbroich (optional, nur in TEST)
-**Status: in TEST umgesetzt; die Übernahme nach LIVE erfolgt erst nach Freigabe. Bis dahin gilt dieser Teil für LIVE noch nicht.**
+#### Standort statt fest Grevenbroich (optional)
+**Status: in TEST und LIVE umgesetzt.**
 
 Auf der Startseite gibt es unter „Bevor es losgeht“ den Schritt „Das Wetter in den Geschichten“ mit der Erklärung **„Warum dein Handy dich nach dem Standort fragt“** und dem Knopf „Standort für das Wetter freigeben“.
 - **Ohne Freigabe** ändert sich nichts: Das Wetter kommt für Grevenbroich.
@@ -346,7 +346,8 @@ Auf der Startseite gibt es unter „Bevor es losgeht“ den Schritt „Das Wette
 - **Verweigert oder nicht möglich:** Der Schalter geht auf „aus“, es gilt wieder Grevenbroich, die Seite zeigt einen kurzen Hinweis. Anja kann den Knopf später erneut tippen (und muss den Standort ggf. in den Browser-Einstellungen für diese Seite wieder erlauben).
 - **Hinweis zur Freigabe:** Der Text auf der Startseite empfiehlt „Beim Verwenden der App erlauben“ bzw. „Erlauben“ statt „Einmal erlauben“, damit das Handy nicht bei jedem Start neu fragt. Auf dem iPhone kann die Abfrage bei einer als App gespeicherten Seite trotzdem öfter kommen; das lässt sich von der Seite aus nicht ändern.
 - **Festgehaltene Szenen (`p`):** Sie bleiben bei dem Wetter, das beim ersten Lesen am jeweiligen Ort galt.
-- **Die „Wolke“** (Wetter-Tarnseite) zeigt weiterhin Grevenbroich, weil sie nur eine Tarnung ist und den Ortsnamen fest trägt.
+- **Die „Wolke“** (Wetter-Tarnseite) nutzt denselben freigegebenen Ort und nennt ihn dann „Dein Standort“; ohne Freigabe zeigt sie Grevenbroich.
+- **Ort-Zeile:** Auf der Türchen-Übersicht steht unter der Begrüßung klein „Wetter in den Geschichten: dein aktueller Ort“ bzw. „… Grevenbroich“, damit klar ist, wonach sich die Geschichten richten.
 - **Vorschau (`?wetter=…`)** ignoriert den Standort.
 
 #### Vorschau (nur zum Prüfen)
@@ -603,7 +604,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 
 ## 18. Wolke: die Chef-Taste
 
-- Der Knopf oben rechts (Wolke) versteckt die Seite sofort hinter einer **Wetteransicht** (Grevenbroich; Daten von `api.open-meteo.com`, siehe Abschnitt 28).
+- Der Knopf oben rechts (Wolke) versteckt die Seite sofort hinter einer **Wetteransicht** (Grevenbroich, bei Freigabe des Standorts „Dein Standort“; Daten von `api.open-meteo.com`, siehe Abschnitt 28).
 - Beim ersten Mal erscheint ein Hinweis („Kleiner Tipp“); danach öffnet die Wolke direkt.
 - **Zurück:** Doppeltipp auf die Temperatur (oder Esc am Rechner).
 - Nach dem Schließen erscheint die **Code-Sperre**.
@@ -620,7 +621,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795433769";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795436125";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -792,7 +793,7 @@ Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel gehö
 ## 28. Datenschutz und Hinweise
 
 - Die Seite sammelt keine Daten und hat keine Analyse. Alles bleibt im Browser.
-- **Einzige externe Anfrage:** die Wolke ruft Wetterdaten von `api.open-meteo.com` ab (feste Koordinaten für Grevenbroich, ohne Referrer). Dabei wird die IP-Adresse des Geräts übermittelt. Der Abruf passiert auch ohne Öffnen der Wolke im Hintergrund (nach wenigen Sekunden).
+- **Einzige externe Anfrage:** die Wolke ruft Wetterdaten von `api.open-meteo.com` ab (Koordinaten für Grevenbroich, bei Freigabe des Standorts die auf 0,1 Grad gerundeten Koordinaten; ohne Referrer). Dabei wird die IP-Adresse des Geräts übermittelt. Der Abruf passiert auch ohne Öffnen der Wolke im Hintergrund (nach wenigen Sekunden).
 - Die Seite ist privat, nicht in Suchmaschinen gelistet; trotzdem ist sie kein Geheimnis, wenn die Adresse bekannt ist. Die Code-Sperre schützt vor zufälligem Öffnen.
 - Alle Inhalte sind nur für Erwachsene.
 
@@ -837,8 +838,8 @@ Warum es so gebaut ist, wie es ist:
 - **Nachholen nur bei sieben Karten:** Nur Aufgaben, die sich sinnvoll verschieben lassen (Karten 3, 4, 8, 15, 17, 19, 23), bekommen die Erledigt-Funktion; bei allen anderen gilt „heute“.
 - **Ein Herz je Geschichte und Stimmung:** Keine Mehrfachvergabe pro Türchen, dafür darf nach dem 25.12. jede gelesene Stimmung ein eigenes Herz bekommen.
 - **Ton immer aktiv, ohne Schalter:** Gewollter Überraschungseffekt; leiser machen geht über die Handy-Lautstärke. Ohne Audiodatei im Repository passiert nichts.
-- **Wetter folgt der Realität, Handlung bleibt fest:** Nur Nebenbei-Wetter wird angepasst. Wo das Wetter die Szene trägt (Frost, Schneetag, Sturm, Regentag), bleibt der Text, sonst müsste die Geschichte neu geschrieben werden.
-- **Wetter der Lesestunde, nicht der Szene:** Es zählt, was Anja gerade draußen sieht; deshalb Open-Meteo stündlich und kein Abruf am Vortag (der würde nur bei geöffneter App klappen und ist ungenauer).
+- **Wetter folgt der Realität, Handlung bleibt fest:** Nur Nebenbei-Wetter wird angepasst. Wo das Wetter die Szene trägt (Sternenhimmel, Schneetag, Sturm, Regentag), gibt es eigene Fassungen mit gleichem Ablauf und gleichen Gesprächen; Höhepunkte und Beziehung bleiben unverändert.
+- **Wetter der Lesestunde für Nebenbei-Sätze, Tageswetter für ganze Szenen:** Ein einzelner Satz soll zu dem passen, was Anja gerade draußen sieht. Eine ganze Szene (Schneetag, Sternenhimmel) beschreibt dagegen den Tag, deshalb zählt dort das vorherrschende Wetter von 8 bis 18 Uhr. Open-Meteo stündlich, kein Abruf am Vortag (der würde nur bei geöffneter App klappen und ist ungenauer).
 - **Kein Übertragen des Stands zwischen Geräten:** Ein Export/Import wurde erwogen und verworfen (nicht nötig).
 
 ---

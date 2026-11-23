@@ -74,11 +74,26 @@
     function recSpeichern(o) { recMem = o; try { localStorage.setItem(REC, JSON.stringify(o)); } catch (e) {} }
     function recKlasse(a) { if (a.kl === "x") return null; if (a.kl === "k" && a.temp !== null && a.temp <= 0.5) return "kf"; return a.kl; }
     function alsLage(k) { return k === "kf" ? { kl: "k", temp: -1 } : { kl: k, temp: 5 }; }
+    // Praegendes Wetter des Tages (8 bis 18 Uhr) fuer Szenen, die beim ersten Lesen festgehalten werden:
+    // Regen ab 3 Stunden, Schnee ab 2 Stunden, sonst Nebel/klar/bedeckt nach Mehrheit. Temperatur = Mittel.
+    function tagesLage() {
+        var d = lesen();
+        if (!d || !d.codes || Date.now() - d.t > MAXALTER || (d.lat !== undefined && !ortGleich(d, ortGet()))) return null;
+        var z = { r: 0, s: 0, n: 0, k: 0, b: 0 }, ts = 0, tn = 0;
+        for (var h = 8; h < 18; h++) {
+            var c = d.codes[h]; if (c === undefined || c === null) continue;
+            z[klasseVon(c)]++;
+            var t = d.temps ? d.temps[h] : null; if (t !== undefined && t !== null) { ts += t; tn++; }
+        }
+        if (z.r + z.s + z.n + z.k + z.b < 5) return null;
+        var kl = z.s >= 2 ? "s" : z.r >= 3 ? "r" : z.n >= 4 ? "n" : (z.k > z.b ? "k" : "b");
+        return { kl: kl, temp: tn ? ts / tn : null };
+    }
     function lageTag(day) {
         var v = vorschau(); if (v) return v;
         if (!day) return aktuell();
         var rec = recAlle(); if (rec[day]) return alsLage(rec[day]);
-        var a = aktuell(), k = recKlasse(a);
+        var a = tagesLage() || aktuell(), k = recKlasse(a);
         if (k) { rec[day] = k; recSpeichern(rec); }
         return a;
     }
@@ -123,6 +138,7 @@
         try { navigator.geolocation.getCurrentPosition(function (p) { ok(p.coords.latitude, p.coords.longitude); }, fehler, { enableHighAccuracy: false, timeout: 10000, maximumAge: 1800000 }); }
         catch (e) { fehler({ code: 0 }); }
     }
+    window.wetterOrt = ortGet;
     window.wetterStandortStatus = function () { return anLesen() === "1" ? "an" : "aus"; };
     window.wetterStandortAn = function (cb) {
         posAbfragen(function (la, lo) {
