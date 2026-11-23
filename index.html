@@ -1372,9 +1372,22 @@
         function wmAn(day) { try { const a = document.getElementById("wmAnker"); if (!a) return; a.firstElementChild.style.backgroundImage = "url('" + bildUrl(day) + "')"; a.classList.add("an"); } catch (e) {} }
         function wmAus() { try { const a = document.getElementById("wmAnker"); if (a) a.classList.remove("an"); } catch (e) {} }
         function bildUrl(day) { return "bilder/karte-" + String(calendarData[day].cardNum).padStart(2, "0") + ".jpg"; }
+        // Datum als Zahl (JJJJMMTT), in TEST mit dem Test-Datum
+        function datumZahl() { const d = (typeof jetzt === "function") ? jetzt() : new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate(); }
+        // Tag, an dem ein Tuerchen zum ersten Mal geoeffnet wurde
+        function oeffnetAmAlle() { try { return JSON.parse(localStorage.getItem("adventOeffnetAm26") || "{}") || {}; } catch (e) { return {}; } }
+        // Aufgabentext erst zeigen, wenn das Tuerchen an einem frueheren Tag schon einmal offen war (oder ab dem 25.12.)
+        function aufgabeTextFrei(day) {
+            if (alleFreigegeben()) return true;
+            const am = oeffnetAmAlle()[day];
+            if (am) return am < datumZahl();
+            // aelterer Stand ohne Datum: war schon offen, dann gilt es als frueher geoeffnet
+            return geoeffnetListe().indexOf(day) >= 0 && tagVergangen(day);
+        }
         function geoeffnetListe() { try { return JSON.parse(localStorage.getItem("adventGeoeffnet26") || "[]"); } catch (e) { return []; } }
         function merkeGeoeffnet(day) {
             try { const l = geoeffnetListe(); if (l.indexOf(day) < 0) { l.push(day); localStorage.setItem("adventGeoeffnet26", JSON.stringify(l)); } } catch (e) {}
+            try { const m = oeffnetAmAlle(); if (!m[day]) { m[day] = datumZahl(); localStorage.setItem("adventOeffnetAm26", JSON.stringify(m)); } } catch (e) {}
             tuerBildSetzen(day);
         }
         function tuerBildSetzen(day) { tuerStilAktualisieren(); }
@@ -1454,7 +1467,7 @@
                 localStorage.removeItem("adventWahl26");
                 localStorage.removeItem("adventBewertung26"); localStorage.removeItem("adventBewDatum26");
                 localStorage.removeItem("adventSpaeter26");
-                localStorage.removeItem("adventNotiz26"); localStorage.removeItem("adventErledigt26"); localStorage.removeItem("adventHerz26");
+                localStorage.removeItem("adventNotiz26"); localStorage.removeItem("adventErledigt26"); localStorage.removeItem("adventHerz26"); localStorage.removeItem("adventOeffnetAm26");
                 localStorage.removeItem("adventLese26");
                 history.replaceState(null, "", location.pathname);
             }
@@ -1676,7 +1689,7 @@
         // modus "banner": bewertet = Ergebnis + "Ändern"; modus "kasten": bewertet = festgeschrieben (außer ab 25.12.)
         // Rückblick: Originaltext der Aufgabe / Alternative, nur wenn der Tag vorbei ist (nie am selben Tag, um nichts vorwegzunehmen)
         function aufgabenText(day, ver, modus) {
-            if (!(modus === "banner" || tagVergangen(day) || alleFreigegeben())) return "";
+            if (!aufgabeTextFrei(day)) return "";
             const k = kartenDaten();
             const c = calendarData[day];
             const e = (k && c) ? k[c.cardNum] : null;
@@ -2246,7 +2259,7 @@
             script.onload = function() {
                 if (typeof window.getStoryText === "function") {
                     var rohText = window.getStoryText(vibe);
-                    storyContainer.innerHTML = (typeof window.wetterErsetzen === "function") ? window.wetterErsetzen(rohText, day) : String(rohText).replace(/\{\{w:\w+\}\}/g, "");
+                    storyContainer.innerHTML = (typeof window.wetterErsetzen === "function") ? window.wetterErsetzen(rohText, day) : String(rohText).replace(/\{\{[wpv]:\w+\}\}/g, "");
                 } else {
                     geschichteFehler(storyContainer);
                 }
