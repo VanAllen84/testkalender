@@ -359,6 +359,7 @@
         .notiz-box textarea:focus { outline: 1px solid var(--accent-color); }
         .ak-notiz { grid-column: 1 / -1; font-size: 0.92rem; line-height: 1.5; padding: 8px 10px; border-left: 3px solid #d4af37; background: rgba(212,175,55,0.08); border-radius: 6px; white-space: pre-wrap; }
         .bew-zeile { margin-top: 14px; text-align: left; }
+        .bew-aufgabe { font-size: 0.88rem; line-height: 1.5; opacity: 0.88; border-left: 2px solid #d4af37; padding: 2px 0 2px 10px; margin: 0 0 8px; }
         .bew-label { font-size: 0.84rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.92; margin-bottom: 6px; }
         .bew-ergebnis { font-size: 1.05rem; padding: 6px 0; }
         .bew-ergebnis .bew-spaeter { margin: 0 0 0 10px; }
@@ -1334,6 +1335,8 @@
             bewertungEinblenden();
             bannerAktualisieren();
             teaserAktualisieren();
+            // Aufgabentexte für den Rückblick nachladen und Bewertungsbereiche neu zeichnen
+            kartenLaden(function () { try { bewertungUI(); if (bannerTag !== null) bannerRendern(); } catch (e) {} });
         }
         function oeffneTag(day) {
             currentDay = day;
@@ -1482,6 +1485,14 @@
         const BEW_TEXT = { "1": "👍 Gefiel mir", "0": "😐 War OK", "-1": "👎 Nicht nochmal" };
         // Zeilen (Aufgabe / Alternative) für Banner oder Kasten zeichnen
         // modus "banner": bewertet = Ergebnis + "Ändern"; modus "kasten": bewertet = festgeschrieben (außer ab 25.12.)
+        // Rückblick: Originaltext der Aufgabe / Alternative, nur wenn der Tag vorbei ist (nie am selben Tag, um nichts vorwegzunehmen)
+        function aufgabenText(day, ver, modus) {
+            if (!(modus === "banner" || tagVergangen(day) || alleFreigegeben())) return "";
+            const k = kartenDaten();
+            const c = calendarData[day];
+            const e = (k && c) ? k[c.cardNum] : null;
+            return e && typeof e[ver] === "string" ? e[ver] : "";
+        }
         function bewertungZeilenHtml(day, modus) {
             const alle = bewertungAlle()[day] || {};
             let html = "";
@@ -1493,6 +1504,8 @@
                 if (modus === "banner") editierbar = bewAenderbar(day, ver, "banner") && (!hat || bannerEdit[ver]);
                 else editierbar = bewAenderbar(day, ver, "kasten");
                 html += '<div class="bew-zeile"><div class="bew-label">' + v[1] + '</div>';
+                const kt = aufgabenText(day, ver, modus);
+                if (kt) html += '<div class="bew-aufgabe">' + esc(kt) + '</div>';
                 if (editierbar) {
                     html += '<div class="bewertung-buttons">';
                     [["1", "👍", "Gefiel mir"], ["0", "😐", "War OK"], ["-1", "👎", "Nicht nochmal"]].forEach(b => {
