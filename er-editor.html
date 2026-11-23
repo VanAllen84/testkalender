@@ -105,6 +105,17 @@
   /* Randbanner For Him / For Her */
   .rand { position:fixed; left:0; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; z-index:5; padding:14px 3px; font-size:.58rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#fff; background:var(--c); border-radius:0 7px 7px 0; box-shadow:0 0 10px rgba(0,0,0,.5); opacity:.92; pointer-events:none; }
   .rand.her { --c:#d2507f; } .rand.his { --c:#4a8fe0; }
+  body.detail header, body.detail .leiste { display:none; }
+  body.detail .wrap { padding-top:18px; }
+  /* GitHub-Upload */
+  .gh { max-width:520px; margin:22px auto 0; padding:14px 16px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03); font-size:.88rem; }
+  .gh h3 { margin:0 0 8px; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:600; }
+  .gh label { display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .gh input[type=password], .gh input[type=text] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:#0b0b0f; color:var(--text); font-size:.9rem; font-family:Consolas,Menlo,monospace; }
+  .gh .zeile2 { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
+  .gh button.mini { padding:8px 14px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.06); color:var(--text); cursor:pointer; font-size:.82rem; font-family:inherit; }
+  .gh .ok { color:#7fd6a0; } .gh .fehler { color:#ff9aa8; }
+  .gh ul { margin:8px 0 0; padding-left:18px; }
   /* Filter */
   .filter { display:flex; justify-content:center; margin:0 0 16px; }
   .filter button { padding:8px 16px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:var(--text); font-size:.85rem; cursor:pointer; font-family:inherit; }
@@ -147,7 +158,16 @@
     <textarea id="exportText" readonly></textarea>
     <button class="aktion" onclick="kopieren()">In die Zwischenablage kopieren</button>
     <button class="aktion zweit" onclick="herunterladen()">Als er.js herunterladen</button>
-    <p class="hinweis">Dann auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
+    <p class="hinweis">Oder von Hand: auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
+  </div>
+  <button class="aktion zweit" id="teilenBtn" style="display:none" onclick="teilen()">er.js teilen …</button>
+  <div class="gh" id="gh">
+    <h3>An GitHub senden</h3>
+    <label><input type="checkbox" id="ghTest" checked> TEST (vanallen84/testkalender)</label>
+    <label><input type="checkbox" id="ghLive"> LIVE (VanAllen84/advent26)</label>
+    <div id="ghTokenBox"></div>
+    <button class="aktion" id="ghSenden" onclick="anGithub()" style="margin-top:14px">er.js jetzt an GitHub senden</button>
+    <div id="ghErgebnis" class="hinweis"></div>
   </div>
   </div>
 </div>
@@ -253,6 +273,7 @@ function zeichne() {
     box.appendChild(w);
   }
   const tag = aktuellerTag();
+  document.body.classList.toggle("detail", !!tag);
   document.getElementById("unten").style.display = tag ? "none" : "";
   document.querySelectorAll(".rand").forEach(e => e.remove());
   if (tag) {
@@ -392,6 +413,93 @@ function ladeAusDatei(still, uebernehmen) {
   document.head.appendChild(sc);
 })();
 
+
+// ---------- Teilen und Upload zu GitHub ----------
+const GH_KEY = "adventErGhToken26", GH_SEL = "adventErGhAuswahl26";
+const REPOS = [{ id: "ghTest", name: "TEST", repo: "vanallen84/testkalender" }, { id: "ghLive", name: "LIVE", repo: "VanAllen84/advent26" }];
+const GH_API = "https://api.github.com";
+function tokenLesen() { try { return localStorage.getItem(GH_KEY) || ""; } catch (e) { return ""; } }
+function ghAuswahlLesen() { try { const r = JSON.parse(localStorage.getItem(GH_SEL) || "null"); if (r) { document.getElementById("ghTest").checked = !!r.test; document.getElementById("ghLive").checked = !!r.live; } } catch (e) {} }
+function ghAuswahlSichern() { try { localStorage.setItem(GH_SEL, JSON.stringify({ test: document.getElementById("ghTest").checked, live: document.getElementById("ghLive").checked })); } catch (e) {} }
+function tokenZeichnen() {
+  const t = tokenLesen(), b = document.getElementById("ghTokenBox");
+  if (t) {
+    b.innerHTML = '<div class="ok">Token gespeichert (endet auf …' + esc(t.slice(-4)) + ')</div><div class="zeile2"><button class="mini" onclick="tokenLoeschen()">Token entfernen</button></div>';
+  } else {
+    b.innerHTML = '<input type="password" id="ghTokenFeld" placeholder="Token hier einfügen (github_pat_…)" autocomplete="off" autocapitalize="off" spellcheck="false"><div class="zeile2"><button class="mini" onclick="tokenSpeichern()">Token speichern</button></div>';
+  }
+}
+function tokenSpeichern() {
+  const v = (document.getElementById("ghTokenFeld").value || "").trim();
+  if (!v) { ghMeldung("Bitte zuerst das Token einfügen.", true); return; }
+  try { localStorage.setItem(GH_KEY, v); } catch (e) { ghMeldung("Token konnte im Browser nicht gespeichert werden.", true); return; }
+  ghMeldung("Token gespeichert.", false); tokenZeichnen();
+}
+function tokenLoeschen() { try { localStorage.removeItem(GH_KEY); } catch (e) {} ghMeldung("Token entfernt.", false); tokenZeichnen(); }
+function ghMeldung(t, fehler) { const e = document.getElementById("ghErgebnis"); e.className = "hinweis " + (fehler ? "fehler" : "ok"); e.innerText = t; }
+function b64(text) { const bytes = new TextEncoder().encode(text); let bin = ""; bytes.forEach(x => bin += String.fromCharCode(x)); return btoa(bin); }
+async function ghFehlertext(res) {
+  if (res.status === 401) return "Token ungültig oder abgelaufen.";
+  if (res.status === 403) return "Keine Berechtigung (Token braucht Inhalte: Lesen und Schreiben für dieses Repository) oder Limit erreicht.";
+  if (res.status === 404) return "Repository oder Datei nicht gefunden (oder das Token gilt nicht für dieses Repository).";
+  if (res.status === 409 || res.status === 422) return "Die Datei wurde zwischenzeitlich geändert (Konflikt).";
+  return "GitHub antwortete mit Status " + res.status + ".";
+}
+async function ghSchreiben(repo, token, inhalt, nachricht) {
+  const kopf = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+  const info = await fetch(GH_API + "/repos/" + repo, { headers: kopf });
+  if (!info.ok) throw new Error(await ghFehlertext(info));
+  const branch = (await info.json()).default_branch || "main";
+  for (let versuch = 0; versuch < 2; versuch++) {
+    const g = await fetch(GH_API + "/repos/" + repo + "/contents/er.js?ref=" + encodeURIComponent(branch), { headers: kopf, cache: "no-store" });
+    let sha;
+    if (g.ok) sha = (await g.json()).sha; else if (g.status !== 404) throw new Error(await ghFehlertext(g));
+    const body = { message: nachricht, content: b64(inhalt), branch: branch };
+    if (sha) body.sha = sha;
+    const r = await fetch(GH_API + "/repos/" + repo + "/contents/er.js", { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, kopf), body: JSON.stringify(body) });
+    if (r.ok) return branch;
+    if ((r.status === 409 || r.status === 422) && versuch === 0) continue;
+    throw new Error(await ghFehlertext(r));
+  }
+}
+let ghLaeuft = false;
+async function anGithub() {
+  if (ghLaeuft) return;
+  const token = tokenLesen();
+  if (!token) { ghMeldung("Bitte zuerst das Token speichern.", true); return; }
+  const ziele = REPOS.filter(r => document.getElementById(r.id).checked);
+  if (!ziele.length) { ghMeldung("Bitte mindestens TEST oder LIVE auswählen.", true); return; }
+  ghAuswahlSichern();
+  const n = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0])).length, 0);
+  const diff = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0])).length, 0);
+  if (!confirm(n + " Bewertungen (" + diff + " geändert gegenüber er.js) an " + ziele.map(z => z.name).join(" und ") + " senden?")) return;
+  ghLaeuft = true;
+  const knopf = document.getElementById("ghSenden"); knopf.disabled = true; knopf.innerText = "Sende …";
+  const inhalt = dateiInhalt(), zeilen = [];
+  let testOk = false;
+  for (const z of ziele) {
+    try {
+      const branch = await ghSchreiben(z.repo, token, inhalt, "er.js aktualisiert (His Rating, " + n + " Bewertungen)");
+      zeilen.push('<li class="ok">' + z.name + ': gesendet (Zweig ' + esc(branch) + ')</li>');
+      if (z.name === "TEST") testOk = true;
+    } catch (e) { zeilen.push('<li class="fehler">' + z.name + ': ' + esc(e.message || String(e)) + '</li>'); }
+  }
+  if (testOk) { base = JSON.parse(JSON.stringify(wahl)); zeichne(); }
+  const e = document.getElementById("ghErgebnis");
+  const gesendet = zeilen.some(z => z.indexOf('class="ok"') > -1);
+  e.className = "hinweis"; e.innerHTML = '<ul style="text-align:left;display:inline-block">' + zeilen.join("") + '</ul>' + (gesendet ? '<div>GitHub Pages braucht danach etwa eine Minute, bis die Änderung online ist.</div>' : '');
+  knopf.disabled = false; knopf.innerText = "er.js jetzt an GitHub senden"; ghLaeuft = false;
+}
+async function teilen() {
+  try {
+    const f = new File([dateiInhalt()], "er.js", { type: "text/javascript" });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) await navigator.share({ files: [f], title: "er.js" });
+    else await navigator.share({ title: "er.js", text: dateiInhalt() });
+  } catch (e) { if (e && e.name !== "AbortError") meldung("Teilen nicht möglich: " + (e.message || e)); }
+}
+if (navigator.share) document.getElementById("teilenBtn").style.display = "";
+ghAuswahlLesen(); tokenZeichnen();
+document.getElementById("ghTest").onchange = ghAuswahlSichern; document.getElementById("ghLive").onchange = ghAuswahlSichern;
 window.addEventListener("hashchange", () => { zeichne(); window.scrollTo(0, 0); });
 const hatGespeichert = laden();
 ladeAusDatei(true, !hatGespeichert);

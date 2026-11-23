@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795438772`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795441441`.
 
 ---
 
@@ -533,6 +533,8 @@ window.ER_BEWERTUNG = {
 - Die Datei wird **erst ab dem 25.12.** geladen (`erLaden`). Fehler (fehlendes Komma, falsche Anführungszeichen) führen dazu, dass der Abgleich fehlt; die Seite stürzt nicht ab.
 - **`er-editor.html`** (nur TEST) ist ein Werkzeug, in dem Thilo seine Bewertung anklickt. Es liest `data.js` (muss im selben Ordner liegen), speichert den Zwischenstand im Browser (`adventErEditor26`), erzeugt den Text für `er.js` (Kopieren oder Herunterladen) und kann `er.js` als Vergleichsstand laden.
 - **Aufbau (Auswahl und Einzelansicht):** Beim Öffnen zeigt der Editor alle 24 Türchen als Raster mit Vorschaubild, Nummer, Kurzbeschreibung (erster Satz der Aufgabe) und den bisherigen Bewertungen von A und B. Die Farbe zeigt, für wen das Türchen ist: beerenfarben für „For Her“, blau für „For Him“. Das Türchen von **gestern** ist golden hervorgehoben (leichtes Pulsieren, Band „Gestern“), die Seite springt beim Öffnen dorthin, und oben steht ein Knopf direkt zu diesem Türchen. „Gestern“ bezieht sich auf den echten Dezember (am 12.12. also Türchen 11); im November gibt es keine Hervorhebung. Zum Ausprobieren: `er-editor.html?heute=12`. Ein Schalter „Nur offene anzeigen“ blendet bereits bewertete Türchen aus. Ein Tipp auf ein Türchen öffnet die Bewertung ohne Bild, mit einem schmalen Randbanner „For Her“ oder „For Him“ und den Knöpfen „Tag zurück“, „Übersicht“, „Tag weiter“ darunter. Nichts ist gesperrt. Das Erzeugen der `er.js` liegt unter dem Raster. Der Editor liegt im Offline-Speicher (`sw.js`).
+- **Detailansicht:** Ohne Titel und ohne Fortschrittsleiste, damit auch lange Aufgabentexte samt Knöpfen auf einen Bildschirm passen.
+- **An GitHub senden:** Unter dem Raster schreibt der Editor die `er.js` direkt in die Repositories (Auswahl TEST und/oder LIVE; Voreinstellung nur TEST). Das geht über die GitHub-Schnittstelle (Commit auf den Standardzweig, Commit-Text „er.js aktualisiert (His Rating, N Bewertungen)“). Dafür braucht der Editor einmalig ein **fein abgestuftes Zugriffstoken** (GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens): nur die beiden Repositories, Berechtigung „Contents: Read and write“, Ablaufdatum kurz nach dem 25.12. Das Token wird nur im Browser des Geräts gespeichert (`adventErGhToken26`), steht in keiner Datei und lässt sich im Editor entfernen. Vor dem Senden fragt der Editor nach. Nach dem Senden braucht GitHub Pages etwa eine Minute. Als Ersatz gibt es weiterhin Kopieren, Herunterladen und (wo das Gerät es kann) „er.js teilen“.
 - **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
 - **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → Text erzeugen → als `er.js` speichern → in **beiden** Repositories hochladen.
 - In TEST (mit `testModus = true`) zeigt die Auswertung eine Diagnose („er.js gelesen: N gültige Bewertung(en)“).
@@ -577,6 +579,7 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 | `adventErledigt26` | localStorage | als erledigt markierte verschiebbare Aufgaben |
 | `adventWetter26` | localStorage | zuletzt abgerufene Stundenwerte des Wetters (Wettercode, Temperatur) |
 | `adventErEditor26` | localStorage | Zwischenstand von `er-editor.html` (nur TEST) |
+| `adventErGhToken26`, `adventErGhAuswahl26` | localStorage | GitHub-Token und Auswahl TEST/LIVE für den Upload im Editor (nur TEST) |
 
 - Funktioniert der Speicher nicht (privater Modus), arbeitet die Seite mit einem Ersatz im Arbeitsspeicher. Dann geht der Stand beim Schließen verloren.
 - **iPhone:** Die installierte Web-App hat **einen anderen Speicher** als Safari.
@@ -625,7 +628,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795438772";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795441441";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
