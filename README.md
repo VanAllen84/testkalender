@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795437848`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795438772`.
 
 ---
 
@@ -532,7 +532,7 @@ window.ER_BEWERTUNG = {
 
 - Die Datei wird **erst ab dem 25.12.** geladen (`erLaden`). Fehler (fehlendes Komma, falsche Anführungszeichen) führen dazu, dass der Abgleich fehlt; die Seite stürzt nicht ab.
 - **`er-editor.html`** (nur TEST) ist ein Werkzeug, in dem Thilo seine Bewertung anklickt. Es liest `data.js` (muss im selben Ordner liegen), speichert den Zwischenstand im Browser (`adventErEditor26`), erzeugt den Text für `er.js` (Kopieren oder Herunterladen) und kann `er.js` als Vergleichsstand laden.
-- **Aufbau (Auswahl und Einzelansicht):** Beim Öffnen zeigt der Editor alle 24 Türchen als Raster mit Vorschaubild, Nummer, Her/His Pleasure, einer Kurzbeschreibung (erster Satz der Aufgabe) und den bisherigen Bewertungen. Das Türchen von gestern ist golden hervorgehoben, die Seite springt beim Öffnen dorthin, und oben steht ein Knopf direkt zu diesem Türchen. Im Test zählt der November wie der Dezember (wie im Kalender). Ein Tipp auf ein Türchen öffnet die Bewertung (Vorher, Alle Türchen, Weiter). Nichts ist gesperrt. Zum Ausprobieren: `er-editor.html?heute=12` tut so, als wäre heute der 12. Das Erzeugen der `er.js` liegt unter dem Raster.
+- **Aufbau (Auswahl und Einzelansicht):** Beim Öffnen zeigt der Editor alle 24 Türchen als Raster mit Vorschaubild, Nummer, Kurzbeschreibung (erster Satz der Aufgabe) und den bisherigen Bewertungen von A und B. Die Farbe zeigt, für wen das Türchen ist: beerenfarben für „For Her“, blau für „For Him“. Das Türchen von **gestern** ist golden hervorgehoben (leichtes Pulsieren, Band „Gestern“), die Seite springt beim Öffnen dorthin, und oben steht ein Knopf direkt zu diesem Türchen. „Gestern“ bezieht sich auf den echten Dezember (am 12.12. also Türchen 11); im November gibt es keine Hervorhebung. Zum Ausprobieren: `er-editor.html?heute=12`. Ein Schalter „Nur offene anzeigen“ blendet bereits bewertete Türchen aus. Ein Tipp auf ein Türchen öffnet die Bewertung ohne Bild, mit einem schmalen Randbanner „For Her“ oder „For Him“ und den Knöpfen „Tag zurück“, „Übersicht“, „Tag weiter“ darunter. Nichts ist gesperrt. Das Erzeugen der `er.js` liegt unter dem Raster. Der Editor liegt im Offline-Speicher (`sw.js`).
 - **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
 - **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → Text erzeugen → als `er.js` speichern → in **beiden** Repositories hochladen.
 - In TEST (mit `testModus = true`) zeigt die Auswertung eine Diagnose („er.js gelesen: N gültige Bewertung(en)“).
@@ -625,7 +625,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795437848";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795438772";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
