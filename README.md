@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795432056`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795433769`.
 
 ---
 
@@ -293,6 +293,7 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Lieblingsgeschichten (Herz):** Unter jeder Geschichte ein Herz-Knopf „Diese Geschichte gefällt mir“. Ein Herz je Türchen und Stimmung; weitere Stimmungen kann sie erst ab dem 25.12. lesen und dann auch dort ein Herz vergeben (dieselbe Geschichte kann also mehrfach in der Liste stehen). Herzchen erscheinen auf der Kachel; ab dem 25.12. zeigt die Übersicht den Bereich „Meine Lieblingsgeschichten“ (Sprungknöpfe zu Türchen und Stimmung).
 - **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; wer es leise will, stellt die Lautstärke am Handy herunter). Fehlt die Datei, passiert nichts (kein Fehler). Die Datei steht bewusst **nicht** in der Vorab-Liste des Service Workers, damit eine fehlende Datei die Installation nicht verhindert. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
 - **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
+- **Ausblenden beim Überspringen:** Wird eine Animation durch Antippen übersprungen oder endet sie, blendet der Ton in ca. einer halben Sekunde aus (`tonAusblenden` in `index.html`), damit beim Lesen nichts nachklingt. Das gilt für das Knarren beim Tür-Übergang und den Wind beim Wirbel.
 
 ### 7.9 Wetter in den Geschichten (Dezember-Ergänzung)
 **Status: in TEST und LIVE umgesetzt.**
@@ -334,6 +335,19 @@ Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Gr
 | 8 | Unverändert (Sternenhimmel ist die Handlung). |
 
 Insgesamt gibt es 133 Bausteine in 72 Fassungen (24 Türchen mal drei Stimmungen).
+
+#### Standort statt fest Grevenbroich (optional, nur in TEST)
+**Status: in TEST umgesetzt; die Übernahme nach LIVE erfolgt erst nach Freigabe. Bis dahin gilt dieser Teil für LIVE noch nicht.**
+
+Auf der Startseite gibt es unter „Bevor es losgeht“ den Schritt „Das Wetter in den Geschichten“ mit der Erklärung **„Warum dein Handy dich nach dem Standort fragt“** und dem Knopf „Standort für das Wetter freigeben“.
+- **Ohne Freigabe** ändert sich nichts: Das Wetter kommt für Grevenbroich.
+- **Mit Freigabe** fragt `wetter.js` bei jedem Start die Position ab (`navigator.geolocation`, ungenau und ohne GPS-Zwang, bis zu 30 Minuten alte Werte erlaubt, Zeitlimit 10 Sekunden). Die Koordinaten werden auf 0,1 Grad (ca. 10 km) gerundet (`adventOrt26`), der Schalter steht in `adventOrtAn26` (`1` = an). Nur diese gerundeten Koordinaten gehen an Open-Meteo; sie werden sonst nirgends hingeschickt.
+- **Ortswechsel:** Weicht der neue Ort um mehr als ca. 0,25 Grad ab, wird das Wetter neu geladen. Der Zwischenspeicher `adventWetter26` merkt sich den Ort, für den er gilt. Stimmt er nicht zum aktuellen Ort, wird bis zum neuen Abruf der neutrale Text gezeigt.
+- **Verweigert oder nicht möglich:** Der Schalter geht auf „aus“, es gilt wieder Grevenbroich, die Seite zeigt einen kurzen Hinweis. Anja kann den Knopf später erneut tippen (und muss den Standort ggf. in den Browser-Einstellungen für diese Seite wieder erlauben).
+- **Hinweis zur Freigabe:** Der Text auf der Startseite empfiehlt „Beim Verwenden der App erlauben“ bzw. „Erlauben“ statt „Einmal erlauben“, damit das Handy nicht bei jedem Start neu fragt. Auf dem iPhone kann die Abfrage bei einer als App gespeicherten Seite trotzdem öfter kommen; das lässt sich von der Seite aus nicht ändern.
+- **Festgehaltene Szenen (`p`):** Sie bleiben bei dem Wetter, das beim ersten Lesen am jeweiligen Ort galt.
+- **Die „Wolke“** (Wetter-Tarnseite) zeigt weiterhin Grevenbroich, weil sie nur eine Tarnung ist und den Ortsnamen fest trägt.
+- **Vorschau (`?wetter=…`)** ignoriert den Standort.
 
 #### Vorschau (nur zum Prüfen)
 Adresse mit Zusatz öffnen, z. B. `…/index.html?wetter=regen`. Möglich sind `regen`, `schnee`, `nebel`, `klar`, `frost`, `bewoelkt`, `neutral`; dazu optional `&temp=-3`. Dann zeigen alle Geschichten dieses Wetter. Die Vorschau schreibt nichts in `adventWetterTag26`. Anja sieht davon nichts, solange sie die Adresse nicht mit dem Zusatz öffnet.
@@ -539,6 +553,8 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 | Schlüssel | Speicher | Inhalt |
 |---|---|---|
 | `adventGeoeffnet26` | localStorage | geöffnete Türchen, z. B. `[1,2,3]` |
+| `adventOrtAn26` | localStorage | Standort für das Wetter: `1` = an, `0` = aus |
+| `adventOrt26` | localStorage | zuletzt genutzter Ort, auf 0,1° gerundet, z. B. `{"lat":48.1,"lon":11.6}` (nur wenn freigegeben) |
 | `adventOeffnetAm26` | localStorage | Tag der ersten Öffnung je Türchen als Zahl `JJJJMMTT`, z. B. `{"18":20261218}` (bestimmt, wann der Aufgabentext erscheint) |
 | `adventWahl26` | localStorage | gewählte Stimmung je Tag (`v`), ursprüngliche Wahl (`o`) |
 | `adventBewertung26` | localStorage | Bewertungen `{tag: {a: 1\|0\|-1, b: …}}` |
@@ -604,7 +620,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795432056";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795433769";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.

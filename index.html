@@ -756,6 +756,19 @@
                 </div>
                 <p style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.8;">Dein Handy fragt dann, ob die Termine in den Kalender übernommen werden sollen. Bestätige mit „Alle hinzufügen“ bzw. „Speichern“.</p>
                     </div>
+                    <div class="vorab-schritt" id="wetterOrtTipp">
+                        <h4><span class="nr" id="wxNr">3</span>&#127782; Das Wetter in den Geschichten</h4>
+                        <p style="margin: 12px 0 8px;">Die Geschichten greifen das Wetter auf, und zwar möglichst so, wie es gerade draußen ist. Damit das auch unterwegs stimmt, zum Beispiel auf einem Weihnachtsmarkt in Bayern, kannst du den Standort deines Handys freigeben.</p>
+                        <div style="border-left: 2px solid #d4af37; padding: 2px 0 2px 12px; margin: 10px 0; font-size: 0.9rem; line-height: 1.55;">
+                            <strong>Warum dein Handy dich nach dem Standort fragt:</strong><br>
+                            Damit die Geschichten so realistisch wie möglich werden und sich ganz an deine Umgebung anpassen. Genutzt wird nur ein grober Ort (auf etwa 10 km gerundet), nur für das Wetter. Er bleibt nur auf deinem Handy gemerkt und geht nirgends hin, außer (gerundet) an den Wetterdienst Open-Meteo.<br>
+                            <strong>Tipp:</strong> Wähle „Beim Verwenden der App erlauben“ bzw. „Erlauben“ (nicht „Einmal erlauben“), dann fragt dein Handy nicht jedes Mal neu. Gibst du nichts frei, richten sich die Geschichten nach dem Wetter in Grevenbroich.
+                        </div>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <button class="btn-option" id="wxOrtBtn" style="width: auto; padding: 10px 16px;" onclick="wxOrtKlick()">Standort für das Wetter freigeben</button>
+                        </div>
+                        <p id="wxOrtStatus" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.8;"></p>
+                    </div>
                 </div>
             </div>
 
@@ -1171,6 +1184,7 @@
             }
             function fertig() {
                 if (beendet) return; beendet = true;
+                try { tonAusblenden("wirbel"); } catch (e) {}
                 story.style.transition = "opacity 0.7s ease"; story.style.opacity = "1";
                 ov.style.transition = "opacity 0.7s ease"; ov.style.opacity = "0"; ov.style.pointerEvents = "none";
                 document.documentElement.style.overflow = "";
@@ -1338,7 +1352,7 @@
                 ov.classList.add("aus");
                 setTimeout(function () { ov.remove(); portalLaeuft = false; }, 700);
             }
-            ov.addEventListener("click", beenden);   // Tippen = überspringen
+            ov.addEventListener("click", function () { try { tonAusblenden("knarren"); } catch (e) {} beenden(); });   // Tippen = überspringen
             requestAnimationFrame(function () { requestAnimationFrame(function () { ov.classList.add("an"); }); });
             setTimeout(wechseln, 2550);
             setTimeout(beenden, 2700);
@@ -2195,7 +2209,7 @@
             const android = /Android/.test(ua);
             const standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone;
             const tipp = document.getElementById("appTipp");
-            if (standalone && tipp) { tipp.style.display = "none"; const nr = document.getElementById("erNr"); if (nr) nr.textContent = "1"; }
+            if (standalone && tipp) { tipp.style.display = "none"; const nr = document.getElementById("erNr"); if (nr) nr.textContent = "1"; const nw = document.getElementById("wxNr"); if (nw) nw.textContent = "2"; }
             if (ios) { const a = document.getElementById("tippAndroid"); if (a) a.style.display = "none"; }
             if (android) { const a = document.getElementById("tippIphone"); if (a) a.style.display = "none"; }
         });
@@ -3157,9 +3171,26 @@
         if (tonAn()) window.tonSpielen(true);
     };
     let wirbelAudio = null;
+    // Sanftes Ausblenden (ca. 0,5 s), wenn eine Animation beendet oder uebersprungen wird
+    function tonFadeStop(a) { if (a && a._ft) { clearInterval(a._ft); a._ft = null; } }
+    function tonFade(a) {
+        if (!a || a.paused) return;
+        tonFadeStop(a);
+        const v0 = a.volume, n = 12; let i = 0;
+        a._ft = setInterval(function () {
+            i++;
+            try { a.volume = Math.max(0, v0 * (1 - i / n)); } catch (e) {}
+            if (i >= n) { tonFadeStop(a); try { a.pause(); a.currentTime = 0; a.volume = 0.8; } catch (e) {} }
+        }, 40);
+    }
+    window.tonAusblenden = function (welche) {
+        if (!welche || welche === "wirbel") tonFade(wirbelAudio);
+        if (!welche || welche === "knarren") tonFade(tonAudio);
+    };
     window.tonWirbel = function () {
         try {
             if (!wirbelAudio) { wirbelAudio = new Audio("ton/wirbel.mp3"); wirbelAudio.volume = 0.8; }
+            tonFadeStop(wirbelAudio); wirbelAudio.volume = 0.8;
             wirbelAudio.currentTime = 0;
             const p = wirbelAudio.play(); if (p && p.catch) p.catch(function () {});
         } catch (e) {}
@@ -3168,6 +3199,7 @@
         if (!tonDa || (!vorschau && !tonAn())) return;
         try {
             if (!tonAudio) { tonAudio = new Audio(TON_URL); tonAudio.volume = 0.8; }
+            tonFadeStop(tonAudio); tonAudio.volume = 0.8;
             tonAudio.currentTime = 0;
             const p = tonAudio.play(); if (p && p.catch) p.catch(function () {});
         } catch (e) {}
@@ -3182,6 +3214,29 @@
 <script>
 // Wetter-Modul laden (Reihenfolge: erst Texte, dann Technik)
 (function () { ["wetter-texte.js", "wetter.js"].forEach(function (u) { var s = document.createElement("script"); s.src = u; s.async = false; document.head.appendChild(s); }); })();
+</script>
+<script>
+// Standort-Schalter fuer das Wetter (Startseite)
+(function () {
+    function el(i) { return document.getElementById(i); }
+    window.wxOrtRender = function (msg) {
+        const b = el("wxOrtBtn"), t = el("wxOrtStatus"); if (!b || !t) return;
+        const an = window.wetterStandortStatus && window.wetterStandortStatus() === "an";
+        b.textContent = an ? "Standort-Wetter ausschalten" : "Standort für das Wetter freigeben";
+        t.textContent = msg || (an ? "Aktiv: Die Geschichten richten sich nach dem Wetter an deinem aktuellen Ort (grob, auf etwa 10 km gerundet)." : "Aus: Die Geschichten richten sich nach dem Wetter in Grevenbroich.");
+    };
+    window.wxOrtKlick = function () {
+        if (!window.wetterStandortStatus) return;
+        if (window.wetterStandortStatus() === "an") { window.wetterStandortAus(); window.wxOrtRender(); return; }
+        el("wxOrtStatus").textContent = "Einen Moment …";
+        window.wetterStandortAn(function (r) {
+            window.wxOrtRender(r.ok ? "" : (r.grund === "verweigert"
+                ? "Nicht freigegeben. Die Geschichten richten sich weiter nach Grevenbroich. Wenn du es dir anders überlegst: Erlaube den Standort in den Einstellungen deines Browsers für diese Seite und tippe hier erneut."
+                : "Der Standort konnte gerade nicht ermittelt werden. Es gilt weiter Grevenbroich."));
+        });
+    };
+    window.addEventListener("load", function () { setTimeout(function () { window.wxOrtRender(); }, 400); });
+})();
 </script>
 </body>
 </html>
