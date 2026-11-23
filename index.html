@@ -549,6 +549,37 @@
         .cs-taste.leer { visibility: hidden; }
         .cs-taste.zurueck { font-size: 1.3rem; }
     </style>
+<style>
+        /* Komfort: Lesen anpassen, Herz, Erledigt, Countdown, Ton */
+        #storyScreen .story-text { font-size: var(--story-fs, 1.05rem); }
+        #leseBtn { position: fixed; right: 14px; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 3600; width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); background: rgba(12,10,14,0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: #f2e9d2; font-family: Georgia, serif; font-size: 1.05rem; cursor: pointer; padding: 0; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        #lesePanel { position: fixed; right: 14px; bottom: calc(env(safe-area-inset-bottom, 0px) + 70px); z-index: 3600; width: 220px; padding: 14px 14px 12px; border-radius: 12px; background: rgba(14,12,16,0.94); border: 1px solid rgba(255,255,255,0.18); color: #f2e9d2; box-shadow: 0 6px 24px rgba(0,0,0,0.6); display: none; }
+        #lesePanel.an { display: block; }
+        #lesePanel .lp-titel { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px; }
+        #lesePanel .lp-schrift { display: flex; gap: 8px; margin-bottom: 12px; }
+        #lesePanel .lp-schrift button { flex: 1; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.22); background: rgba(255,255,255,0.06); color: #f2e9d2; font-family: Georgia, serif; cursor: pointer; padding: 0; }
+        #lesePanel .lp-schrift button.selected { border-color: #d4af37; background: rgba(212,175,55,0.22); }
+        #lesePanel .lp-warm { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; cursor: pointer; }
+        #lesePanel .lp-warm input { width: 18px; height: 18px; accent-color: #d4af37; }
+        #lesePanel .lp-hinweis { margin-top: 8px; font-size: 0.74rem; opacity: 0.6; line-height: 1.35; }
+        #warmSchleier { position: fixed; inset: 0; z-index: 3500; pointer-events: none; display: none; background: rgba(255,150,50,0.10); -webkit-backdrop-filter: brightness(0.78) sepia(0.45); backdrop-filter: brightness(0.78) sepia(0.45); }
+        .herz-box { text-align: center; margin: 4px 0 26px; }
+        .herz-btn { background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); border-radius: 999px; padding: 9px 18px; font-size: 0.95rem; cursor: pointer; font-family: inherit; transition: background 0.2s, transform 0.15s; }
+        .herz-btn.an { background: rgba(194,59,76,0.22); border-color: #e0566a; }
+        .herz-btn:active { transform: scale(0.96); }
+        .erl-zeile { margin-top: 18px; text-align: center; }
+        .erl-btn { width: auto !important; padding: 10px 18px !important; }
+        .erl-hint { margin-top: 8px; font-size: 0.82rem; opacity: 0.75; line-height: 1.45; }
+        .naechstes-cd { text-align: center; font-size: 0.92rem; opacity: 0.9; margin: -6px 0 16px; color: var(--accent-color); }
+        .offen-zeile { text-align: center; font-size: 0.9rem; margin: 0 0 18px; line-height: 1.7; }
+        .offen-link { background: transparent; border: 1px solid #d4af37; color: #f0e8cf; border-radius: 999px; padding: 3px 12px; margin: 0 3px; font-size: 0.85rem; cursor: pointer; font-family: inherit; }
+        .herz-liste { margin: 26px 0 6px; text-align: center; }
+        .herz-liste h3 { font-family: Georgia, serif; font-weight: 400; font-size: 1.15rem; margin: 0 0 12px; color: var(--heading-color); }
+        .herz-liste .hl-chip { display: inline-block; margin: 4px; background: rgba(194,59,76,0.16); border: 1px solid #e0566a; color: #f6e8ea; border-radius: 999px; padding: 7px 14px; font-size: 0.88rem; cursor: pointer; font-family: inherit; }
+        .tuer-card .tz-herz { position: absolute; top: 6px; right: 8px; font-size: 0.9rem; color: #ff6f86; text-shadow: 0 1px 4px #000; pointer-events: none; }
+        .tuer-card .tz-offen { position: absolute; top: 5px; left: 8px; font-size: 0.85rem; text-shadow: 0 1px 4px #000; pointer-events: none; }
+        #tonBtn { display: none; margin: -4px auto 10px; background: transparent; border: 1px solid rgba(255,255,255,0.22); color: #f2e9d2; border-radius: 999px; padding: 4px 14px; font-size: 0.82rem; cursor: pointer; font-family: inherit; }
+    </style>
 </head>
 <body>
 <div id="codeSperre" role="dialog" aria-label="Code eingeben">
@@ -676,6 +707,7 @@
         </select>
     </div>
 
+    <div id="warmSchleier"></div>
     <div class="container" id="appContainer">
         <div class="wm-anker" id="wmAnker"><div class="wm-img"></div></div>
         
@@ -750,6 +782,10 @@
         <div id="calendar-overview" class="hidden">
             <h2>Wähle das heutige Türchen</h2>
             <p class="begruessung" id="begruessung"></p>
+            <p class="naechstes-cd" id="naechstesCd" style="display:none;"></p>
+            <button type="button" id="tonBtn" onclick="tonUmschalten()">&#128264; Ton aus</button>
+            <div class="offen-zeile" id="offenZeile" style="display:none;"></div>
+
             <div class="teaser-morgen" id="teaserMorgen" style="display: none;">
                 <strong>&#x2728; Morgen wartet noch etwas auf dich</strong>
                 Schau am 25. Dezember noch einmal vorbei.
@@ -757,6 +793,7 @@
             <div class="tueren-grid" id="tuerenGridContainer">
                 <!-- Wird automatisch per JavaScript mit 24 Türchen befüllt -->
             </div>
+            <div class="herz-liste" id="herzListe" style="display:none;"></div>
             <button class="btn-primary" id="btnFinale" style="margin-top: 25px; display: none; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeFinale()">Zum Finale</button>
             <button class="btn-primary" id="btnAuswertung" style="margin-top: 12px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
             <button class="btn-primary" style="margin-top: 25px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="resetToLanding()">Zurück zur Anleitung</button>
@@ -802,6 +839,7 @@
             <div class="story-text" id="storyContent">
                 <!-- Dynamischer Text -->
             </div>
+            <div class="herz-box" id="herzBox"><button type="button" class="herz-btn" id="herzBtn" onclick="herzUmschalten()">&#9825; Diese Geschichte gefällt mir</button></div>
 
             <div class="card-reveal-box">
                 <div class="card-title" id="cardBoxTitle">Und nun, zieh den passenden Umschlag aus dem Beutel.</div>
@@ -816,6 +854,7 @@
                 <div class="bewertung-frage">Wie war es?</div>
                 <div class="bewertung-hinweis" id="bewertungHinweis">Bewerte, was ihr gemacht habt: die Aufgabe, die Alternative oder beides. Das geht auch später noch. Am Ende gibt es eine Auswertung.</div>
                 <div id="bewertungZeilen"></div>
+                <div id="erledigtBox"></div>
             </div>
 
             <div class="teaser-morgen" id="teaserMorgenStory" style="display: none; margin: 25px 0 0;">
@@ -826,6 +865,17 @@
             <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
             <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
             <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
+            <button type="button" id="leseBtn" aria-label="Lesen anpassen" onclick="leseUmschalten()">Aa</button>
+            <div id="lesePanel">
+                <div class="lp-titel">Schrift</div>
+                <div class="lp-schrift">
+                    <button type="button" data-fs="0" style="font-size:0.9rem" onclick="leseSchrift(0)">A</button>
+                    <button type="button" data-fs="1" style="font-size:1.15rem" onclick="leseSchrift(1)">A</button>
+                    <button type="button" data-fs="2" style="font-size:1.45rem" onclick="leseSchrift(2)">A</button>
+                </div>
+                <label class="lp-warm"><input type="checkbox" id="leseWarm" onchange="leseWarmSetzen(this.checked)"> Warm &amp; gedimmt</label>
+                <div class="lp-hinweis">Gilt für die ganze App.</div>
+            </div>
         </div>
 
         <!-- AUSWERTUNG -->
@@ -1206,6 +1256,7 @@
         // Beim ersten Öffnen eines Türchens: Die Tür klappt auf (Bild auf der Außenseite), man zoomt in den Schimmer in der Farbe der Kategorie
         let portalLaeuft = false;
         function portalDurch(tag, el, weiter) {
+            try { tonSpielen(); } catch (e) {}
             const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             if (window.PORTAL_AUS || portalLaeuft || reduziert) { weiter(); return; }
             portalLaeuft = true;
@@ -1356,6 +1407,7 @@
                 if ((el.classList.contains("geoeffnet") || el.classList.contains("frei")) && KURZ[i]) { const kz = document.createElement("div"); kz.className = "tag-kurz"; kz.textContent = KURZ[i]; el.appendChild(kz); }
                 if (el.classList.contains("heute") || el.classList.contains("ausgelassen")) el.style.setProperty("--sw", (wz++ * 0.35) + "s");
             });
+            try { uebersichtErgaenzen(); } catch (e) {}
         }
         // Bild erst einblenden, wenn es im sichtbaren Bereich ankommt (dann 7,5 s langsam)
         let bildBeobachter = null;
@@ -1401,7 +1453,7 @@
                 localStorage.removeItem("adventWahl26");
                 localStorage.removeItem("adventBewertung26"); localStorage.removeItem("adventBewDatum26");
                 localStorage.removeItem("adventSpaeter26");
-                localStorage.removeItem("adventNotiz26");
+                localStorage.removeItem("adventNotiz26"); localStorage.removeItem("adventErledigt26"); localStorage.removeItem("adventHerz26");
                 localStorage.removeItem("adventLese26");
                 history.replaceState(null, "", location.pathname);
             }
@@ -1472,6 +1524,7 @@
             teaserAktualisieren();
             // Aufgabentexte für den Rückblick nachladen und Bewertungsbereiche neu zeichnen
             kartenLaden(function () { try { bewertungUI(); if (bannerTag !== null) bannerRendern(); } catch (e) {} });
+            try { storyErgaenzen(); } catch (e) {}
         }
         function oeffneTag(day) {
             currentDay = day;
@@ -1670,6 +1723,7 @@
             const vergangen = true;   // Bewertungskasten steht auf jeder Tagesseite (auch am selben Tag, auch bei mehreren Tuerchen an einem Tag)
             kasten.style.display = vergangen ? "" : "none";
             document.getElementById("bewertungZeilen").innerHTML = bewertungZeilenHtml(currentDay, "kasten");
+            try { erledigtRendern(); } catch (e) {}
         }
         // Bewertungskasten blendet sich sanft ein, wenn man ihn beim Lesen erreicht
         let bwBeobachter = null;
@@ -2934,5 +2988,172 @@
             // FINALE-VORSCHAU ENDE
         })();
     </script>
+<script>
+// Komfort-Funktionen: Lesen anpassen, Herz, Erledigt, Countdown, Offene Aufgaben, Lieblingsgeschichten, Ton
+(function () {
+    const MEM = {};
+    function lies(k, std) { try { const v = localStorage.getItem(k); if (v !== null) return JSON.parse(v); } catch (e) {} return (k in MEM) ? MEM[k] : std; }
+    function schreib(k, v) { MEM[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    const $ = function (id) { return document.getElementById(id); };
+    const VIBE = { hingabe: "Geborgen", naehe: "Verspielt", feuer: "Intensiv" };
+    // Karten, deren Aufgabe bis zum 31. Dezember nachgeholt werden darf (alle anderen sind "heute fällig")
+    const VERSCHIEBBAR = [3, 4, 8, 15, 17, 19, 23];
+    function verschiebbar(d) { return !!(calendarData[d] && VERSCHIEBBAR.indexOf(calendarData[d].cardNum) >= 0); }
+    function fristVorbei() { return jetzt().getFullYear() > 2026; }
+
+    // ---------- Lesen anpassen ----------
+    const FS = ["1.05rem", "1.22rem", "1.42rem"];
+    window.leseAnwenden = function () {
+        const fs = Number(lies("adventLeseFs26", 0)) || 0, warm = !!lies("adventLeseWarm26", false);
+        document.documentElement.style.setProperty("--story-fs", FS[fs] || FS[0]);
+        const sv = $("warmSchleier"); if (sv) sv.style.display = warm ? "block" : "none";
+        document.querySelectorAll("#lesePanel [data-fs]").forEach(function (b) { b.classList.toggle("selected", Number(b.getAttribute("data-fs")) === fs); });
+        const cb = $("leseWarm"); if (cb) cb.checked = warm;
+    };
+    window.leseUmschalten = function () { const p = $("lesePanel"); if (p) p.classList.toggle("an"); };
+    window.leseSchrift = function (n) { schreib("adventLeseFs26", n); leseAnwenden(); };
+    window.leseWarmSetzen = function (on) { schreib("adventLeseWarm26", !!on); leseAnwenden(); };
+    document.addEventListener("pointerdown", function (e) {
+        const p = $("lesePanel"); if (!p || !p.classList.contains("an")) return;
+        if (e.target.closest && (e.target.closest("#lesePanel") || e.target.closest("#leseBtn"))) return;
+        p.classList.remove("an");
+    }, true);
+
+    // ---------- Herz (je Geschichte und Stimmung) ----------
+    function herzAlle() { return lies("adventHerz26", {}) || {}; }
+    function herzJa(d, v) { const h = herzAlle(); return !!(h[d] && h[d][v]); }
+    function herzTag(d) { const h = herzAlle()[d]; return !!(h && Object.keys(h).some(function (k) { return h[k]; })); }
+    window.herzUmschalten = function () {
+        const h = herzAlle(), d = currentDay, v = selectedVibe;
+        h[d] = h[d] || {};
+        if (h[d][v]) delete h[d][v]; else h[d][v] = 1;
+        if (!Object.keys(h[d]).length) delete h[d];
+        schreib("adventHerz26", h); herzRendern();
+    };
+    function herzRendern() {
+        const b = $("herzBtn"); if (!b) return;
+        const an = herzJa(currentDay, selectedVibe);
+        b.classList.toggle("an", an);
+        b.innerHTML = (an ? "&#9829; " : "&#9825; ") + "Diese Geschichte gefällt mir";
+    }
+    window.herzOeffnen = function (d, v) {
+        if (typeof wahlSpeichern === "function") wahlSpeichern(d, v, false);
+        waehleTag(d, null);
+    };
+
+    // ---------- Erledigt / Offene Aufgaben ----------
+    function erledigtAlle() { return lies("adventErledigt26", {}) || {}; }
+    function bewertet(d) { const b = (bewertungAlle() || {})[d] || {}; return b.a !== undefined || b.b !== undefined; }
+    function istErledigt(d) { return !!erledigtAlle()[d] || bewertet(d); }
+    window.erledigtUmschalten = function () {
+        const e = erledigtAlle(), d = currentDay;
+        if (bewertet(d)) return;
+        if (e[d]) delete e[d]; else e[d] = 1;
+        schreib("adventErledigt26", e); erledigtRendern();
+    };
+    window.erledigtRendern = function () {
+        const el = $("erledigtBox"); if (!el) return;
+        const d = currentDay;
+        if (!verschiebbar(d) || fristVorbei()) { el.innerHTML = ""; return; }
+        const e = istErledigt(d), b = bewertet(d);
+        el.innerHTML = '<div class="erl-zeile"><button type="button" class="btn-option erl-btn' + (e ? " selected" : "") + '"' + (b ? " disabled" : ' onclick="erledigtUmschalten()"') + '>' +
+            (e ? "&#10003; Erledigt" : "Aufgabe erledigt?") + '</button>' +
+            (e ? "" : '<div class="erl-hint">Passt es heute nicht? Diese Aufgabe darf bis zum 31. Dezember nachgeholt werden.</div>') + '</div>';
+    };
+    function offeneTage() {
+        if (fristVorbei()) return [];
+        const g = geoeffnetListe(), out = [];
+        for (let d = 1; d <= 24; d++) if (verschiebbar(d) && g.indexOf(d) >= 0 && tagVergangen(d) && !istErledigt(d)) out.push(d);
+        return out;
+    }
+
+    // ---------- Countdown bis zum nächsten Türchen ----------
+    function cdText(ms) {
+        const tage = Math.floor(ms / 864e5); let rest = ms - tage * 864e5;
+        let std = Math.floor(rest / 36e5); rest -= std * 36e5;
+        let min = Math.ceil(rest / 6e4); if (min === 60) { min = 0; std += 1; }
+        if (tage > 0) return tage + (tage === 1 ? " Tag " : " Tagen ") + std + " Std";
+        if (std > 0) return std + " Std " + min + " Min";
+        return Math.max(1, min) + " Min";
+    }
+    function cdAktualisieren() {
+        const el = $("naechstesCd"); if (!el) return;
+        el.style.display = "none";
+        if (typeof testModus !== "undefined" && testModus) return;
+        const h = jetzt(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate();
+        let ziel = null, wort = "Das nächste Türchen";
+        if (y === 2026 && m < 11) { ziel = new Date(2026, 11, 1, 0, 0, 0); wort = "Das erste Türchen"; }
+        else if (y === 2026 && m === 11 && d <= 23) {
+            if (geoeffnetListe().indexOf(d) < 0) return;
+            ziel = new Date(2026, 11, d + 1, 0, 0, 0);
+        }
+        if (!ziel) return;
+        const ms = ziel - h; if (ms <= 0) return;
+        el.textContent = "⏳ " + wort + " öffnet sich in " + cdText(ms);
+        el.style.display = "";
+    }
+    setInterval(function () { try { cdAktualisieren(); } catch (e) {} }, 30000);
+
+    // ---------- Übersicht ergänzen ----------
+    window.uebersichtErgaenzen = function () {
+        // Kachel-Zeichen
+        const g = geoeffnetListe(), off = offeneTage();
+        document.querySelectorAll("#tuerenGridContainer .tuer-card").forEach(function (el, idx) {
+            const i = idx + 1;
+            el.querySelectorAll(".tz-herz, .tz-offen").forEach(function (x) { x.remove(); });
+            const sichtbar = el.classList.contains("geoeffnet") || el.classList.contains("frei");
+            if (sichtbar && herzTag(i)) { const s = document.createElement("span"); s.className = "tz-herz"; s.innerHTML = "&#9829;"; el.appendChild(s); }
+            if (sichtbar && off.indexOf(i) >= 0) { const s = document.createElement("span"); s.className = "tz-offen"; s.innerHTML = "&#9203;"; el.appendChild(s); }
+        });
+        // Offen-Zeile
+        const oz = $("offenZeile");
+        if (oz) {
+            if (off.length) {
+                oz.innerHTML = "<strong>&#9203; Noch offen bis 31. Dezember:</strong> " + off.map(function (d) { return '<button type="button" class="offen-link" onclick="waehleTag(' + d + ', null)">Türchen ' + d + "</button>"; }).join(" ");
+                oz.style.display = "";
+            } else oz.style.display = "none";
+        }
+        // Lieblingsgeschichten ab dem 25. Dezember
+        const hl = $("herzListe");
+        if (hl) {
+            const h = herzAlle(), teile = [];
+            if (alleFreigegeben()) Object.keys(h).map(Number).sort(function (a, b) { return a - b; }).forEach(function (d) {
+                Object.keys(h[d]).forEach(function (v) { if (h[d][v] && VIBE[v]) teile.push('<button type="button" class="hl-chip" onclick="herzOeffnen(' + d + ", '" + v + "')\">&#9829; Türchen " + d + " · " + VIBE[v] + "</button>"); });
+            });
+            if (teile.length) { hl.innerHTML = "<h3>Meine Lieblingsgeschichten</h3>" + teile.join(""); hl.style.display = ""; } else hl.style.display = "none";
+        }
+        cdAktualisieren();
+        tonKnopf();
+    };
+    window.storyErgaenzen = function () { herzRendern(); erledigtRendern(); };
+
+    // ---------- Ton (optional, nur wenn ton/knarren.mp3 vorhanden ist) ----------
+    const TON_URL = "ton/knarren.mp3";
+    let tonDa = false, tonAudio = null;
+    function tonAn() { return !!lies("adventTon26", false); }
+    function tonKnopf() {
+        const b = $("tonBtn"); if (!b) return;
+        b.style.display = tonDa ? "block" : "none";
+        b.textContent = tonAn() ? "🔊 Ton an" : "🔈 Ton aus";
+    }
+    window.tonUmschalten = function () {
+        schreib("adventTon26", !tonAn()); tonKnopf();
+        if (tonAn()) window.tonSpielen(true);
+    };
+    window.tonSpielen = function (vorschau) {
+        if (!tonDa || (!vorschau && !tonAn())) return;
+        try {
+            if (!tonAudio) { tonAudio = new Audio(TON_URL); tonAudio.volume = 0.8; }
+            tonAudio.currentTime = 0;
+            const p = tonAudio.play(); if (p && p.catch) p.catch(function () {});
+        } catch (e) {}
+    };
+    function init() {
+        leseAnwenden();
+        try { fetch(TON_URL, { method: "HEAD" }).then(function (r) { if (r.ok) { tonDa = true; tonKnopf(); } }).catch(function () {}); } catch (e) {}
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+</script>
 </body>
 </html>
