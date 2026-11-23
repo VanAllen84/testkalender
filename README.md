@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795422258`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795423598`.
 
 ---
 
@@ -270,7 +270,7 @@ Siehe [Abschnitt 13](#13-bewertung-notizen-und-auswertung).
 Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. Dezember“, „Auswertung“, „Finale“; in der Wolke „Wetter“, in der Sperre „Dezember“). Die Farbe der Browserleiste (`theme-color`) folgt dem Hintergrund.
 
 ### 7.8 Komfort-Funktionen (Dezember-Ergänzung)
-**Status: in TEST umgesetzt; wird nach Thilos Freigabe in LIVE übernommen.**
+**Status: in TEST und LIVE umgesetzt.**
 
 - **Lesen anpassen („Aa“):** Kleiner runder Knopf unten rechts auf der Geschichtsseite. Drei Schriftgrößen und der Schalter „Warm & gedimmt“ (leichter Orangeton, abgedunkelt, abends augenschonend). Die Wahl wird gespeichert und gilt für die ganze App (`adventLeseFs26`, `adventLeseWarm26`).
 - **Countdown:** Auf der Türchen-Übersicht steht „Das nächste Türchen öffnet sich in 5 Std 12 Min“. Vor dem 1. Dezember bezieht er sich auf Türchen 1. Er erscheint nur, wenn das heutige Türchen schon geöffnet wurde; am 24.12. übernimmt der bekannte Hinweis „Morgen wartet noch etwas“, ab dem 25.12. gibt es keinen Countdown mehr. Aktualisierung alle 30 Sekunden.
@@ -534,7 +534,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795422258";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795423598";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -671,7 +671,7 @@ Grob in der Reihenfolge der Entstehung:
 11. **Code-Sperre** beim Start, nach Pause und nach der Wolke, mit leicht verpixeltem Hintergrundbild, das sich beim Entsperren entpixelt (TEST und LIVE).
 12. **Begleitmaterial:** Beipackzettel (v9, mit Code und Päckchen-Hinweis), Gimmick-Vorlagen (Zettel für einzelne Türchen, Code-Zettel, Zettel für den zweiten Kalender), Röhren-Packliste, Kurzbeschreibungen-Tabelle, Prompt für den zweiten Kalender.
 13. **Zweiter Kalender** „Adventsgeschichten“ (nicht erotisch) in einem eigenen Projekt.
-14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST umgesetzt; wird nach Thilos Freigabe in LIVE übernommen.**
+14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
 
 ---
 

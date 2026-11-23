@@ -2994,12 +2994,13 @@
     const MEM = {};
     function lies(k, std) { try { const v = localStorage.getItem(k); if (v !== null) return JSON.parse(v); } catch (e) {} return (k in MEM) ? MEM[k] : std; }
     function schreib(k, v) { MEM[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function jz() { return (typeof jetzt === "function") ? jetzt() : new Date(); }
     const $ = function (id) { return document.getElementById(id); };
     const VIBE = { hingabe: "Geborgen", naehe: "Verspielt", feuer: "Intensiv" };
     // Karten, deren Aufgabe bis zum 31. Dezember nachgeholt werden darf (alle anderen sind "heute fällig")
     const VERSCHIEBBAR = [3, 4, 8, 15, 17, 19, 23];
     function verschiebbar(d) { return !!(calendarData[d] && VERSCHIEBBAR.indexOf(calendarData[d].cardNum) >= 0); }
-    function fristVorbei() { return jetzt().getFullYear() > 2026; }
+    function fristVorbei() { return jz().getFullYear() > 2026; }
 
     // ---------- Lesen anpassen ----------
     const FS = ["1.05rem", "1.22rem", "1.42rem"];
@@ -3080,7 +3081,7 @@
         const el = $("naechstesCd"); if (!el) return;
         el.style.display = "none";
         if (typeof testModus !== "undefined" && testModus) return;
-        const h = jetzt(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate();
+        const h = jz(), y = h.getFullYear(), m = h.getMonth(), d = h.getDate();
         let ziel = null, wort = "Das nächste Türchen";
         if (y === 2026 && m < 11) { ziel = new Date(2026, 11, 1, 0, 0, 0); wort = "Das erste Türchen"; }
         else if (y === 2026 && m === 11 && d <= 23) {
