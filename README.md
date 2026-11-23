@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795436125`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795437848`.
 
 ---
 
@@ -97,6 +97,8 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795436125`.
 ├── wetter.js             Wetter-Modul (Abruf, Klassen, Platzhalter ersetzen)  [Wetter-Ergänzung, Abschnitt 7.9]
 ├── wetter-texte.js       Textbausteine je Wetter für die Geschichten (Platzhalter {{w:…}})
 ├── er-editor.html        Werkzeug zum Eintragen von er.js (nur in TEST)
+├── manifest-er.json      App-Manifest des Editors „His Rating“ (nur in TEST)
+├── icon-er-180/192/512.png  Icons des Editors (nur in TEST)
 ├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel)
 ├── story-day1.js … story-day24.js   Die 24 Geschichten (je drei Stimmungen)
 ├── bilder/
@@ -325,16 +327,16 @@ Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Gr
 #### Welche Türchen wie reagieren
 | Türchen | Verhalten |
 |---|---|
-| 1 bis 7, 9, 12, 15, 17, 20 bis 24 | Einzelne Wettersätze folgen dem echten Wetter (insgesamt 75 Stellen). |
+| 1 bis 7, 9, 12, 15, 17, 20 bis 24 | Einzelne Wettersätze folgen dem echten Wetter. |
 | 10 (Intensiv) | Nebel-Nachmittag im Original (bei Nebel oder unbekanntem Wetter). Bei Regen oder trocken-kalt eine eigene Szene im Garten. |
-| 11 | Nieselregen, Heimkehr und Geruch passen sich dem Wetter an. |
+| 3, 6, 7, 11, 24 | Rückbezüge und Randdetails (Eis auf der Windschutzscheibe, Scheibe, Mantel, Rätsellösung, Abendhimmel an Heiligabend) passen sich dem Wetter an. Nieselregen, Heimkehr und Geruch in Türchen 11 ebenfalls. |
 | 13 | Schneetag im Original (Schnee oder unbekannt). Fassung R für Regen (Matsch-Rutschbahn, Wasserschlacht, Staudamm), Fassung T für klar, Frost, bedeckt und Nebel (Hügel zum Rollen, Drachen, Laubschlacht). In allen drei Stimmungen. |
 | 14 | Greift das Wetter von Türchen 13 auf (`v`) und passt den heutigen Himmel an. |
 | 15 bis 17 | Keine Schnee-Rückbezüge nötig; einzelne Wettersätze sind angepasst. |
 | 18, 19 | Türchen 18 ist im Original ein Sturmtag mit Stromausfall (nur bei unbekanntem Wetter). Bei bekanntem Wetter fällt der Strom wegen Baggerarbeiten vor der Schule aus (der Hausmeister warnt davor), dazu passen Regen oder kalte Stille. Türchen 19 passt seinen Himmel dem Wetter an. |
 | 8 | Sternenhimmel-Tag. Original bei klar mit Frost oder unbekanntem Wetter. Klar ohne Frost: Tau statt Frost. Regen: Regentropfen am Fenster statt Sterne. Bedeckt oder Nebel: Lichter im Dorf statt Sterne. Schnee: Flocken im Laternenlicht. In allen drei Stimmungen; die Wette, die Gespräche und der Abend bleiben gleich. |
 
-Insgesamt gibt es 174 Bausteine in 72 Fassungen (24 Türchen mal drei Stimmungen).
+Insgesamt gibt es 196 Bausteine in 72 Fassungen (24 Türchen mal drei Stimmungen).
 
 #### Standort statt fest Grevenbroich (optional)
 **Status: in TEST und LIVE umgesetzt.**
@@ -530,6 +532,8 @@ window.ER_BEWERTUNG = {
 
 - Die Datei wird **erst ab dem 25.12.** geladen (`erLaden`). Fehler (fehlendes Komma, falsche Anführungszeichen) führen dazu, dass der Abgleich fehlt; die Seite stürzt nicht ab.
 - **`er-editor.html`** (nur TEST) ist ein Werkzeug, in dem Thilo seine Bewertung anklickt. Es liest `data.js` (muss im selben Ordner liegen), speichert den Zwischenstand im Browser (`adventErEditor26`), erzeugt den Text für `er.js` (Kopieren oder Herunterladen) und kann `er.js` als Vergleichsstand laden.
+- **Aufbau (Auswahl und Einzelansicht):** Beim Öffnen zeigt der Editor alle 24 Türchen als Raster mit Vorschaubild, Nummer, Her/His Pleasure, einer Kurzbeschreibung (erster Satz der Aufgabe) und den bisherigen Bewertungen. Das Türchen von gestern ist golden hervorgehoben, die Seite springt beim Öffnen dorthin, und oben steht ein Knopf direkt zu diesem Türchen. Im Test zählt der November wie der Dezember (wie im Kalender). Ein Tipp auf ein Türchen öffnet die Bewertung (Vorher, Alle Türchen, Weiter). Nichts ist gesperrt. Zum Ausprobieren: `er-editor.html?heute=12` tut so, als wäre heute der 12. Das Erzeugen der `er.js` liegt unter dem Raster.
+- **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
 - **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → Text erzeugen → als `er.js` speichern → in **beiden** Repositories hochladen.
 - In TEST (mit `testModus = true`) zeigt die Auswertung eine Diagnose („er.js gelesen: N gültige Bewertung(en)“).
 - **Vor dem Dezember prüfen**, dass die `er.js` in LIVE die echten Bewertungen enthält.
@@ -621,7 +625,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795436125";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795437848";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.

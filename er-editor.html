@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meine Bewertung</title>
+<title>His Rating</title>
+<link rel="manifest" href="manifest-er.json">
+<link rel="apple-touch-icon" href="icon-er-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="His Rating">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#060608">
 <style>
   :root { --bg:#07070a; --card:#121217; --text:#d6d6db; --head:#fff; --gold:#d4af37; --line:rgba(255,255,255,.09); }
   * { box-sizing: border-box; }
@@ -65,7 +72,35 @@
   .hinweis { text-align:center; font-size:.85rem; opacity:.75; margin:12px 0 0; }
   #meldung { text-align:center; min-height:1.4em; color:var(--gold); margin-top:10px; font-size:.9rem; }
   .warn { background:rgba(212,175,55,.12); border:1px solid rgba(212,175,55,.4); color:#f3e7c0; padding:8px 12px; border-radius:8px; font-size:.85rem; margin-bottom:12px; }
+
+  /* Türchen-Auswahl */
+  .gestern-link { display:block; max-width:520px; margin:0 auto 18px; padding:12px 16px; text-align:center; border-radius:12px; border:1px solid rgba(212,175,55,.6); background:rgba(212,175,55,.12); color:#f3e7c0; font-size:.98rem; cursor:pointer; width:100%; font-family:inherit; }
+  .gestern-link b { color:#fff; }
+  .raster { display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:14px; }
+  .kachel { position:relative; display:block; padding:0; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#101014; cursor:pointer; aspect-ratio:2/1.35; text-align:left; font-family:inherit; color:var(--text); }
+  .kachel img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.72) saturate(.9); transition:filter .2s, transform .3s; }
+  .kachel:hover img { filter:brightness(.9); transform:scale(1.03); }
+  .kachel::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.88) 100%); pointer-events:none; }
+  .kachel .nr2 { position:absolute; z-index:2; top:8px; left:10px; font-family:Georgia,serif; font-size:1.7rem; line-height:1; color:#fff; text-shadow:0 1px 6px #000; }
+  .kachel .mk { position:absolute; z-index:2; top:9px; right:9px; display:flex; gap:4px; font-size:.95rem; }
+  .kachel .mk i { font-style:normal; min-width:26px; text-align:center; padding:1px 5px; border-radius:12px; background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.25); font-size:.78rem; }
+  .kachel .mk i.leer { opacity:.55; }
+  .kachel .kurz { position:absolute; z-index:2; left:10px; right:10px; bottom:8px; font-size:.74rem; line-height:1.3; color:#eee; text-shadow:0 1px 4px #000; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .kachel .kurz small { display:block; font-size:.62rem; letter-spacing:1px; text-transform:uppercase; opacity:.8; margin-bottom:1px; }
+  .kachel.gestern { border:2px solid var(--gold); box-shadow:0 0 0 3px rgba(212,175,55,.25), 0 0 26px rgba(212,175,55,.45); }
+  .kachel.gestern .band { position:absolute; z-index:3; left:0; top:0; background:var(--gold); color:#1a1405; font-size:.64rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:2px 10px; border-radius:0 0 10px 0; }
+  .kachel.gestern .nr2 { top:22px; }
+  .kachel.k0 { border-bottom:3px solid #8b78e6; } .kachel.k1 { border-bottom:3px solid #4fa874; } .kachel.k2 { border-bottom:3px solid #d99b41; } .kachel.k3 { border-bottom:3px solid #c23b4c; }
+  .kachel.geaendert { outline:1px solid rgba(212,175,55,.7); }
+  .navzeile { display:flex; gap:8px; align-items:center; justify-content:space-between; margin:0 0 14px; }
+  .navzeile button { padding:9px 14px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.05); color:var(--text); font-size:.9rem; cursor:pointer; font-family:inherit; }
+  .navzeile button:hover { border-color:var(--gold); }
+  .navzeile button[disabled] { opacity:.3; cursor:default; }
+  .zeile .bild { display:block; width:calc(100% + 40px); margin:-18px -20px 14px; border-radius:9px 9px 0 0; max-height:340px; object-fit:cover; }
+  .gtag { display:inline-block; margin-left:8px; padding:2px 10px; border-radius:20px; background:var(--gold); color:#1a1405; font-size:.68rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; vertical-align:middle; font-family:'Segoe UI',sans-serif; }
   @media (max-width: 700px) {
+    .raster { grid-template-columns:1fr 1fr; gap:10px; }
+    .kachel .kurz { font-size:.7rem; }
     .optionen { grid-template-columns:1fr; }
     .karte { margin-left:0; }
     .btns { width:100%; } .btns button { flex:1; justify-content:center; padding:10px 6px; }
@@ -76,8 +111,8 @@
 <body>
 <div class="wrap">
   <header>
-    <h1>Meine Bewertung</h1>
-    <p class="sub">Bewerte die Aufgaben, wann du willst. Am Ende erzeugst du daraus die fertige <b>er.js</b>.</p>
+    <h1>His Rating</h1>
+    <p class="sub">Türchen antippen und bewerten, wann du willst. Am Ende erzeugst du daraus die fertige <b>er.js</b>.</p>
   </header>
   <div class="leiste"><div class="leiste-in">
     <span id="zaehler">Bewertet: 0 von 24</span>
@@ -87,6 +122,7 @@
 
   <div id="liste"></div>
 
+  <div id="unten">
   <button class="aktion" onclick="exportieren()">er.js erzeugen</button>
   <button class="aktion zweit" onclick="ladeAusDatei(false, true)">Auswahl auf den Stand der er.js zurücksetzen</button>
   <div id="meldung"></div>
@@ -95,6 +131,7 @@
     <button class="aktion" onclick="kopieren()">In die Zwischenablage kopieren</button>
     <button class="aktion zweit" onclick="herunterladen()">Als er.js herunterladen</button>
     <p class="hinweis">Dann auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
+  </div>
   </div>
 </div>
 
@@ -125,16 +162,27 @@ function wert(o, d, v) { return (o[d] && o[d][v]) || ""; }
 function meldung(t) { document.getElementById("meldung").innerText = t; }
 function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-function zeichne() {
-  const box = document.getElementById("liste");
-  box.innerHTML = "";
-  if (!karten) {
-    const w = document.createElement("div");
-    w.className = "warn";
-    w.innerText = kartenStatus === "lädt" ? "Kartentexte werden geladen …" : "Volle Kartentexte nicht geladen: " + kartenStatus;
-    box.appendChild(w);
+const GESTERN = (function () {
+  // Wie im Kalender: im Test zählt der November wie der Dezember (1. Nov = Türchen 1). Zum Ausprobieren: ?heute=12
+  const q = new URLSearchParams(location.search).get("heute");
+  if (q && /^\d+$/.test(q)) return Math.max(0, Math.min(24, Number(q) - 1));
+  const d = new Date();
+  if (d.getFullYear() === 2026 && (d.getMonth() === 10 || d.getMonth() === 11)) {
+    const g = d.getDate() - 1;
+    return g >= 1 && g <= 24 ? g : 0;
   }
-  TAGE.forEach(t => {
+  return 0;
+})();
+function bildUrl(t) { return "bilder/karte-" + String(t.k).padStart(2, "0") + ".jpg"; }
+function aktuellerTag() { const m = /^#t=(\d+)$/.exec(location.hash); const d = m ? Number(m[1]) : 0; return TAGE.some(t => t.d === d) ? d : 0; }
+function oeffne(d) { location.hash = "t=" + d; }
+function zurueck() { location.hash = ""; }
+function kurzText(k) {
+  if (!k || !k.a) return "";
+  const satz = String(k.a).split(/(?<=[.!?])\s/)[0];
+  return satz.length > 90 ? satz.slice(0, 87).replace(/\s+\S*$/, "") + " …" : satz;
+}
+function baueZeile(t) {
     const k = karten ? karten[t.k] : null;
     const her = (k ? k.w : t.w) !== "Er";
     const geaendert = VER.some(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0]));
@@ -156,12 +204,62 @@ function zeichne() {
     });
     optionen += '</div>';
     z.innerHTML =
-      '<div class="kopf"><div class="nr"><small>Türchen</small>' + t.d + '</div>' +
+      '<img class="bild" src="' + bildUrl(t) + '" alt="">' +
+      '<div class="kopf"><div class="nr"><small>Türchen</small>' + t.d + (t.d === GESTERN ? '<span class="gtag">Gestern</span>' : '') + '</div>' +
       '<div class="chips"><span class="chip kat">' + esc(KAT[t.c]) + '</span>' +
       '<span class="chip ' + (her ? "her" : "his") + '">' + (her ? "Her Pleasure" : "His Pleasure") + '</span></div>' +
       '<div class="karte">Karte ' + t.k + '</div></div>' + optionen;
-    box.appendChild(z);
-  });
+    return z;
+}
+
+function baueKachel(t) {
+  const k = karten ? karten[t.k] : null;
+  const her = (k ? k.w : t.w) !== "Er";
+  const geaendert = VER.some(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0]));
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "kachel k" + t.c + (t.d === GESTERN ? " gestern" : "") + (geaendert ? " geaendert" : "");
+  b.onclick = () => oeffne(t.d);
+  const mk = VER.map(v => { const w = wert(wahl, t.d, v[0]); return w ? '<i>' + v[1] + ' ' + SYM[w] + '</i>' : '<i class="leer">' + v[1] + ' –</i>'; }).join("");
+  b.innerHTML = '<img loading="lazy" src="' + bildUrl(t) + '" alt="">' +
+    (t.d === GESTERN ? '<span class="band">Gestern</span>' : '') +
+    '<span class="nr2">' + t.d + '</span><span class="mk">' + mk + '</span>' +
+    '<span class="kurz"><small>' + (her ? "Her Pleasure" : "His Pleasure") + '</small>' + esc(kurzText(k)) + '</span>';
+  return b;
+}
+function zeichne() {
+  const box = document.getElementById("liste");
+  box.innerHTML = "";
+  if (!karten) {
+    const w = document.createElement("div");
+    w.className = "warn";
+    w.innerText = kartenStatus === "lädt" ? "Kartentexte werden geladen …" : "Volle Kartentexte nicht geladen: " + kartenStatus;
+    box.appendChild(w);
+  }
+  const tag = aktuellerTag();
+  document.getElementById("unten").style.display = tag ? "none" : "";
+  if (tag) {
+    const i = TAGE.findIndex(t => t.d === tag);
+    const nav = document.createElement("div");
+    nav.className = "navzeile";
+    nav.innerHTML = '<button onclick="oeffne(' + (tag - 1) + ')"' + (i === 0 ? " disabled" : "") + '>‹ Vorher</button>' +
+      '<button onclick="zurueck()">Alle Türchen</button>' +
+      '<button onclick="oeffne(' + (tag + 1) + ')"' + (i === TAGE.length - 1 ? " disabled" : "") + '>Weiter ›</button>';
+    box.appendChild(nav);
+    box.appendChild(baueZeile(TAGE[i]));
+  } else {
+    if (GESTERN) {
+      const g = document.createElement("button");
+      g.type = "button"; g.className = "gestern-link";
+      g.innerHTML = 'Gestern war <b>Türchen ' + GESTERN + '</b> – hier bewerten ›';
+      g.onclick = () => oeffne(GESTERN);
+      box.appendChild(g);
+    }
+    const r = document.createElement("div");
+    r.className = "raster";
+    TAGE.forEach(t => r.appendChild(baueKachel(t)));
+    box.appendChild(r);
+  }
   const n = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0])).length, 0);
   const tageMit = TAGE.filter(t => VER.some(v => wert(wahl, t.d, v[0]))).length;
   const diff = TAGE.reduce((x, t) => x + VER.filter(v => wert(wahl, t.d, v[0]) !== wert(base, t.d, v[0])).length, 0);
@@ -174,7 +272,7 @@ function zeichne() {
 function setze(d, ver, c) {
   if (!wahl[d]) wahl[d] = {};
   if (wahl[d][ver] === c) delete wahl[d][ver]; else wahl[d][ver] = c;   // nochmal tippen = zurücknehmen
-  sichern(); zeichne();
+  sichern(); const y = window.scrollY; zeichne(); window.scrollTo(0, y);
 }
 
 function dateiInhalt() {
@@ -265,9 +363,11 @@ function ladeAusDatei(still, uebernehmen) {
   document.head.appendChild(sc);
 })();
 
+window.addEventListener("hashchange", () => { zeichne(); window.scrollTo(0, 0); });
 const hatGespeichert = laden();
 ladeAusDatei(true, !hatGespeichert);
 zeichne();
+setTimeout(() => { const g = document.querySelector('.kachel.gestern'); if (g && !aktuellerTag()) g.scrollIntoView({ block: 'center' }); }, 200);
 </script>
 </body>
 </html>
