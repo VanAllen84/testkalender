@@ -1327,6 +1327,8 @@
             auswahlButtonsSetzen();
             document.getElementById("btnStimmungNeu").style.display = alleFreigegeben() ? "" : "none";
             document.getElementById("btnWeiter").innerText = currentDay === 24 ? "Zum Finale..." : "Weiter durch das nächste Türchen...";
+            // Der Weiter-Knopf erscheint nur, wenn das nächste Türchen schon freigeschaltet ist (am Tag 24 immer: Finale)
+            document.getElementById("btnWeiter").style.display = (currentDay === 24 || istTagErreicht(currentDay + 1)) ? "" : "none";
             loadStoryContent(currentDay, selectedVibe, hasPeriod);
             bewertungUI();
             bewertungEinblenden();
