@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795513066`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 
 ---
 
@@ -70,6 +70,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795513066`.
 3. Auf dem eigenen Handy `https://kalender2026.tkagel.de` öffnen, den Code eingeben, Seite und Türchen-Übersicht prüfen. **Nicht** `?reset=1` auf Anjas Gerät benutzen.
 4. Dafür sorgen, dass Anja den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
 5. Das Handy von Anja ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
+6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
 
 ### Nach einer Änderung (LIVE oder TEST)
 1. `index.html` bzw. die betroffenen Dateien ändern.
@@ -543,7 +544,7 @@ window.ER_BEWERTUNG = {
 - **Ansicht „Ihre Antworten“ (Sicherheit):** Die Ansicht startet leer und zeigt erst nach einem Abruf mit Passwort etwas. Entschlüsselte Daten, Schlüssel und Zugangscode liegen nur im Arbeitsspeicher und werden gelöscht, wenn die Ansicht verlassen wird, die Seite schließt oder die App länger als 5 Minuten im Hintergrund war. Für „Neu seit dem letzten Abruf“ merkt sich der Editor nur Prüfsummen (`adventErGesehen26`), keine lesbaren Inhalte. Oben steht, wann die letzte Sicherung ankam, mit einer Warnung, wenn sie im Dezember älter als zwei Tage ist.
 - **Handywechsel:** Im Editor erzeugst du aus der letzten Sicherung einen Wiederherstellungs-Link (oder eine Datei). Er führt auf `wiederherstellung.html`, eine nicht verlinkte Seite, die die Angaben auf dem neuen Gerät einspielt (mit Rückfrage, falls dort schon Daten liegen) und zur App weiterleitet. In der App selbst gibt es keine Oberfläche dafür. Der Link enthält die Angaben im Klartext und gehört nur direkt an Anja.
 - **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
-- **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → Text erzeugen → als `er.js` speichern → in **beiden** Repositories hochladen.
+- **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → **An GitHub senden** (schreibt `er.js` direkt in beide Repositories; dafür einmalig das GitHub-Token unter „An GitHub senden“ speichern) oder alternativ Text erzeugen bzw. über den Teilen-Knopf weitergeben → als `er.js` speichern → in **beiden** Repositories hochladen.
 - In TEST (mit `testModus = true`) zeigt die Auswertung eine Diagnose („er.js gelesen: N gültige Bewertung(en)“).
 - **Vor dem Dezember prüfen**, dass die `er.js` in LIVE die echten Bewertungen enthält.
 
@@ -633,16 +634,17 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 
 `sw.js` wird nur über `https` registriert.
 
-- **Beim ersten Besuch** speichert er `index.html`, Manifest, Symbole, `data.js`, `er.js`, die 24 Geschichten und alle Bilder.
+- **Beim ersten Besuch** speichert er `index.html`, Manifest, Symbole, `data.js`, `er.js`, `wetter.js`, `wetter-texte.js`, `sicherung.js`, `sicherung-config.js`, die 24 Geschichten und alle Bilder. In TEST kommen `er-editor.html`, `manifest-er.json` und die Icons `icon-er-*` dazu.
 - **Seiten und Geschichten:** zuerst aus dem Netz; ohne Netz aus dem Speicher.
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795513066";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795515150";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
 - GitHub Pages hält Dateien einige Minuten im Zwischenspeicher.
+- **Nicht im Repository:** `worker.js` (Cloudflare-Worker) und `ANLEITUNG_Cloudflare.md` liegen nur bei Thilo und werden nicht hochgeladen. Der Worker läuft bei Cloudflare, nicht auf GitHub Pages.
 - Hängt ein Handy fest: Seite neu laden, App ganz schließen und neu öffnen, im Notfall Website-Daten löschen.
 
 ---
