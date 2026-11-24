@@ -106,6 +106,9 @@
   .rand { position:fixed; left:0; top:50%; transform:translateY(-50%) rotate(180deg); writing-mode:vertical-rl; z-index:5; padding:14px 3px; font-size:.58rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#fff; background:var(--c); border-radius:0 7px 7px 0; box-shadow:0 0 10px rgba(0,0,0,.5); opacity:.92; pointer-events:none; }
   .rand.her { --c:#d2507f; } .rand.his { --c:#4a8fe0; }
   body.detail header, body.detail .leiste { display:none; }
+  body.ansicht .leiste { display:none; }
+  .gh select { font-family:inherit; }
+  .gh textarea { height:auto; max-width:none; margin:6px 0 0; font-family:inherit; }
   body.detail .wrap { padding-top:18px; }
   /* GitHub-Upload */
   .gh { max-width:520px; margin:22px auto 0; padding:14px 16px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03); font-size:.88rem; }
@@ -161,6 +164,7 @@
     <p class="hinweis">Oder von Hand: auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
   </div>
   <button class="aktion zweit" id="teilenBtn" style="display:none" onclick="teilen()">er.js teilen …</button>
+  <div class="gh"><h3>Ihre Antworten</h3><button class="aktion" onclick="location.hash='antworten'">Ihre Antworten ansehen</button><button class="aktion zweit" onclick="location.hash='einrichtung'">Sicherung einrichten</button></div>
   <div class="gh" id="gh">
     <h3>An GitHub senden</h3>
     <label><input type="checkbox" id="ghTest" checked> TEST (vanallen84/testkalender)</label>
@@ -274,9 +278,11 @@ function zeichne() {
   }
   const tag = aktuellerTag();
   document.body.classList.toggle("detail", !!tag);
-  document.getElementById("unten").style.display = tag ? "none" : "";
+  const av = ansichtName();
+  document.body.classList.toggle("ansicht", !!av);
+  document.getElementById("unten").style.display = (tag || av) ? "none" : "";
   document.querySelectorAll(".rand").forEach(e => e.remove());
-  if (tag) {
+  if (av) { zeichneAnsicht(box, av); } else if (tag) {
     const i = TAGE.findIndex(t => t.d === tag);
     const t = TAGE[i], kk = karten ? karten[t.k] : null, her = (kk ? kk.w : t.w) !== "Er";
     const rd = document.createElement("div");
@@ -445,18 +451,19 @@ async function ghFehlertext(res) {
   if (res.status === 409 || res.status === 422) return "Die Datei wurde zwischenzeitlich geändert (Konflikt).";
   return "GitHub antwortete mit Status " + res.status + ".";
 }
-async function ghSchreiben(repo, token, inhalt, nachricht) {
+async function ghSchreiben(repo, token, inhalt, nachricht, pfad) {
+  pfad = pfad || "er.js";
   const kopf = { "Authorization": "Bearer " + token, "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
   const info = await fetch(GH_API + "/repos/" + repo, { headers: kopf });
   if (!info.ok) throw new Error(await ghFehlertext(info));
   const branch = (await info.json()).default_branch || "main";
   for (let versuch = 0; versuch < 2; versuch++) {
-    const g = await fetch(GH_API + "/repos/" + repo + "/contents/er.js?ref=" + encodeURIComponent(branch), { headers: kopf, cache: "no-store" });
+    const g = await fetch(GH_API + "/repos/" + repo + "/contents/" + pfad + "?ref=" + encodeURIComponent(branch), { headers: kopf, cache: "no-store" });
     let sha;
     if (g.ok) sha = (await g.json()).sha; else if (g.status !== 404) throw new Error(await ghFehlertext(g));
     const body = { message: nachricht, content: b64(inhalt), branch: branch };
     if (sha) body.sha = sha;
-    const r = await fetch(GH_API + "/repos/" + repo + "/contents/er.js", { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, kopf), body: JSON.stringify(body) });
+    const r = await fetch(GH_API + "/repos/" + repo + "/contents/" + pfad, { method: "PUT", headers: Object.assign({ "Content-Type": "application/json" }, kopf), body: JSON.stringify(body) });
     if (r.ok) return branch;
     if ((r.status === 409 || r.status === 422) && versuch === 0) continue;
     throw new Error(await ghFehlertext(r));
@@ -500,6 +507,248 @@ async function teilen() {
 if (navigator.share) document.getElementById("teilenBtn").style.display = "";
 ghAuswahlLesen(); tokenZeichnen();
 document.getElementById("ghTest").onchange = ghAuswahlSichern; document.getElementById("ghLive").onchange = ghAuswahlSichern;
+// ---------- Sicherung: Schlüssel, Einrichtung, Ihre Antworten ----------
+const KEYK = "adventErKey26", CFGK = "adventErSich26", VNK = "adventErVerb26", NSK = "adventErNotizSehen26";
+const ITER = 250000;
+const SEITEN = { live: { name: "LIVE", repo: "VanAllen84/advent26", basis: "https://kalender2026.tkagel.de/" }, test: { name: "TEST", repo: "vanallen84/testkalender", basis: "https://vanallen84.github.io/testkalender/" } };
+const HER = { "1": "👍", "0": "😐", "-1": "👎" };
+const HERBUCH = { "1": "A", "0": "B", "-1": "C" };
+const AW = { daten: null, versionen: [], stand: null, quelle: "live", meldung: "", fehler: false, link: "" };
+function ve(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function b64e(buf) { const b = new Uint8Array(buf); let s = ""; for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]); return btoa(s); }
+function b64d(s) { const bin = atob(s), b = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i); return b; }
+function b64u(text) { return b64e(new TextEncoder().encode(text)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); }
+function hexe(buf) { return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, "0")).join(""); }
+function lsGet(k, std) { try { const v = localStorage.getItem(k); return v === null ? std : JSON.parse(v); } catch (e) { return std; } }
+function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+function zufall(n) { const z = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; const r = crypto.getRandomValues(new Uint8Array(n)); let s = ""; r.forEach(x => s += z[x % z.length]); return s; }
+function cfg() {
+  const c = lsGet(CFGK, null) || {};
+  let neu = false;
+  if (!c.slotLive) { c.slotLive = zufall(40); neu = true; }
+  if (!c.slotTest) { c.slotTest = zufall(40); neu = true; }
+  if (c.aktivLive === undefined) c.aktivLive = true;
+  if (c.aktivTest === undefined) c.aktivTest = true;
+  if (c.url === undefined) c.url = "";
+  if (neu) lsSet(CFGK, c);
+  return c;
+}
+function cfgSpeichern(c) { lsSet(CFGK, c); }
+function schluesselBlob() { return lsGet(KEYK, null); }
+
+async function ableiten(pw, salt, label) {
+  const roh = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveBits"]);
+  const s = new Uint8Array([...salt, ...new TextEncoder().encode(label)]);
+  return crypto.subtle.deriveBits({ name: "PBKDF2", salt: s, iterations: ITER, hash: "SHA-256" }, roh, 256);
+}
+async function schluesselErzeugen(pw) {
+  const paar = await crypto.subtle.generateKey({ name: "RSA-OAEP", modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]), hash: "SHA-256" }, true, ["encrypt", "decrypt"]);
+  const pub = await crypto.subtle.exportKey("jwk", paar.publicKey);
+  const priv = await crypto.subtle.exportKey("jwk", paar.privateKey);
+  const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12));
+  const kek = await crypto.subtle.importKey("raw", await ableiten(pw, salt, "kek"), "AES-GCM", false, ["encrypt"]);
+  const ct = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, kek, new TextEncoder().encode(JSON.stringify(priv)));
+  const blob = { v: 1, salt: b64e(salt), iv: b64e(iv), ct: b64e(ct), pub: { kty: pub.kty, n: pub.n, e: pub.e, alg: "RSA-OAEP-256", ext: true } };
+  lsSet(KEYK, blob); return blob;
+}
+async function privatOeffnen(pw) {
+  const b = schluesselBlob(); if (!b) throw new Error("Es gibt noch keinen Schlüssel (zuerst die Einrichtung durchführen).");
+  let jwk;
+  try {
+    const kek = await crypto.subtle.importKey("raw", await ableiten(pw, b64d(b.salt), "kek"), "AES-GCM", false, ["decrypt"]);
+    jwk = JSON.parse(new TextDecoder().decode(await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(b.iv) }, kek, b64d(b.ct))));
+  } catch (e) { throw new Error("Passwort falsch."); }
+  return crypto.subtle.importKey("jwk", jwk, { name: "RSA-OAEP", hash: "SHA-256" }, false, ["decrypt"]);
+}
+async function adminToken(pw) { const b = schluesselBlob(); if (!b) throw new Error("Es gibt noch keinen Schlüssel."); return hexe(await ableiten(pw, b64d(b.salt), "admin")); }
+async function adminHash(pw) { return hexe(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(await adminToken(pw)))); }
+async function entschluesseln(paket, priv) {
+  const raw = await crypto.subtle.decrypt({ name: "RSA-OAEP" }, priv, b64d(paket.k));
+  const aes = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["decrypt"]);
+  const klar = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64d(paket.iv) }, aes, b64d(paket.c));
+  return JSON.parse(new TextDecoder().decode(klar));
+}
+async function workerGet(pfad, token) {
+  const c = cfg(); if (!c.url) throw new Error("Es ist noch keine Worker-Adresse eingetragen (Einrichtung).");
+  let r; try { r = await fetch(c.url.replace(/\/+$/, "") + pfad, { headers: { "X-Admin": token }, cache: "no-store" }); } catch (e) { throw new Error("Der Worker ist nicht erreichbar (Adresse prüfen oder Netz)."); }
+  if (r.status === 401) throw new Error("Der Worker lehnt den Zugang ab (Zugangs-Hash in Cloudflare prüfen).");
+  if (r.status === 404) throw new Error("Noch keine Sicherung vorhanden.");
+  if (!r.ok) throw new Error("Worker antwortete mit Status " + r.status + ".");
+  return r.json();
+}
+
+// ----- Ansichten -----
+function ansichtName() { const h = location.hash.replace(/^#/, ""); return (h === "antworten" || h === "einrichtung") ? h : ""; }
+function zeichneAnsicht(box, av) {
+  const kopf = document.createElement("div");
+  kopf.className = "navzeile"; kopf.style.gridTemplateColumns = "1fr";
+  kopf.innerHTML = '<button class="mitte" onclick="zurueck()">‹ Zur Übersicht</button>';
+  box.appendChild(kopf);
+  const d = document.createElement("div");
+  d.innerHTML = av === "einrichtung" ? htmlEinrichtung() : htmlAntworten();
+  box.appendChild(d);
+}
+function mel(id, t, fehler) { const e = document.getElementById(id); if (e) { e.className = "hinweis " + (fehler ? "fehler" : "ok"); e.innerText = t; } }
+function htmlEinrichtung() {
+  const b = schluesselBlob(), c = cfg();
+  const stufe1 = b
+    ? '<p class="ok">Schlüssel vorhanden.</p><div class="zeile2"><button class="mini" onclick="schluesselDatei()">Schlüsselsicherung herunterladen</button><label class="mini" style="cursor:pointer">Schlüsselsicherung laden<input type="file" accept=".json" style="display:none" onchange="schluesselLaden(this)"></label></div><p class="hinweis" style="text-align:left">Die Sicherungsdatei enthält den geschützten Schlüssel und die Einstellungen. Ohne dein Passwort ist sie nutzlos. Bitte im Passwortmanager ablegen.</p>'
+    : '<input type="password" id="pw1" placeholder="Passwort wählen" autocomplete="new-password"><input type="password" id="pw2" placeholder="Passwort wiederholen" autocomplete="new-password" style="margin-top:8px"><div class="zeile2"><button class="mini" onclick="schluesselNeu()">Schlüssel erzeugen</button><label class="mini" style="cursor:pointer">oder vorhandene Sicherung laden<input type="file" accept=".json" style="display:none" onchange="schluesselLaden(this)"></label></div><p class="hinweis" style="text-align:left">Das Passwort wird nirgends gespeichert. Wer es vergisst, kann die Sicherungen nicht mehr lesen.</p>';
+  return '<div class="gh"><h3>1 · Passwort und Schlüssel</h3>' + stufe1 + '<div id="m1" class="hinweis"></div></div>' +
+    '<div class="gh"><h3>2 · Zugangs-Hash für Cloudflare</h3><p style="margin:0 0 8px">Diesen Wert trägst du in Cloudflare als Geheimnis <b>ADMIN_HASH</b> ein.</p><input type="password" id="pw3" placeholder="Passwort" autocomplete="current-password"><div class="zeile2"><button class="mini" onclick="hashZeigen()">Zugangs-Hash anzeigen</button></div><input type="text" id="hashFeld" readonly style="margin-top:8px;display:none"><div class="zeile2"><button class="mini" id="hashKop" style="display:none" onclick="hashKopieren()">Kopieren</button></div><div id="m2" class="hinweis"></div></div>' +
+    '<div class="gh"><h3>3 · Worker-Adresse</h3><input type="text" id="urlFeld" placeholder="https://…workers.dev" value="' + ve(c.url) + '" autocapitalize="off" spellcheck="false"><div class="zeile2"><button class="mini" onclick="urlSpeichern()">Speichern</button></div><div id="m3" class="hinweis"></div></div>' +
+    '<div class="gh"><h3>4 · Konfiguration an die Apps senden</h3><label><input type="checkbox" id="aktTest"' + (c.aktivTest ? " checked" : "") + ' onchange="aktSpeichern()"> TEST sichert (eigener Speicherplatz)</label><label><input type="checkbox" id="aktLive"' + (c.aktivLive ? " checked" : "") + ' onchange="aktSpeichern()"> LIVE sichert (ihr Speicherplatz)</label><p class="hinweis" style="text-align:left">Die Konfiguration enthält die Worker-Adresse, den öffentlichen Schlüssel und einen zufälligen Speicherplatz-Namen. Sie wird als Datei <b>sicherung-config.js</b> in das Repository geschrieben, mit dem Token aus „An GitHub senden“.</p><div class="zeile2"><button class="mini" onclick="configSenden([\'test\'])">Nur an TEST senden</button><button class="mini" onclick="configSenden([\'test\',\'live\'])">An TEST und LIVE senden</button></div><div class="zeile2"><button class="mini" onclick="configDatei(\'test\')">Datei TEST</button><button class="mini" onclick="configDatei(\'live\')">Datei LIVE</button></div><div id="m4" class="hinweis"></div></div>';
+}
+async function schluesselNeu() {
+  const a = document.getElementById("pw1").value, b = document.getElementById("pw2").value;
+  if (a.length < 8) { mel("m1", "Bitte mindestens 8 Zeichen.", true); return; }
+  if (a !== b) { mel("m1", "Die beiden Eingaben sind verschieden.", true); return; }
+  mel("m1", "Schlüssel wird erzeugt …", false);
+  try { await schluesselErzeugen(a); zeichne(); mel("m1", "Schlüssel erzeugt. Jetzt Schritt 2.", false); } catch (e) { mel("m1", "Fehler: " + (e.message || e), true); }
+}
+function schluesselDatei() {
+  const blob = new Blob([JSON.stringify({ v: 1, schluessel: schluesselBlob(), einstellungen: cfg() })], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "his-rating-schluessel.json"; document.body.appendChild(a); a.click(); a.remove();
+  mel("m1", "Sicherungsdatei heruntergeladen.", false);
+}
+function schluesselLaden(inp) {
+  const f = inp.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = function () {
+    try {
+      const d = JSON.parse(r.result);
+      if (!d || !d.schluessel || !d.schluessel.salt || !d.schluessel.pub) throw new Error("falsche Datei");
+      if (schluesselBlob() && !confirm("Es gibt schon einen Schlüssel auf diesem Gerät. Durch die Datei ersetzen?")) return;
+      lsSet(KEYK, d.schluessel); if (d.einstellungen) cfgSpeichern(d.einstellungen);
+      zeichne(); mel("m1", "Schlüssel und Einstellungen geladen.", false);
+    } catch (e) { mel("m1", "Die Datei passt nicht.", true); }
+  };
+  r.readAsText(f);
+}
+async function hashZeigen() {
+  const pw = document.getElementById("pw3").value;
+  if (!pw) { mel("m2", "Bitte das Passwort eingeben.", true); return; }
+  try { await privatOeffnen(pw); const h = await adminHash(pw); const f = document.getElementById("hashFeld"); f.value = h; f.style.display = ""; document.getElementById("hashKop").style.display = ""; mel("m2", "In Cloudflare als Geheimnis ADMIN_HASH eintragen.", false); }
+  catch (e) { mel("m2", e.message || String(e), true); }
+}
+function hashKopieren() { const f = document.getElementById("hashFeld"); f.select(); try { navigator.clipboard.writeText(f.value); } catch (e) { document.execCommand("copy"); } mel("m2", "Kopiert.", false); }
+function urlSpeichern() {
+  const v = document.getElementById("urlFeld").value.trim();
+  if (v && !/^https:\/\/[^\s]+$/.test(v)) { mel("m3", "Bitte eine Adresse mit https:// eintragen.", true); return; }
+  const c = cfg(); c.url = v.replace(/\/+$/, ""); cfgSpeichern(c); mel("m3", v ? "Gespeichert." : "Adresse entfernt.", false);
+}
+function aktSpeichern() { const c = cfg(); c.aktivTest = document.getElementById("aktTest").checked; c.aktivLive = document.getElementById("aktLive").checked; cfgSpeichern(c); }
+function configText(q) {
+  const b = schluesselBlob(), c = cfg();
+  const o = { aktiv: !!(q === "live" ? c.aktivLive : c.aktivTest), url: c.url, slot: q === "live" ? c.slotLive : c.slotTest, pub: b.pub };
+  return "/* Wird vom Editor \"His Rating\" erzeugt. Nicht von Hand ändern. */\nwindow.SICHERUNG = " + JSON.stringify(o) + ";\n";
+}
+function configPruefen() {
+  if (!schluesselBlob()) { mel("m4", "Zuerst Schritt 1 (Schlüssel erzeugen).", true); return false; }
+  if (!cfg().url) { mel("m4", "Zuerst Schritt 3 (Worker-Adresse speichern).", true); return false; }
+  return true;
+}
+function configDatei(q) {
+  if (!configPruefen()) return;
+  const blob = new Blob([configText(q)], { type: "text/javascript" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "sicherung-config.js"; document.body.appendChild(a); a.click(); a.remove();
+  mel("m4", "Datei für " + SEITEN[q].name + " heruntergeladen (als sicherung-config.js hochladen).", false);
+}
+async function configSenden(qs) {
+  if (!configPruefen()) return;
+  const token = tokenLesen(); if (!token) { mel("m4", "Zuerst auf der Übersicht das GitHub-Token speichern („An GitHub senden“).", true); return; }
+  if (!confirm("sicherung-config.js an " + qs.map(q => SEITEN[q].name).join(" und ") + " senden?")) return;
+  const z = [];
+  for (const q of qs) {
+    try { const br = await ghSchreiben(SEITEN[q].repo, token, configText(q), "Sicherungs-Konfiguration aktualisiert", "sicherung-config.js"); z.push(SEITEN[q].name + ": gesendet (Zweig " + br + ")"); }
+    catch (e) { z.push(SEITEN[q].name + ": " + (e.message || e)); }
+  }
+  mel("m4", z.join(" · "), z.some(x => x.indexOf("gesendet") < 0));
+}
+
+function htmlAntworten() {
+  const b = schluesselBlob();
+  if (!b) return '<div class="gh"><p>Es gibt noch keinen Schlüssel. Bitte zuerst die <a href="#einrichtung" style="color:var(--gold)">Einrichtung</a> durchführen.</p></div>';
+  const c = cfg();
+  const ansicht = '<div class="gh"><h3>Ihre Antworten</h3>' +
+    '<label>Quelle <select id="awQ" style="background:#0b0b0f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px"><option value="live"' + (AW.quelle === "live" ? " selected" : "") + '>LIVE</option><option value="test"' + (AW.quelle === "test" ? " selected" : "") + '>TEST</option></select></label>' +
+    '<input type="password" id="awPw" placeholder="Passwort" autocomplete="current-password" style="margin-top:8px"><div class="zeile2"><button class="mini" onclick="awAbrufen()">Abrufen</button></div>' +
+    '<label style="margin-top:10px"><input type="checkbox" id="awNotiz"' + (lsGet(NSK, false) ? " checked" : "") + ' onchange="awNotizSchalter()"> Anjas Notizen anzeigen</label>' +
+    '<p class="hinweis" style="text-align:left;margin-top:2px">In der App steht bei den Notizen „nur für dich“. Nur einschalten, wenn Anja weiß, dass du sie siehst.</p>' +
+    '<div id="awM" class="hinweis ' + (AW.fehler ? "fehler" : "ok") + '">' + ve(AW.meldung) + '</div></div>';
+  return ansicht + (AW.daten ? htmlAwDaten() : "");
+}
+function awNotizSchalter() { lsSet(NSK, document.getElementById("awNotiz").checked); zeichne(); }
+async function awAbrufen(version) {
+  const pw = document.getElementById("awPw") ? document.getElementById("awPw").value : "";
+  const q = document.getElementById("awQ") ? document.getElementById("awQ").value : AW.quelle;
+  if (!pw && !AW.priv) { AW.meldung = "Bitte das Passwort eingeben."; AW.fehler = true; zeichne(); return; }
+  AW.meldung = "Wird abgerufen …"; AW.fehler = false; mel("awM", AW.meldung, false);
+  try {
+    const c = cfg(), slot = q === "live" ? c.slotLive : c.slotTest;
+    let priv = AW.priv, token = AW.token;
+    if (pw) { priv = await privatOeffnen(pw); token = await adminToken(pw); }
+    const liste = await workerGet("/list/" + slot, token);
+    const r = await workerGet("/get/" + slot + "?v=" + (version || "latest"), token);
+    const daten = await entschluesseln(r.paket, priv);
+    AW.priv = priv; AW.token = token; AW.quelle = q; AW.versionen = liste.versionen || []; AW.stand = r.t; AW.daten = daten; AW.link = "";
+    AW.meldung = "Sicherung vom " + new Date(r.t).toLocaleString("de-DE") + " geladen."; AW.fehler = false;
+  } catch (e) { AW.meldung = e.message || String(e); AW.fehler = true; AW.daten = null; }
+  zeichne();
+}
+function awVersion(sel) { awAbrufen(Number(sel.value)); }
+function awTeil(k) { try { return JSON.parse((AW.daten.keys || {})[k] || "{}") || {}; } catch (e) { return {}; } }
+function htmlAwDaten() {
+  const bew = awTeil("adventBewertung26"), notiz = awTeil("adventNotiz26"), verb = lsGet(VNK, {});
+  const zeigeNotiz = lsGet(NSK, false);
+  let sie = 0, gleich = 0, abw = 0;
+  const karten2 = TAGE.map(t => {
+    const k = karten ? karten[t.k] : null, b = bew[t.d] || {};
+    let zeilen = "";
+    VER.forEach(v => {
+      const ihr = b[v[0]], meins = wert(wahl, t.d, v[0]);
+      if (ihr === undefined && !meins) return;
+      const ihrBuch = ihr === undefined ? "" : HERBUCH[String(ihr)];
+      if (ihr !== undefined) { sie++; if (meins) { if (meins === ihrBuch) gleich++; else abw++; } }
+      const abwChip = (ihr !== undefined && meins) ? (meins === ihrBuch ? '<span class="chip">gleich</span>' : '<span class="chip" style="border-color:var(--gold);color:#f3e7c0">abweichend</span>') : "";
+      zeilen += '<div style="margin:6px 0"><b>' + v[1] + ' ' + (v[0] === "a" ? "Aufgabe" : "Alternative") + ':</b> Anja ' + (ihr === undefined ? "–" : HER[String(ihr)]) + ' · Du ' + (meins ? SYM[meins] : "–") + ' ' + abwChip + '</div>';
+    });
+    const n = notiz[t.d];
+    if (!zeilen && !(zeigeNotiz && n)) return "";
+    const her = (k ? k.w : t.w) !== "Er";
+    return '<div class="zeile ' + (her ? "her" : "his") + '" style="padding:14px 16px 14px"><div class="kopf" style="margin-bottom:6px"><div class="nr" style="font-size:1.5rem"><small>Türchen</small>' + t.d + '</div><div class="karte">Karte ' + t.k + '</div></div>' +
+      '<div style="opacity:.8;font-size:.85rem;margin-bottom:6px">' + ve(kurzText(k)) + '</div>' + zeilen +
+      (zeigeNotiz && n ? '<div style="margin:8px 0;padding:8px 10px;border-left:3px solid var(--c);background:rgba(255,255,255,.04);font-size:.9rem">„' + ve(n) + '“</div>' : "") +
+      '<textarea rows="2" maxlength="600" data-v="' + t.d + '" oninput="verbTippen(this)" placeholder="Für nächstes Mal …" style="height:auto;margin-top:6px;font-size:.88rem">' + ve(verb[t.d] || "") + '</textarea></div>';
+  }).join("");
+  const vers = '<select onchange="awVersion(this)" style="background:#0b0b0f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;max-width:100%">' + AW.versionen.map(v => '<option value="' + v + '"' + (v === AW.stand ? " selected" : "") + '>' + new Date(v).toLocaleString("de-DE") + '</option>').join("") + '</select>';
+  return '<div class="gh" style="margin-top:14px"><h3>Überblick</h3><p style="margin:0 0 8px">Anja hat ' + sie + ' Bewertungen abgegeben, davon gleich mit deinen: ' + gleich + ', abweichend: ' + abw + '.</p><label>Version ' + vers + '</label></div>' +
+    '<div style="margin-top:14px;display:grid;gap:12px">' + (karten2 || '<p class="hinweis">Noch keine Bewertungen.</p>') + '</div>' +
+    '<div class="gh"><h3>Weitergeben</h3><div class="zeile2"><button class="mini" onclick="rueckblickKopieren()">Rückblick als Text kopieren</button></div>' +
+    '<h3 style="margin-top:14px">Handywechsel</h3><p class="hinweis" style="text-align:left;margin:0 0 6px">Der Link enthält ihre Angaben im Klartext. Nur direkt an Anja senden.</p><div class="zeile2"><button class="mini" onclick="linkErzeugen()">Wiederherstellungs-Link erzeugen</button><button class="mini" onclick="wiederherstellungsDatei()">Datei herunterladen</button></div>' +
+    '<input type="text" id="awLink" readonly style="margin-top:8px;display:' + (AW.link ? "" : "none") + '" value="' + ve(AW.link) + '"><div class="zeile2"><button class="mini" id="awLinkK" style="display:' + (AW.link ? "" : "none") + '" onclick="linkKopieren()">Link kopieren</button></div><div id="awM2" class="hinweis"></div></div>';
+}
+function verbTippen(el) { const v = lsGet(VNK, {}); const d = el.getAttribute("data-v"); if (el.value) v[d] = el.value; else delete v[d]; lsSet(VNK, v); }
+function rueckblickKopieren() {
+  const bew = awTeil("adventBewertung26"), verb = lsGet(VNK, {});
+  const zl = [];
+  TAGE.forEach(t => {
+    const b = bew[t.d] || {}, teile = [];
+    VER.forEach(v => { const ihr = b[v[0]], meins = wert(wahl, t.d, v[0]); if (ihr !== undefined || meins) teile.push(v[1] + ": Anja " + (ihr === undefined ? "–" : HER[String(ihr)]) + ", ich " + (meins ? SYM[meins] : "–")); });
+    if (teile.length || verb[t.d]) zl.push("Türchen " + t.d + " (Karte " + t.k + "): " + teile.join(" | ") + (verb[t.d] ? "\n   Für nächstes Mal: " + verb[t.d] : ""));
+  });
+  const text = zl.join("\n");
+  try { navigator.clipboard.writeText(text); mel("awM2", "Kopiert.", false); } catch (e) { mel("awM2", "Kopieren nicht möglich.", true); }
+}
+function wiederherstellungsNutzlast() { return JSON.stringify({ v: 1, keys: AW.daten.keys || {} }); }
+function linkErzeugen() { AW.link = SEITEN[AW.quelle].basis + "wiederherstellung.html#d=" + b64u(wiederherstellungsNutzlast()); zeichne(); }
+function linkKopieren() { const f = document.getElementById("awLink"); f.select(); try { navigator.clipboard.writeText(f.value); } catch (e) { document.execCommand("copy"); } mel("awM2", "Kopiert.", false); }
+function wiederherstellungsDatei() {
+  const blob = new Blob([wiederherstellungsNutzlast()], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "wiederherstellung.json"; document.body.appendChild(a); a.click(); a.remove();
+  mel("awM2", "Datei heruntergeladen. Nur direkt an Anja senden.", false);
+}
+
 window.addEventListener("hashchange", () => { zeichne(); window.scrollTo(0, 0); });
 const hatGespeichert = laden();
 ladeAusDatei(true, !hatGespeichert);

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de"><head><meta charset="UTF-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>…</title>
+<style>body{margin:0;background:#060608;color:#d0d0d5;font-family:'Segoe UI',Tahoma,sans-serif;display:grid;place-items:center;min-height:100vh;text-align:center;padding:20px}
+.k{max-width:420px}button{display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:10px;border:1px solid #333;background:#16161c;color:#fff;font-size:1rem;cursor:pointer;font-family:inherit}
+button.p{background:#c23b4c;border-color:#c23b4c;font-weight:600}input[type=file]{margin-top:14px;color:#d0d0d5;max-width:100%}</style></head>
+<body><div class="k" id="k"><p id="t">Einen Moment …</p></div>
+<script>
+(function () {
+  var ERLAUBT = ["adventWahl26", "adventBewertung26", "adventBewDatum26", "adventNotiz26", "adventLese26", "adventGeoeffnet26", "adventOeffnetAm26", "adventErledigt26", "adventHerz26", "adventSpaeter26", "adventGruss26", "adventFinaleAn26", "adventBossHint26", "adventWetterTag26"];
+  var k = document.getElementById("k"), t = document.getElementById("t");
+  function text(s) { t.textContent = s; }
+  function zurApp() { location.replace("index.html"); }
+  function lesen(h) {
+    try {
+      var b = h.replace(/-/g, "+").replace(/_/g, "/"); while (b.length % 4) b += "=";
+      var bin = atob(b), bytes = new Uint8Array(bin.length); for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return JSON.parse(new TextDecoder("utf-8").decode(bytes));
+    } catch (e) { return null; }
+  }
+  function gueltig(d) {
+    if (!d || d.v !== 1 || !d.keys || typeof d.keys !== "object") return null;
+    var o = {}, n = 0;
+    Object.keys(d.keys).forEach(function (key) { if (ERLAUBT.indexOf(key) >= 0 && typeof d.keys[key] === "string") { o[key] = d.keys[key]; n++; } });
+    return n ? o : null;
+  }
+  function vorhanden() { try { return ERLAUBT.some(function (key) { return localStorage.getItem(key) !== null; }); } catch (e) { return false; } }
+  function schreiben(o) {
+    try {
+      Object.keys(o).forEach(function (key) { localStorage.setItem(key, o[key]); });
+      try { history.replaceState(null, "", location.pathname); } catch (e) {}
+      text("Fertig."); setTimeout(zurApp, 500);
+    } catch (e) { text("Das hat leider nicht geklappt."); }
+  }
+  function los(o) {
+    if (!vorhanden()) { schreiben(o); return; }
+    text("Auf diesem Gerät sind schon Daten vorhanden. Sollen sie durch die Sicherung ersetzt werden?");
+    var ja = document.createElement("button"); ja.className = "p"; ja.textContent = "Ja, wiederherstellen"; ja.onclick = function () { schreiben(o); };
+    var nein = document.createElement("button"); nein.textContent = "Abbrechen"; nein.onclick = function () { try { history.replaceState(null, "", location.pathname); } catch (e) {} zurApp(); };
+    k.appendChild(ja); k.appendChild(nein);
+  }
+  var m = /^#d=([A-Za-z0-9_-]+)$/.exec(location.hash);
+  if (m) {
+    var o = gueltig(lesen(m[1]));
+    if (o) los(o); else text("Der Link ist unvollständig oder beschädigt.");
+  } else {
+    text("Sicherungsdatei auswählen:");
+    var f = document.createElement("input"); f.type = "file"; f.accept = ".json,application/json";
+    f.onchange = function () {
+      var r = new FileReader();
+      r.onload = function () { var o; try { o = gueltig(JSON.parse(r.result)); } catch (e) {} if (o) { f.remove(); los(o); } else text("Die Datei passt nicht."); };
+      r.readAsText(f.files[0]);
+    };
+    k.appendChild(f);
+  }
+})();
+</script></body></html>
