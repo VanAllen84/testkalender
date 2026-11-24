@@ -1980,17 +1980,16 @@
         ];
         let AW = null;
         function gemeinsameAuswertung(box, karten, bew, er) {
-            const items = [], nurDu = [], nurEr = [];
+            const items = [], nurDu = [];
             const kurz = (d, ver) => d + (ver === "a" ? " (Aufgabe)" : " (Alternative)");
             for (let d = 1; d <= 24; d++) VERSIONEN.forEach(v => {
                 const ver = v[0];
                 const a = bew[d] ? bew[d][ver] : undefined, b = er[d] ? er[d][ver] : undefined;
                 if (a !== undefined && b !== undefined) items.push({ d: d, ver: ver, a: a, b: b, g: gruppeFuer(a, b) });
                 else if (a !== undefined) nurDu.push(kurz(d, ver));
-                else if (b !== undefined) nurEr.push(kurz(d, ver));
             });
-            const offen = geoeffnetListe().filter(d => !bew[d] && !er[d]).sort((x, y) => x - y);
-            AW = { box: box, karten: karten, items: items, nurDu: nurDu, nurEr: nurEr, offen: offen, schritt: -1, filter: null };
+            const offen = geoeffnetListe().filter(d => !bew[d]).sort((x, y) => x - y);
+            AW = { box: box, karten: karten, items: items, nurDu: nurDu, offen: offen, schritt: -1, filter: null };
             AW.schritte = [0, 1, 2, 3, 4, 5].filter(g => items.some(e => e.g === g));
             if (!items.length) {
                 box.innerHTML = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + awNotizen();
@@ -2001,8 +2000,7 @@
         function awNotizen() {
             let h = "";
             if (AW.nurDu.length) h += '<p class="aw-notiz">Bisher nur von dir bewertet: Türchen ' + AW.nurDu.join(", ") + '</p>';
-            if (AW.nurEr.length) h += '<p class="aw-notiz">Bisher nur von mir bewertet: Türchen ' + AW.nurEr.join(", ") + '</p>';
-            if (AW.offen.length) h += '<p class="aw-notiz">Noch von keinem bewertet: Türchen ' + AW.offen.join(", ") + '</p>';
+            if (AW.offen.length) h += '<p class="aw-notiz">Noch nicht von dir bewertet: Türchen ' + AW.offen.join(", ") + '</p>';
             return h + notizKnopfHtml();
         }
         function awZeichne() {
