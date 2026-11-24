@@ -524,7 +524,18 @@
 		.dev-bar.hidden-dev {
 			display: none !important;
 		}	
-    </style>
+    
+        /* Karte "Für ein nächstes Mal" */
+        .wunsch-box { margin: 28px 0 8px; text-align: left; }
+        .wunsch { padding: 18px 16px 16px; border: 1px solid rgba(212,175,55,0.45); border-radius: 14px; background: rgba(255,255,255,0.03); }
+        .wunsch h3 { margin: 0 0 4px; color: var(--heading-color); font-family: Georgia, serif; font-size: 1.2rem; }
+        .wunsch .w-sub { margin: 0 0 14px; font-size: 0.9rem; opacity: 0.8; }
+        .wunsch label { display: block; margin: 12px 0 4px; font-size: 0.85rem; letter-spacing: 0.3px; opacity: 0.9; }
+        .wunsch textarea { width: 100%; box-sizing: border-box; min-height: 62px; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: inherit; font: inherit; font-size: 0.95rem; resize: vertical; }
+        .wunsch textarea:focus { outline: none; border-color: var(--accent-color); }
+        .wunsch .w-ok { margin: 10px 0 0; font-size: 0.78rem; opacity: 0; transition: opacity 0.4s; text-align: right; }
+        .wunsch .w-ok.an { opacity: 0.75; }
+</style>
 <style>
         /* Code-Sperre (Startmaske) */
         #codeSperre { position: fixed; inset: 0; z-index: 9000; display: flex; align-items: center; justify-content: center; background: #08060a; color: #f4ecd8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; transition: opacity 0.5s ease; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
@@ -896,6 +907,7 @@
         <div id="auswertungScreen" class="hidden">
             <h2>Eure Auswertung</h2>
             <div id="auswertungInhalt"></div>
+            <div class="wunsch-box" data-wunsch></div>
             <button class="btn-primary" style="margin-top: 25px;" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
         </div>
 
@@ -911,6 +923,7 @@
             </div>
             <div class="story-bild" id="finaleBild" style="display:none;"><img id="finaleBildImg" alt="" src=""></div>
             <div id="rueckblick"></div>
+            <div class="wunsch-box" data-wunsch></div>
             <button class="btn-primary auswertung-link" style="margin-top: 25px; display: none;" onclick="zeigeAuswertung()">Auswertung der Favoriten ansehen</button>
             <button class="btn-primary" style="margin-top: 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="erinnerungSpeichern(this)">&#128190; Meine Erinnerung speichern (Bilder + Text)</button>
             <button class="btn-primary" style="margin-top: 12px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="finaleDurch(function () {}, null, true)">&#x2728; Die Animation noch einmal ansehen</button>
@@ -1483,7 +1496,7 @@
                 localStorage.removeItem("adventBewertung26"); localStorage.removeItem("adventBewDatum26");
                 localStorage.removeItem("adventSpaeter26");
                 localStorage.removeItem("adventNotiz26"); localStorage.removeItem("adventErledigt26"); localStorage.removeItem("adventHerz26"); localStorage.removeItem("adventOeffnetAm26");
-                localStorage.removeItem("adventLese26");
+                localStorage.removeItem("adventLese26"); localStorage.removeItem("adventWunsch26");
                 history.replaceState(null, "", location.pathname);
             }
         } catch (e) {}
@@ -1882,6 +1895,7 @@
             applyFinaleTheme();
             document.getElementById("auswertungScreen").classList.remove("hidden");
             const box = document.getElementById("auswertungInhalt");
+            wunschRendern();
             box.innerHTML = '<p class="ausw-leer">Einen Moment...</p>';
             kartenLaden(function () { erLaden(function () {
                 auswertungRendern();
@@ -2135,6 +2149,30 @@
             root.style.setProperty('--border-glow', 'rgba(212, 175, 55, 0.45)');
             root.style.setProperty('--text-color', '#e8e0cc');
         }
+        // --- Karte "Für ein nächstes Mal": ihre Wünsche, werden automatisch gespeichert (und mit der Sicherung an Thilo übermittelt) ---
+        const WUNSCH_FELDER = [["mehr", "Mehr davon:"], ["weniger", "Lieber nicht mehr:"], ["neu", "Neu ausprobieren:"], ["app", "Was würdest du an der App ändern?"]];
+        let wunschTimer = null;
+        let wunschMem = {};
+        function wunschAlle() { try { const w = JSON.parse(localStorage.getItem("adventWunsch26") || "null"); if (w && typeof w === "object") return w; } catch (e) {} return wunschMem; }
+        function wunschSchreiben(o) { wunschMem = o; try { localStorage.setItem("adventWunsch26", JSON.stringify(o)); } catch (e) {} }
+        function wunschRendern() {
+            const w = wunschAlle();
+            const html = '<div class="wunsch"><h3>Für ein nächstes Mal</h3><p class="w-sub">Was soll ich mir merken? Schreib einfach, was dir einfällt, auch in Stichworten. Das lese ich später.</p>' +
+                WUNSCH_FELDER.map(function (f) { return '<label>' + f[1] + '</label><textarea maxlength="800" data-f="' + f[0] + '" oninput="wunschTippen()">' + esc(w[f[0]] || "") + '</textarea>'; }).join("") +
+                '<p class="w-ok">Gespeichert</p></div>';
+            document.querySelectorAll("[data-wunsch]").forEach(function (b) { b.innerHTML = html; });
+        }
+        function wunschTippen() {
+            clearTimeout(wunschTimer);
+            const quelle = document.activeElement && document.activeElement.closest ? document.activeElement.closest("[data-wunsch]") : null;
+            wunschTimer = setTimeout(function () {
+                const o = {};
+                const box = quelle || document.querySelector("[data-wunsch]");
+                box.querySelectorAll("textarea[data-f]").forEach(function (t) { if (t.value.trim()) o[t.getAttribute("data-f")] = t.value; });
+                wunschSchreiben(o);
+                box.querySelectorAll(".w-ok").forEach(function (e) { e.classList.add("an"); setTimeout(function () { e.classList.remove("an"); }, 1500); });
+            }, 600);
+        }
         function zeigeFinale() {
             alleScreensAus();
             applyFinaleTheme();
@@ -2146,6 +2184,7 @@
             img.onerror = function () { box.style.display = "none"; };
             img.src = "bilder/finale.jpg";
             try { document.getElementById("rueckblick").innerHTML = rueckblickHtml(); rueckblickAnimieren(); } catch (e) {}
+            wunschRendern();
         }
 
         // --- Seitentitel, Symbol im Tab, Browserleisten-Farbe, nach oben scrollen ---

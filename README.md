@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795446901`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795513066`.
 
 ---
 
@@ -539,6 +539,8 @@ window.ER_BEWERTUNG = {
 - **Detailansicht:** Ohne Titel und ohne Fortschrittsleiste, damit auch lange Aufgabentexte samt Knöpfen auf einen Bildschirm passen.
 - **An GitHub senden:** Unter dem Raster schreibt der Editor die `er.js` direkt in die Repositories (Auswahl TEST und/oder LIVE; Voreinstellung nur TEST). Das geht über die GitHub-Schnittstelle (Commit auf den Standardzweig, Commit-Text „er.js aktualisiert (His Rating, N Bewertungen)“). Dafür braucht der Editor einmalig ein **fein abgestuftes Zugriffstoken** (GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens): nur die beiden Repositories, Berechtigung „Contents: Read and write“, Ablaufdatum kurz nach dem 25.12. Das Token wird nur im Browser des Geräts gespeichert (`adventErGhToken26`), steht in keiner Datei und lässt sich im Editor entfernen. Vor dem Senden fragt der Editor nach. Nach dem Senden braucht GitHub Pages etwa eine Minute. Als Ersatz gibt es weiterhin Kopieren, Herunterladen und (wo das Gerät es kann) „er.js teilen“.
 - **Ihre Antworten (Sicherung und Ansicht):** Ihre App sichert ihre Angaben still im Hintergrund (Stimmungswahl, Bewertungen, Notizen, Lesestand, geöffnete Türchen, Herzen, Erledigt-Markierungen, festgehaltenes Wetter; nicht der Standort). Gesendet wird erst, wenn das erste Türchen geöffnet wurde, und nur bei Änderungen. Die Daten werden schon im Browser mit einem öffentlichen Schlüssel verschlüsselt (`sicherung.js`, Konfiguration in `sicherung-config.js`) und an einen Cloudflare-Worker geschickt, der sie in einem KV-Speicher ablegt (die letzten 20 Versionen). Lesen kann sie nur der Editor: mit dem Passwort wird der geheime Schlüssel geöffnet, der Zugangscode dazu wird aus demselben Passwort abgeleitet. Im Editor gibt es unter „Ihre Antworten“ eine Ansicht mit ihren Bewertungen neben deinen, optional ihren Notizen (Schalter, standardmäßig aus), eigenen Notizen „Für nächstes Mal“ und einem Text für den Rückblick. Die Einrichtung (Passwort, Schlüssel, Worker-Adresse, Konfiguration an GitHub senden) steht unter „Sicherung einrichten“. Worker-Code und Anleitung liegen separat vor und gehören nicht ins Repository.
+- **Wünsche für ein nächstes Mal:** Im Finale (nach Türchen 24) und in der Auswertung gibt es die Karte „Für ein nächstes Mal“ mit vier Feldern (mehr davon, lieber nicht mehr, neu ausprobieren, Änderungen an der App). Sie speichert automatisch (`adventWunsch26`), geht mit der Sicherung an den Editor und bleibt auch nach dem 25.12. bearbeitbar. Im Editor erscheint sie unter „Ihre Antworten“.
+- **Ansicht „Ihre Antworten“ (Sicherheit):** Die Ansicht startet leer und zeigt erst nach einem Abruf mit Passwort etwas. Entschlüsselte Daten, Schlüssel und Zugangscode liegen nur im Arbeitsspeicher und werden gelöscht, wenn die Ansicht verlassen wird, die Seite schließt oder die App länger als 5 Minuten im Hintergrund war. Für „Neu seit dem letzten Abruf“ merkt sich der Editor nur Prüfsummen (`adventErGesehen26`), keine lesbaren Inhalte. Oben steht, wann die letzte Sicherung ankam, mit einer Warnung, wenn sie im Dezember älter als zwei Tage ist.
 - **Handywechsel:** Im Editor erzeugst du aus der letzten Sicherung einen Wiederherstellungs-Link (oder eine Datei). Er führt auf `wiederherstellung.html`, eine nicht verlinkte Seite, die die Angaben auf dem neuen Gerät einspielt (mit Rückfrage, falls dort schon Daten liegen) und zur App weiterleitet. In der App selbst gibt es keine Oberfläche dafür. Der Link enthält die Angaben im Klartext und gehört nur direkt an Anja.
 - **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
 - **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → Text erzeugen → als `er.js` speichern → in **beiden** Repositories hochladen.
@@ -586,7 +588,8 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 | `adventErEditor26` | localStorage | Zwischenstand von `er-editor.html` (nur TEST) |
 | `adventErGhToken26`, `adventErGhAuswahl26` | localStorage | GitHub-Token und Auswahl TEST/LIVE für den Upload im Editor (nur TEST) |
 | `adventSich26` | localStorage | Merker, welcher Stand zuletzt gesichert wurde (App) |
-| `adventErKey26`, `adventErSich26`, `adventErVerb26`, `adventErNotizSehen26` | localStorage | geschützter Schlüssel, Einstellungen, eigene Notizen und Schalter im Editor (nur TEST) |
+| `adventWunsch26` | localStorage | ihre Wünsche für ein nächstes Mal (App, wird mitgesichert) |
+| `adventErKey26`, `adventErSich26`, `adventErVerb26`, `adventErNotizSehen26`, `adventErGesehen26` | localStorage | geschützter Schlüssel, Einstellungen, eigene Notizen, Schalter und Prüfsummen für „Neu“ im Editor (nur TEST) |
 
 - Funktioniert der Speicher nicht (privater Modus), arbeitet die Seite mit einem Ersatz im Arbeitsspeicher. Dann geht der Stand beim Schließen verloren.
 - **iPhone:** Die installierte Web-App hat **einen anderen Speicher** als Safari.
@@ -635,7 +638,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795446901";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795513066";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.

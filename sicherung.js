@@ -4,7 +4,7 @@
   "use strict";
   var C = window.SICHERUNG;
   if (!C || !C.aktiv || !C.url || !C.slot || !C.pub || !window.crypto || !crypto.subtle) return;
-  var KEYS = ["adventWahl26", "adventBewertung26", "adventBewDatum26", "adventNotiz26", "adventLese26", "adventGeoeffnet26", "adventOeffnetAm26", "adventErledigt26", "adventHerz26", "adventSpaeter26", "adventGruss26", "adventFinaleAn26", "adventBossHint26", "adventWetterTag26"];
+  var KEYS = ["adventWahl26", "adventBewertung26", "adventBewDatum26", "adventNotiz26", "adventLese26", "adventGeoeffnet26", "adventOeffnetAm26", "adventErledigt26", "adventHerz26", "adventSpaeter26", "adventGruss26", "adventFinaleAn26", "adventBossHint26", "adventWetterTag26", "adventWunsch26"];
   var STK = "adventSich26", MIN_ABSTAND = 15000, laeuft = false, letzterVersuch = 0, pubKey = null;
   function ls(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }

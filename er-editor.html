@@ -279,6 +279,7 @@ function zeichne() {
   const tag = aktuellerTag();
   document.body.classList.toggle("detail", !!tag);
   const av = ansichtName();
+  if (av !== "antworten" && (AW.daten || AW.priv)) awReset();
   document.body.classList.toggle("ansicht", !!av);
   document.getElementById("unten").style.display = (tag || av) ? "none" : "";
   document.querySelectorAll(".rand").forEach(e => e.remove());
@@ -513,7 +514,24 @@ const ITER = 250000;
 const SEITEN = { live: { name: "LIVE", repo: "VanAllen84/advent26", basis: "https://kalender2026.tkagel.de/" }, test: { name: "TEST", repo: "vanallen84/testkalender", basis: "https://vanallen84.github.io/testkalender/" } };
 const HER = { "1": "👍", "0": "😐", "-1": "👎" };
 const HERBUCH = { "1": "A", "0": "B", "-1": "C" };
-const AW = { daten: null, versionen: [], stand: null, quelle: "live", meldung: "", fehler: false, link: "" };
+const WUNSCH = [["mehr", "Mehr davon"], ["weniger", "Lieber nicht mehr"], ["neu", "Neu ausprobieren"], ["app", "Änderungen an der App"]];
+const AW = { daten: null, versionen: [], stand: null, quelle: "live", meldung: "", fehler: false, link: "", neu: {}, hatBasis: false, priv: null, token: null };
+const GESEHEN = "adventErGesehen26", ABMELDEN_MS = 5 * 60 * 1000;
+function awReset() { AW.daten = null; AW.versionen = []; AW.stand = null; AW.link = ""; AW.neu = {}; AW.hatBasis = false; AW.priv = null; AW.token = null; }
+function hasch(t) { let h = 5381; t = String(t); for (let i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) | 0; return String(h) + ":" + t.length; }
+let awVersteckt = 0, awTimer = null;
+document.addEventListener("visibilitychange", function () {
+  if (document.hidden) {
+    awVersteckt = Date.now(); clearTimeout(awTimer);
+    awTimer = setTimeout(function () { if (AW.daten || AW.priv) { awReset(); AW.meldung = "Aus Sicherheitsgründen abgemeldet. Bitte Passwort erneut eingeben."; AW.fehler = false; zeichne(); } }, ABMELDEN_MS);
+  } else {
+    clearTimeout(awTimer);
+    if (awVersteckt && Date.now() - awVersteckt > ABMELDEN_MS && (AW.daten || AW.priv)) { awReset(); AW.meldung = "Aus Sicherheitsgründen abgemeldet. Bitte Passwort erneut eingeben."; AW.fehler = false; zeichne(); }
+    awVersteckt = 0;
+  }
+});
+window.addEventListener("pagehide", awReset);
+function relZeit(ms) { const m = Math.round(ms / 60000); if (m < 2) return "gerade eben"; if (m < 60) return "vor " + m + " Minuten"; const h = Math.round(m / 60); if (h < 48) return "vor " + h + (h === 1 ? " Stunde" : " Stunden"); return "vor " + Math.round(h / 24) + " Tagen"; }
 function ve(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 function b64e(buf) { const b = new Uint8Array(buf); let s = ""; for (let i = 0; i < b.length; i++) s += String.fromCharCode(b[i]); return btoa(s); }
 function b64d(s) { const bin = atob(s), b = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i); return b; }
@@ -680,6 +698,7 @@ function htmlAntworten() {
 }
 function awNotizSchalter() { lsSet(NSK, document.getElementById("awNotiz").checked); zeichne(); }
 async function awAbrufen(version) {
+  const frisch = version === undefined;
   const pw = document.getElementById("awPw") ? document.getElementById("awPw").value : "";
   const q = document.getElementById("awQ") ? document.getElementById("awQ").value : AW.quelle;
   if (!pw && !AW.priv) { AW.meldung = "Bitte das Passwort eingeben."; AW.fehler = true; zeichne(); return; }
@@ -692,16 +711,36 @@ async function awAbrufen(version) {
     const r = await workerGet("/get/" + slot + "?v=" + (version || "latest"), token);
     const daten = await entschluesseln(r.paket, priv);
     AW.priv = priv; AW.token = token; AW.quelle = q; AW.versionen = liste.versionen || []; AW.stand = r.t; AW.daten = daten; AW.link = "";
+    if (frisch) awNeuBerechnen();
     AW.meldung = "Sicherung vom " + new Date(r.t).toLocaleString("de-DE") + " geladen."; AW.fehler = false;
   } catch (e) { AW.meldung = e.message || String(e); AW.fehler = true; AW.daten = null; }
   zeichne();
+}
+function awNeuBerechnen() {
+  // Merkt sich nur Kennzahlen (Hashes), keine lesbaren Inhalte. Markiert, was seit dem letzten Abruf neu oder geändert ist.
+  const bew = awTeil("adventBewertung26"), notiz = awTeil("adventNotiz26"), w = awTeil("adventWunsch26"), zeigeNotiz = lsGet(NSK, false);
+  const alt = lsGet(GESEHEN, null), neu = {}, jetzt = {};
+  for (let d = 1; d <= 24; d++) {
+    const r = hasch(JSON.stringify(bew[d] || null)), n = hasch(notiz[d] || "");
+    const a = alt && alt[d];
+    if (alt) {
+      if (a ? a.r !== r : !!bew[d]) neu[d] = 1;
+      else if (zeigeNotiz && (a ? a.n !== n : !!notiz[d])) neu[d] = 1;
+    }
+    jetzt[d] = { r: r, n: zeigeNotiz ? n : (a ? a.n : hasch("")) };
+  }
+  const wh = hasch(JSON.stringify(w));
+  if (alt && alt.w !== wh && Object.keys(w).length) neu.w = 1;
+  jetzt.w = wh;
+  AW.neu = neu; AW.hatBasis = !!alt; lsSet(GESEHEN, jetzt);
 }
 function awVersion(sel) { awAbrufen(Number(sel.value)); }
 function awTeil(k) { try { return JSON.parse((AW.daten.keys || {})[k] || "{}") || {}; } catch (e) { return {}; } }
 function htmlAwDaten() {
   const bew = awTeil("adventBewertung26"), notiz = awTeil("adventNotiz26"), verb = lsGet(VNK, {});
-  const zeigeNotiz = lsGet(NSK, false);
+  const zeigeNotiz = lsGet(NSK, false), w2 = awTeil("adventWunsch26");
   let sie = 0, gleich = 0, abw = 0;
+  const aktuellNeu = AW.stand === AW.versionen[0];
   const karten2 = TAGE.map(t => {
     const k = karten ? karten[t.k] : null, b = bew[t.d] || {};
     let zeilen = "";
@@ -716,13 +755,21 @@ function htmlAwDaten() {
     const n = notiz[t.d];
     if (!zeilen && !(zeigeNotiz && n)) return "";
     const her = (k ? k.w : t.w) !== "Er";
-    return '<div class="zeile ' + (her ? "her" : "his") + '" style="padding:14px 16px 14px"><div class="kopf" style="margin-bottom:6px"><div class="nr" style="font-size:1.5rem"><small>Türchen</small>' + t.d + '</div><div class="karte">Karte ' + t.k + '</div></div>' +
+    return '<div class="zeile ' + (her ? "her" : "his") + '" style="padding:14px 16px 14px"><div class="kopf" style="margin-bottom:6px"><div class="nr" style="font-size:1.5rem"><small>Türchen</small>' + t.d + (aktuellNeu && AW.neu[t.d] ? '<span class="gtag">Neu</span>' : "") + '</div><div class="karte">Karte ' + t.k + '</div></div>' +
       '<div style="opacity:.8;font-size:.85rem;margin-bottom:6px">' + ve(kurzText(k)) + '</div>' + zeilen +
       (zeigeNotiz && n ? '<div style="margin:8px 0;padding:8px 10px;border-left:3px solid var(--c);background:rgba(255,255,255,.04);font-size:.9rem">„' + ve(n) + '“</div>' : "") +
       '<textarea rows="2" maxlength="600" data-v="' + t.d + '" oninput="verbTippen(this)" placeholder="Für nächstes Mal …" style="height:auto;margin-top:6px;font-size:.88rem">' + ve(verb[t.d] || "") + '</textarea></div>';
   }).join("");
   const vers = '<select onchange="awVersion(this)" style="background:#0b0b0f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;max-width:100%">' + AW.versionen.map(v => '<option value="' + v + '"' + (v === AW.stand ? " selected" : "") + '>' + new Date(v).toLocaleString("de-DE") + '</option>').join("") + '</select>';
-  return '<div class="gh" style="margin-top:14px"><h3>Überblick</h3><p style="margin:0 0 8px">Anja hat ' + sie + ' Bewertungen abgegeben, davon gleich mit deinen: ' + gleich + ', abweichend: ' + abw + '.</p><label>Version ' + vers + '</label></div>' +
+  const neuest = AW.versionen[0], alter = Date.now() - neuest, jetztD = new Date();
+  const imDez = jetztD.getFullYear() === 2026 && jetztD.getMonth() === 11 && jetztD.getDate() <= 24;
+  const warn = imDez && alter > 48 * 3600 * 1000;
+  const aktuell = AW.stand === neuest;
+  const nNeu = Object.keys(AW.neu).length;
+  const neuZeile = !aktuell ? "" : (!AW.hatBasis ? '<p style="margin:6px 0 0;opacity:.8">Erster Abruf auf diesem Gerät: ab jetzt wird „Neu“ markiert.</p>' : (nNeu ? '<p style="margin:6px 0 0"><b>' + nNeu + ' neu seit dem letzten Abruf.</b></p>' : '<p style="margin:6px 0 0;opacity:.8">Nichts Neues seit dem letzten Abruf.</p>'));
+  const wunschT = WUNSCH.map(f => w2[f[0]] ? '<div style="margin:8px 0 0"><b>' + f[1] + '</b><div style="margin-top:3px;padding:8px 10px;border-left:3px solid var(--gold);background:rgba(255,255,255,.04);white-space:pre-wrap">' + ve(w2[f[0]]) + '</div></div>' : "").join("");
+  const wunschKarte = wunschT ? '<div class="gh" style="margin-top:14px"><h3>Für ein nächstes Mal ' + (aktuell && AW.neu.w ? '<span class="gtag">Neu</span>' : "") + '</h3>' + wunschT + '</div>' : "";
+  return '<div class="gh" style="margin-top:14px"><h3>Überblick</h3><p style="margin:0 0 6px">Neueste Sicherung: ' + new Date(neuest).toLocaleString("de-DE") + ' (' + relZeit(alter) + ')</p>' + (warn ? '<p class="fehler" style="margin:4px 0 8px">Seit ' + Math.floor(alter / 86400000) + ' Tagen keine Sicherung. Entweder hat Anja die App länger nicht geöffnet, oder die Sicherung läuft nicht.</p>' : "") + '<p style="margin:0 0 8px">Anja hat ' + sie + ' Bewertungen abgegeben, davon gleich mit deinen: ' + gleich + ', abweichend: ' + abw + '.</p><label>Version ' + vers + '</label>' + neuZeile + '</div>' + wunschKarte +
     '<div style="margin-top:14px;display:grid;gap:12px">' + (karten2 || '<p class="hinweis">Noch keine Bewertungen.</p>') + '</div>' +
     '<div class="gh"><h3>Weitergeben</h3><div class="zeile2"><button class="mini" onclick="rueckblickKopieren()">Rückblick als Text kopieren</button></div>' +
     '<h3 style="margin-top:14px">Handywechsel</h3><p class="hinweis" style="text-align:left;margin:0 0 6px">Der Link enthält ihre Angaben im Klartext. Nur direkt an Anja senden.</p><div class="zeile2"><button class="mini" onclick="linkErzeugen()">Wiederherstellungs-Link erzeugen</button><button class="mini" onclick="wiederherstellungsDatei()">Datei herunterladen</button></div>' +
@@ -737,7 +784,8 @@ function rueckblickKopieren() {
     VER.forEach(v => { const ihr = b[v[0]], meins = wert(wahl, t.d, v[0]); if (ihr !== undefined || meins) teile.push(v[1] + ": Anja " + (ihr === undefined ? "–" : HER[String(ihr)]) + ", ich " + (meins ? SYM[meins] : "–")); });
     if (teile.length || verb[t.d]) zl.push("Türchen " + t.d + " (Karte " + t.k + "): " + teile.join(" | ") + (verb[t.d] ? "\n   Für nächstes Mal: " + verb[t.d] : ""));
   });
-  const text = zl.join("\n");
+  const w3 = awTeil("adventWunsch26"), wz = WUNSCH.filter(f => w3[f[0]]).map(f => f[1] + ": " + w3[f[0]]);
+  const text = zl.join("\n") + (wz.length ? "\n\nFür ein nächstes Mal (Anja):\n" + wz.join("\n") : "");
   try { navigator.clipboard.writeText(text); mel("awM2", "Kopiert.", false); } catch (e) { mel("awM2", "Kopieren nicht möglich.", true); }
 }
 function wiederherstellungsNutzlast() { return JSON.stringify({ v: 1, keys: AW.daten.keys || {} }); }
