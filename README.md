@@ -776,7 +776,7 @@ Grob in der Reihenfolge der Entstehung:
 9. **Weiter-Knopf** erscheint nur, wenn das nächste Türchen freigeschaltet ist.
 10. **Rückblick auf die Aufgabe:** Beim Bewerten am Folgetag oder beim erneuten Öffnen eines vergangenen Türchens stehen Aufgabe und Alternative im Originalwortlaut dabei (nie am Tag der ersten Öffnung).
 11. **Code-Sperre** beim Start, nach Pause und nach der Wolke, mit leicht verpixeltem Hintergrundbild, das sich beim Entsperren entpixelt (TEST und LIVE).
-12. **Begleitmaterial:** Beipackzettel (v9, mit Code und Päckchen-Hinweis), Gimmick-Vorlagen (Zettel für einzelne Türchen, Code-Zettel, Zettel für den zweiten Kalender), Röhren-Packliste, Kurzbeschreibungen-Tabelle, Prompt für den zweiten Kalender.
+12. **Begleitmaterial:** Beipackzettel (v10, mit Code und Umschlag-zuerst-Hinweis), Gimmick-Vorlagen (Zettel für einzelne Türchen, Code-Zettel; ohne Verweis auf weitere Kalender), Röhren-Packliste, Kurzbeschreibungen-Tabelle, Prompt für den zweiten Kalender.
 13. **Zweiter Kalender** „Adventsgeschichten“ (nicht erotisch) in einem eigenen Projekt.
 14b. **Wetter in den Geschichten** (Abschnitt 7.9): Wettersätze passen sich dem echten Wetter an; Vorschau per `?wetter=…`. **Status: in TEST und LIVE umgesetzt.**
 14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
@@ -788,8 +788,8 @@ Grob in der Reihenfolge der Entstehung:
 | Material | Inhalt |
 |---|---|
 | `Her_His_Pleasure_Faltkarten_SW_FINAL.pdf` | 24 gedruckte Faltkarten (Aufgabe und Alternative, Stempel-Hinweise, Joker) |
-| `Beipackzettel_Advent_SW_v9.pdf` | „Gebrauchsanweisung“: Zugang (Adresse, QR-Code), **Zugangscode**, Ablauf, Regeln, Päckchen-Hinweis; bleibt im Beutel, nicht für die Kinder sichtbar |
-| `Gimmick_Vorlagen.pdf` | Zettel für die Röllchen und Päckchen (siehe unten) |
+| `Beipackzettel_Advent_SW_v10.pdf` | „Gebrauchsanweisung“: Zugang (Adresse, QR-Code), **Zugangscode**, Ablauf, Regeln, Hinweis „Umschlag immer zuerst öffnen, Päckchen daran danach“; bleibt im Beutel, nicht für die Kinder sichtbar |
+| `Gimmick_Vorlagen_v2.pdf` | Zettel, die als Ergänzung zur Aufgabe in den Päckchen liegen (siehe unten) |
 | Röhren-Packliste (Docs-Dokument) | Was in welches Röllchen kommt (Pappröhren Ø 5 cm × 10 cm) |
 | `Kurzbeschreibungen_Tuerchen.xlsx` | Kurzbeschreibungen mit den kompletten Kartentexten (bearbeitbar) |
 | „Prompt: Advents-Geschichten-Kalender“ (Docs-Dokument) | Vorlage für den zweiten Kalender |
@@ -800,12 +800,13 @@ Gimmick-Vorlagen (Zettel, Ausschneiden entlang der gestrichelten Linie, 100 % dr
 - **Türchen 7:** Zettel mit Hinweis auf das Päckchen (zusätzlich eine Info-Seite zur Beschriftung, nur für Thilo, nicht ausschneiden).
 - **Türchen 13:** Zettel zur Alternative (QR-Code).
 - **Türchen 18:** Zählkarte.
-- **1. Dezember:** Zettel für den zweiten Kalender (QR-Code, `adventsgeschichten.tkagel.de`).
 - **Code-Zettel:** Zettel mit dem Zugangscode für den Kalender.
+
+Es gibt keinen Verweis auf weitere Kalender mehr: Die Gimmicks gehören ausschließlich zu diesem Kalender (der Schokoladen-Kalender ist komplett getrennt). Die Schrift auf den Zetteln ist fett und größer, damit sie gut lesbar ist.
 
 **Grundregel für alle Zettel:** Sie dürfen nichts vorwegnehmen, weil Anja sie ggf. morgens liest, bevor sie die Geschichte und die Aufgabe kennt. Päckchen werden erst nach dem Lesen der Aufgabe geöffnet.
 
-Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel gehören in die Röllchen, alles andere in Päckchen, an denen der Umschlag mit der Aufgabe hängt.
+Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel liegen in den Päckchen, an denen der Umschlag mit der Aufgabe hängt, und ergänzen die Aufgabe. Der Umschlag wird immer zuerst geöffnet.
 
 ---
 
@@ -848,7 +849,7 @@ Warum es so gebaut ist, wie es ist:
 - **Notizen nur lokal:** Persönlich und nur für Anja. Sie wandern nur dann in eine Datei, wenn sie „Erinnerung speichern“ drückt.
 - **Code-Sperre statt Face ID:** Face ID über WebAuthn wäre aufwendig, für die Erstnutzung ungewohnt und ohne Server ohnehin nur ein Sichtschutz. Die iOS-eigene App-Sperre wird für Web-Apps nicht angeboten. Ein fester vierstelliger Code reicht gegen zufälliges Öffnen (Kinder) und kann nicht verloren gehen (kein Aussperren, anders als bei einem selbst vergebenen Code).
 - **Wolke als Chef-Taste:** Schnelles Verstecken, wenn jemand ins Zimmer kommt. Nach der Wolke kommt die Sperre.
-- **Zwei Kalender getrennt:** Zettel gehören in die Röllchen, Extras in Päckchen mit der Aufgabe. Der zweite Kalender („Adventsgeschichten“, nicht erotisch) ist ein eigenes Projekt.
+- **Zwei Kalender getrennt:** Zettel und Extras liegen in den Päckchen zur Aufgabe. Der zweite Kalender („Adventsgeschichten“, nicht erotisch) ist ein eigenes Projekt.
 - **Zettel dürfen nichts verraten:** Anja liest sie ggf. morgens, bevor sie die Geschichte kennt. Deshalb sind sie neutral formuliert.
 - **TEST als eigene Instanz:** So kann nichts versehentlich auf LIVE landen; Speicher und Adresse sind getrennt. `VORTEST_NOVEMBER` macht den November testbar.
 - **Kurzbeschreibungen unter den Kacheln:** Damit sie nach Tagen noch weiß, was sie bewerten möchte.
