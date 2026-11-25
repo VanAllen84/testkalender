@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795604829`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795612354`.
 
 ---
 
@@ -71,6 +71,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795604829`.
 4. Dafür sorgen, dass sie den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
 5. Ihr Handy ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
 6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
+7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3`, `finale.mp3` und `herzschlag.mp3` hineinlegen (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
 
 ### Nach einer Änderung (LIVE oder TEST)
 1. `index.html` bzw. die betroffenen Dateien ändern.
@@ -103,7 +104,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795604829`.
 ├── wiederherstellung.html  nicht verlinkte Seite für den Handywechsel
 ├── manifest-er.json      App-Manifest des Editors „His Rating“ (nur in TEST)
 ├── icon-er-180/192/512.png  Icons des Editors (nur in TEST)
-├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung)
+├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation), herzschlag.mp3 (Herzschlag im Finale)
 ├── story-day1.js … story-day24.js   Die 24 Geschichten (je drei Stimmungen)
 ├── bilder/
 │   ├── landing.jpg           Bild der Startseite und der Sperre
@@ -299,6 +300,8 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Lieblingsgeschichten (Herz):** Unter jeder Geschichte ein Herz-Knopf „Diese Geschichte gefällt mir“. Ein Herz je Türchen und Stimmung; weitere Stimmungen kann sie erst ab dem 25.12. lesen und dann auch dort ein Herz vergeben (dieselbe Geschichte kann also mehrfach in der Liste stehen). Herzchen erscheinen auf der Kachel; ab dem 25.12. zeigt die Übersicht den Bereich „Meine Lieblingsgeschichten“ (Sprungknöpfe zu Türchen und Stimmung).
 - **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; wer es leise will, stellt die Lautstärke am Handy herunter). Fehlt die Datei, passiert nichts (kein Fehler). Die Datei steht bewusst **nicht** in der Vorab-Liste des Service Workers, damit eine fehlende Datei die Installation nicht verhindert. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
 - **Enthüllung (optional):** Liegt `ton/auspacken.mp3` im Repository (ca. 14 s, nur die ersten fünf Sekunden sind hörbar), spielt sie beim Tipp auf „Enthüllen“ in der Auswertung und wird am Ende der Animation ausgeblendet. Fehlt die Datei, läuft die Animation lautlos (siehe Abschnitt 13.3).
+- **Finale-Melodie (optional):** Liegt `ton/finale.mp3` (ca. 26 s) im Repository, startet sie mit der Finale-Animation und klingt unter der Finale-Seite aus; beim Überspringen wird sie ausgeblendet (`tonFinale`). Fehlt die Datei, läuft die Animation lautlos.
+- **Herzschlag (optional):** `ton/herzschlag.mp3` (ca. 1,1 s, ein Schlag mit Lub und Dub, Lub bei 0,28 s) wird in der Finale-Animation sechsmal abgespielt, parallel zur Melodie. Der Takt kommt aus der Animationsschleife (`tonHerzschlag`, Web Audio mit Rückfall auf Audio-Elemente), damit Bild und Ton im gleichen Takt laufen. Beim Überspringen wird er gestoppt (`tonHerzStopp`). Fehlt die Datei, pulsiert das Herz lautlos.
 - **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
 - **Ausblenden beim Überspringen:** Wird eine Animation durch Antippen übersprungen oder endet sie, blendet der Ton in ca. einer halben Sekunde aus (`tonAusblenden` in `index.html`), damit beim Lesen nichts nachklingt. Das gilt für das Knarren beim Tür-Übergang und den Wind beim Wirbel.
 
@@ -384,7 +387,7 @@ Alle lassen sich durch Antippen überspringen. Bei „Bewegung reduzieren“ am 
 Nach „Tauche ein in die heutige Geschichte!“ lösen sich die Buchstaben der Seite, kreisen um die Mitte und setzen sich zur Geschichte zusammen. Antippen überspringt.
 
 ### 8.3 Finale-Animation
-Variante B „Die 24 Lichter“: 24 Lichter formen einen Tannenbaum, dann einen Stern, am Ende ein Lichtblitz. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
+Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.mp3` abgestimmt): 24 Lichter erscheinen einzeln (ruhiger Teil der Melodie), formen ab ca. 8 s einen Tannenbaum, der mit dem Einsatz der Musik bei 11 s einen goldenen Stern bekommt, wandeln sich ab ca. 14 s zum Herz, das ab ca. 16,85 s im Takt von `ton/herzschlag.mp3` schlägt (sechs Schläge im Abstand von 1,1 s, der letzte fällt auf den Höhepunkt; jeder Schlag lässt das Herz zweimal pulsieren: Lub, Dub), zoomen ab ca. 18,4 s hinein und enden mit dem Lichtblitz beim Höhepunkt der Melodie (ca. 22,3 s). Dann erscheint die Finale-Seite, während die Melodie ausklingt. Ein Tipp überspringt die Animation und blendet den Ton aus. Die Zeiten stehen in `bildB`; wird die Melodie getauscht, müssen sie angepasst werden. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
 
 ### 8.4 Kleinere Effekte
 - Wasserzeichen-Bild im Hintergrund (`wm-anker`, `wm-img`).
@@ -517,7 +520,7 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 - Zusätzlich: „Bisher nur von dir bewertet“ und „Noch nicht von dir bewertet“. Seine Bewertungen erscheinen nur bei Aufgaben oder Alternativen, die sie selbst bewertet hat. Ob er etwas bewertet hat, das sie noch nicht bewertet hat, erfährt sie nicht.
 - Ohne `er.js` zeigt die Auswertung nur ihre eigenen Bewertungen.
 - Die Auswertung blättert gruppenweise („Weiter: …“). Man kann auch **links/rechts wischen**; die Punkte oben (je Gruppe einer, am Ende die Übersicht) sind antippbar (`awGehe`, `awSwipeInit`).
-- **Enthüllung (`awEnthuellen`):** Der Knopf „Enthüllen“ startet eine Animation von ca. 4,7 Sekunden: Ein Päckchen fliegt in die Bildmitte, die Schleife öffnet sich, der Deckel hebt ab, goldenes Licht und Funken steigen auf, das Licht füllt den Bildschirm und blendet in die erste Gruppe über. Ein Tipp auf den Bildschirm (nach einer halben Sekunde) überspringt sie. Sie läuft auch bei „Enthüllung noch einmal ansehen“. Bei eingeschalteter Systemeinstellung „Bewegung reduzieren“ entfällt sie. Dazu spielt `ton/auspacken.mp3` (siehe Abschnitt 8) und wird am Ende ausgeblendet (`tonAuspacken`, `tonAusblenden("auspacken")`).
+- **Enthüllung (`awEnthuellen`):** Der Knopf „Enthüllen“ startet eine Animation von ca. 4,7 Sekunden: Das Päckchen der Einleitung (ein gezeichnetes Element, das leicht wippt) wandert von seinem Platz in die Bildmitte und wird größer, die Schleife lockert sich, hebt sich ab und fällt zur Seite, der Deckel hebt ab, goldenes Licht und Funken steigen auf, das Licht füllt den Bildschirm und blendet in die erste Gruppe über. Ein Tipp auf den Bildschirm (nach einer halben Sekunde) überspringt sie. Sie läuft auch bei „Enthüllung noch einmal ansehen“. Bei eingeschalteter Systemeinstellung „Bewegung reduzieren“ entfällt sie. Dazu spielt `ton/auspacken.mp3` (siehe Abschnitt 8) und wird am Ende ausgeblendet (`tonAuspacken`, `tonAusblenden("auspacken")`).
 - **Zuordnung:** Bewertungen gehören immer zur Aufgabe oder Alternative **einer Karte**. Die Türchenzahl dient nur als Schlüssel und steht als Information in der kleinen Zeile der Kachel („Aufgabe · Karte 20 · Türchen 6“).
 - **Kachel (`auswKarte`):** kleine graue Zeile (Her/His, Aufgabe/Alternative, Karte, Türchen), farbiger Streifen links (Her beerig, His blau, keine Kategorie-Farben), Text auf drei Zeilen gekürzt, Tipp auf die Kachel klappt ihn auf. In gemischten Gruppen (Favoriten, Geschmackssache, Flops) steht unter dem Text „Meine 👍 · Seine 😐“; in Gruppen mit gleicher Bewertung steht das einmal in der Überschrift („Beide 👍“, `AW_GRUPPEN[].wer`).
 - **Beschriftung:** „Meine“ steht für ihre Bewertung, „Seine“ für seine (Kacheln, Tabelle „Meine und seine Bewertung“, Filter, Textdatei der Erinnerung). In der Karte „Für ein nächstes Mal“ spricht die App über ihn in der dritten Person („Was soll er sich merken?“).
@@ -644,11 +647,12 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795604829";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795612354";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
 - GitHub Pages hält Dateien einige Minuten im Zwischenspeicher.
+- **Töne im Offline-Speicher:** Die Dateien in `ton/` stehen bewusst **nicht** in der Liste des Service Workers (fehlt eine Datei, würde sonst das ganze Zwischenspeichern scheitern). Sie werden vom Browser normal zwischengespeichert und spielen offline nur, wenn sie schon einmal geladen waren.
 - **Nicht im Repository:** `worker.js` (Cloudflare-Worker) und `ANLEITUNG_Cloudflare.md` liegen nur bei dir und werden nicht hochgeladen. Der Worker läuft bei Cloudflare, nicht auf GitHub Pages.
 - Hängt ein Handy fest: Seite neu laden, App ganz schließen und neu öffnen, im Notfall Website-Daten löschen.
 
@@ -754,9 +758,10 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Geschichten | `loadStoryContent`, `karteninfoSetzen`, `geschichteFehler`, `geschichteNochmal` |
 | Bewertung | `bewertungZeilenHtml`, `aufgabenText`, `bewerteVersion`, `bewertungUI`, `bannerKandidat`, `bannerRendern`, `bewAenderbar` |
 | Notizen | `notizAlle`, `notizSetzen`, `notizHtml`, `notizenKopieren` |
-| Auswertung | `auswertungRendern`, `gemeinsameAuswertung`, `AW_GRUPPEN`, `erLaden`, `erDaten`, `kartenLaden`, `kartenDaten` |
+| Auswertung | `auswertungRendern`, `gemeinsameAuswertung`, `AW_GRUPPEN`, `auswKarte`, `awPunkte`, `awGehe`, `awSwipeInit`, `awEnthuellen`, `giftHtml`, `erLaden`, `erDaten`, `kartenLaden`, `kartenDaten` |
 | Erinnerung/Export | `erinnerungSpeichern`, `erinnerungDaten`, `erinnerungBildRueckblick`, `erinnerungBildFavoriten` |
-| Animationen | `portalDurch`, `wirbelUebergang`, `finaleDurch`, `wmAn`, `bildEinblenden` |
+| Animationen | `portalDurch`, `wirbelUebergang`, `finaleDurch` (Zeiten in `bildB`), `awEnthuellen`, `wmAn`, `bildEinblenden` |
+| Töne | `tonSpielen`, `tonWirbel`, `tonAuspacken`, `tonFinale`, `tonHerzschlag`, `tonHerzBereit`, `tonHerzStopp`, `tonAusblenden` |
 | Startseite | `rulesAktualisieren`, `rulesUmschalten`, `vorabUmschalten`, `ladeErinnerung`, Countdown |
 | Übersicht | `begruessungWaehlen`, `begruessungZeigen`, `teaserAktualisieren` |
 | Wetter (`wetter.js`) | `wetterErsetzen`, `wetterAktualisieren`, `wetterLaden`, `klasseVon`, `aktuell`, `tempWort`; Texte in `window.WETTER_TEXTE` |
@@ -785,6 +790,10 @@ Grob in der Reihenfolge der Entstehung:
 13. **Zweiter Kalender** „Adventsgeschichten“ (nicht erotisch) in einem eigenen Projekt.
 14b. **Wetter in den Geschichten** (Abschnitt 7.9): Wettersätze passen sich dem echten Wetter an; Vorschau per `?wetter=…`. **Status: in TEST und LIVE umgesetzt.**
 14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
+15. **Sicherung und Editor** (Abschnitt 14): verschlüsselte Sicherung über einen Cloudflare-Worker, „Ihre Antworten“, Wiederherstellungs-Link, Wünsche für ein nächstes Mal, GitHub-Upload aus dem Editor, Beschriftung „Sie“ statt Namen.
+16. **Auswertung überarbeitet** (Abschnitt 13.3): Wischen zwischen den Gruppen, straffere Kacheln, „Meine“ und „Seine“ statt „Du“ und „Ich“, Zuordnung nach Karte statt nach Türchenzahl (Türchen nur als Information).
+17. **Enthüllung und Finale mit Ton** (Abschnitte 7.8, 8.3, 13.3): Päckchen-Animation mit `auspacken.mp3`, Finale-Animation (22,8 s) auf die Melodie `finale.mp3` abgestimmt, sechs Herzschläge im Takt von `herzschlag.mp3`. Alle Töne sind optional.
+18. **Begleitmaterial überarbeitet** (Abschnitt 27): Beipackzettel v10 (Umschlag zuerst öffnen), Gimmick-Zettel liegen in den Päckchen, größere und fettere Schrift, keine Verweise auf weitere Kalender.
 
 ---
 
@@ -895,6 +904,9 @@ Warum es so gebaut ist, wie es ist:
 
 - Zweiter Kalender „Adventsgeschichten“: eigenes Projekt, Prompt liegt als Dokument vor.
 - Probelauf und Erinnerungen wurden angeboten, aber nicht umgesetzt.
+- Erinnerung per Push-Nachricht an ein neues Türchen (über den Worker): zurückgestellt, wird bei Bedarf gesondert besprochen.
+- Die Notizen in ihrer App sind mit „nur für dich“ beschriftet. Im Editor erscheinen sie nur hinter einem Schalter; ob der Text der App angepasst werden soll, ist offen.
+- Ton und Bild laufen auf manchen iPhones minimal versetzt (Startverzögerung der Audiodatei). Bei Bedarf lässt sich der Takt in `bildB` und `finaleDurch` verschieben.
 - Face ID / Passkey wurde bewusst verworfen (Abschnitt 30).
 - Das LIVE-Backup `advent26-LIVE_komplett.zip` wird nur auf Wunsch aktualisiert.
 - Vor dem 1. Dezember prüfen: `er.js` in LIVE mit echten Bewertungen, Code bekannt, ihr Handy mit automatischer Zeit, Erinnerungs-Termine eingerichtet.
