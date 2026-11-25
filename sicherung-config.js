@@ -1,2 +1,2 @@
-/* Wird vom Editor "His Rating" erzeugt und per GitHub gesendet. Solange aktiv false ist, passiert in der App nichts. */
-window.SICHERUNG = { aktiv: false, url: "", slot: "", pub: null };
+/* Wird vom Editor "His Rating" erzeugt. Nicht von Hand ändern. */
+window.SICHERUNG = {"aktiv":true,"url":"https://advent-Sicherung.solitary-bird-2ffc.workers.dev","slot":"qx2ShubBb5iJaRa6anXWStxalC3AipDeqUnAcGiR","pub":{"kty":"RSA","n":"070Gkc8T0RAWOTTWnUyUbpzHj_tNShbHingKCqVPPWyz6jJmHpzTxm--EwADCCr8b81b-k0LaGS87y5pBg2xJGM5-8ShOZYnfhzYY_phJ3WsvgOXFPkfzvYnS7k71FqkjjG6x7l8r2Wc-E-KoWg3tji7mhiAM1nK3rPBHZMxMXYK0ApTAlOMS7Xz7Eg9cN1KfboLAz7Jzt5auWtkQInlrP6eQ9qhVPAjBZpXHeLrJn6KaGzWYG5o_7UXsiHZLZfuqyS_O22TcwCZmDZWT1fCMP4l6Xp_E2jXoY7_23m7oKEpogC1QXoL4LEIob8Iys95zE3aGlKK9-UUAduIW8JP1w","e":"AQAB","alg":"RSA-OAEP-256","ext":true}};
