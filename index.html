@@ -3139,13 +3139,13 @@
                     if (t0 === null) t0 = ts;
                     const t = ts - t0;
                     (variante === "A" ? bildA : bildB)(ctx, W, H, t);
-                    if (variante !== "A") while (hzNr < 6 && t >= 16850 + hzNr * 1100 - 280) { hzNr++; try { if (window.tonHerzschlag) window.tonHerzschlag(); } catch (e) {} }
+                    if (variante !== "A") while (hzNr < 6 && t >= 16850 + hzNr * 1100 - 280) { hzNr++; /* Herzschlag ist in ton/finale.mp3 eingemischt */ }
                     if (t >= wechsel) wechselnJetzt();
                     if (t >= dauer) { beenden(); return; }
                     requestAnimationFrame(frame);
                 }
                 ov.addEventListener("click", function () { beenden(true); });
-                try { if (variante !== "A") { if (window.tonHerzBereit) window.tonHerzBereit(); if (window.tonFinale) window.tonFinale(); } } catch (e) {}
+                try { if (variante !== "A") { if (window.tonFinale) window.tonFinale(); } } catch (e) {}
                 requestAnimationFrame(frame);
                 setTimeout(beenden, dauer + 3000);
             };
@@ -3352,8 +3352,8 @@
     window.tonFinale = function () {
         if (!tonAn()) return;
         try {
-            if (!finaleAudio) { finaleAudio = new Audio("ton/finale.mp3"); finaleAudio.volume = 0.85; }
-            tonFadeStop(finaleAudio); finaleAudio.volume = 0.85;
+            if (!finaleAudio) { finaleAudio = new Audio("ton/finale.mp3"); finaleAudio.volume = 1; }
+            tonFadeStop(finaleAudio); finaleAudio.volume = 1;
             finaleAudio.currentTime = 0;
             const p = finaleAudio.play(); if (p && p.catch) p.catch(function () {});
         } catch (e) {}
@@ -3402,7 +3402,7 @@
         try { tonAudio = new Audio(TON_URL); tonAudio.preload = "auto"; tonAudio.volume = 0.8; } catch (e) {}
         try { auspAudio = new Audio("ton/auspacken.mp3"); auspAudio.preload = "auto"; auspAudio.volume = 0.8; } catch (e) {}
         herzInit();
-        try { finaleAudio = new Audio("ton/finale.mp3"); finaleAudio.preload = "auto"; finaleAudio.volume = 0.85; } catch (e) {}
+        try { finaleAudio = new Audio("ton/finale.mp3"); finaleAudio.preload = "auto"; finaleAudio.volume = 1; } catch (e) {}
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();

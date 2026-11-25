@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795612354`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795613308`.
 
 ---
 
@@ -71,7 +71,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795612354`.
 4. Dafür sorgen, dass sie den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
 5. Ihr Handy ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
 6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
-7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3`, `finale.mp3` und `herzschlag.mp3` hineinlegen (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
+7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3` und `finale.mp3` hineinlegen (`finale.mp3` enthält den Herzschlag bereits eingemischt) (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
 
 ### Nach einer Änderung (LIVE oder TEST)
 1. `index.html` bzw. die betroffenen Dateien ändern.
@@ -104,7 +104,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795612354`.
 ├── wiederherstellung.html  nicht verlinkte Seite für den Handywechsel
 ├── manifest-er.json      App-Manifest des Editors „His Rating“ (nur in TEST)
 ├── icon-er-180/192/512.png  Icons des Editors (nur in TEST)
-├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation), herzschlag.mp3 (Herzschlag im Finale)
+├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation) (Melodie inklusive eingemischtem Herzschlag)
 ├── story-day1.js … story-day24.js   Die 24 Geschichten (je drei Stimmungen)
 ├── bilder/
 │   ├── landing.jpg           Bild der Startseite und der Sperre
@@ -301,7 +301,7 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; wer es leise will, stellt die Lautstärke am Handy herunter). Fehlt die Datei, passiert nichts (kein Fehler). Die Datei steht bewusst **nicht** in der Vorab-Liste des Service Workers, damit eine fehlende Datei die Installation nicht verhindert. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
 - **Enthüllung (optional):** Liegt `ton/auspacken.mp3` im Repository (ca. 14 s, nur die ersten fünf Sekunden sind hörbar), spielt sie beim Tipp auf „Enthüllen“ in der Auswertung und wird am Ende der Animation ausgeblendet. Fehlt die Datei, läuft die Animation lautlos (siehe Abschnitt 13.3).
 - **Finale-Melodie (optional):** Liegt `ton/finale.mp3` (ca. 26 s) im Repository, startet sie mit der Finale-Animation und klingt unter der Finale-Seite aus; beim Überspringen wird sie ausgeblendet (`tonFinale`). Fehlt die Datei, läuft die Animation lautlos.
-- **Herzschlag (optional):** `ton/herzschlag.mp3` (ca. 1,1 s, ein Schlag mit Lub und Dub, Lub bei 0,28 s) wird in der Finale-Animation sechsmal abgespielt, parallel zur Melodie. Der Takt kommt aus der Animationsschleife (`tonHerzschlag`, Web Audio mit Rückfall auf Audio-Elemente), damit Bild und Ton im gleichen Takt laufen. Beim Überspringen wird er gestoppt (`tonHerzStopp`). Fehlt die Datei, pulsiert das Herz lautlos.
+- **Herzschlag:** Die sechs Herzschläge (Lub-Dub, Abstand 1,1 s, ab 16,57 s, der Lub fällt jeweils auf 16,85 s + n·1,1 s) sind fest in `ton/finale.mp3` eingemischt, damit sie auf allen Geräten gleichzeitig mit der Melodie laufen (iPhone: Web Audio wird vom Stumm-Schalter gedämpft, normale Audio-Elemente nicht). Das Original `herzschlag.mp3` liegt fast nur im Tiefbass (unter 120 Hz), den Handy-Lautsprecher kaum wiedergeben; für die Mischung wurde es mit Obertönen im Bereich 120–500 Hz angereichert. Die Pulse des Herzens im Bild laufen weiter über die Animationsschleife. `herzschlag.mp3` wird nicht mehr gebraucht.
 - **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
 - **Ausblenden beim Überspringen:** Wird eine Animation durch Antippen übersprungen oder endet sie, blendet der Ton in ca. einer halben Sekunde aus (`tonAusblenden` in `index.html`), damit beim Lesen nichts nachklingt. Das gilt für das Knarren beim Tür-Übergang und den Wind beim Wirbel.
 
@@ -387,7 +387,7 @@ Alle lassen sich durch Antippen überspringen. Bei „Bewegung reduzieren“ am 
 Nach „Tauche ein in die heutige Geschichte!“ lösen sich die Buchstaben der Seite, kreisen um die Mitte und setzen sich zur Geschichte zusammen. Antippen überspringt.
 
 ### 8.3 Finale-Animation
-Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.mp3` abgestimmt): 24 Lichter erscheinen einzeln (ruhiger Teil der Melodie), formen ab ca. 8 s einen Tannenbaum, der mit dem Einsatz der Musik bei 11 s einen goldenen Stern bekommt, wandeln sich ab ca. 14 s zum Herz, das ab ca. 16,85 s im Takt von `ton/herzschlag.mp3` schlägt (sechs Schläge im Abstand von 1,1 s, der letzte fällt auf den Höhepunkt; jeder Schlag lässt das Herz zweimal pulsieren: Lub, Dub), zoomen ab ca. 18,4 s hinein und enden mit dem Lichtblitz beim Höhepunkt der Melodie (ca. 22,3 s). Dann erscheint die Finale-Seite, während die Melodie ausklingt. Ein Tipp überspringt die Animation und blendet den Ton aus. Die Zeiten stehen in `bildB`; wird die Melodie getauscht, müssen sie angepasst werden. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
+Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.mp3` abgestimmt): 24 Lichter erscheinen einzeln (ruhiger Teil der Melodie), formen ab ca. 8 s einen Tannenbaum, der mit dem Einsatz der Musik bei 11 s einen goldenen Stern bekommt, wandeln sich ab ca. 14 s zum Herz, das ab ca. 16,85 s im Takt des eingemischten Herzschlags schlägt (sechs Schläge im Abstand von 1,1 s, der letzte fällt auf den Höhepunkt; jeder Schlag lässt das Herz zweimal pulsieren: Lub, Dub), zoomen ab ca. 18,4 s hinein und enden mit dem Lichtblitz beim Höhepunkt der Melodie (ca. 22,3 s). Dann erscheint die Finale-Seite, während die Melodie ausklingt. Ein Tipp überspringt die Animation und blendet den Ton aus. Die Zeiten stehen in `bildB`; wird die Melodie getauscht, müssen sie angepasst werden. Variante A „Vier Kerzen“ ist noch im Code (`FINALE_VAR`).
 
 ### 8.4 Kleinere Effekte
 - Wasserzeichen-Bild im Hintergrund (`wm-anker`, `wm-img`).
@@ -647,7 +647,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795612354";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795613308";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -792,7 +792,7 @@ Grob in der Reihenfolge der Entstehung:
 14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
 15. **Sicherung und Editor** (Abschnitt 14): verschlüsselte Sicherung über einen Cloudflare-Worker, „Ihre Antworten“, Wiederherstellungs-Link, Wünsche für ein nächstes Mal, GitHub-Upload aus dem Editor, Beschriftung „Sie“ statt Namen.
 16. **Auswertung überarbeitet** (Abschnitt 13.3): Wischen zwischen den Gruppen, straffere Kacheln, „Meine“ und „Seine“ statt „Du“ und „Ich“, Zuordnung nach Karte statt nach Türchenzahl (Türchen nur als Information).
-17. **Enthüllung und Finale mit Ton** (Abschnitte 7.8, 8.3, 13.3): Päckchen-Animation mit `auspacken.mp3`, Finale-Animation (22,8 s) auf die Melodie `finale.mp3` abgestimmt, sechs Herzschläge im Takt von `herzschlag.mp3`. Alle Töne sind optional.
+17. **Enthüllung und Finale mit Ton** (Abschnitte 7.8, 8.3, 13.3): Päckchen-Animation mit `auspacken.mp3`, Finale-Animation (22,8 s) auf die Melodie `finale.mp3` abgestimmt, sechs Herzschläge (in `finale.mp3` eingemischt). Alle Töne sind optional.
 18. **Begleitmaterial überarbeitet** (Abschnitt 27): Beipackzettel v10 (Umschlag zuerst öffnen), Gimmick-Zettel liegen in den Päckchen, größere und fettere Schrift, keine Verweise auf weitere Kalender.
 
 ---
