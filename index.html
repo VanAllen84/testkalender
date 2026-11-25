@@ -357,7 +357,7 @@
         .notiz-box label { display: block; font-size: 0.84rem; letter-spacing: 0.4px; opacity: 0.92; margin-bottom: 6px; }
         .notiz-box textarea { width: 100%; box-sizing: border-box; background: rgba(255,255,255,0.05); color: var(--text-color); border: 1px solid var(--border-glow); border-radius: 8px; padding: 10px 12px; font-family: inherit; font-size: 1rem; line-height: 1.5; resize: vertical; min-height: 64px; }
         .notiz-box textarea:focus { outline: 1px solid var(--accent-color); }
-        .ak-notiz { grid-column: 1 / -1; font-size: 0.92rem; line-height: 1.5; padding: 8px 10px; border-left: 3px solid #d4af37; background: rgba(212,175,55,0.08); border-radius: 6px; white-space: pre-wrap; }
+        .ak-notiz { margin-top: 8px; font-size: 0.92rem; line-height: 1.5; padding: 8px 10px; border-left: 3px solid #d4af37; background: rgba(212,175,55,0.08); border-radius: 6px; white-space: pre-wrap; }
         .bew-zeile { margin-top: 14px; text-align: left; }
         .bew-aufgabe { font-size: 0.88rem; line-height: 1.5; opacity: 0.88; border-left: 2px solid #d4af37; padding: 2px 0 2px 10px; margin: 0 0 8px; }
         .bew-label { font-size: 0.84rem; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.92; margin-bottom: 6px; }
@@ -394,7 +394,7 @@
         .aw-matrix-box { margin: 22px 0 6px; padding: 14px 12px 12px; border: 1px solid var(--border-glow); border-radius: 12px; background: rgba(255,255,255,0.03); }
         .aw-matrix-box h3 { margin: 0 0 4px; font-size: 1rem; text-align: center; }
         .aw-matrix-box .hint { text-align: center; font-size: 0.88rem; opacity: 0.88; margin: 0 0 10px; }
-        .aw-matrix { display: grid; grid-template-columns: 40px repeat(3, 1fr); gap: 6px; align-items: stretch; }
+        .aw-matrix { display: grid; grid-template-columns: 58px repeat(3, 1fr); gap: 6px; align-items: stretch; }
         .aw-matrix .ax { display: grid; place-items: center; font-size: 1.2rem; }
         .aw-matrix .ax.ecke { font-size: 0.7rem; opacity: 0.85; letter-spacing: 0.3px; line-height: 1.2; text-align: center; }
         .aw-cell { border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); color: #fff; font-family: Georgia, serif; font-size: 1.5rem; padding: 16px 0; cursor: pointer; background: var(--cc, rgba(255,255,255,0.06)); }
@@ -404,22 +404,17 @@
         .aw-gruppenkopf h3 { margin: 0; text-align: left; font-size: 1.15rem; color: var(--gc, #fff); }
         .aw-gruppenkopf .n { opacity: 0.7; font-size: 0.9rem; }
         .aw-gruppensub { font-size: 0.9rem; opacity: 0.88; margin: 0 0 10px; }
-        .aw-karte { --c: #8b78e6; display: grid; grid-template-columns: auto 1fr auto; gap: 8px 12px; align-items: start; margin: 10px 0; padding: 12px 14px 12px 12px; border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--c); border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); animation: awIn 0.9s ease both; animation-delay: calc(var(--i, 0) * 0.12s); }
-        .aw-karte .ak-nr { font-family: Georgia, serif; font-size: 1.9rem; line-height: 1; color: #fff; min-width: 2ch; text-align: center; }
-        .aw-karte .ak-nr small { display: block; font-family: 'Segoe UI', sans-serif; font-size: 0.62rem; letter-spacing: 1.5px; text-transform: uppercase; opacity: 0.8; margin-bottom: 2px; }
-        .ak-chips { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
-        .ak-textbox { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.07); }
-        .ak-chip { font-size: 0.74rem; letter-spacing: 0.3px; padding: 2px 8px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); }
-        .ak-chip.her { border-color: #e58aa0; color: #ffd9e2; background: rgba(229,138,160,0.14); }
-        .ak-chip.his { border-color: #7fb3e6; color: #d6e9fb; background: rgba(127,179,230,0.14); }
-        .ak-chip.kat { border-color: var(--c); background: color-mix(in srgb, var(--c) 22%, transparent); }
-        .ak-text { font-size: 0.9rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .ak-text.offen { display: block; }
-        .ak-mehr { background: none; border: none; color: var(--accent-color); font-size: 0.86rem; padding: 4px 0 0; cursor: pointer; }
-        .ak-paar { display: flex; gap: 6px; }
-        .ak-kreis { width: 38px; text-align: center; }
-        .ak-kreis span { display: grid; place-items: center; width: 34px; height: 34px; margin: 0 auto; border-radius: 50%; font-size: 1.05rem; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.14); }
-        .ak-kreis small { display: block; font-size: 0.72rem; opacity: 0.85; margin-top: 2px; }
+        .aw-karte { --c: #7a7388; margin: 9px 0; padding: 10px 14px 11px 13px; border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--c); border-radius: 12px; background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); animation: awIn 0.9s ease both; animation-delay: calc(var(--i, 0) * 0.12s); cursor: pointer; }
+        .aw-karte.her { --c: #e58aa0; }
+        .aw-karte.his { --c: #7fb3e6; }
+        .ak-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 6px; white-space: nowrap; font-size: 0.76rem; letter-spacing: 0.3px; opacity: 0.8; margin-bottom: 5px; }
+        .ak-meta .her { color: #ffd9e2; } .ak-meta .his { color: #d6e9fb; }
+        .ak-meta .pf { margin-left: auto; font-size: 0.8rem; transition: transform .2s; }
+        .aw-karte.auf .ak-meta .pf { transform: rotate(180deg); }
+        .ak-text { font-size: 0.93rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .aw-karte.auf .ak-text { display: block; }
+        .ak-paar { margin-top: 7px; font-size: 0.86rem; letter-spacing: 0.3px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.07); }
+        .ak-paar b { font-weight: 600; }
         .aw-notiz { text-align: center; font-size: 0.9rem; opacity: 0.9; margin: 14px 0 0; line-height: 1.5; }
         .aw-btn { display: block; width: 100%; padding: 15px; margin-top: 22px; font-size: 1.05rem; font-weight: 600; border: none; border-radius: 10px; background: linear-gradient(180deg, #d4af37, #b8932a); color: #1a1405; cursor: pointer; }
         .aw-link { display: block; margin: 14px auto 0; background: none; border: none; color: var(--text-color); opacity: 0.9; text-decoration: underline; cursor: pointer; font-size: 0.95rem; }
@@ -431,9 +426,11 @@
         .aw-reveal-kopf .gross { font-size: 3.2rem; line-height: 1.1; }
         .aw-reveal-kopf h3 { margin: 6px 0 4px; font-family: Georgia, serif; font-size: 1.7rem; color: var(--gc, #d4af37); letter-spacing: 1px; }
         .aw-reveal-kopf .sub { opacity: 0.8; font-size: 0.92rem; }
-        .aw-punkte { display: flex; justify-content: center; gap: 7px; margin: 14px 0 4px; }
-        .aw-punkte i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.18); }
-        .aw-punkte i.an { background: #d4af37; }
+        .aw-punkte { display: flex; justify-content: center; gap: 4px; margin: 8px 0 0; }
+        .aw-punkte button { padding: 10px 5px; background: none; border: none; cursor: pointer; }
+        .aw-punkte button i { display: block; width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.22); }
+        .aw-punkte button.an i { background: #d4af37; transform: scale(1.25); }
+        .aw-wisch { text-align: center; font-size: 0.78rem; opacity: 0.6; margin: 0; }
         .aw-filterkopf { display: flex; justify-content: space-between; align-items: baseline; margin: 24px 0 4px; gap: 10px; }
         @keyframes awIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
         @media (prefers-reduced-motion: reduce) { .aw-karte, .aw-reveal-kopf { animation: none; } }
@@ -1856,7 +1853,7 @@
             } catch (e) { return null; }
         }
         function esc(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-        // Bewertung von Thilo (er.js, wird nur für die Auswertung ab dem 25.12. geladen)
+        // Bewertung von ihm (er.js, wird nur für die Auswertung ab dem 25.12. geladen)
         function erLaden(cb) {
             if (window.ER_BEWERTUNG) { cb(); return; }
             const sc = document.createElement("script");
@@ -1936,42 +1933,30 @@
                 const liste = eintraege.filter(e => String(e.a) === g[0]);
                 if (!liste.length) return;
                 html += '<div class="aw-gruppenkopf"><h3>' + g[1] + '</h3><span class="n">' + liste.length + '</span></div>';
-                liste.forEach((e, i) => { html += auswKarte(karten, e, i); });
+                liste.forEach((e, i) => { html += auswKarte(karten, e, i, false); });
             });
             if (offen.length) html += '<p class="aw-notiz">Noch nicht bewertet: Türchen ' + offen.join(", ") + '</p>';
             html += notizKnopfHtml();
             box.innerHTML = html;
         }
         // --- Karten-Darstellung der Auswertung ---
-        const KAT_FARBE = ["#8b78e6", "#4fa874", "#d99b41", "#c23b4c"];
-        const KAT_KURZ = ["Vorfreude & Verführung", "Spiel & Abenteuer", "Hingabe & Intensität", "Wild & Leidenschaftlich"];
-        function auswKarte(karten, e, index) {
+        function auswKarte(karten, e, index, paar) {
             const nr = calendarData[e.d].cardNum;
             const k = karten ? karten[nr] : null;
-            const kat = calendarData[e.d].cat;
             const her = k ? k.w !== "Er" : null;
-            let paar = '<div class="ak-kreis"><span>' + SYMBOL[String(e.a)] + '</span><small>Du</small></div>';
-            if (e.b !== undefined) paar += '<div class="ak-kreis"><span>' + SYMBOL[String(e.b)] + '</span><small>Ich</small></div>';
             const text = k ? esc(e.ver === "a" ? k.a : k.b) : "";
-            return '<div class="aw-karte" style="--c:' + KAT_FARBE[kat] + '; --i:' + index + ';">' +
-                '<div class="ak-nr"><small>Türchen</small>' + e.d + '</div>' +
-                '<div class="ak-chips"><span class="ak-chip kat">' + KAT_KURZ[kat] + '</span>' +
-                (her === null ? '' : '<span class="ak-chip ' + (her ? "her" : "his") + '">' + (her ? "Her" : "His") + ' Pleasure</span>') +
-                '<span class="ak-chip">' + (e.ver === "a" ? "Aufgabe" : "Alternative") + '</span><span class="ak-chip">Karte ' + nr + '</span></div>' +
-                '<div class="ak-paar">' + paar + '</div>' +
+            const zeile = (paar && e.b !== undefined) ? '<div class="ak-paar">Meine ' + SYMBOL[String(e.a)] + ' &nbsp;·&nbsp; Seine ' + SYMBOL[String(e.b)] + '</div>' : "";
+            return '<div class="aw-karte' + (her === null ? '' : (her ? ' her' : ' his')) + '" style="--i:' + index + ';" onclick="this.classList.toggle(\'auf\')">' +
+                '<div class="ak-meta">' + (her === null ? '' : '<span class="' + (her ? "her" : "his") + '">' + (her ? "Her" : "His") + '</span><span>·</span>') +
+                '<span>' + (e.ver === "a" ? "Aufgabe" : "Alternative") + '</span><span>·</span><span>Karte ' + nr + '</span><span>·</span><span>Türchen ' + e.d + '</span><span class="pf">\u25BE</span></div>' +
+                (text ? '<div class="ak-text">' + text + '</div>' : '') + zeile +
                 (notizZeige(e.d) ? '<div class="ak-notiz">\u{1F4DD} ' + esc(notizAlle()[e.d]) + '</div>' : '') +
-                (text ? '<div class="ak-textbox"><div class="ak-text">' + text + '</div><button class="ak-mehr" onclick="auswMehr(this)">mehr anzeigen</button></div>' : '') +
                 '</div>';
         }
         let notizGezeigt = {};
         function notizZeige(d) {
             if (notizGezeigt[d] || !notizAlle()[d]) return false;
             notizGezeigt[d] = true; return true;
-        }
-        function auswMehr(btn) {
-            const t = btn.previousElementSibling;
-            const offen = t.classList.toggle("offen");
-            btn.innerText = offen ? "weniger anzeigen" : "mehr anzeigen";
         }
         // Gemeinsame Auswertung: beide Bewertungen zusammen, jede Version (Aufgabe / Alternative) einzeln
         const SYMBOL = { "1": "👍", "0": "😐", "-1": "👎" };
@@ -1985,12 +1970,12 @@
             return 5;                                         // No-Gos (👎 + 👎)
         }
         const AW_GRUPPEN = [
-            { emoji: "\u{1F31F}", name: "Top-Favoriten", sub: "Das haben wir beide richtig gut gefunden.", farbe: "#d4af37" },
-            { emoji: "\u{1F49B}", name: "Favoriten", sub: "Einer begeistert, der andere angetan.", farbe: "#e5a94a" },
-            { emoji: "\u{1F3AD}", name: "Geschmackssache", sub: "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden.", farbe: "#a594f0" },
-            { emoji: "\u{1F642}", name: "Solide", sub: "Okay für uns beide.", farbe: "#8fb3c7" },
-            { emoji: "\u{26A0}\u{FE0F}", name: "Flops", sub: "Mindestens einer sagt „Nicht nochmal“.", farbe: "#e08a4d" },
-            { emoji: "\u{1F6AB}", name: "No-Gos", sub: "Beide: Nicht nochmal.", farbe: "#d9475b" }
+            { emoji: "\u{1F31F}", name: "Top-Favoriten", wer: "Beide \u{1F44D}", gleich: true, sub: "Das haben wir beide richtig gut gefunden.", farbe: "#d4af37" },
+            { emoji: "\u{1F49B}", name: "Favoriten", wer: "Einer \u{1F44D}, einer \u{1F610}", gleich: false, sub: "Einer begeistert, der andere angetan.", farbe: "#e5a94a" },
+            { emoji: "\u{1F3AD}", name: "Geschmackssache", wer: "Einer \u{1F44D}, einer \u{1F44E}", gleich: false, sub: "Einer begeistert, der andere eher nicht – darüber lohnt sich zu reden.", farbe: "#a594f0" },
+            { emoji: "\u{1F642}", name: "Solide", wer: "Beide \u{1F610}", gleich: true, sub: "Okay für uns beide.", farbe: "#8fb3c7" },
+            { emoji: "\u{26A0}\u{FE0F}", name: "Flops", wer: "Einer \u{1F610}, einer \u{1F44E}", gleich: false, sub: "Mindestens einer sagt „Nicht nochmal“.", farbe: "#e08a4d" },
+            { emoji: "\u{1F6AB}", name: "No-Gos", wer: "Beide \u{1F44E}", gleich: true, sub: "Das wollen wir beide nicht wiederholen.", farbe: "#d9475b" }
         ];
         let AW = null;
         function gemeinsameAuswertung(box, karten, bew, er) {
@@ -2005,6 +1990,7 @@
             const offen = geoeffnetListe().filter(d => !bew[d]).sort((x, y) => x - y);
             AW = { box: box, karten: karten, items: items, nurDu: nurDu, offen: offen, schritt: -1, filter: null };
             AW.schritte = [0, 1, 2, 3, 4, 5].filter(g => items.some(e => e.g === g));
+            awSwipeInit();
             if (!items.length) {
                 box.innerHTML = '<p class="ausw-leer">Noch gibt es keine Aufgabe, die ihr beide bewertet habt.</p>' + awNotizen();
                 return;
@@ -2024,8 +2010,8 @@
         }
         function awIntro() {
             AW.box.innerHTML = '<div class="aw-intro"><div class="gross">\u{1F381}</div><h3>Jetzt wird es spannend</h3>' +
-                '<p>Du hast bewertet, ich habe bewertet. Mal sehen, wo wir uns einig sind und wo nicht.</p>' +
-                '<p>Ich zeige dir Schritt für Schritt, wie es ausgegangen ist.</p></div>' +
+                '<p>Ihr habt beide bewertet. Mal sehen, wo ihr euch einig seid und wo nicht.</p>' +
+                '<p>Schritt für Schritt kommt jetzt die Auflösung.</p></div>' +
                 '<button class="aw-btn" onclick="awWeiter()">Enthüllen</button>' +
                 '<button class="aw-link" onclick="awAlles()">Alles direkt anzeigen</button>';
             window.scrollTo(0, 0);
@@ -2035,16 +2021,33 @@
             const gi = AW.schritte[AW.schritt];
             const g = AW_GRUPPEN[gi];
             const liste = AW.items.filter(e => e.g === gi);
-            let h = '<div class="aw-punkte">' + AW.schritte.map((x, i) => '<i class="' + (i === AW.schritt ? "an" : "") + '"></i>').join("") + '</div>' +
+            let h = awPunkte() + '<p class="aw-wisch">\u2190 wischen \u2192</p>' +
                 '<div class="aw-reveal-kopf" style="--gc:' + g.farbe + ';"><div class="gross">' + g.emoji + '</div><h3>' + g.name + '</h3>' +
-                '<div class="sub">' + liste.length + (liste.length === 1 ? " Aufgabe" : " Aufgaben") + ' · ' + g.sub + '</div></div>';
-            liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i + 4); });
+                '<div class="sub"><b>' + g.wer + '</b> \u00b7 ' + liste.length + (liste.length === 1 ? " Aufgabe" : " Aufgaben") + '<br>' + g.sub + '</div></div>';
+            liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i + 4, !g.gleich); });
             const letzter = AW.schritt === AW.schritte.length - 1;
             const naechste = letzter ? null : AW_GRUPPEN[AW.schritte[AW.schritt + 1]];
             h += '<button class="aw-btn" onclick="awWeiter()">' + (letzter ? "Zur Übersicht" : "Weiter: " + naechste.emoji + " " + naechste.name) + '</button>' +
                 '<button class="aw-link" onclick="awAlles()">Alles direkt anzeigen</button>';
             AW.box.innerHTML = h;
             window.scrollTo(0, 0);
+        }
+        function awPunkte() {
+            let h = '<div class="aw-punkte">';
+            for (let i = 0; i <= AW.schritte.length; i++) h += '<button aria-label="' + (i < AW.schritte.length ? AW_GRUPPEN[AW.schritte[i]].name : "Übersicht") + '" class="' + (i === AW.schritt ? "an" : "") + '" onclick="awGehe(' + i + ')"><i></i></button>';
+            return h + '</div>';
+        }
+        function awGehe(i) { AW.schritt = Math.max(0, Math.min(AW.schritte.length, i)); AW.filter = null; awZeichne(); }
+        let awSwipeAn = false;
+        function awSwipeInit() {
+            if (awSwipeAn) return; awSwipeAn = true;
+            const el = document.getElementById("auswertungInhalt"); let x0 = null, y0 = 0;
+            el.addEventListener("touchstart", ev => { const t = ev.touches[0]; x0 = t.clientX; y0 = t.clientY; }, { passive: true });
+            el.addEventListener("touchend", ev => {
+                if (x0 === null || !AW || AW.schritt < 0) { x0 = null; return; }
+                const t = ev.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0; x0 = null;
+                if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) awGehe(AW.schritt + (dx < 0 ? 1 : -1));
+            }, { passive: true });
         }
         function awWeiter() { AW.schritt++; awZeichne(); }
         function awAlles() { AW.schritt = AW.schritte.length; awZeichne(); }
@@ -2059,12 +2062,12 @@
             items.forEach(e => gc[e.g]++);
             const ges = items.length;
             const einig = items.filter(e => e.a === e.b).length;
-            let h = '<div class="aw-hero"><p class="aw-lead">Das ist eure Auswertung</p>' +
+            let h = awPunkte() + '<div class="aw-hero"><p class="aw-lead">Das ist eure Auswertung</p>' +
                 '<p class="aw-sub">' + ges + (ges === 1 ? " Aufgabe" : " Aufgaben") + ' habt ihr beide bewertet, bei ' + einig + ' wart ihr euch einig.</p></div>' +
                 '<div class="aw-stats">' + AW_GRUPPEN.map((g, i) => '<div class="aw-stat" style="border-color:' + g.farbe + '55;"><span class="z" style="color:' + g.farbe + ';">' + gc[i] + '</span><span class="t">' + g.emoji + ' ' + g.name + '</span></div>').join("") + '</div>';
             const vals = [1, 0, -1];
-            h += '<div class="aw-matrix-box"><h3>Du und ich</h3><p class="hint">Tippe auf ein Feld, um nur diese Aufgaben zu sehen.</p><div class="aw-matrix">' +
-                '<div class="ax ecke">Du \u{2193}<br>Ich \u{2192}</div>' + vals.map(v => '<div class="ax">' + SYMBOL[String(v)] + '</div>').join("");
+            h += '<div class="aw-matrix-box"><h3>Meine und seine Bewertung</h3><p class="hint">Tippe auf ein Feld, um nur diese Aufgaben zu sehen.</p><div class="aw-matrix">' +
+                '<div class="ax ecke">Meine \u{2193}<br>Seine \u{2192}</div>' + vals.map(v => '<div class="ax">' + SYMBOL[String(v)] + '</div>').join("");
             vals.forEach(a => {
                 h += '<div class="ax">' + SYMBOL[String(a)] + '</div>';
                 vals.forEach(b => {
@@ -2078,15 +2081,15 @@
             if (AW.filter) {
                 const liste = items.filter(e => e.a === AW.filter.a && e.b === AW.filter.b);
                 const g = AW_GRUPPEN[gruppeFuer(AW.filter.a, AW.filter.b)];
-                h += '<div class="aw-filterkopf" id="awFilterKopf"><div class="aw-gruppenkopf" style="margin:0;--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">Du ' + SYMBOL[String(AW.filter.a)] + ' · Ich ' + SYMBOL[String(AW.filter.b)] + ' · ' + liste.length + '</span></div>' +
+                h += '<div class="aw-filterkopf" id="awFilterKopf"><div class="aw-gruppenkopf" style="margin:0;--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">Meine ' + SYMBOL[String(AW.filter.a)] + ' · Seine ' + SYMBOL[String(AW.filter.b)] + ' · ' + liste.length + '</span></div>' +
                     '<button class="aw-link" style="margin:0;" onclick="awFilter(' + AW.filter.a + ',' + AW.filter.b + ')">Alle zeigen</button></div>';
-                liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i); });
+                liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i, !g.gleich); });
             } else {
                 AW_GRUPPEN.forEach((g, gi) => {
                     const liste = items.filter(e => e.g === gi);
                     if (!liste.length) return;
-                    h += '<div class="aw-gruppenkopf" style="--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">' + liste.length + '</span></div><div class="aw-gruppensub">' + g.sub + '</div>';
-                    liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i); });
+                    h += '<div class="aw-gruppenkopf" style="--gc:' + g.farbe + ';"><h3>' + g.emoji + ' ' + g.name + '</h3><span class="n">' + liste.length + '</span></div><div class="aw-gruppensub"><b>' + g.wer + '</b> \u00b7 ' + g.sub + '</div>';
+                    liste.forEach((e, i) => { h += auswKarte(AW.karten, e, i, !g.gleich); });
                 });
             }
             h += awNotizen();
@@ -2149,7 +2152,7 @@
             root.style.setProperty('--border-glow', 'rgba(212, 175, 55, 0.45)');
             root.style.setProperty('--text-color', '#e8e0cc');
         }
-        // --- Karte "Für ein nächstes Mal": ihre Wünsche, werden automatisch gespeichert (und mit der Sicherung an Thilo übermittelt) ---
+        // --- Karte "Für ein nächstes Mal": ihre Wünsche, werden automatisch gespeichert (und mit der Sicherung an ihn übermittelt) ---
         const WUNSCH_FELDER = [["mehr", "Mehr davon:"], ["weniger", "Lieber nicht mehr:"], ["neu", "Neu ausprobieren:"], ["app", "Was würdest du an der App ändern?"]];
         let wunschTimer = null;
         let wunschMem = {};
@@ -2157,7 +2160,7 @@
         function wunschSchreiben(o) { wunschMem = o; try { localStorage.setItem("adventWunsch26", JSON.stringify(o)); } catch (e) {} }
         function wunschRendern() {
             const w = wunschAlle();
-            const html = '<div class="wunsch"><h3>Für ein nächstes Mal</h3><p class="w-sub">Was soll ich mir merken? Schreib einfach, was dir einfällt, auch in Stichworten. Das lese ich später.</p>' +
+            const html = '<div class="wunsch"><h3>Für ein nächstes Mal</h3><p class="w-sub">Was soll er sich merken? Schreib einfach, was dir einfällt, auch in Stichworten. Das liest er später.</p>' +
                 WUNSCH_FELDER.map(function (f) { return '<label>' + f[1] + '</label><textarea maxlength="800" data-f="' + f[0] + '" oninput="wunschTippen()">' + esc(w[f[0]] || "") + '</textarea>'; }).join("") +
                 '<p class="w-ok">Gespeichert</p></div>';
             document.querySelectorAll("[data-wunsch]").forEach(function (b) { b.innerHTML = html; });
@@ -2605,7 +2608,7 @@
                 l.forEach(function (e) {
                     const nr = calendarData[e.d].cardNum;
                     ctx.fillStyle = "#fff"; ctx.font = "28px sans-serif"; ctx.textAlign = "left";
-                    ctx.fillText("Türchen " + e.d + " · " + (e.ver === "a" ? "Aufgabe" : "Alternative") + " · Karte " + nr, 120, y);
+                    ctx.fillText("Karte " + nr + " · " + (e.ver === "a" ? "Aufgabe" : "Alternative") + " · Türchen " + e.d, 120, y);
                     ctx.textAlign = "right"; ctx.fillText(SYMBOL[String(e.a)] + " " + SYMBOL[String(e.b)], 980, y); y += 40;
                 });
                 y += 10;
@@ -2630,8 +2633,8 @@
                 ["a", "b"].forEach(function (v) {
                     if (b[v] === undefined && e[v] === undefined) return;
                     t += "  " + (v === "a" ? "Aufgabe" : "Alternative") + ": ";
-                    t += b[v] !== undefined ? "du – " + S[String(b[v])] : "von dir nicht bewertet";
-                    if (e[v] !== undefined) t += "; ich – " + S[String(e[v])];
+                    t += b[v] !== undefined ? "meine – " + S[String(b[v])] : "von mir nicht bewertet";
+                    if (e[v] !== undefined) t += "; seine – " + S[String(e[v])];
                     t += "\n";
                     if (k && b[v] !== undefined) t += "    „" + String(v === "a" ? k.a : k.b).replace(/\s+/g, " ").trim() + "“\n";
                 });

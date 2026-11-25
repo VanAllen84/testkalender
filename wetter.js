@@ -6,7 +6,7 @@
 (function () {
     "use strict";
     var HOME = { lat: 51.0885, lon: 6.5879 }, KEY = "adventWetter26", MAXALTER = 6 * 3600 * 1000;
-    // Standort (optional): Nur wenn Anja ihn freigibt (Knopf auf der Startseite). Gerundet auf 0,1 Grad (ca. 10 km). Sonst gilt HOME (Grevenbroich).
+    // Standort (optional): Nur wenn sie ihn freigibt (Knopf auf der Startseite). Gerundet auf 0,1 Grad (ca. 10 km). Sonst gilt HOME (Grevenbroich).
     var ORTK = "adventOrt26", ORTAN = "adventOrtAn26", anMem = "0", ortMem = null;
     function anLesen() { try { var v = localStorage.getItem(ORTAN); if (v !== null) return v; } catch (e) {} return anMem; }
     function anSetzen(v) { anMem = v; try { localStorage.setItem(ORTAN, v); } catch (e) {} }

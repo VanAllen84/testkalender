@@ -1,6 +1,6 @@
 # Erotischer Adventskalender 2026 – TEST-Version
 
-Persönlicher, erotischer Adventskalender für Anja („Schatz“), geschrieben und gebaut von Thilo. Alles auf Deutsch.
+Persönlicher, erotischer Adventskalender für die Partnerin („Schatz“), geschrieben und gebaut vom Partner. Alles auf Deutsch.
 Eine statische Web-App aus HTML, CSS und JavaScript, **ohne Server-Logik, ohne Datenbank, ohne Anmeldung**. Alles, was sie eingibt oder auswählt, bleibt im Browser ihres Geräts.
 
 Vom 1. bis 24. Dezember öffnet sich jeden Tag ein Türchen. Dahinter steckt:
@@ -8,7 +8,7 @@ Vom 1. bis 24. Dezember öffnet sich jeden Tag ein Türchen. Dahinter steckt:
 1. **eine Geschichte in drei Stimmungen** (Geborgen, Verspielt, Intensiv), von denen sie jeden Tag eine wählt,
 2. **eine Aufgabe** auf einer Karte („Umschlag“), deren Nummer am Ende der Geschichte steht, und eine **Alternative**,
 3. **eine Bewertung** (Daumen) am nächsten Tag,
-4. ab dem 25. Dezember eine **Auswertung der Favoriten**, abgeglichen mit Thilos eigenen Bewertungen, ein Rückblick und ein Finale.
+4. ab dem 25. Dezember eine **Auswertung der Favoriten**, abgeglichen mit seinen eigenen Bewertungen, ein Rückblick und ein Finale.
 
 Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckchen, Gimmick-Zettel, siehe [Abschnitt 27](#27-begleitmaterial-gedruckt-und-gebastelt)).
 
@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795604829`.
 
 ---
 
@@ -32,7 +32,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 3. [Einstellungen und Schalter im Code](#3-einstellungen-und-schalter-im-code)
 4. [LIVE- und TEST-Version](#4-live--und-test-version)
 5. [Datum und Freischaltung](#5-datum-und-freischaltung)
-6. [Ablauf für Anja](#6-ablauf-für-anja)
+6. [Ablauf für sie](#6-ablauf-für-sie)
 7. [Die Seiten im Einzelnen](#7-die-seiten-im-einzelnen)
 8. [Animationen](#8-animationen)
 9. [Farbwelten und Kategorien](#9-farbwelten-und-kategorien)
@@ -40,7 +40,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 11. [Geschichten und Karten](#11-geschichten-und-karten)
 12. [Kurzbeschreibungen unter den Türchen](#12-kurzbeschreibungen-unter-den-türchen)
 13. [Bewertung, Notizen und Auswertung](#13-bewertung-notizen-und-auswertung)
-14. [Thilos Bewertung: er.js und er-editor.html](#14-thilos-bewertung-erjs-und-er-editorhtml)
+14. [Seine Bewertung: er.js und er-editor.html](#14-seine-bewertung-erjs-und-er-editorhtml)
 15. [Kalender-Erinnerungen (.ics)](#15-kalender-erinnerungen-ics)
 16. [Was im Browser gespeichert wird](#16-was-im-browser-gespeichert-wird)
 17. [Code-Sperre](#17-code-sperre)
@@ -65,11 +65,11 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 ## 1. Schnellstart: Was muss ich wann tun?
 
 ### Vor dem 1. Dezember 2026
-1. In **LIVE** prüfen, dass `er.js` **Thilos echte Bewertungen** enthält (siehe [Abschnitt 14](#14-thilos-bewertung-erjs-und-er-editorhtml)). Sie wird erst ab dem 25.12. gelesen, steht aber schon im Repository.
+1. In **LIVE** prüfen, dass `er.js` **seine echten Bewertungen** enthält (siehe [Abschnitt 14](#14-seine-bewertung-erjs-und-er-editorhtml)). Sie wird erst ab dem 25.12. gelesen, steht aber schon im Repository.
 2. In **LIVE** prüfen: `testModus = false` und **kein** `VORTEST_NOVEMBER` im Code.
-3. Auf dem eigenen Handy `https://kalender2026.tkagel.de` öffnen, den Code eingeben, Seite und Türchen-Übersicht prüfen. **Nicht** `?reset=1` auf Anjas Gerät benutzen.
-4. Dafür sorgen, dass Anja den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
-5. Das Handy von Anja ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
+3. Auf dem eigenen Handy `https://kalender2026.tkagel.de` öffnen, den Code eingeben, Seite und Türchen-Übersicht prüfen. **Nicht** `?reset=1` auf ihrem Gerät benutzen.
+4. Dafür sorgen, dass sie den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
+5. Ihr Handy ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
 6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
 
 ### Nach einer Änderung (LIVE oder TEST)
@@ -79,7 +79,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 4. GitHub Pages braucht ein bis zwei Minuten. Dann am Handy prüfen.
 
 ### Im nächsten Jahr (falls der Kalender wiederverwendet wird)
-- Alle Speicher-Schlüssel enden auf `26` (`adventGeoeffnet26` …). Für ein neues Jahr die Endung ändern, sonst sieht Anja ihren alten Stand.
+- Alle Speicher-Schlüssel enden auf `26` (`adventGeoeffnet26` …). Für ein neues Jahr die Endung ändern, sonst sieht sie ihren alten Stand.
 - Das Jahr 2026 steckt in der Freischaltung (`jetzt()`, `tagOffen`), in den `.ics`-Dateien, in den Dateinamen der Erinnerungs-Bilder („Advent2026_…“) und in den Speicher-Schlüsseln. Die Geschichten enthalten Wochentage und Daten von 2026. **Prüfen und anpassen.**
 - `er.js` neu befüllen, Bewertungen zurücksetzen (`?reset=1` bzw. neue Schlüssel).
 
@@ -94,7 +94,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795515150`.
 ├── manifest.json         App-Manifest (Name, Symbole, Startadresse)
 ├── icon-192.png, icon-512.png, apple-touch-icon.png   App-Symbole
 ├── data.js               Aufgabentexte der 24 Karten (Base64, siehe Abschnitt 11)
-├── er.js                 Thilos Bewertungen (A/B/C je Aufgabe und Alternative)
+├── er.js                 Seine Bewertungen (A/B/C je Aufgabe und Alternative)
 ├── wetter.js             Wetter-Modul (Abruf, Klassen, Platzhalter ersetzen)  [Wetter-Ergänzung, Abschnitt 7.9]
 ├── wetter-texte.js       Textbausteine je Wetter für die Geschichten (Platzhalter {{w:…}})
 ├── er-editor.html        Werkzeug zum Eintragen von er.js (nur in TEST)
@@ -178,7 +178,7 @@ Im Dezember verhält sich TEST wie LIVE (nur mit eigenem Speicher). Zum Vorab-Te
 
 ---
 
-## 6. Ablauf für Anja
+## 6. Ablauf für sie
 
 ```
 Sperre (Code) ──▶ Startseite ──„Tauche ein in den Advent!“──▶ Türchen-Übersicht
@@ -197,7 +197,7 @@ Sperre (Code) ──▶ Startseite ──„Tauche ein in den Advent!“──�
                           bei Türchen 24: „Zum Finale …“ → Finale-Animation → Finale-Seite
 ```
 
-1. Anja wählt die **Stimmung** (einmal pro Tag, danach festgeschrieben).
+1. Sie wählt die **Stimmung** (einmal pro Tag, danach festgeschrieben).
 2. Sie liest die **Geschichte** und erfährt am Ende die **Nummer des Umschlags**.
 3. Sie zieht den Umschlag mit dieser Nummer aus dem Beutel (Aufgabe und Alternative stehen auf der Karte).
 4. Am **nächsten Tag** fragt das Türchen, wie die Aufgabe war (Bewertung mit Daumen). Der Originaltext der Aufgabe und der Alternative wird dabei noch einmal angezeigt.
@@ -229,7 +229,7 @@ Alle Seiten sind `<div>`-Bereiche in `index.html`; ein- und ausgeblendet wird ü
 - **Bild** `bilder/landing.jpg`, blendet bei jedem Besuch erneut ein.
 - **Einleitung** („Willkommen zu deinem ganz persönlichen und intimen Adventskalender …“).
 - Karte **„Bevor es losgeht“** mit zwei Schritten: Auf den Startbildschirm legen (Anleitung für iPhone/Safari und Android/Chrome) und **Erinnerung** (Uhrzeit wählen, „Termine hinzufügen“ lädt eine `.ics`-Datei).
-- Kasten **„Und so funktioniert das Ganze“** mit sieben Punkten: 1 Stimmung wählen, 2 Geschichte, 3 Umschlag aus dem Beutel, 4 Bewerten, 5 Notizen, 6 Nachholen und Wiederfinden, 7 Ab dem 25. Dezember (Auswertung, Abgleich mit Thilos Bewertungen auf eigener Oberfläche, Favoritenliste, Erinnerung speichern).
+- Kasten **„Und so funktioniert das Ganze“** mit sieben Punkten: 1 Stimmung wählen, 2 Geschichte, 3 Umschlag aus dem Beutel, 4 Bewerten, 5 Notizen, 6 Nachholen und Wiederfinden, 7 Ab dem 25. Dezember (Auswertung, Abgleich mit seinen Bewertungen auf eigener Oberfläche, Favoritenliste, Erinnerung speichern).
 - Hinweis zum Datum auf dem Handy und der Knopf **„Tauche ein in den Advent!“**.
 - Ab dem 25.12.: Knopf „Zur Auswertung der Favoriten“.
 
@@ -305,16 +305,16 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 **Status: in TEST und LIVE umgesetzt.**
 
 #### Warum
-Viele Geschichten spielen an einem bestimmten Tag mit einem bestimmten Wetter: Schnee am 13., Frost am 8., Sturm am 18. Liest Anja so eine Geschichte bei Sonne oder bei Regen, fühlt sich der Satz „Draußen fällt der Schnee“ falsch an und holt sie aus der Geschichte. Deshalb passen sich die Wettersätze dem echten Wetter an ihrem Wohnort an, damit die Geschichte zu dem passt, was sie gerade aus dem Fenster sieht.
+Viele Geschichten spielen an einem bestimmten Tag mit einem bestimmten Wetter: Schnee am 13., Frost am 8., Sturm am 18. Liest sie so eine Geschichte bei Sonne oder bei Regen, fühlt sich der Satz „Draußen fällt der Schnee“ falsch an und holt sie aus der Geschichte. Deshalb passen sich die Wettersätze dem echten Wetter an ihrem Wohnort an, damit die Geschichte zu dem passt, was sie gerade aus dem Fenster sieht.
 
-#### Was Anja davon bemerkt
+#### Was sie davon bemerkt
 - Wetterstellen, die nebenbei vorkommen („Draußen prasselt der Regen“, „der Himmel ist grau“), zeigen das echte Wetter. Sie sieht keinen Hinweis darauf, dass Text getauscht wurde.
 - In mehreren Türchen (8, 13, 14, 18 und der dritten Stimmung von Türchen 10) ändert sich eine ganze Szene. Beispiel: Türchen 13 ist im Original ein Schneetag mit Schlittenhügel. Regnet es, wird daraus ein Regentag mit Matsch-Rutschbahn; ist es trocken und kalt, ein Tag mit Drachen und Rollen im Gras. Ablauf, Gespräche und Höhepunkte bleiben gleich, nur die Kulisse passt zum Wetter.
 - Weiß die App das Wetter nicht (kein Netz, Abruf gescheitert), läuft immer der Originaltext. Es gibt keine Fehlermeldung.
 - Türchen 8 (Sternenhimmel) hat Fassungen für das Wetter des Tages: klar mit Frost (Original), klar ohne Frost (Tau statt Frost, die Sterne bleiben), Regen (Regentropfen am Fenster), bedeckt oder Nebel (keine Sterne, stattdessen die Lichter im Dorf) und Schnee (Flocken im Laternenlicht). Ablauf, Gespräche und Höhepunkte bleiben in allen Fassungen gleich.
 
 #### Woher das Wetter kommt
-Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Grevenbroich. Das ist dieselbe Quelle wie die Wolke. Es werden nur die Koordinaten des Ortes übertragen, keine Daten über Anja oder ihr Gerät. `wetter.js` ruft beim Start einmal die Werte des Tages ab (Wettercode und Temperatur je Stunde) und merkt sie sich im Browser (`adventWetter26`). Nach 45 Minuten wird neu abgerufen; ohne Netz gelten die gemerkten Werte bis zu 6 Stunden. Für die laufenden Wettersätze (`w`) zählt die Stunde, in der Anja gerade liest. Für festgehaltene Szenen (`p`) zählt das **Tageswetter**: Aus den Stunden von 8 bis 18 Uhr wird das vorherrschende Wetter gewählt (Schnee ab 2 Stunden, Regen ab 3, Nebel ab 4, sonst die Mehrheit aus klar oder bedeckt; klar bei höchstens 0,5 °C gilt als Frost). So entscheidet nicht die eine Lesestunde über den ganzen Tag. Liegen nicht genug Stundenwerte vor, gilt das Wetter der Lesestunde.
+Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Grevenbroich. Das ist dieselbe Quelle wie die Wolke. Es werden nur die Koordinaten des Ortes übertragen, keine Daten über sie oder ihr Gerät. `wetter.js` ruft beim Start einmal die Werte des Tages ab (Wettercode und Temperatur je Stunde) und merkt sie sich im Browser (`adventWetter26`). Nach 45 Minuten wird neu abgerufen; ohne Netz gelten die gemerkten Werte bis zu 6 Stunden. Für die laufenden Wettersätze (`w`) zählt die Stunde, in der sie gerade liest. Für festgehaltene Szenen (`p`) zählt das **Tageswetter**: Aus den Stunden von 8 bis 18 Uhr wird das vorherrschende Wetter gewählt (Schnee ab 2 Stunden, Regen ab 3, Nebel ab 4, sonst die Mehrheit aus klar oder bedeckt; klar bei höchstens 0,5 °C gilt als Frost). So entscheidet nicht die eine Lesestunde über den ganzen Tag. Liegen nicht genug Stundenwerte vor, gilt das Wetter der Lesestunde.
 
 **Wetterklassen:** `r` Regen (auch Niesel, Schauer, Gewitter), `s` Schnee, `n` Nebel, `k` klar oder heiter, `b` bedeckt, `kf` klar mit Frost (Temperatur ≤ 0,5 °C), `x` unbekannt.
 
@@ -322,7 +322,7 @@ Open-Meteo (frei nutzbar, kein Schlüssel, keine Anmeldung), stündlich, für Gr
 - **Marken im Text:** In den Dateien `story-dayN.js` ist jeder Wettersatz durch eine Marke ersetzt, z. B. `{{w:d5_boden}}`. In `wetter-texte.js` steht zu jeder Marke der Text je Wetterklasse. Fehlt eine Klasse, gilt die neutrale (`x`); Nebel und Schnee fallen zur Not auf `b` zurück, Frost auf `k`.
 - **Drei Arten von Marken:**
   - `w` zeigt das Wetter **jetzt**. Kommt der Abruf erst nach dem Aufbau der Seite, tauscht `wetterAktualisieren` nur den Text aus, die Seite springt nicht.
-  - `p` zeigt das Wetter beim **ersten Lesen** des Türchens und hält es fest (`adventWetterTag26`). So bleibt eine Szene stehen, wenn Anja dieselbe Geschichte später noch einmal liest. Das gilt für die ganzen Szenen in den Türchen 8, 10, 13 und 18.
+  - `p` zeigt das Wetter beim **ersten Lesen** des Türchens und hält es fest (`adventWetterTag26`). So bleibt eine Szene stehen, wenn sie dieselbe Geschichte später noch einmal liest. Das gilt für die ganzen Szenen in den Türchen 8, 10, 13 und 18.
   - `v` liest das festgehaltene Wetter des **Vortags**. So greift Türchen 14 auf, was gestern passiert ist („Schnee von gestern“, „Regen von gestern“, „kalte Luft von gestern“). Fehlt der Vortag (z. B. Türchen 13 nicht gelesen), gilt das Original.
 - **Einbau in `index.html`:** Die Funktion, die die Geschichte anzeigt, ruft `wetterErsetzen(text, tag)` auf und ersetzt die Marken durch `<span class="wx" …>`. Das Modul `wetter.js` wird am Seitenende geladen. Fehlt es, werden die Marken entfernt und die Geschichte bleibt lesbar.
 - **Temperatur:** Ein Baustein darf `[[T]]` enthalten; das wird durch die Temperatur in Worten ersetzt („minus drei Grad“).
@@ -349,7 +349,7 @@ Auf der Startseite gibt es unter „Bevor es losgeht“ den Schritt „Das Wette
 - **Ohne Freigabe** ändert sich nichts: Das Wetter kommt für Grevenbroich.
 - **Mit Freigabe** fragt `wetter.js` bei jedem Start die Position ab (`navigator.geolocation`, ungenau und ohne GPS-Zwang, bis zu 30 Minuten alte Werte erlaubt, Zeitlimit 10 Sekunden). Die Koordinaten werden auf 0,1 Grad (ca. 10 km) gerundet (`adventOrt26`), der Schalter steht in `adventOrtAn26` (`1` = an). Nur diese gerundeten Koordinaten gehen an Open-Meteo; sie werden sonst nirgends hingeschickt.
 - **Ortswechsel:** Weicht der neue Ort um mehr als ca. 0,25 Grad ab, wird das Wetter neu geladen. Der Zwischenspeicher `adventWetter26` merkt sich den Ort, für den er gilt. Stimmt er nicht zum aktuellen Ort, wird bis zum neuen Abruf der neutrale Text gezeigt.
-- **Verweigert oder nicht möglich:** Der Schalter geht auf „aus“, es gilt wieder Grevenbroich, die Seite zeigt einen kurzen Hinweis. Anja kann den Knopf später erneut tippen (und muss den Standort ggf. in den Browser-Einstellungen für diese Seite wieder erlauben).
+- **Verweigert oder nicht möglich:** Der Schalter geht auf „aus“, es gilt wieder Grevenbroich, die Seite zeigt einen kurzen Hinweis. Sie kann den Knopf später erneut tippen (und muss den Standort ggf. in den Browser-Einstellungen für diese Seite wieder erlauben).
 - **Hinweis zur Freigabe:** Der Text auf der Startseite empfiehlt „Beim Verwenden der App erlauben“ bzw. „Erlauben“ statt „Einmal erlauben“, damit das Handy nicht bei jedem Start neu fragt. Auf dem iPhone kann die Abfrage bei einer als App gespeicherten Seite trotzdem öfter kommen; das lässt sich von der Seite aus nicht ändern.
 - **Festgehaltene Szenen (`p`):** Sie bleiben bei dem Wetter, das beim ersten Lesen am jeweiligen Ort galt.
 - **Die „Wolke“** (Wetter-Tarnseite) nutzt denselben freigegebenen Ort und nennt ihn dann „Dein Standort“; ohne Freigabe zeigt sie Grevenbroich.
@@ -357,7 +357,7 @@ Auf der Startseite gibt es unter „Bevor es losgeht“ den Schritt „Das Wette
 - **Vorschau (`?wetter=…`)** ignoriert den Standort.
 
 #### Vorschau (nur zum Prüfen)
-Adresse mit Zusatz öffnen, z. B. `…/index.html?wetter=regen`. Möglich sind `regen`, `schnee`, `nebel`, `klar`, `frost`, `bewoelkt`, `neutral`; dazu optional `&temp=-3`. Dann zeigen alle Geschichten dieses Wetter. Die Vorschau schreibt nichts in `adventWetterTag26`. Anja sieht davon nichts, solange sie die Adresse nicht mit dem Zusatz öffnet.
+Adresse mit Zusatz öffnen, z. B. `…/index.html?wetter=regen`. Möglich sind `regen`, `schnee`, `nebel`, `klar`, `frost`, `bewoelkt`, `neutral`; dazu optional `&temp=-3`. Dann zeigen alle Geschichten dieses Wetter. Die Vorschau schreibt nichts in `adventWetterTag26`. Sie sieht davon nichts, solange sie die Adresse nicht mit dem Zusatz öffnet.
 
 #### Neue Bausteine anlegen oder ändern
 Satz in `story-dayN.js` durch `{{w:dN_name}}` ersetzen und in `wetter-texte.js` einen Eintrag `dN_name` mit `x`, `r`, `k`, `b` (optional `n`, `s`, `kf`) anlegen. Bei Änderungen an Texten danach `VERSION` in `sw.js` erhöhen. Die Skripte `apply.py` und `tok/` im Archiv `tools_TEST.zip` erzeugen Geschichten und Texte aus den Originalen und prüfen sie.
@@ -500,12 +500,12 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 - Speicherung: `adventBewertung26` (Werte 1, 0, -1) und `adventBewDatum26` (wann bewertet).
 
 ### 13.2 Notizen
-- Pro Türchen ein Textfeld (max. 600 Zeichen), **nur für Anja**, nur im Browser.
+- Pro Türchen ein Textfeld (max. 600 Zeichen), **nur für sie**, nur im Browser.
 - Die Notizen erscheinen in der Auswertung („Alle meine Notizen kopieren“) und in der Textdatei von „Erinnerung speichern“.
 - Speicherung: `adventNotiz26`.
 
 ### 13.3 Auswertung (ab 25.12.)
-- Nur wenn **Thilo ebenfalls bewertet hat** (`er.js`), gibt es einen **Abgleich**. Thilo bewertet auf einer eigenen Oberfläche und sieht dort **keine** Daten von Anja.
+- Nur wenn **er ebenfalls bewertet hat** (`er.js`), gibt es einen **Abgleich**. Er bewertet auf einer eigenen Oberfläche und sieht dort **keine** ihrer Daten.
 - Gruppen (`AW_GRUPPEN`):
   - 🌟 **Top-Favoriten:** beide 👍
   - 💛 **Favoriten:** einer 👍, der andere 😐
@@ -514,8 +514,11 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
   - ⚠️ **Flops:** einer 😐, der andere 👎
   - 🚫 **No-Gos:** beide 👎
 - Zusätzlich: „Bisher nur von dir bewertet“ und „Noch nicht von dir bewertet“. Seine Bewertungen erscheinen nur bei Aufgaben oder Alternativen, die sie selbst bewertet hat. Ob er etwas bewertet hat, das sie noch nicht bewertet hat, erfährt sie nicht.
-- Ohne `er.js` zeigt die Auswertung nur Anjas eigene Bewertungen.
-- Die Auswertung blättert gruppenweise („Weiter: …“).
+- Ohne `er.js` zeigt die Auswertung nur ihre eigenen Bewertungen.
+- Die Auswertung blättert gruppenweise („Weiter: …“). Man kann auch **links/rechts wischen**; die Punkte oben (je Gruppe einer, am Ende die Übersicht) sind antippbar (`awGehe`, `awSwipeInit`).
+- **Zuordnung:** Bewertungen gehören immer zur Aufgabe oder Alternative **einer Karte**. Die Türchenzahl dient nur als Schlüssel und steht als Information in der kleinen Zeile der Kachel („Aufgabe · Karte 20 · Türchen 6“).
+- **Kachel (`auswKarte`):** kleine graue Zeile (Her/His, Aufgabe/Alternative, Karte, Türchen), farbiger Streifen links (Her beerig, His blau, keine Kategorie-Farben), Text auf drei Zeilen gekürzt, Tipp auf die Kachel klappt ihn auf. In gemischten Gruppen (Favoriten, Geschmackssache, Flops) steht unter dem Text „Meine 👍 · Seine 😐“; in Gruppen mit gleicher Bewertung steht das einmal in der Überschrift („Beide 👍“, `AW_GRUPPEN[].wer`).
+- **Beschriftung:** „Meine“ steht für ihre Bewertung, „Seine“ für seine (Kacheln, Tabelle „Meine und seine Bewertung“, Filter, Textdatei der Erinnerung). In der Karte „Für ein nächstes Mal“ spricht die App über ihn in der dritten Person („Was soll er sich merken?“).
 
 ### 13.4 Rückblick und „Erinnerung speichern“
 - **Rückblick** (Finale-Seite): Zähler für geöffnete Türchen, gewählte Stimmungen, Bewertungen und Notizen.
@@ -523,9 +526,9 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 
 ---
 
-## 14. Thilos Bewertung: er.js und er-editor.html
+## 14. Seine Bewertung: er.js und er-editor.html
 
-- `er.js` enthält Thilos Bewertung je Türchen als zwei Buchstaben (Aufgabe, Alternative): `"A"` = 👍, `"B"` = 😐, `"C"` = 👎, `""` = nicht gemacht.
+- `er.js` enthält seine Bewertung je Türchen als zwei Buchstaben (Aufgabe, Alternative): `"A"` = 👍, `"B"` = 😐, `"C"` = 👎, `""` = nicht gemacht.
 
 ```js
 window.ER_BEWERTUNG = {
@@ -535,14 +538,14 @@ window.ER_BEWERTUNG = {
 ```
 
 - Die Datei wird **erst ab dem 25.12.** geladen (`erLaden`). Fehler (fehlendes Komma, falsche Anführungszeichen) führen dazu, dass der Abgleich fehlt; die Seite stürzt nicht ab.
-- **`er-editor.html`** (nur TEST) ist ein Werkzeug, in dem Thilo seine Bewertung anklickt. Es liest `data.js` (muss im selben Ordner liegen), speichert den Zwischenstand im Browser (`adventErEditor26`), erzeugt den Text für `er.js` (Kopieren oder Herunterladen) und kann `er.js` als Vergleichsstand laden.
+- **`er-editor.html`** (nur TEST) ist ein Werkzeug, in dem er seine Bewertung anklickt. Es liest `data.js` (muss im selben Ordner liegen), speichert den Zwischenstand im Browser (`adventErEditor26`), erzeugt den Text für `er.js` (Kopieren oder Herunterladen) und kann `er.js` als Vergleichsstand laden.
 - **Aufbau (Auswahl und Einzelansicht):** Beim Öffnen zeigt der Editor alle 24 Türchen als Raster mit Vorschaubild, Nummer, Kurzbeschreibung (erster Satz der Aufgabe) und den bisherigen Bewertungen von A und B. Die Farbe zeigt, für wen das Türchen ist: beerenfarben für „For Her“, blau für „For Him“. Das Türchen von **gestern** ist golden hervorgehoben (leichtes Pulsieren, Band „Gestern“), die Seite springt beim Öffnen dorthin, und oben steht ein Knopf direkt zu diesem Türchen. „Gestern“ bezieht sich auf den echten Dezember (am 12.12. also Türchen 11); im November gibt es keine Hervorhebung. Zum Ausprobieren: `er-editor.html?heute=12`. Ein Schalter „Nur offene anzeigen“ blendet bereits bewertete Türchen aus. Ein Tipp auf ein Türchen öffnet die Bewertung ohne Bild, mit einem schmalen Randbanner „For Her“ oder „For Him“ und den Knöpfen „Tag zurück“, „Übersicht“, „Tag weiter“ darunter. Nichts ist gesperrt. Das Erzeugen der `er.js` liegt unter dem Raster. Der Editor liegt im Offline-Speicher (`sw.js`).
 - **Detailansicht:** Ohne Titel und ohne Fortschrittsleiste, damit auch lange Aufgabentexte samt Knöpfen auf einen Bildschirm passen.
 - **An GitHub senden:** Unter dem Raster schreibt der Editor die `er.js` direkt in die Repositories (Auswahl TEST und/oder LIVE; Voreinstellung nur TEST). Das geht über die GitHub-Schnittstelle (Commit auf den Standardzweig, Commit-Text „er.js aktualisiert (His Rating, N Bewertungen)“). Dafür braucht der Editor einmalig ein **fein abgestuftes Zugriffstoken** (GitHub, Settings, Developer settings, Personal access tokens, Fine-grained tokens): nur die beiden Repositories, Berechtigung „Contents: Read and write“, Ablaufdatum kurz nach dem 25.12. Das Token wird nur im Browser des Geräts gespeichert (`adventErGhToken26`), steht in keiner Datei und lässt sich im Editor entfernen. Vor dem Senden fragt der Editor nach. Nach dem Senden braucht GitHub Pages etwa eine Minute. Als Ersatz gibt es weiterhin Kopieren, Herunterladen und (wo das Gerät es kann) „er.js teilen“.
 - **Ihre Antworten (Sicherung und Ansicht):** Ihre App sichert ihre Angaben still im Hintergrund (Stimmungswahl, Bewertungen, Notizen, Lesestand, geöffnete Türchen, Herzen, Erledigt-Markierungen, festgehaltenes Wetter; nicht der Standort). Gesendet wird erst, wenn das erste Türchen geöffnet wurde, und nur bei Änderungen. Die Daten werden schon im Browser mit einem öffentlichen Schlüssel verschlüsselt (`sicherung.js`, Konfiguration in `sicherung-config.js`) und an einen Cloudflare-Worker geschickt, der sie in einem KV-Speicher ablegt (die letzten 20 Versionen). Lesen kann sie nur der Editor: mit dem Passwort wird der geheime Schlüssel geöffnet, der Zugangscode dazu wird aus demselben Passwort abgeleitet. Im Editor gibt es unter „Ihre Antworten“ eine Ansicht mit ihren Bewertungen neben deinen, optional ihren Notizen (Schalter, standardmäßig aus), eigenen Notizen „Für nächstes Mal“ und einem Text für den Rückblick. Die Einrichtung (Passwort, Schlüssel, Worker-Adresse, Konfiguration an GitHub senden) steht unter „Sicherung einrichten“. Worker-Code und Anleitung liegen separat vor und gehören nicht ins Repository.
 - **Wünsche für ein nächstes Mal:** Im Finale (nach Türchen 24) und in der Auswertung gibt es die Karte „Für ein nächstes Mal“ mit vier Feldern (mehr davon, lieber nicht mehr, neu ausprobieren, Änderungen an der App). Sie speichert automatisch (`adventWunsch26`), geht mit der Sicherung an den Editor und bleibt auch nach dem 25.12. bearbeitbar. Im Editor erscheint sie unter „Ihre Antworten“.
 - **Ansicht „Ihre Antworten“ (Sicherheit):** Die Ansicht startet leer und zeigt erst nach einem Abruf mit Passwort etwas. Entschlüsselte Daten, Schlüssel und Zugangscode liegen nur im Arbeitsspeicher und werden gelöscht, wenn die Ansicht verlassen wird, die Seite schließt oder die App länger als 5 Minuten im Hintergrund war. Für „Neu seit dem letzten Abruf“ merkt sich der Editor nur Prüfsummen (`adventErGesehen26`), keine lesbaren Inhalte. Oben steht, wann die letzte Sicherung ankam, mit einer Warnung, wenn sie im Dezember älter als zwei Tage ist.
-- **Handywechsel:** Im Editor erzeugst du aus der letzten Sicherung einen Wiederherstellungs-Link (oder eine Datei). Er führt auf `wiederherstellung.html`, eine nicht verlinkte Seite, die die Angaben auf dem neuen Gerät einspielt (mit Rückfrage, falls dort schon Daten liegen) und zur App weiterleitet. In der App selbst gibt es keine Oberfläche dafür. Der Link enthält die Angaben im Klartext und gehört nur direkt an Anja.
+- **Handywechsel:** Im Editor erzeugst du aus der letzten Sicherung einen Wiederherstellungs-Link (oder eine Datei). Er führt auf `wiederherstellung.html`, eine nicht verlinkte Seite, die die Angaben auf dem neuen Gerät einspielt (mit Rückfrage, falls dort schon Daten liegen) und zur App weiterleitet. In der App selbst gibt es keine Oberfläche dafür. Der Link enthält die Angaben im Klartext und gehört nur direkt an sie.
 - **App-Icon:** Der Editor hat ein eigenes Manifest (`manifest-er.json`, Name „His Rating“) und eigene Icons (`icon-er-180.png`, `icon-er-192.png`, `icon-er-512.png`), damit er als eigene App auf den Homescreen gelegt werden kann (iPhone: Teilen, Zum Home-Bildschirm). Das Motiv ist ein Ring aus 24 Punkten mit einem goldenen Punkt und einem kleinen Herz in der Mitte, bewusst nicht als Kalender erkennbar.
 - **Ablauf:** In TEST `er-editor.html` öffnen → bewerten → **An GitHub senden** (schreibt `er.js` direkt in beide Repositories; dafür einmalig das GitHub-Token unter „An GitHub senden“ speichern) oder alternativ Text erzeugen bzw. über den Teilen-Knopf weitergeben → als `er.js` speichern → in **beiden** Repositories hochladen.
 - In TEST (mit `testModus = true`) zeigt die Auswertung eine Diagnose („er.js gelesen: N gültige Bewertung(en)“).
@@ -595,7 +598,7 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 - Funktioniert der Speicher nicht (privater Modus), arbeitet die Seite mit einem Ersatz im Arbeitsspeicher. Dann geht der Stand beim Schließen verloren.
 - **iPhone:** Die installierte Web-App hat **einen anderen Speicher** als Safari.
 - **Zurücksetzen** mit `?reset=1` (Abschnitt 24). Es löscht Geöffnet, Wahl, Bewertungen, Datum, Später, Notizen, Erledigt, Herzen und Gelesen. **Nicht** gelöscht werden Begrüßung, Wolken-Hinweis und Finale-Marker.
-- Löscht Anja die Browserdaten oder wechselt das Gerät, sind alle ihre Daten weg.
+- Löscht sie die Browserdaten oder wechselt das Gerät, sind alle ihre Daten weg.
 
 ---
 
@@ -615,7 +618,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - Solange die Sperre sichtbar ist, ist der Seiteninhalt gesperrt (`inert`).
 - Bei `testModus = true` ist die Sperre aus.
 - Das Bild `bilder/landing.jpg` muss vorhanden sein; fehlt es, bleibt der Hintergrund dunkel.
-- Den Code bekommt Anja über den **Beipackzettel** (Zeile „Code Online-Teil“) und den **Code-Zettel** der Gimmick-Vorlagen. Um ihn zu ändern: `CODE` im Quelltext (Base64 des neuen Codes), Beipackzettel und Code-Zettel neu erzeugen.
+- Den Code bekommt sie über den **Beipackzettel** (Zeile „Code Online-Teil“) und den **Code-Zettel** der Gimmick-Vorlagen. Um ihn zu ändern: `CODE` im Quelltext (Base64 des neuen Codes), Beipackzettel und Code-Zettel neu erzeugen.
 - Das Verhalten wurde im simulierten Handy-Browser getestet, nicht auf einem echten iPhone.
 
 ---
@@ -639,12 +642,12 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795515150";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795604829";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
 - GitHub Pages hält Dateien einige Minuten im Zwischenspeicher.
-- **Nicht im Repository:** `worker.js` (Cloudflare-Worker) und `ANLEITUNG_Cloudflare.md` liegen nur bei Thilo und werden nicht hochgeladen. Der Worker läuft bei Cloudflare, nicht auf GitHub Pages.
+- **Nicht im Repository:** `worker.js` (Cloudflare-Worker) und `ANLEITUNG_Cloudflare.md` liegen nur bei dir und werden nicht hochgeladen. Der Worker läuft bei Cloudflare, nicht auf GitHub Pages.
 - Hängt ein Handy fest: Seite neu laden, App ganz schließen und neu öffnen, im Notfall Website-Daten löschen.
 
 ---
@@ -713,7 +716,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 - **Falsches Handy-Datum** schaltet Türchen zu früh oder zu spät frei. Es gibt keine Serverzeit.
 - **Safari und installierte App** haben getrennte Speicher. Wer erst im Browser und dann in der App liest, beginnt dort von vorn.
 - **Kurzbeschreibung fehlt:** Kachel muss `geoeffnet` oder `frei` sein (Abschnitt 12).
-- **Wolke:** nicht auf Anjas Gerät testen, wenn sie dort noch nichts gesehen hat (der Hinweis wird dann „verbraucht“).
+- **Wolke:** nicht auf ihrem Gerät testen, wenn sie dort noch nichts gesehen hat (der Hinweis wird dann „verbraucht“).
 - **Rückblick-Aufgabentext:** `data.js` muss erreichbar sein, sonst fehlt der Text im Banner (die Daumen funktionieren trotzdem).
 - **Pixelbilder:** Das Bild der Sperre ist `landing.jpg`. Ein Austausch betrifft auch die Startseite.
 
@@ -766,7 +769,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 Grob in der Reihenfolge der Entstehung:
 
 1. **Grundlage:** 24 Geschichten in drei Stimmungen, 24 Karten (Aufgabe und Alternative), Farbwelten in vier Kategorien, Türchen-Übersicht, Freischaltung nach Datum.
-2. **Bewertung** der Aufgaben mit Daumen, Notizen, Auswertung der Favoriten, Abgleich mit Thilos Bewertung (`er.js`, `er-editor.html`), Rückblick, „Erinnerung speichern“.
+2. **Bewertung** der Aufgaben mit Daumen, Notizen, Auswertung der Favoriten, Abgleich mit seiner Bewertung (`er.js`, `er-editor.html`), Rückblick, „Erinnerung speichern“.
 3. **Startseite** mit Anleitung, Kalender-Erinnerung (`.ics`), Countdown, Wolke als Chef-Taste.
 4. **TEST-Umgebung** mit November = Dezember (`VORTEST_NOVEMBER`), Entwickler-Leiste, Reset per `?reset=1`, später eigene Symbole mit TEST-Band und eigener App-Name.
 5. **Service Worker** für Offline-Nutzung und Updates.
@@ -797,14 +800,14 @@ Grob in der Reihenfolge der Entstehung:
 Gimmick-Vorlagen (Zettel, Ausschneiden entlang der gestrichelten Linie, 100 % drucken):
 - **Türchen 1:** Zettel mit QR-Code (Hilfe, falls ihr spontan nichts einfällt).
 - **Türchen 3:** Rätsel.
-- **Türchen 7:** Zettel mit Hinweis auf das Päckchen (zusätzlich eine Info-Seite zur Beschriftung, nur für Thilo, nicht ausschneiden).
+- **Türchen 7:** Zettel mit Hinweis auf das Päckchen (zusätzlich eine Info-Seite zur Beschriftung, nur zur Information, nicht ausschneiden).
 - **Türchen 13:** Zettel zur Alternative (QR-Code).
 - **Türchen 18:** Zählkarte.
 - **Code-Zettel:** Zettel mit dem Zugangscode für den Kalender.
 
 Es gibt keinen Verweis auf weitere Kalender mehr: Die Gimmicks gehören ausschließlich zu diesem Kalender (der Schokoladen-Kalender ist komplett getrennt). Die Schrift auf den Zetteln ist fett und größer, damit sie gut lesbar ist.
 
-**Grundregel für alle Zettel:** Sie dürfen nichts vorwegnehmen, weil Anja sie ggf. morgens liest, bevor sie die Geschichte und die Aufgabe kennt. Päckchen werden erst nach dem Lesen der Aufgabe geöffnet.
+**Grundregel für alle Zettel:** Sie dürfen nichts vorwegnehmen, weil sie diese ggf. morgens liest, bevor sie die Geschichte und die Aufgabe kennt. Päckchen werden erst nach dem Lesen der Aufgabe geöffnet.
 
 Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel liegen in den Päckchen, an denen der Umschlag mit der Aufgabe hängt, und ergänzen die Aufgabe. Der Umschlag wird immer zuerst geöffnet.
 
@@ -821,7 +824,7 @@ Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel liege
 
 ## 29. Skripte (tools)
 
-Zu dieser Version gehört ein Archiv `tools_TEST.zip` mit den Skripten, die im Chat mit Claude entstanden sind. Es ist ein **privates Archiv für Thilo** und gehört **nicht** in das öffentliche GitHub-Repository (die Druck-Skripte enthalten Kartentexte, die Patch-Skripte den Quelltext der Seite).
+Zu dieser Version gehört ein Archiv `tools_TEST.zip` mit den Skripten, die im Chat mit Claude entstanden sind. Es ist ein **privates Archiv** und gehört **nicht** in das öffentliche GitHub-Repository (die Druck-Skripte enthalten Kartentexte, die Patch-Skripte den Quelltext der Seite).
 
 | Ordner | Inhalt |
 |---|---|
@@ -844,22 +847,22 @@ Warum es so gebaut ist, wie es ist:
 - **Eine einzige `index.html`:** Einfach zu sichern, zu patchen und hochzuladen, ohne Build-Schritt.
 - **Stimmung wird pro Tag festgeschrieben:** Die Geschichte soll ein Ereignis sein, kein Durchklicken. Erst ab dem 25.12. dürfen die anderen Versionen gelesen werden.
 - **Erst Geschichte, dann Umschlag:** Die Stimmung soll da sein, bevor es ernst wird. Der Umschlag wird erst nach der Geschichte gezogen; Päckchen erst nach dem Lesen der Aufgabe.
-- **Bewertung erst am Folgetag und änderbar:** Anja soll es wirken lassen können. Der Aufgabentext wird beim Bewerten wiederholt, weil man nach Stunden oder am nächsten Morgen nicht mehr genau weiß, was gemeint war. Am Tag der ersten Öffnung wird er nicht gezeigt, um nichts vorwegzunehmen.
-- **Thilos Bewertung in `er.js`:** Sie wird erst ab dem 25.12. geladen und läuft über eine eigene Oberfläche (`er-editor.html`), damit weder er ihre noch sie seine Bewertung vorher sieht. Das ist kein technischer Schutz (die Datei liegt im Repository), sondern eine Vereinbarung.
-- **Notizen nur lokal:** Persönlich und nur für Anja. Sie wandern nur dann in eine Datei, wenn sie „Erinnerung speichern“ drückt.
+- **Bewertung erst am Folgetag und änderbar:** Sie soll es wirken lassen können. Der Aufgabentext wird beim Bewerten wiederholt, weil man nach Stunden oder am nächsten Morgen nicht mehr genau weiß, was gemeint war. Am Tag der ersten Öffnung wird er nicht gezeigt, um nichts vorwegzunehmen.
+- **Seine Bewertung in `er.js`:** Sie wird erst ab dem 25.12. geladen und läuft über eine eigene Oberfläche (`er-editor.html`), damit weder er ihre noch sie seine Bewertung vorher sieht. Das ist kein technischer Schutz (die Datei liegt im Repository), sondern eine Vereinbarung.
+- **Notizen nur lokal:** Persönlich und nur für sie. Sie wandern nur dann in eine Datei, wenn sie „Erinnerung speichern“ drückt.
 - **Code-Sperre statt Face ID:** Face ID über WebAuthn wäre aufwendig, für die Erstnutzung ungewohnt und ohne Server ohnehin nur ein Sichtschutz. Die iOS-eigene App-Sperre wird für Web-Apps nicht angeboten. Ein fester vierstelliger Code reicht gegen zufälliges Öffnen (Kinder) und kann nicht verloren gehen (kein Aussperren, anders als bei einem selbst vergebenen Code).
 - **Wolke als Chef-Taste:** Schnelles Verstecken, wenn jemand ins Zimmer kommt. Nach der Wolke kommt die Sperre.
 - **Zwei Kalender getrennt:** Zettel und Extras liegen in den Päckchen zur Aufgabe. Der zweite Kalender („Adventsgeschichten“, nicht erotisch) ist ein eigenes Projekt.
-- **Zettel dürfen nichts verraten:** Anja liest sie ggf. morgens, bevor sie die Geschichte kennt. Deshalb sind sie neutral formuliert.
+- **Zettel dürfen nichts verraten:** Sie liest diese ggf. morgens, bevor sie die Geschichte kennt. Deshalb sind sie neutral formuliert.
 - **TEST als eigene Instanz:** So kann nichts versehentlich auf LIVE landen; Speicher und Adresse sind getrennt. `VORTEST_NOVEMBER` macht den November testbar.
 - **Kurzbeschreibungen unter den Kacheln:** Damit sie nach Tagen noch weiß, was sie bewerten möchte.
 - **Weiter-Knopf nur bei freigeschaltetem Folgetürchen:** Ein Knopf, der nur „noch nicht“ sagt, wirkt kaputt.
-- **Kein Backend für Thilos Bewertung und keine Statistik:** Bewusst einfach gehalten.
+- **Kein Backend für seine Bewertung und keine Statistik:** Bewusst einfach gehalten.
 - **Nachholen nur bei sieben Karten:** Nur Aufgaben, die sich sinnvoll verschieben lassen (Karten 3, 4, 8, 15, 17, 19, 23), bekommen die Erledigt-Funktion; bei allen anderen gilt „heute“.
 - **Ein Herz je Geschichte und Stimmung:** Keine Mehrfachvergabe pro Türchen, dafür darf nach dem 25.12. jede gelesene Stimmung ein eigenes Herz bekommen.
 - **Ton immer aktiv, ohne Schalter:** Gewollter Überraschungseffekt; leiser machen geht über die Handy-Lautstärke. Ohne Audiodatei im Repository passiert nichts.
 - **Wetter folgt der Realität, Handlung bleibt fest:** Nur Nebenbei-Wetter wird angepasst. Wo das Wetter die Szene trägt (Sternenhimmel, Schneetag, Sturm, Regentag), gibt es eigene Fassungen mit gleichem Ablauf und gleichen Gesprächen; Höhepunkte und Beziehung bleiben unverändert.
-- **Wetter der Lesestunde für Nebenbei-Sätze, Tageswetter für ganze Szenen:** Ein einzelner Satz soll zu dem passen, was Anja gerade draußen sieht. Eine ganze Szene (Schneetag, Sternenhimmel) beschreibt dagegen den Tag, deshalb zählt dort das vorherrschende Wetter von 8 bis 18 Uhr. Open-Meteo stündlich, kein Abruf am Vortag (der würde nur bei geöffneter App klappen und ist ungenauer).
+- **Wetter der Lesestunde für Nebenbei-Sätze, Tageswetter für ganze Szenen:** Ein einzelner Satz soll zu dem passen, was sie gerade draußen sieht. Eine ganze Szene (Schneetag, Sternenhimmel) beschreibt dagegen den Tag, deshalb zählt dort das vorherrschende Wetter von 8 bis 18 Uhr. Open-Meteo stündlich, kein Abruf am Vortag (der würde nur bei geöffneter App klappen und ist ungenauer).
 - **Kein Übertragen des Stands zwischen Geräten:** Ein Export/Import wurde erwogen und verworfen (nicht nötig).
 
 ---
@@ -870,26 +873,26 @@ Warum es so gebaut ist, wie es ist:
 |---|---|
 | Türchen | Ein Tag im Online-Kalender (1–24) |
 | Umschlag / Karte | Die Karte mit Aufgabe und Alternative; die Nummer steht am Ende der Geschichte |
-| Beutel | Behälter, aus dem Anja den Umschlag zieht |
+| Beutel | Behälter, aus dem sie den Umschlag zieht |
 | Aufgabe / Alternative | Option A und Option B einer Karte |
 | Päckchen | Kleine Extras, an denen der Umschlag hängt (erst nach dem Lesen der Aufgabe öffnen) |
 | Röllchen | Pappröhren Ø 5 cm × 10 cm mit Zetteln |
 | Stimmung | Geborgen, Verspielt oder Intensiv (intern `hingabe`, `naehe`, `feuer`) |
 | Kategorie | Block von sechs Türchen mit eigener Farbwelt |
 | Bewertung | Daumen je Aufgabe und Alternative |
-| Auswertung | Abgleich mit Thilos Bewertung, ab dem 25.12. |
+| Auswertung | Abgleich mit seiner Bewertung, ab dem 25.12. |
 | Wolke | Chef-Taste mit Wetteransicht |
 | Sperre | Code-Abfrage beim Start |
 | Her/His Pleasure | Kennzeichnung der Karten (mehr für Sie / mehr für Ihn) |
 | Joker, Stempel | Regeln und Hinweise auf den gedruckten Karten (siehe Beipackzettel) |
-| `er.js` | Thilos Bewertungen |
+| `er.js` | Seine Bewertungen |
 
 ---
 
 ## 32. Offene Punkte und Ideen
 
 - Zweiter Kalender „Adventsgeschichten“: eigenes Projekt, Prompt liegt als Dokument vor.
-- Probelauf und Erinnerungen für Thilo wurden angeboten, aber nicht umgesetzt.
+- Probelauf und Erinnerungen wurden angeboten, aber nicht umgesetzt.
 - Face ID / Passkey wurde bewusst verworfen (Abschnitt 30).
 - Das LIVE-Backup `advent26-LIVE_komplett.zip` wird nur auf Wunsch aktualisiert.
-- Vor dem 1. Dezember prüfen: `er.js` in LIVE mit echten Bewertungen, Code bekannt, Handy von Anja mit automatischer Zeit, Erinnerungs-Termine eingerichtet.
+- Vor dem 1. Dezember prüfen: `er.js` in LIVE mit echten Bewertungen, Code bekannt, ihr Handy mit automatischer Zeit, Erinnerungs-Termine eingerichtet.
