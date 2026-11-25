@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795614208`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795615788`.
 
 ---
 
@@ -568,6 +568,18 @@ window.ER_BEWERTUNG = {
 - Die Dateien wurden mit einem Skript erzeugt, das nicht im Repository liegt. Bei einer Änderung der Adresse müssen sie neu erzeugt werden.
 - Der Service Worker speichert `.ics`-Dateien nicht zwischen.
 
+**Push-Erinnerung (nur in der installierten App)**
+
+- **Wer sieht was:** Im normalen Browser (nicht auf dem Home-Bildschirm installiert) bleibt der Kasten „Erinnerung“ mit den Kalender-Terminen. In der installierten App ersetzt ihn ein Kasten mit Schalter „Erinnerung einschalten“, Uhrzeit (15-Minuten-Schritte, 06:00 bis 23:45, Voreinstellung 20:00) und „Testnachricht senden“. Er erscheint nur, wenn zusätzlich die Sicherung konfiguriert ist (`sicherung-config.js`, dieselbe Worker-Adresse und Kennung) und der Browser Push kann (`pushStart`).
+- **Bewusste Zustimmung:** Der Schalter steht auf Aus. Die Systemfrage „Mitteilungen erlauben?“ kommt erst, wenn sie ihn selbst einschaltet. Lehnt sie ab, springt er zurück, ein Hinweis nennt die Handy-Einstellungen, und der Kalender-Kasten erscheint wieder.
+- **Bedingung:** Gesendet wird täglich vom 1. bis 24. Dezember (Berliner Zeit) zu ihrer Uhrzeit, aber nur, wenn das heutige Türchen noch nicht geöffnet ist. Öffnet sie es, meldet die App das still an den Worker (`popen`, ausgelöst in `merkeGeoeffnet`, beim Start und beim Zurückkehren in die App). Pro Tag höchstens eine Nachricht.
+- **Worker:** `worker.js` hat vier Aktionen (`psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht) und einen Cron-Lauf (`laufePush`, alle 15 Minuten). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet innerhalb von 30 Minuten ab ihrer Uhrzeit; ungültige Anmeldungen (404, 410) werden gelöscht.
+- **Nachricht:** Es wird ein leerer Push gesendet (kein Text, keine Verschlüsselung nötig), signiert mit VAPID (ES256). Den festen Text zeigt der Service Worker: Titel „Adventskalender“, Text „Dein Türchen für heute wartet ✨“. Ein Tipp öffnet die App.
+- **Schlüssel:** Der öffentliche VAPID-Schlüssel steht in `index.html` (`PUSH_PUB`) und im Worker (Variable `VAPID_PUBLIC`). Der private Schlüssel ist ein Secret im Worker (`VAPID_PRIVATE`) und steht nirgends im Repository.
+- **TEST:** Die TEST-App meldet sich im Modus „test“ an; der Worker sendet dann auch außerhalb des Dezembers (zum Ausprobieren).
+- **Nicht geprüft:** Die tatsächliche Zustellung auf einem echten iPhone konnte nicht getestet werden (Worker, Signatur und App-Ablauf sind mit simulierten Gegenstellen geprüft). Voraussetzung auf dem iPhone: iOS 16.4 oder neuer, App auf dem Home-Bildschirm.
+- **Hinweis:** Hat sie zusätzlich die Kalender-Termine importiert, bekommt sie beides; die Termine kann sie im Kalender löschen.
+
 ---
 
 ## 16. Was im Browser gespeichert wird
@@ -648,7 +660,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795614208";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795615788";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -796,6 +808,7 @@ Grob in der Reihenfolge der Entstehung:
 18. **Begleitmaterial überarbeitet** (Abschnitt 27): Beipackzettel v10 (Umschlag zuerst öffnen), Gimmick-Zettel liegen in den Päckchen, größere und fettere Schrift, keine Verweise auf weitere Kalender.
 
 ---
+19. **Push-Erinnerung** (Abschnitt 15): Schalter und Uhrzeit in der installierten App, tägliche Nachricht nur bei noch nicht geöffnetem Türchen, Cron im Cloudflare-Worker. Töne offline und in der Lautstärke angeglichen (Abschnitt 7.8).
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 
@@ -906,3 +919,4 @@ Warum es so gebaut ist, wie es ist:
 - Face ID / Passkey wurde bewusst verworfen (Abschnitt 30).
 - Das LIVE-Backup `advent26-LIVE_komplett.zip` wird nur auf Wunsch aktualisiert.
 - Vor dem 1. Dezember prüfen: `er.js` in LIVE mit echten Bewertungen, Code bekannt, ihr Handy mit automatischer Zeit, Erinnerungs-Termine eingerichtet.
+- Push-Erinnerung: Zustellung auf einem echten iPhone noch zu prüfen (erst in TEST ausprobieren); Cron-Trigger und Secrets in Cloudflare müssen eingerichtet sein (`ANLEITUNG_Cloudflare.md`, Abschnitt Push).

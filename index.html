@@ -343,6 +343,8 @@
         .app-tipp summary { cursor: pointer; text-align: center; color: var(--accent-color); }
         .app-tipp .tipp-block { margin-top: 12px; }
         .app-tipp ol { margin: 6px 0 0; padding-left: 22px; }
+        .push-zeile { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; }
+        .push-zeile input[type=checkbox] { width: 22px; height: 22px; accent-color: #d4af37; }
         .erinnerung-zeit { background: transparent; color: var(--heading-color); border: 1px solid var(--accent-color); border-radius: 8px; padding: 10px 12px; font-size: 1rem; }
         .erinnerung-zeit option { background: #121217; color: #fff; }
         .bewertung-box, .gestern-banner { margin-top: 22px; padding: 14px 16px 16px; border: 1px solid var(--border-glow); border-radius: 10px; text-align: center; }
@@ -806,6 +808,16 @@
                     <button class="btn-option" style="width: auto; padding: 10px 16px;" onclick="ladeErinnerung()">Termine hinzufügen</button>
                 </div>
                 <p style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.8;">Dein Handy fragt dann, ob die Termine in den Kalender übernommen werden sollen. Bestätige mit „Alle hinzufügen“ bzw. „Speichern“.</p>
+                    </div>
+                    <div class="vorab-schritt" id="pushBox" style="display: none;">
+                        <h4><span class="nr" id="pushNr">2</span>&#128276; Lass dich jeden Tag erinnern</h4>
+                        <p style="margin: 12px 0 8px;">Du bekommst jeden Tag vom 1. bis 24. Dezember eine kurze Nachricht, aber nur, wenn du das heutige Türchen noch nicht geöffnet hast.</p>
+                        <label class="push-zeile"><input type="checkbox" id="pushSchalter" onchange="pushUmschalten(this.checked)"> <span>Erinnerung einschalten</span></label>
+                        <div class="push-zeile" id="pushZeitZeile" style="display: none;">
+                            <span>Uhrzeit:</span> <select id="pushZeit" class="erinnerung-zeit" onchange="pushZeitAendern()"></select>
+                            <button class="btn-option" style="width: auto; padding: 10px 16px;" onclick="pushTest(this)">Testnachricht senden</button>
+                        </div>
+                        <p id="pushStatus" style="margin: 10px 0 0; font-size: 0.85rem; opacity: 0.85; min-height: 1.2em;"></p>
                     </div>
                     <div class="vorab-schritt" id="wetterOrtTipp">
                         <h4><span class="nr" id="wxNr">3</span>&#127782; Das Wetter in den Geschichten</h4>
@@ -1456,6 +1468,7 @@
         function merkeGeoeffnet(day) {
             try { const l = geoeffnetListe(); if (l.indexOf(day) < 0) { l.push(day); localStorage.setItem("adventGeoeffnet26", JSON.stringify(l)); } } catch (e) {}
             try { const m = oeffnetAmAlle(); if (!m[day]) { m[day] = datumZahl(); localStorage.setItem("adventOeffnetAm26", JSON.stringify(m)); } } catch (e) {}
+            try { pushOffenSync(false); } catch (e) {}
             tuerBildSetzen(day);
         }
         function tuerBildSetzen(day) { tuerStilAktualisieren(); }
@@ -1632,6 +1645,114 @@
                         <span class="karten-nr" style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${calendarData[day].cardNum}</span>`;
             box.innerHTML = html;
         }
+
+        // ---- Push-Erinnerung (nur in der installierten App, nur nach bewusstem Einschalten) ----
+        const PUSH_PUB = "BFYbLmwLN3pXN1z5wso54yCpvM_j82yxvxBuF51WpQ8WsgwXUN3tTE9eFECUUSUL50Vw9IUY7iBgniddB3px4T8";
+        function pushConf() { const C = window.SICHERUNG; return (C && C.aktiv && C.url && C.slot) ? C : null; }
+        function pushUrl(a) { const C = pushConf(); return C.url.replace(/\/+$/, "") + "/" + a + "/" + C.slot; }
+        function pushOk() { return !!(pushConf() && location.protocol === "https:" && "serviceWorker" in navigator && "PushManager" in window && "Notification" in window); }
+        function pushStandalone() { return !!((window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone); }
+        function pushStand() { try { return JSON.parse(localStorage.getItem("adventPush26") || "null"); } catch (e) { return null; } }
+        function pushStandSetzen(v) { try { if (v) localStorage.setItem("adventPush26", JSON.stringify(v)); else localStorage.removeItem("adventPush26"); } catch (e) {} }
+        function pushText(t) { const s = document.getElementById("pushStatus"); if (s) s.textContent = t || ""; }
+        function pushPost(a, body) {
+            return fetch(pushUrl(a), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) });
+        }
+        function pushModus() { return (typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER) ? "test" : "live"; }
+        function pushKey() {
+            const t = (PUSH_PUB + "====".slice(PUSH_PUB.length % 4 || 4)).replace(/-/g, "+").replace(/_/g, "/");
+            const r = atob(t), a = new Uint8Array(r.length); for (let i = 0; i < r.length; i++) a[i] = r.charCodeAt(i); return a;
+        }
+        async function pushAbo(neu) {
+            const reg = await navigator.serviceWorker.ready;
+            let s = await reg.pushManager.getSubscription();
+            if (!s && neu) s = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: pushKey() });
+            return s;
+        }
+        function pushAnzeige() {
+            const st = pushStand(), z = document.getElementById("pushZeit");
+            document.getElementById("pushSchalter").checked = !!st;
+            document.getElementById("pushZeitZeile").style.display = st ? "flex" : "none";
+            if (st && z) z.value = st.zeit;
+            if (st) pushText("Die Erinnerung ist an: täglich um " + st.zeit.slice(0, 2) + ":" + st.zeit.slice(2) + " Uhr, solange das heutige Türchen noch zu ist.");
+        }
+        async function pushUmschalten(an) {
+            const cb = document.getElementById("pushSchalter");
+            try {
+                if (an) {
+                    pushText("Einen Moment …");
+                    const p = await Notification.requestPermission();
+                    if (p !== "granted") { cb.checked = false; pushText("Mitteilungen sind nicht erlaubt. Du kannst das in den Einstellungen deines Handys unter Mitteilungen ändern. Bis dahin kannst du die Erinnerung über den Kalender nutzen."); document.getElementById("erinnerungTipp").style.display = ""; return; }
+                    const s = await pushAbo(true);
+                    const zeit = document.getElementById("pushZeit").value || "2000";
+                    const r = await pushPost("psub", { sub: s.toJSON(), zeit: zeit, modus: pushModus() });
+                    if (!r.ok) throw new Error("worker");
+                    pushStandSetzen({ zeit: zeit });
+                    pushAnzeige();
+                    pushOffenSync(true);
+                } else {
+                    const s = await pushAbo(false);
+                    try { await pushPost("poff"); } catch (e) {}
+                    if (s) { try { await s.unsubscribe(); } catch (e) {} }
+                    pushStandSetzen(null); pushAnzeige(); pushText("Die Erinnerung ist aus.");
+                }
+            } catch (e) {
+                cb.checked = !an; pushText("Das hat gerade nicht geklappt. Bitte prüfe die Internetverbindung und versuche es noch einmal.");
+            }
+        }
+        async function pushZeitAendern() {
+            const zeit = document.getElementById("pushZeit").value;
+            try {
+                const s = await pushAbo(false); if (!s) return;
+                const r = await pushPost("psub", { sub: s.toJSON(), zeit: zeit, modus: pushModus() });
+                if (!r.ok) throw new Error("worker");
+                pushStandSetzen({ zeit: zeit }); pushAnzeige();
+            } catch (e) { pushText("Die Uhrzeit konnte gerade nicht gespeichert werden. Bitte versuche es noch einmal."); }
+        }
+        async function pushTest(btn) {
+            pushText("Testnachricht wird gesendet …");
+            try {
+                const r = await pushPost("ptest");
+                if (r.status === 429) pushText("Bitte einen Moment warten und dann noch einmal tippen.");
+                else if (r.ok) pushText("Die Testnachricht ist unterwegs. Sie sollte gleich auf deinem Handy erscheinen.");
+                else if (r.status === 410 || r.status === 404) { pushStandSetzen(null); pushAnzeige(); pushText("Die Anmeldung war abgelaufen. Bitte schalte die Erinnerung einmal aus und wieder an."); }
+                else pushText("Die Testnachricht konnte nicht gesendet werden.");
+            } catch (e) { pushText("Der Server ist gerade nicht erreichbar."); }
+        }
+        // meldet dem Server, dass das heutige Tuerchen offen ist (dann kommt heute keine Erinnerung mehr)
+        let pushGemeldet = "";
+        function pushOffenSync(force) {
+            try {
+                if (!pushStand() || !pushConf()) return;
+                const h = (typeof heuteTag === "function") ? heuteTag() : 0;
+                if (!h || geoeffnetListe().indexOf(h) < 0) return;
+                const tag = String(datumZahl());
+                if (!force && pushGemeldet === tag) return;
+                pushGemeldet = tag;
+                pushPost("popen").catch(function () { pushGemeldet = ""; });
+            } catch (e) {}
+        }
+        // beim Start: Kasten zeigen (installierte App, Push moeglich), sonst bleibt der Kalender-Kasten
+        function pushStart() {
+            try {
+                if (!pushStandalone() || !pushOk()) return;
+                const box = document.getElementById("pushBox"), alt = document.getElementById("erinnerungTipp");
+                if (!box) return;
+                const zs = document.getElementById("pushZeit");
+                for (let m = 6 * 60; m < 24 * 60; m += 15) { const v = String(Math.floor(m / 60)).padStart(2, "0") + String(m % 60).padStart(2, "0"); const o = document.createElement("option"); o.value = v; o.textContent = v.slice(0, 2) + ":" + v.slice(2) + " Uhr"; if (v === "2000") o.selected = true; zs.appendChild(o); }
+                box.style.display = ""; if (alt) alt.style.display = "none";
+                const nr = document.getElementById("erNr"), pn = document.getElementById("pushNr"); if (nr && pn) pn.textContent = nr.textContent;
+                if (pushStand() && Notification.permission !== "granted") pushStandSetzen(null);
+                pushAnzeige();
+                if (pushStand()) {
+                    // Anmeldung still erneuern (z. B. nach abgelaufenem Abo)
+                    pushAbo(true).then(function (s) { if (s) return pushPost("psub", { sub: s.toJSON(), zeit: pushStand().zeit, modus: pushModus() }); }).catch(function () {});
+                    pushOffenSync(false);
+                }
+                document.addEventListener("visibilitychange", function () { if (!document.hidden) pushOffenSync(false); });
+            } catch (e) {}
+        }
+        window.addEventListener("load", pushStart);
 
         function ladeErinnerung() {
             const sel = document.getElementById("erinnerungZeit");
