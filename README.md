@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795615788`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795631549`.
 
 ---
 
@@ -264,7 +264,7 @@ Sichtbar, wenn für den Tag noch keine Stimmung gewählt wurde.
 - Am Ende: **„Der heutige Umschlag hat die Nummer: #N“** (`karteninfoSetzen`).
 - **Bild** des Tages (`karte-NN.jpg`) blendet beim Lesen ein, zusätzlich liegt es als dezentes **Wasserzeichen** im Hintergrund.
 - Oben (am Folgetag): **Abfrage zum Vortag** („Wie war gestern die Aufgabe?“) mit **Originaltext der Aufgabe und der Alternative** und je drei Daumen-Knöpfen.
-- Unten: **Bewertungskasten** („Wie war es?“) und **Notizfeld** („Meine Notiz zur Aktion“, ohne weiteren Hinweis). Bei der Bewertung am selben Tag steht dort **kein** Aufgabentext, damit nichts vorweggenommen wird. Der Text steht dort erst, wenn das Türchen schon an einem **früheren Tag** einmal geöffnet war (siehe „Wann der Aufgabentext erscheint“ unten). Wer an einem späteren Tag ein Türchen zum ersten Mal öffnet, sieht ihn noch nicht.
+- Unten: **Bewertungskasten** („Wie war es?“) und **Notizfelder** (je Version eines: „Meine Notiz zur Aufgabe“ / „… zur Alternative“, ohne weiteren Hinweis). Bei der Bewertung am selben Tag steht dort **kein** Aufgabentext, damit nichts vorweggenommen wird. Der Text steht dort erst, wenn das Türchen schon an einem **früheren Tag** einmal geöffnet war (siehe „Wann der Aufgabentext erscheint“ unten). Wer an einem späteren Tag ein Türchen zum ersten Mal öffnet, sieht ihn noch nicht.
 
 **Wann der Aufgabentext erscheint:** Der Wortlaut von Aufgabe und Alternative steht im Bewertungskasten (und im Banner zum Vortag) nur, wenn das Türchen an einem **früheren Kalendertag** schon einmal geöffnet war. Gespeichert wird dafür der Tag der ersten Öffnung (`adventOeffnetAm26`).
 
@@ -505,9 +505,9 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 - Speicherung: `adventBewertung26` (Werte 1, 0, -1) und `adventBewDatum26` (wann bewertet).
 
 ### 13.2 Notizen
-- Pro Türchen ein Textfeld (max. 600 Zeichen), **nur für sie**, nur im Browser.
+- Pro Türchen **zwei getrennte Textfelder** (je max. 600 Zeichen): „Meine Notiz zur Aufgabe“ und „Meine Notiz zur Alternative“, jeweils direkt unter der Bewertung der Version. Nur im Browser.
 - Die Notizen erscheinen in der Auswertung („Alle meine Notizen kopieren“) und in der Textdatei von „Erinnerung speichern“.
-- Speicherung: `adventNotiz26`.
+- Speicherung: `adventNotiz26`, Schlüssel `"5"` = Aufgabe, `"5b"` = Alternative (`notizKey`). Frühere gemeinsame Notizen gelten als Notiz zur Aufgabe. In der Auswertung zeigt jede Karte die Notiz ihrer Version; Kopieren und die Textdatei führen beide getrennt auf.
 
 ### 13.3 Auswertung (ab 25.12.)
 - Nur wenn **er ebenfalls bewertet hat** (`er.js`), gibt es einen **Abgleich**. Er bewertet auf einer eigenen Oberfläche und sieht dort **keine** ihrer Daten.
@@ -580,6 +580,15 @@ window.ER_BEWERTUNG = {
 - **Nicht geprüft:** Die tatsächliche Zustellung auf einem echten iPhone konnte nicht getestet werden (Worker, Signatur und App-Ablauf sind mit simulierten Gegenstellen geprüft). Voraussetzung auf dem iPhone: iOS 16.4 oder neuer, App auf dem Home-Bildschirm.
 - **Hinweis:** Hat sie zusätzlich die Kalender-Termine importiert, bekommt sie beides; die Termine kann sie im Kalender löschen.
 
+**Erinnerung für ihn (Editor „His Rating“, nur TEST)**
+
+- Im Editor gibt es unten den Kasten **„Erinnerung zum Bewerten“** (nur sichtbar in der installierten Editor-App und mit eingetragener Worker-Adresse; sonst steht dort ein Hinweis). Schalter „Erinnerung einschalten“ und „Testnachricht senden“. Die Uhrzeit ist fest 20:00 Uhr.
+- **Bedingung:** Vom 2. bis 25. Dezember schickt der Worker um 20:00 Uhr eine Nachricht, aber nur, wenn das **Türchen von gestern** noch nicht von ihm bewertet ist (Aufgabe oder Alternative genügt, wie in der Kachel „Gestern war Türchen N – hier bewerten“). Bewertet er, meldet der Editor die Liste seiner bewerteten Türchen still an den Worker (`pstate`, nach jeder Änderung mit kurzer Verzögerung).
+- **Text:** „Bewertung – Türchen N wartet noch auf deine Bewertung.“ Weil Kalender und Editor dieselbe Adresse und denselben Service Worker nutzen, schickt der Worker diesen Text **verschlüsselt** mit (Web Push, RFC 8291, aes128gcm). Der Service Worker zeigt ihn an; ohne Text zeigt er den festen Kalender-Text.
+- **Kennung:** Der Editor nutzt die Kennung seines TEST-Speicherplatzes plus `-er` (`psub` mit `art: "er"`). Die Einträge von App und Editor sind getrennt (`push:<Kennung>`).
+- **Prüfung:** Die Verschlüsselung stimmt mit dem Testvektor aus RFC 8291 überein und lässt sich mit einer unabhängigen Entschlüsselung lesen. Die Zustellung auf einem echten iPhone ist nicht getestet.
+- **Hinweis:** Auf einem Gerät teilen Kalender-App und Editor dieselbe Push-Anmeldung. Schaltet man dort in der Kalender-App die Erinnerung aus, wird die Anmeldung beendet; der Editor erneuert sie beim nächsten Start still.
+
 ---
 
 ## 16. Was im Browser gespeichert wird
@@ -595,7 +604,7 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 | `adventWahl26` | localStorage | gewählte Stimmung je Tag (`v`), ursprüngliche Wahl (`o`) |
 | `adventBewertung26` | localStorage | Bewertungen `{tag: {a: 1\|0\|-1, b: …}}` |
 | `adventBewDatum26` | localStorage | Datum der Bewertung (für die Änderungsfrist) |
-| `adventNotiz26` | localStorage | Notizen je Türchen |
+| `adventNotiz26` | localStorage | Notizen je Türchen und Version (`5` Aufgabe, `5b` Alternative) |
 | `adventLese26` | localStorage | Leseposition je Türchen |
 | `adventGruss26` | localStorage | Begrüßungssätze (fester Satz je Tag und Tageszeit) |
 | `adventBossHint26` | localStorage | Hinweis zur Wolke bereits gelesen |
@@ -660,7 +669,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795615788";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795631549";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -770,7 +779,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Kacheln | `tuerStilAktualisieren`, `KURZ`, `pixelSetzen`, `geoeffnetListe`, `merkeGeoeffnet` |
 | Geschichten | `loadStoryContent`, `karteninfoSetzen`, `geschichteFehler`, `geschichteNochmal` |
 | Bewertung | `bewertungZeilenHtml`, `aufgabenText`, `bewerteVersion`, `bewertungUI`, `bannerKandidat`, `bannerRendern`, `bewAenderbar` |
-| Notizen | `notizAlle`, `notizSetzen`, `notizHtml`, `notizenKopieren` |
+| Notizen | `notizAlle`, `notizKey`, `notizSetzen`, `notizHtml`, `notizenKopieren` |
 | Auswertung | `auswertungRendern`, `gemeinsameAuswertung`, `AW_GRUPPEN`, `auswKarte`, `awPunkte`, `awGehe`, `awSwipeInit`, `awEnthuellen`, `giftHtml`, `erLaden`, `erDaten`, `kartenLaden`, `kartenDaten` |
 | Erinnerung/Export | `erinnerungSpeichern`, `erinnerungDaten`, `erinnerungBildRueckblick`, `erinnerungBildFavoriten` |
 | Animationen | `portalDurch`, `wirbelUebergang`, `finaleDurch` (Zeiten in `bildB`), `awEnthuellen`, `wmAn`, `bildEinblenden` |
@@ -809,6 +818,8 @@ Grob in der Reihenfolge der Entstehung:
 
 ---
 19. **Push-Erinnerung** (Abschnitt 15): Schalter und Uhrzeit in der installierten App, tägliche Nachricht nur bei noch nicht geöffnetem Türchen, Cron im Cloudflare-Worker. Töne offline und in der Lautstärke angeglichen (Abschnitt 7.8).
+20. **Notizen getrennt** (Abschnitt 13.2): eigenes Notizfeld je Aufgabe und Alternative; Auswertung, Kopieren, Textdatei und Editor zeigen sie getrennt.
+21. **Erinnerung für ihn** (Abschnitt 15): Push um 20:00 Uhr, wenn das Türchen von gestern im Editor noch nicht bewertet ist; Text verschlüsselt vom Worker.
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 

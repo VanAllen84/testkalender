@@ -164,6 +164,12 @@
     <p class="hinweis">Oder von Hand: auf GitHub im Live-Repo die Datei <b>er.js</b> durch diesen Inhalt ersetzen (und im Test-Repo gern ebenfalls).</p>
   </div>
   <button class="aktion zweit" id="teilenBtn" style="display:none" onclick="teilen()">er.js teilen …</button>
+  <div class="gh" id="pushBoxEr"><h3>Erinnerung zum Bewerten</h3>
+    <p class="hinweis" style="text-align:left;margin:0 0 8px">Jeden Abend um 20:00 Uhr (2. bis 25. Dezember), aber nur, wenn das Türchen von gestern noch nicht von dir bewertet ist.</p>
+    <label><input type="checkbox" id="ePushAn" onchange="ePushUmschalten(this.checked)"> Erinnerung einschalten</label>
+    <button class="aktion zweit" id="ePushTest" style="display:none" onclick="ePushTest()">Testnachricht senden</button>
+    <div id="ePushStatus" class="hinweis"></div>
+  </div>
   <div class="gh"><h3>Ihre Antworten</h3><button class="aktion" onclick="location.hash='antworten'">Ihre Antworten ansehen</button><button class="aktion zweit" onclick="location.hash='einrichtung'">Sicherung einrichten</button></div>
   <div class="gh" id="gh">
     <h3>An GitHub senden</h3>
@@ -187,7 +193,7 @@ let karten = null;        // Kartentexte aus data.js (nicht im Klartext in diese
 let kartenStatus = "lädt";
 let base = {};            // Stand aus er.js (zum Vergleichen)
 
-function sichern() { try { localStorage.setItem(KEY, JSON.stringify(wahl)); } catch (e) {} }
+function sichern() { try { localStorage.setItem(KEY, JSON.stringify(wahl)); } catch (e) {} try { ePushStand(); } catch (e) {} }
 function laden() {
   try {
     const r = JSON.parse(localStorage.getItem(KEY) || "null");
@@ -540,6 +546,70 @@ function hexe(buf) { return [...new Uint8Array(buf)].map(x => x.toString(16).pad
 function lsGet(k, std) { try { const v = localStorage.getItem(k); return v === null ? std : JSON.parse(v); } catch (e) { return std; } }
 function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
 function zufall(n) { const z = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; const r = crypto.getRandomValues(new Uint8Array(n)); let s = ""; r.forEach(x => s += z[x % z.length]); return s; }
+// ---- Erinnerung zum Bewerten (Push, nur in der installierten App) ----
+const E_PUSH_PUB = "BFYbLmwLN3pXN1z5wso54yCpvM_j82yxvxBuF51WpQ8WsgwXUN3tTE9eFECUUSUL50Vw9IUY7iBgniddB3px4T8";
+function eStandalone() { return !!((window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone); }
+function eInfo() { const c = cfg(); return c.url ? { url: c.url.replace(/\/+$/, ""), slot: c.slotTest + "-er" } : null; }
+function eText(t) { const e = document.getElementById("ePushStatus"); if (e) e.innerText = t || ""; }
+function ePost(a, body) { const i = eInfo(); return fetch(i.url + "/" + a + "/" + i.slot, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }); }
+function eKey() { const t = (E_PUSH_PUB + "====".slice(E_PUSH_PUB.length % 4 || 4)).replace(/-/g, "+").replace(/_/g, "/"); const r = atob(t), a = new Uint8Array(r.length); for (let i = 0; i < r.length; i++) a[i] = r.charCodeAt(i); return a; }
+async function eAbo(neu) {
+  const reg = await navigator.serviceWorker.ready;
+  let s = await reg.pushManager.getSubscription();
+  if (!s && neu) s = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: eKey() });
+  return s;
+}
+function eBewertet() { return Object.keys(wahl).filter(d => wahl[d] && (wahl[d].a || wahl[d].b)).map(Number); }
+let eSyncT = null;
+function ePushStand() { if (!lsGet("adventErPush26", false) || !eInfo()) return; clearTimeout(eSyncT); eSyncT = setTimeout(function () { ePost("pstate", { rated: eBewertet() }).catch(function () {}); }, 1500); }
+async function ePushUmschalten(an) {
+  const cb = document.getElementById("ePushAn");
+  try {
+    if (an) {
+      eText("Einen Moment …");
+      const p = await Notification.requestPermission();
+      if (p !== "granted") { cb.checked = false; eText("Mitteilungen sind nicht erlaubt. Bitte in den Handy-Einstellungen unter Mitteilungen erlauben."); return; }
+      const s = await eAbo(true);
+      const r = await ePost("psub", { sub: s.toJSON(), zeit: "2000", art: "er" });
+      if (!r.ok) throw new Error("worker");
+      lsSet("adventErPush26", true);
+      await ePost("pstate", { rated: eBewertet() });
+      ePushAnzeige();
+    } else {
+      try { await ePost("poff"); } catch (e) {}
+      lsSet("adventErPush26", false); ePushAnzeige(); eText("Die Erinnerung ist aus.");
+    }
+  } catch (e) { cb.checked = !an; eText("Das hat gerade nicht geklappt. Bitte Internet prüfen und noch einmal versuchen."); }
+}
+async function ePushTest() {
+  eText("Testnachricht wird gesendet …");
+  try {
+    const r = await ePost("ptest");
+    if (r.status === 429) eText("Bitte einen Moment warten.");
+    else if (r.ok) eText("Die Testnachricht ist unterwegs.");
+    else if (r.status === 410 || r.status === 404) { lsSet("adventErPush26", false); ePushAnzeige(); eText("Die Anmeldung war abgelaufen. Bitte aus- und wieder einschalten."); }
+    else eText("Die Testnachricht konnte nicht gesendet werden.");
+  } catch (e) { eText("Der Server ist gerade nicht erreichbar."); }
+}
+function ePushAnzeige() {
+  const an = lsGet("adventErPush26", false);
+  document.getElementById("ePushAn").checked = !!an;
+  document.getElementById("ePushTest").style.display = an ? "" : "none";
+  if (an) eText("Die Erinnerung ist an: täglich um 20:00 Uhr, solange das Türchen von gestern noch nicht bewertet ist.");
+}
+function ePushStart() {
+  const box = document.getElementById("pushBoxEr"); if (!box) return;
+  const ok = location.protocol === "https:" && "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+  if (!ok || !eStandalone()) { box.style.display = "none"; return; }
+  if (!eInfo()) { document.getElementById("ePushAn").disabled = true; eText("Zuerst unter „Sicherung einrichten“ die Worker-Adresse eintragen."); return; }
+  navigator.serviceWorker.register("sw.js").catch(function () {});
+  ePushAnzeige();
+  if (lsGet("adventErPush26", false)) {
+    if (Notification.permission !== "granted") { lsSet("adventErPush26", false); ePushAnzeige(); return; }
+    eAbo(true).then(function (s) { if (s) return ePost("psub", { sub: s.toJSON(), zeit: "2000", art: "er" }); }).then(function () { return ePost("pstate", { rated: eBewertet() }); }).catch(function () {});
+  }
+}
+
 function cfg() {
   const c = lsGet(CFGK, null) || {};
   let neu = false;
@@ -692,7 +762,6 @@ function htmlAntworten() {
     '<label>Quelle <select id="awQ" style="background:#0b0b0f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px"><option value="live"' + (AW.quelle === "live" ? " selected" : "") + '>LIVE</option><option value="test"' + (AW.quelle === "test" ? " selected" : "") + '>TEST</option></select></label>' +
     '<input type="password" id="awPw" placeholder="Passwort" autocomplete="current-password" style="margin-top:8px"><div class="zeile2"><button class="mini" onclick="awAbrufen()">Abrufen</button></div>' +
     '<label style="margin-top:10px"><input type="checkbox" id="awNotiz"' + (lsGet(NSK, false) ? " checked" : "") + ' onchange="awNotizSchalter()"> Ihre Notizen anzeigen</label>' +
-    '<p class="hinweis" style="text-align:left;margin-top:2px">In der App steht bei den Notizen „nur für dich“. Nur einschalten, wenn sie weiß, dass du sie siehst.</p>' +
     '<div id="awM" class="hinweis ' + (AW.fehler ? "fehler" : "ok") + '">' + ve(AW.meldung) + '</div></div>';
   return ansicht + (AW.daten ? htmlAwDaten() : "");
 }
@@ -721,11 +790,11 @@ function awNeuBerechnen() {
   const bew = awTeil("adventBewertung26"), notiz = awTeil("adventNotiz26"), w = awTeil("adventWunsch26"), zeigeNotiz = lsGet(NSK, false);
   const alt = lsGet(GESEHEN, null), neu = {}, jetzt = {};
   for (let d = 1; d <= 24; d++) {
-    const r = hasch(JSON.stringify(bew[d] || null)), n = hasch(notiz[d] || "");
+    const r = hasch(JSON.stringify(bew[d] || null)), n = hasch((notiz[d] || "") + "|" + (notiz[d + "b"] || ""));
     const a = alt && alt[d];
     if (alt) {
       if (a ? a.r !== r : !!bew[d]) neu[d] = 1;
-      else if (zeigeNotiz && (a ? a.n !== n : !!notiz[d])) neu[d] = 1;
+      else if (zeigeNotiz && (a ? a.n !== n : !!(notiz[d] || notiz[d + "b"]))) neu[d] = 1;
     }
     jetzt[d] = { r: r, n: zeigeNotiz ? n : (a ? a.n : hasch("")) };
   }
@@ -752,12 +821,13 @@ function htmlAwDaten() {
       const abwChip = (ihr !== undefined && meins) ? (meins === ihrBuch ? '<span class="chip">gleich</span>' : '<span class="chip" style="border-color:var(--gold);color:#f3e7c0">abweichend</span>') : "";
       zeilen += '<div style="margin:6px 0"><b>' + v[1] + ' ' + (v[0] === "a" ? "Aufgabe" : "Alternative") + ':</b> Sie ' + (ihr === undefined ? "–" : HER[String(ihr)]) + ' · Du ' + (meins ? SYM[meins] : "–") + ' ' + abwChip + '</div>';
     });
-    const n = notiz[t.d];
-    if (!zeilen && !(zeigeNotiz && n)) return "";
+    const n = notiz[t.d], nb = notiz[t.d + "b"];
+    if (!zeilen && !(zeigeNotiz && (n || nb))) return "";
     const her = (k ? k.w : t.w) !== "Er";
     return '<div class="zeile ' + (her ? "her" : "his") + '" style="padding:14px 16px 14px"><div class="kopf" style="margin-bottom:6px"><div class="nr" style="font-size:1.5rem"><small>Türchen</small>' + t.d + (aktuellNeu && AW.neu[t.d] ? '<span class="gtag">Neu</span>' : "") + '</div><div class="karte">Karte ' + t.k + '</div></div>' +
       '<div style="opacity:.8;font-size:.85rem;margin-bottom:6px">' + ve(kurzText(k)) + '</div>' + zeilen +
-      (zeigeNotiz && n ? '<div style="margin:8px 0;padding:8px 10px;border-left:3px solid var(--c);background:rgba(255,255,255,.04);font-size:.9rem">„' + ve(n) + '“</div>' : "") +
+      (zeigeNotiz && n ? '<div style="margin:8px 0;padding:8px 10px;border-left:3px solid var(--c);background:rgba(255,255,255,.04);font-size:.9rem">Aufgabe: „' + ve(n) + '“</div>' : "") +
+      (zeigeNotiz && nb ? '<div style="margin:8px 0;padding:8px 10px;border-left:3px solid var(--c);background:rgba(255,255,255,.04);font-size:.9rem">Alternative: „' + ve(nb) + '“</div>' : "") +
       '<textarea rows="2" maxlength="600" data-v="' + t.d + '" oninput="verbTippen(this)" placeholder="Für nächstes Mal …" style="height:auto;margin-top:6px;font-size:.88rem">' + ve(verb[t.d] || "") + '</textarea></div>';
   }).join("");
   const vers = '<select onchange="awVersion(this)" style="background:#0b0b0f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;max-width:100%">' + AW.versionen.map(v => '<option value="' + v + '"' + (v === AW.stand ? " selected" : "") + '>' + new Date(v).toLocaleString("de-DE") + '</option>').join("") + '</select>';
@@ -801,6 +871,7 @@ window.addEventListener("hashchange", () => { zeichne(); window.scrollTo(0, 0); 
 const hatGespeichert = laden();
 ladeAusDatei(true, !hatGespeichert);
 zeichne();
+try { ePushStart(); } catch (e) {}
 setTimeout(() => { const g = document.querySelector('.kachel.gestern'); if (g && !aktuellerTag()) g.scrollIntoView({ block: 'center' }); }, 200);
 </script>
 </body>

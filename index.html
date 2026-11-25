@@ -1849,16 +1849,18 @@
                 localStorage.setItem("adventNotiz26", JSON.stringify(n));
             } catch (e) {}
         }
-        function notizTippen(el) { notizSetzen(Number(el.getAttribute("data-day")), el.value.slice(0, 600)); }
-        function notizHtml(day) {
-            const t = notizAlle()[day] || "";
-            return '<div class="notiz-box"><label>\u{1F4DD} Meine Notiz zur Aktion</label>' +
-                '<textarea rows="2" maxlength="600" data-day="' + day + '" oninput="notizTippen(this)" placeholder="Was war schön? Was bleibt in Erinnerung?">' + esc(t) + '</textarea></div>';
+        // Notizen: Schluessel "5" = Aufgabe, "5b" = Alternative
+        function notizKey(day, ver) { return ver === "b" ? day + "b" : String(day); }
+        function notizTippen(el) { notizSetzen(notizKey(Number(el.getAttribute("data-day")), el.getAttribute("data-ver")), el.value.slice(0, 600)); }
+        function notizHtml(day, ver) {
+            const t = notizAlle()[notizKey(day, ver)] || "";
+            return '<div class="notiz-box"><label>\u{1F4DD} Meine Notiz zur ' + (ver === "b" ? "Alternative" : "Aufgabe") + '</label>' +
+                '<textarea rows="2" maxlength="600" data-day="' + day + '" data-ver="' + ver + '" oninput="notizTippen(this)" placeholder="Was war schön? Was bleibt in Erinnerung?">' + esc(t) + '</textarea></div>';
         }
         function notizenKopieren(btn) {
             const n = notizAlle();
-            const tage = Object.keys(n).map(Number).sort((a, b) => a - b);
-            const text = tage.map(d => "Türchen " + d + " (Karte " + calendarData[d].cardNum + "):\n" + n[d]).join("\n\n");
+            const ks = Object.keys(n).filter(function (k) { return n[k]; }).sort(function (x, y) { return (parseInt(x, 10) - parseInt(y, 10)) || (x < y ? -1 : 1); });
+            const text = ks.map(function (k) { const d = parseInt(k, 10); return "Türchen " + d + " (Karte " + calendarData[d].cardNum + "), " + (/b$/.test(k) ? "Alternative" : "Aufgabe") + ":\n" + n[k]; }).join("\n\n");
             const fertig = function () { if (btn) btn.innerText = "Kopiert"; };
             if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(fertig, function () { kopierenAlt(text); fertig(); });
             else { kopierenAlt(text); fertig(); }
@@ -1908,9 +1910,10 @@
                 } else {
                     html += '<div class="bew-ergebnis">Deine Bewertung: ' + BEW_TEXT[String(val)] + '</div>';
                 }
+                html += notizHtml(day, ver);
                 html += '</div>';
             });
-            return html + notizHtml(day);
+            return html;
         }
         function bewerteVersion(day, ver, val, modus) {
             const aktuell = (bewertungAlle()[day] || {})[ver];
@@ -2114,13 +2117,14 @@
                 '<div class="ak-meta">' + (her === null ? '' : '<span class="' + (her ? "her" : "his") + '">' + (her ? "Her" : "His") + '</span><span>·</span>') +
                 '<span>' + (e.ver === "a" ? "Aufgabe" : "Alternative") + '</span><span>·</span><span>Karte ' + nr + '</span><span>·</span><span>Türchen ' + e.d + '</span><span class="pf">\u25BE</span></div>' +
                 (text ? '<div class="ak-text">' + text + '</div>' : '') + zeile +
-                (notizZeige(e.d) ? '<div class="ak-notiz">\u{1F4DD} ' + esc(notizAlle()[e.d]) + '</div>' : '') +
+                (notizZeige(e.d, e.ver) ? '<div class="ak-notiz">\u{1F4DD} ' + esc(notizAlle()[notizKey(e.d, e.ver)]) + '</div>' : '') +
                 '</div>';
         }
         let notizGezeigt = {};
-        function notizZeige(d) {
-            if (notizGezeigt[d] || !notizAlle()[d]) return false;
-            notizGezeigt[d] = true; return true;
+        function notizZeige(d, ver) {
+            const k = notizKey(d, ver);
+            if (notizGezeigt[k] || !notizAlle()[k]) return false;
+            notizGezeigt[k] = true; return true;
         }
         // Gemeinsame Auswertung: beide Bewertungen zusammen, jede Version (Aufgabe / Alternative) einzeln
         const SYMBOL = { "1": "👍", "0": "😐", "-1": "👎" };
@@ -2836,8 +2840,8 @@
             if (D.gemeinsam) { t += "\nUnsere Auswertung:\n"; AW_GRUPPEN.forEach(function (g, i) { t += "  " + g.name + ": " + Z.gr[i] + "\n"; }); }
             t += "\n\nTÜRCHEN FÜR TÜRCHEN\n-------------------\n";
             for (let d = 1; d <= 24; d++) {
-                const b = D.bew[d] || {}, e = D.er[d] || {}, w = D.wa[d], n = D.no[d];
-                if (!b.a && b.a !== 0 && !b.b && b.b !== 0 && !n && !w) continue;
+                const b = D.bew[d] || {}, e = D.er[d] || {}, w = D.wa[d], na = D.no[d], nb = D.no[d + "b"];
+                if (!b.a && b.a !== 0 && !b.b && b.b !== 0 && !na && !nb && !w) continue;
                 const nr = calendarData[d].cardNum, k = D.karten ? D.karten[nr] : null;
                 t += "\nTürchen " + d + " (Karte " + nr + ")" + (w ? " – Stimmung: " + NAME[w.o || w.v] : "") + "\n";
                 ["a", "b"].forEach(function (v) {
@@ -2848,7 +2852,8 @@
                     t += "\n";
                     if (k && b[v] !== undefined) t += "    „" + String(v === "a" ? k.a : k.b).replace(/\s+/g, " ").trim() + "“\n";
                 });
-                if (n) t += "  Notiz: " + n + "\n";
+                if (na) t += "  Notiz zur Aufgabe: " + na + "\n";
+                if (nb) t += "  Notiz zur Alternative: " + nb + "\n";
             }
             return t + "\n";
         }
