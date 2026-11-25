@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795613308`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795614208`.
 
 ---
 
@@ -264,7 +264,7 @@ Sichtbar, wenn für den Tag noch keine Stimmung gewählt wurde.
 - Am Ende: **„Der heutige Umschlag hat die Nummer: #N“** (`karteninfoSetzen`).
 - **Bild** des Tages (`karte-NN.jpg`) blendet beim Lesen ein, zusätzlich liegt es als dezentes **Wasserzeichen** im Hintergrund.
 - Oben (am Folgetag): **Abfrage zum Vortag** („Wie war gestern die Aufgabe?“) mit **Originaltext der Aufgabe und der Alternative** und je drei Daumen-Knöpfen.
-- Unten: **Bewertungskasten** („Wie war es?“) und **Notizfeld** („Meine Notiz zur Aktion (nur für dich)“). Bei der Bewertung am selben Tag steht dort **kein** Aufgabentext, damit nichts vorweggenommen wird. Der Text steht dort erst, wenn das Türchen schon an einem **früheren Tag** einmal geöffnet war (siehe „Wann der Aufgabentext erscheint“ unten). Wer an einem späteren Tag ein Türchen zum ersten Mal öffnet, sieht ihn noch nicht.
+- Unten: **Bewertungskasten** („Wie war es?“) und **Notizfeld** („Meine Notiz zur Aktion“, ohne weiteren Hinweis). Bei der Bewertung am selben Tag steht dort **kein** Aufgabentext, damit nichts vorweggenommen wird. Der Text steht dort erst, wenn das Türchen schon an einem **früheren Tag** einmal geöffnet war (siehe „Wann der Aufgabentext erscheint“ unten). Wer an einem späteren Tag ein Türchen zum ersten Mal öffnet, sieht ihn noch nicht.
 
 **Wann der Aufgabentext erscheint:** Der Wortlaut von Aufgabe und Alternative steht im Bewertungskasten (und im Banner zum Vortag) nur, wenn das Türchen an einem **früheren Kalendertag** schon einmal geöffnet war. Gespeichert wird dafür der Tag der ersten Öffnung (`adventOeffnetAm26`).
 
@@ -298,10 +298,11 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Countdown:** Auf der Türchen-Übersicht steht „Das nächste Türchen öffnet sich in 5 Std 12 Min“. Vor dem 1. Dezember bezieht er sich auf Türchen 1. Er erscheint nur, wenn das heutige Türchen schon geöffnet wurde; am 24.12. übernimmt der bekannte Hinweis „Morgen wartet noch etwas“, ab dem 25.12. gibt es keinen Countdown mehr. Aktualisierung alle 30 Sekunden.
 - **Offene Aufgaben (nur verschiebbare Karten):** Verschiebbar sind nur die Karten 3, 4, 8, 15, 17, 19 und 23 (das sind die Türchen 7, 15, 1, 24, 8, 16 und 2). Nur dort steht unter der Bewertung der Knopf „Aufgabe erledigt?“ mit dem Hinweis, dass sie bis zum 31. Dezember nachgeholt werden darf. Wird bewertet, gilt die Aufgabe automatisch als erledigt. Offene Türchen erhalten ein Sanduhr-Zeichen auf der Kachel und eine Zeile „Noch offen bis 31. Dezember: Türchen …“ mit direkten Sprungknöpfen. Nach dem 31.12. verschwindet alles.
 - **Lieblingsgeschichten (Herz):** Unter jeder Geschichte ein Herz-Knopf „Diese Geschichte gefällt mir“. Ein Herz je Türchen und Stimmung; weitere Stimmungen kann sie erst ab dem 25.12. lesen und dann auch dort ein Herz vergeben (dieselbe Geschichte kann also mehrfach in der Liste stehen). Herzchen erscheinen auf der Kachel; ab dem 25.12. zeigt die Übersicht den Bereich „Meine Lieblingsgeschichten“ (Sprungknöpfe zu Türchen und Stimmung).
-- **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; wer es leise will, stellt die Lautstärke am Handy herunter). Fehlt die Datei, passiert nichts (kein Fehler). Die Datei steht bewusst **nicht** in der Vorab-Liste des Service Workers, damit eine fehlende Datei die Installation nicht verhindert. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
+- **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; Lautstärke über das Gerät). Fehlt die Datei, passiert nichts (kein Fehler). Die vier Tondateien stehen in der Vorab-Liste des Service Workers (`TON`) und werden einzeln mit Fehlertoleranz abgelegt, fehlt eine Datei, scheitert nicht die Installation. Damit laufen die Töne auch offline; der Service Worker beantwortet dabei auch die Bereichsanfragen (Range) der Audio-Elemente aus dem Speicher (nötig für iPhone). Nach dem Hochladen neuer Töne muss `VERSION` in `sw.js` erhöht werden. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
 - **Enthüllung (optional):** Liegt `ton/auspacken.mp3` im Repository (ca. 14 s, nur die ersten fünf Sekunden sind hörbar), spielt sie beim Tipp auf „Enthüllen“ in der Auswertung und wird am Ende der Animation ausgeblendet. Fehlt die Datei, läuft die Animation lautlos (siehe Abschnitt 13.3).
 - **Finale-Melodie (optional):** Liegt `ton/finale.mp3` (ca. 26 s) im Repository, startet sie mit der Finale-Animation und klingt unter der Finale-Seite aus; beim Überspringen wird sie ausgeblendet (`tonFinale`). Fehlt die Datei, läuft die Animation lautlos.
 - **Herzschlag:** Die sechs Herzschläge (Lub-Dub, Abstand 1,1 s, ab 16,57 s, der Lub fällt jeweils auf 16,85 s + n·1,1 s) sind fest in `ton/finale.mp3` eingemischt, damit sie auf allen Geräten gleichzeitig mit der Melodie laufen (iPhone: Web Audio wird vom Stumm-Schalter gedämpft, normale Audio-Elemente nicht). Das Original `herzschlag.mp3` liegt fast nur im Tiefbass (unter 120 Hz), den Handy-Lautsprecher kaum wiedergeben; für die Mischung wurde es mit Obertönen im Bereich 120–500 Hz angereichert. Die Pulse des Herzens im Bild laufen weiter über die Animationsschleife. `herzschlag.mp3` wird nicht mehr gebraucht.
+- **Lautstärke angeglichen:** Alle vier Töne sind auf etwa −18 LUFS normalisiert (Spitzen unter −1,5 dBFS) und werden mit Lautstärke 0,8 abgespielt, damit man die Gerätelautstärke nicht ständig anpassen muss. `knarren.mp3` und `wirbel.mp3` waren zuvor rund 14 dB leiser als die anderen; die angeglichenen Fassungen liegen im Update-Paket. Werden Töne später getauscht, vorher auf denselben Pegel bringen.
 - **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
 - **Ausblenden beim Überspringen:** Wird eine Animation durch Antippen übersprungen oder endet sie, blendet der Ton in ca. einer halben Sekunde aus (`tonAusblenden` in `index.html`), damit beim Lesen nichts nachklingt. Das gilt für das Knarren beim Tür-Übergang und den Wind beim Wirbel.
 
@@ -647,7 +648,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795613308";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795614208";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -786,10 +787,9 @@ Grob in der Reihenfolge der Entstehung:
 9. **Weiter-Knopf** erscheint nur, wenn das nächste Türchen freigeschaltet ist.
 10. **Rückblick auf die Aufgabe:** Beim Bewerten am Folgetag oder beim erneuten Öffnen eines vergangenen Türchens stehen Aufgabe und Alternative im Originalwortlaut dabei (nie am Tag der ersten Öffnung).
 11. **Code-Sperre** beim Start, nach Pause und nach der Wolke, mit leicht verpixeltem Hintergrundbild, das sich beim Entsperren entpixelt (TEST und LIVE).
-12. **Begleitmaterial:** Beipackzettel (v10, mit Code und Umschlag-zuerst-Hinweis), Gimmick-Vorlagen (Zettel für einzelne Türchen, Code-Zettel; ohne Verweis auf weitere Kalender), Röhren-Packliste, Kurzbeschreibungen-Tabelle, Prompt für den zweiten Kalender.
-13. **Zweiter Kalender** „Adventsgeschichten“ (nicht erotisch) in einem eigenen Projekt.
+12. **Begleitmaterial:** Beipackzettel (v10, mit Code und Umschlag-zuerst-Hinweis), Gimmick-Vorlagen (Zettel für einzelne Türchen, Code-Zettel; ohne Verweis auf weitere Kalender), Röhren-Packliste, Kurzbeschreibungen-Tabelle.
 14b. **Wetter in den Geschichten** (Abschnitt 7.9): Wettersätze passen sich dem echten Wetter an; Vorschau per `?wetter=…`. **Status: in TEST und LIVE umgesetzt.**
-14. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
+13. **Komfort-Funktionen** (Abschnitt 7.8): Lesen anpassen, Countdown, offene Aufgaben mit Frist 31.12., Lieblingsgeschichten, Tür-Knarren. **Status: in TEST und LIVE umgesetzt.**
 15. **Sicherung und Editor** (Abschnitt 14): verschlüsselte Sicherung über einen Cloudflare-Worker, „Ihre Antworten“, Wiederherstellungs-Link, Wünsche für ein nächstes Mal, GitHub-Upload aus dem Editor, Beschriftung „Sie“ statt Namen.
 16. **Auswertung überarbeitet** (Abschnitt 13.3): Wischen zwischen den Gruppen, straffere Kacheln, „Meine“ und „Seine“ statt „Du“ und „Ich“, Zuordnung nach Karte statt nach Türchenzahl (Türchen nur als Information).
 17. **Enthüllung und Finale mit Ton** (Abschnitte 7.8, 8.3, 13.3): Päckchen-Animation mit `auspacken.mp3`, Finale-Animation (22,8 s) auf die Melodie `finale.mp3` abgestimmt, sechs Herzschläge (in `finale.mp3` eingemischt). Alle Töne sind optional.
@@ -806,7 +806,6 @@ Grob in der Reihenfolge der Entstehung:
 | `Gimmick_Vorlagen_v2.pdf` | Zettel, die als Ergänzung zur Aufgabe in den Päckchen liegen (siehe unten) |
 | Röhren-Packliste (Docs-Dokument) | Was in welches Röllchen kommt (Pappröhren Ø 5 cm × 10 cm) |
 | `Kurzbeschreibungen_Tuerchen.xlsx` | Kurzbeschreibungen mit den kompletten Kartentexten (bearbeitbar) |
-| „Prompt: Advents-Geschichten-Kalender“ (Docs-Dokument) | Vorlage für den zweiten Kalender |
 
 Gimmick-Vorlagen (Zettel, Ausschneiden entlang der gestrichelten Linie, 100 % drucken):
 - **Türchen 1:** Zettel mit QR-Code (Hilfe, falls ihr spontan nichts einfällt).
@@ -863,7 +862,6 @@ Warum es so gebaut ist, wie es ist:
 - **Notizen nur lokal:** Persönlich und nur für sie. Sie wandern nur dann in eine Datei, wenn sie „Erinnerung speichern“ drückt.
 - **Code-Sperre statt Face ID:** Face ID über WebAuthn wäre aufwendig, für die Erstnutzung ungewohnt und ohne Server ohnehin nur ein Sichtschutz. Die iOS-eigene App-Sperre wird für Web-Apps nicht angeboten. Ein fester vierstelliger Code reicht gegen zufälliges Öffnen (Kinder) und kann nicht verloren gehen (kein Aussperren, anders als bei einem selbst vergebenen Code).
 - **Wolke als Chef-Taste:** Schnelles Verstecken, wenn jemand ins Zimmer kommt. Nach der Wolke kommt die Sperre.
-- **Zwei Kalender getrennt:** Zettel und Extras liegen in den Päckchen zur Aufgabe. Der zweite Kalender („Adventsgeschichten“, nicht erotisch) ist ein eigenes Projekt.
 - **Zettel dürfen nichts verraten:** Sie liest diese ggf. morgens, bevor sie die Geschichte kennt. Deshalb sind sie neutral formuliert.
 - **TEST als eigene Instanz:** So kann nichts versehentlich auf LIVE landen; Speicher und Adresse sind getrennt. `VORTEST_NOVEMBER` macht den November testbar.
 - **Kurzbeschreibungen unter den Kacheln:** Damit sie nach Tagen noch weiß, was sie bewerten möchte.
@@ -902,10 +900,8 @@ Warum es so gebaut ist, wie es ist:
 
 ## 32. Offene Punkte und Ideen
 
-- Zweiter Kalender „Adventsgeschichten“: eigenes Projekt, Prompt liegt als Dokument vor.
 - Probelauf und Erinnerungen wurden angeboten, aber nicht umgesetzt.
 - Erinnerung per Push-Nachricht an ein neues Türchen (über den Worker): zurückgestellt, wird bei Bedarf gesondert besprochen.
-- Die Notizen in ihrer App sind mit „nur für dich“ beschriftet. Im Editor erscheinen sie nur hinter einem Schalter; ob der Text der App angepasst werden soll, ist offen.
 - Ton und Bild laufen auf manchen iPhones minimal versetzt (Startverzögerung der Audiodatei). Bei Bedarf lässt sich der Takt in `bildB` und `finaleDurch` verschieben.
 - Face ID / Passkey wurde bewusst verworfen (Abschnitt 30).
 - Das LIVE-Backup `advent26-LIVE_komplett.zip` wird nur auf Wunsch aktualisiert.
