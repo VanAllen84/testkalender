@@ -114,6 +114,16 @@
   .gh { max-width:520px; margin:22px auto 0; padding:14px 16px; border:1px solid var(--line); border-radius:12px; background:rgba(255,255,255,.03); font-size:.88rem; }
   .gh h3 { margin:0 0 8px; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:600; }
   .gh label { display:flex; align-items:center; gap:8px; margin:6px 0; }
+  .sw { position:relative; flex:none; width:50px; height:30px; display:inline-block; }
+  .sw input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:pointer; z-index:1; -webkit-tap-highlight-color:transparent; }
+  .sw i { position:absolute; inset:0; border-radius:30px; background:rgba(255,255,255,.16); box-shadow:inset 0 0 0 1px rgba(255,255,255,.22); transition:background .25s ease, box-shadow .25s ease; }
+  .sw i::after { content:""; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:#f4efe3; box-shadow:0 1px 4px rgba(0,0,0,.45); transition:transform .25s cubic-bezier(.3,.9,.4,1.1); }
+  .sw input:checked + i { background:#d4af37; box-shadow:inset 0 0 0 1px rgba(212,175,55,.9), 0 0 12px rgba(212,175,55,.35); }
+  .sw input:checked + i::after { transform:translateX(20px); background:#fff; }
+  .sw input:focus-visible + i { outline:2px solid #fff; outline-offset:2px; }
+  .sw input:disabled { cursor:default; }
+  .sw input:disabled + i { opacity:.45; }
+  @media (prefers-reduced-motion: reduce) { .sw i, .sw i::after { transition:none; } }
   .gh input[type=password], .gh input[type=text] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:#0b0b0f; color:var(--text); font-size:.9rem; font-family:Consolas,Menlo,monospace; }
   .gh .zeile2 { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
   .gh button.mini { padding:8px 14px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.06); color:var(--text); cursor:pointer; font-size:.82rem; font-family:inherit; }
@@ -186,7 +196,7 @@
   <button class="aktion zweit" id="teilenBtn" style="display:none" onclick="teilen()">er.js teilen …</button>
   <div class="gh" id="pushBoxEr"><h3>Erinnerung zum Bewerten</h3>
     <p class="hinweis" style="text-align:left;margin:0 0 8px">Jeden Abend um 20:00 Uhr (2. bis 25. Dezember), aber nur, wenn das Türchen von gestern noch nicht von dir bewertet ist.</p>
-    <label><input type="checkbox" id="ePushAn" onchange="ePushUmschalten(this.checked)"> Erinnerung einschalten</label>
+    <label><span class="sw"><input type="checkbox" role="switch" id="ePushAn" onchange="ePushUmschalten(this.checked)"><i></i></span> Erinnerung einschalten</label>
     <button class="aktion zweit" id="ePushTest" style="display:none" onclick="ePushTest()">Testnachricht senden</button>
     <div id="ePushStatus" class="hinweis"></div>
   </div>
