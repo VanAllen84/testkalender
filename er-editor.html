@@ -117,6 +117,26 @@
   .gh input[type=password], .gh input[type=text] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:#0b0b0f; color:var(--text); font-size:.9rem; font-family:Consolas,Menlo,monospace; }
   .gh .zeile2 { display:flex; gap:8px; margin-top:8px; flex-wrap:wrap; }
   .gh button.mini { padding:8px 14px; border-radius:30px; border:1px solid var(--line); background:rgba(255,255,255,.06); color:var(--text); cursor:pointer; font-size:.82rem; font-family:inherit; }
+  .hc { max-width:520px; margin:14px auto 0; display:grid; gap:12px; }
+  .hc-stand { font-size:.78rem; opacity:.75; text-align:center; }
+  .hc-karte { border:1px solid var(--line); border-radius:14px; background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015)); padding:14px 16px; font-size:.88rem; }
+  .hc-kopf { display:flex; gap:12px; align-items:center; margin-bottom:8px; }
+  .hc-kopf b { display:block; color:var(--head); font-weight:600; }
+  .hc-kopf small { display:block; opacity:.6; font-size:.76rem; margin-top:1px; }
+  .hc-punkt { flex:none; width:12px; height:12px; border-radius:50%; }
+  .hc-punkt.an { background:#4fd18b; box-shadow:0 0 0 4px rgba(79,209,139,.18), 0 0 12px rgba(79,209,139,.55); }
+  .hc-punkt.aus { background:#5d5d68; box-shadow:0 0 0 4px rgba(255,255,255,.06); }
+  .hc-z { display:grid; grid-template-columns:130px 1fr; gap:10px; padding:7px 0; border-top:1px solid var(--line); }
+  .hc-k { opacity:.62; font-size:.8rem; }
+  .hc-v small { opacity:.6; margin-left:4px; }
+  .hc-v.ok { color:#7fd6a0; }
+  .hc-leer { opacity:.5; }
+  .hc-heute { margin-top:6px; padding:9px 12px; border-radius:10px; font-size:.84rem; background:rgba(255,255,255,.05); }
+  .hc-heute span { display:inline-block; margin-right:8px; font-size:.68rem; letter-spacing:1.4px; text-transform:uppercase; opacity:.65; }
+  .hc-heute.ok { background:rgba(79,209,139,.12); color:#a6e8c3; }
+  .hc-heute.warn { background:rgba(212,175,55,.14); color:#ecd27a; }
+  .hc-heute.grau { color:#a9a9b3; }
+  @media (max-width:420px) { .hc-z { grid-template-columns:105px 1fr; } }
   .gh .ok { color:#7fd6a0; } .gh .fehler { color:#ff9aa8; }
   .gh ul { margin:8px 0 0; padding-left:18px; }
   /* Filter */
@@ -171,6 +191,7 @@
     <div id="ePushStatus" class="hinweis"></div>
   </div>
   <div class="gh"><h3>Ihre Antworten</h3><button class="aktion" onclick="location.hash='antworten'">Ihre Antworten ansehen</button><button class="aktion zweit" onclick="location.hash='einrichtung'">Sicherung einrichten</button></div>
+  <div class="gh"><h3>Health-Check</h3><button class="aktion" onclick="location.hash='status'">Status von Push &amp; Sicherung ansehen</button></div>
   <div class="gh" id="gh">
     <h3>An GitHub senden</h3>
     <label><input type="checkbox" id="ghTest" checked> TEST (vanallen84/testkalender)</label>
@@ -286,6 +307,7 @@ function zeichne() {
   document.body.classList.toggle("detail", !!tag);
   const av = ansichtName();
   if (av !== "antworten" && (AW.daten || AW.priv)) awReset();
+  if (av !== "status" && (HC.test || HC.token)) hcReset();
   document.body.classList.toggle("ansicht", !!av);
   document.getElementById("unten").style.display = (tag || av) ? "none" : "";
   document.querySelectorAll(".rand").forEach(e => e.remove());
@@ -666,14 +688,107 @@ async function workerGet(pfad, token) {
 }
 
 // ----- Ansichten -----
-function ansichtName() { const h = location.hash.replace(/^#/, ""); return (h === "antworten" || h === "einrichtung") ? h : ""; }
+// ---------- Health-Check ----------
+const HC = { live: null, test: null, stand: null, meldung: "", fehler: false, token: null, laeuft: false };
+function hcReset() { HC.live = HC.test = HC.stand = HC.token = null; HC.meldung = ""; HC.fehler = false; HC.laeuft = false; }
+function hcZeit(ms) {
+  if (!ms) return null;
+  const d = new Date(ms);
+  const f = new Intl.DateTimeFormat("de-DE", { timeZone: "Europe/Berlin", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).format(d).replace(",", "");
+  return f.replace(" ", ", ") + " Uhr";
+}
+function hcVor(ms, jetzt) {
+  if (!ms) return "";
+  const s = Math.max(0, Math.round((jetzt - ms) / 1000));
+  if (s < 90) return "gerade eben";
+  const m = Math.round(s / 60); if (m < 90) return "vor " + m + " Min.";
+  const h = Math.round(m / 60); if (h < 36) return "vor " + h + " Std.";
+  const t = Math.round(h / 24); return "vor " + t + (t === 1 ? " Tag" : " Tagen");
+}
+function hcUhr(z) { z = String(z || "2000"); return z.slice(0, 2) + ":" + z.slice(2, 4); }
+// Was passiert heute? -> { ton: ok|warn|grau, text }
+function hcHeute(e, heute, er) {
+  if (!e || !e.angemeldet) return { ton: "grau", text: "Keine Erinnerung eingerichtet" };
+  const ziel = (Number(String(e.zeit).slice(0, 2)) || 20) * 60 + (Number(String(e.zeit).slice(2, 4)) || 0);
+  const imFenster = er ? (heute.monat === 12 && heute.tag >= 2 && heute.tag <= 25)
+    : (e.modus === "test" || (heute.monat === 12 && heute.tag >= 1 && heute.tag <= 24));
+  if (!imFenster) return { ton: "grau", text: "Heute keine Erinnerung vorgesehen (außerhalb " + (er ? "2.–25. Dezember" : "1.–24. Dezember") + ")" };
+  if (er) {
+    const gestern = heute.tag - 1;
+    if ((e.bewertetListe || []).indexOf(gestern) >= 0) return { ton: "ok", text: "Türchen " + gestern + " ist bewertet – keine Erinnerung nötig" };
+  } else if (e.offen === heute.datum) return { ton: "ok", text: "Heute schon geöffnet – keine Erinnerung nötig" };
+  if (e.gesendet === heute.datum) return { ton: "ok", text: "Heute um " + (e.gesendetTs ? hcZeit(e.gesendetTs).split(", ")[1] : hcUhr(e.zeit)) + " gesendet" };
+  if (heute.min < ziel) return { ton: "ok", text: "Wird heute um " + hcUhr(e.zeit) + " Uhr gesendet" };
+  if (heute.min < ziel + 30) return { ton: "warn", text: "Wird beim nächsten Lauf gesendet (alle 15 Min.)" };
+  return { ton: "warn", text: "Heute nicht gesendet (Zeitfenster vorbei)" };
+}
+function hcKarte(titel, unter, e, jetzt, heute, er) {
+  const reg = e && e.angemeldet;
+  const zeile = (k, v, ton) => '<div class="hc-z"><span class="hc-k">' + k + '</span><span class="hc-v' + (ton ? " " + ton : "") + '">' + v + '</span></div>';
+  const mitVor = ms => ms ? ve(hcZeit(ms)) + ' <small>' + ve(hcVor(ms, jetzt)) + '</small>' : '<span class="hc-leer">noch nie</span>';
+  let h = '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + (reg ? "an" : "aus") + '"></span><div><b>' + ve(titel) + '</b><small>' + ve(unter) + '</small></div></div>';
+  h += zeile("Push-Anmeldung", reg ? "eingerichtet · täglich " + hcUhr(e.zeit) + " Uhr" : '<span class="hc-leer">nicht eingerichtet</span>', reg ? "ok" : "");
+  if (reg) h += zeile("Angemeldet seit", mitVor(e.angemeldetSeit));
+  if (reg) h += zeile("Letzter Kontakt", mitVor(e.kontakt));
+  if (!er) h += zeile("Zuletzt geöffnet", reg && e.tag ? "Türchen " + e.tag + (e.offenTs ? " · " + mitVor(e.offenTs) : "") : '<span class="hc-leer">—</span>');
+  if (er) h += zeile("Bewertet", reg ? e.bewertet + " von 24" : "—");
+  if (reg) h += zeile("Letzte Erinnerung", mitVor(e.gesendetTs));
+  const hu = hcHeute(e, heute, er);
+  h += '<div class="hc-heute ' + hu.ton + '"><span>Heute</span>' + ve(hu.text) + '</div></div>';
+  return h;
+}
+function htmlHealth() {
+  const b = schluesselBlob();
+  if (!b) return '<div class="gh"><p>Es gibt noch keinen Schlüssel. Bitte zuerst die <a href="#einrichtung" style="color:var(--gold)">Einrichtung</a> durchführen.</p></div>';
+  let h = '<div class="gh"><h3>Health-Check</h3><p style="margin:0 0 8px;opacity:.8">Zeigt, ob alles läuft: Push-Anmeldungen, letzte Kontakte, letzte Erinnerungen. Keine Inhalte, nur Status.</p>' +
+    '<input type="password" id="hcPw" placeholder="Passwort" autocomplete="current-password"' + (HC.token ? ' style="display:none"' : '') + '>' +
+    '<div class="zeile2"><button class="mini" onclick="hcAbrufen()"' + (HC.laeuft ? " disabled" : "") + '>' + (HC.token ? "Aktualisieren" : "Prüfen") + '</button></div>' +
+    '<div id="hcM" class="hinweis ' + (HC.fehler ? "fehler" : "ok") + '">' + ve(HC.meldung) + '</div></div>';
+  if (HC.test || HC.live) {
+    const d = HC.test || HC.live, jetzt = d.jetzt, heute = d.heute;
+    const c = cfg();
+    h += '<div class="hc">';
+    h += '<div class="hc-stand">Stand: ' + ve(hcZeit(jetzt)) + ' · Worker-Schlüssel für Push: <b class="' + (d.schluessel ? "ok" : "fehler") + '">' + (d.schluessel ? "vorhanden" : "fehlt") + '</b></div>';
+    if (c.aktivLive !== false && HC.live) h += hcKarte("Ihre App · LIVE", "Kalender, den sie benutzt", HC.live.app, HC.live.jetzt, HC.live.heute, false);
+    if (HC.test) h += hcKarte("Ihre App · TEST", "Zum Ausprobieren", HC.test.app, jetzt, heute, false);
+    if (HC.test) h += hcKarte("Dein Gerät · Editor", "Erinnerung zum Bewerten", HC.test.er, jetzt, heute, true);
+    const sl = HC.live && HC.live.sicherung, st = HC.test && HC.test.sicherung;
+    h += '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + (((sl && sl.zuletzt) || (st && st.zuletzt)) ? "an" : "aus") + '"></span><div><b>Sicherung der Antworten</b><small>Verschlüsselt im Worker</small></div></div>' +
+      (sl ? '<div class="hc-z"><span class="hc-k">LIVE zuletzt</span><span class="hc-v">' + (sl.zuletzt ? ve(hcZeit(sl.zuletzt)) + ' <small>' + ve(hcVor(sl.zuletzt, jetzt)) + '</small> · ' + sl.anzahl + ' Stände' : '<span class="hc-leer">noch keine</span>') + '</span></div>' : '') +
+      (st ? '<div class="hc-z"><span class="hc-k">TEST zuletzt</span><span class="hc-v">' + (st.zuletzt ? ve(hcZeit(st.zuletzt)) + ' <small>' + ve(hcVor(st.zuletzt, jetzt)) + '</small> · ' + st.anzahl + ' Stände' : '<span class="hc-leer">noch keine</span>') + '</span></div>' : '') +
+      '</div></div>';
+  }
+  return h;
+}
+async function hcAbrufen() {
+  if (HC.laeuft) return;
+  const pwEl = document.getElementById("hcPw"), pw = pwEl ? pwEl.value : "";
+  HC.laeuft = true; HC.meldung = "Prüfe …"; HC.fehler = false; mel("hcM", HC.meldung, false);
+  try {
+    if (!HC.token) {
+      if (!pw) throw new Error("Bitte das Passwort eingeben.");
+      await privatOeffnen(pw);
+      HC.token = await adminToken(pw);
+    }
+    const c = cfg();
+    const holen = async slot => workerGet("/pstatus/" + encodeURIComponent(slot), HC.token);
+    HC.test = await holen(c.slotTest);
+    HC.live = c.slotLive && c.slotLive !== c.slotTest ? await holen(c.slotLive) : null;
+    HC.meldung = ""; HC.fehler = false;
+  } catch (e) {
+    HC.meldung = e.message || "Das hat nicht geklappt."; HC.fehler = true;
+    if (/Passwort falsch|lehnt den Zugang/.test(HC.meldung)) HC.token = null;
+  }
+  HC.laeuft = false; zeichne();
+}
+function ansichtName() { const h = location.hash.replace(/^#/, ""); return (h === "antworten" || h === "einrichtung" || h === "status") ? h : ""; }
 function zeichneAnsicht(box, av) {
   const kopf = document.createElement("div");
   kopf.className = "navzeile"; kopf.style.gridTemplateColumns = "1fr";
   kopf.innerHTML = '<button class="mitte" onclick="zurueck()">‹ Zur Übersicht</button>';
   box.appendChild(kopf);
   const d = document.createElement("div");
-  d.innerHTML = av === "einrichtung" ? htmlEinrichtung() : htmlAntworten();
+  d.innerHTML = av === "einrichtung" ? htmlEinrichtung() : av === "status" ? htmlHealth() : htmlAntworten();
   box.appendChild(d);
 }
 function mel(id, t, fehler) { const e = document.getElementById(id); if (e) { e.className = "hinweis " + (fehler ? "fehler" : "ok"); e.innerText = t; } }

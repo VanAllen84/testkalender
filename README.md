@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795631549`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795679321`.
 
 ---
 
@@ -71,7 +71,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795631549`.
 4. Dafür sorgen, dass sie den **Code** kennt (steht im Beipackzettel und auf dem Code-Zettel, siehe Abschnitt 27).
 5. Ihr Handy ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
 6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
-7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3` und `finale.mp3` hineinlegen (`finale.mp3` enthält den Herzschlag bereits eingemischt) (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
+7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3`, `finale.mp3`, `zuklappen.mp3`, `umschlag.mp3` und `aufschliessen.mp3` hineinlegen (`finale.mp3` enthält den Herzschlag bereits eingemischt) (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
 
 ### Nach einer Änderung (LIVE oder TEST)
 1. `index.html` bzw. die betroffenen Dateien ändern.
@@ -104,7 +104,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795631549`.
 ├── wiederherstellung.html  nicht verlinkte Seite für den Handywechsel
 ├── manifest-er.json      App-Manifest des Editors „His Rating“ (nur in TEST)
 ├── icon-er-180/192/512.png  Icons des Editors (nur in TEST)
-├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation) (Melodie inklusive eingemischtem Herzschlag)
+├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation), zuklappen.mp3 (Tür schließt sich), umschlag.mp3 (Umschlag öffnet sich), aufschliessen.mp3 (Code-Sperre geht auf) (Melodie inklusive eingemischtem Herzschlag)
 ├── story-day1.js … story-day24.js   Die 24 Geschichten (je drei Stimmungen)
 ├── bilder/
 │   ├── landing.jpg           Bild der Startseite und der Sperre
@@ -261,7 +261,7 @@ Sichtbar, wenn für den Tag noch keine Stimmung gewählt wurde.
 
 ### 7.4 Geschichte
 - „Türchen N“, Name der Kategorie, Geschichte in der gewählten Stimmung.
-- Am Ende: **„Der heutige Umschlag hat die Nummer: #N“** (`karteninfoSetzen`).
+- Am Ende: ein **geschlossener Umschlag** in der Farbe der Kategorie („Tippe auf den Umschlag“). Beim Antippen klappt die Klappe auf, eine Karte mit der **Umschlag-Nummer** gleitet heraus, dazu spielt `ton/umschlag.mp3` (`karteninfoSetzen`, `umschlagOeffnen`). Geöffnete Umschläge merkt sich die App je Türchen (`adventUmschlag26`); beim Wiedersehen ist die Karte sofort sichtbar.
 - **Bild** des Tages (`karte-NN.jpg`) blendet beim Lesen ein, zusätzlich liegt es als dezentes **Wasserzeichen** im Hintergrund.
 - Oben (am Folgetag): **Abfrage zum Vortag** („Wie war gestern die Aufgabe?“) mit **Originaltext der Aufgabe und der Alternative** und je drei Daumen-Knöpfen.
 - Unten: **Bewertungskasten** („Wie war es?“) und **Notizfelder** (je Version eines: „Meine Notiz zur Aufgabe“ / „… zur Alternative“, ohne weiteren Hinweis). Bei der Bewertung am selben Tag steht dort **kein** Aufgabentext, damit nichts vorweggenommen wird. Der Text steht dort erst, wenn das Türchen schon an einem **früheren Tag** einmal geöffnet war (siehe „Wann der Aufgabentext erscheint“ unten). Wer an einem späteren Tag ein Türchen zum ersten Mal öffnet, sieht ihn noch nicht.
@@ -302,7 +302,8 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Enthüllung (optional):** Liegt `ton/auspacken.mp3` im Repository (ca. 14 s, nur die ersten fünf Sekunden sind hörbar), spielt sie beim Tipp auf „Enthüllen“ in der Auswertung und wird am Ende der Animation ausgeblendet. Fehlt die Datei, läuft die Animation lautlos (siehe Abschnitt 13.3).
 - **Finale-Melodie (optional):** Liegt `ton/finale.mp3` (ca. 26 s) im Repository, startet sie mit der Finale-Animation und klingt unter der Finale-Seite aus; beim Überspringen wird sie ausgeblendet (`tonFinale`). Fehlt die Datei, läuft die Animation lautlos.
 - **Herzschlag:** Die sechs Herzschläge (Lub-Dub, Abstand 1,1 s, ab 16,57 s, der Lub fällt jeweils auf 16,85 s + n·1,1 s) sind fest in `ton/finale.mp3` eingemischt, damit sie auf allen Geräten gleichzeitig mit der Melodie laufen (iPhone: Web Audio wird vom Stumm-Schalter gedämpft, normale Audio-Elemente nicht). Das Original `herzschlag.mp3` liegt fast nur im Tiefbass (unter 120 Hz), den Handy-Lautsprecher kaum wiedergeben; für die Mischung wurde es mit Obertönen im Bereich 120–500 Hz angereichert. Die Pulse des Herzens im Bild laufen weiter über die Animationsschleife. `herzschlag.mp3` wird nicht mehr gebraucht.
-- **Lautstärke angeglichen:** Alle vier Töne sind auf etwa −18 LUFS normalisiert (Spitzen unter −1,5 dBFS) und werden mit Lautstärke 0,8 abgespielt, damit man die Gerätelautstärke nicht ständig anpassen muss. `knarren.mp3` und `wirbel.mp3` waren zuvor rund 14 dB leiser als die anderen; die angeglichenen Fassungen liegen im Update-Paket. Werden Töne später getauscht, vorher auf denselben Pegel bringen.
+- **Lautstärke angeglichen:** Alle Töne sind auf etwa −18 LUFS normalisiert (Spitzen unter −1,5 dBFS) und werden mit Lautstärke 0,8 abgespielt, damit man die Gerätelautstärke nicht ständig anpassen muss. `knarren.mp3` und `wirbel.mp3` waren zuvor rund 14 dB leiser als die anderen; die angeglichenen Fassungen liegen im Update-Paket. Werden Töne später getauscht, vorher auf denselben Pegel bringen.
+- **Aufschließton:** Bei richtigem Code der Sperre spielt `ton/aufschliessen.mp3` (ca. 0,7 s, `tonAufschliessen`, aufgerufen in `oeffnen()` der Code-Sperre). Bei falschem Code gibt es nur das Wackeln und eine kurze Vibration, keinen Ton.
 - **Wirbel-Wind (optional):** Liegt `ton/wirbel.mp3` im Repository, spielt sie beim Wirbel-Übergang von der Stimmungswahl in die Geschichte. Ebenfalls ohne Schalter; fehlt die Datei, passiert nichts.
 - **Ausblenden beim Überspringen:** Wird eine Animation durch Antippen übersprungen oder endet sie, blendet der Ton in ca. einer halben Sekunde aus (`tonAusblenden` in `index.html`), damit beim Lesen nichts nachklingt. Das gilt für das Knarren beim Tür-Übergang und den Wind beim Wirbel.
 
@@ -383,6 +384,7 @@ Alle lassen sich durch Antippen überspringen. Bei „Bewegung reduzieren“ am 
 - **Erstes Öffnen:** Die Tür mit dem **leicht verpixelten** Bild klappt auf, das Bild dahinter **entpixelt** sich in mehreren Stufen (Canvas), dann **taucht man per Zoom ins Bild ein**. Danach geht es in die Stimmungsauswahl bzw. in die Geschichte (wenn die Stimmung schon gewählt ist).
 - **Schon geöffnetes Türchen:** kürzere Variante ohne Entpixeln.
 - Mit `window.PORTAL_AUS = true` (Konsole) lässt sich das Portal abschalten (siehe Abschnitt 24).
+- **Rückwärts (`portalZurueck`):** „Zurück zur Türchen-Auswahl“ auf der Geschichte und auf der Stimmungsauswahl (auch per Zurück-Wischgeste) spielt die Tür rückwärts: Bild zoomt heraus, die Flügel schließen sich, die Tür landet an ihrem Platz in der Übersicht (ca. 2 s, Tippen überspringt, `ton/zuklappen.mp3`). Bei „Bewegung reduzieren“ und mit `PORTAL_AUS` wechselt die Seite ohne Animation. Von Auswertung und Finale aus bleibt der normale Wechsel.
 
 ### 8.2 Buchstaben-Wirbel (`wirbelUebergang`)
 Nach „Tauche ein in die heutige Geschichte!“ lösen sich die Buchstaben der Seite, kreisen um die Mitte und setzen sich zur Geschichte zusammen. Antippen überspringt.
@@ -574,7 +576,7 @@ window.ER_BEWERTUNG = {
 - **Bewusste Zustimmung:** Der Schalter steht auf Aus. Die Systemfrage „Mitteilungen erlauben?“ kommt erst, wenn sie ihn selbst einschaltet. Lehnt sie ab, springt er zurück, ein Hinweis nennt die Handy-Einstellungen, und der Kalender-Kasten erscheint wieder.
 - **Bedingung:** Gesendet wird täglich vom 1. bis 24. Dezember (Berliner Zeit) zu ihrer Uhrzeit, aber nur, wenn das heutige Türchen noch nicht geöffnet ist. Öffnet sie es, meldet die App das still an den Worker (`popen`, ausgelöst in `merkeGeoeffnet`, beim Start und beim Zurückkehren in die App). Pro Tag höchstens eine Nachricht.
 - **Worker:** `worker.js` hat vier Aktionen (`psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht) und einen Cron-Lauf (`laufePush`, alle 15 Minuten). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet innerhalb von 30 Minuten ab ihrer Uhrzeit; ungültige Anmeldungen (404, 410) werden gelöscht.
-- **Nachricht:** Es wird ein leerer Push gesendet (kein Text, keine Verschlüsselung nötig), signiert mit VAPID (ES256). Den festen Text zeigt der Service Worker: Titel „Adventskalender“, Text „Dein Türchen für heute wartet ✨“. Ein Tipp öffnet die App.
+- **Nachricht:** Der Worker sendet den Text verschlüsselt mit (Web Push, RFC 8291), signiert mit VAPID (ES256): Titel „Adventskalender“, Text **„Türchen N wartet ✨“** (N = heutiger Tag). Fehlt die Verschlüsselung (ungültige Schlüssel), sendet er einen leeren Push, und der Service Worker zeigt den festen Text „Dein Türchen für heute wartet ✨“. Ein Tipp öffnet die App.
 - **Schlüssel:** Der öffentliche VAPID-Schlüssel steht in `index.html` (`PUSH_PUB`) und im Worker (Variable `VAPID_PUBLIC`). Der private Schlüssel ist ein Secret im Worker (`VAPID_PRIVATE`) und steht nirgends im Repository.
 - **TEST:** Die TEST-App meldet sich im Modus „test“ an; der Worker sendet dann auch außerhalb des Dezembers (zum Ausprobieren).
 - **Nicht geprüft:** Die tatsächliche Zustellung auf einem echten iPhone konnte nicht getestet werden (Worker, Signatur und App-Ablauf sind mit simulierten Gegenstellen geprüft). Voraussetzung auf dem iPhone: iOS 16.4 oder neuer, App auf dem Home-Bildschirm.
@@ -584,10 +586,17 @@ window.ER_BEWERTUNG = {
 
 - Im Editor gibt es unten den Kasten **„Erinnerung zum Bewerten“** (nur sichtbar in der installierten Editor-App und mit eingetragener Worker-Adresse; sonst steht dort ein Hinweis). Schalter „Erinnerung einschalten“ und „Testnachricht senden“. Die Uhrzeit ist fest 20:00 Uhr.
 - **Bedingung:** Vom 2. bis 25. Dezember schickt der Worker um 20:00 Uhr eine Nachricht, aber nur, wenn das **Türchen von gestern** noch nicht von ihm bewertet ist (Aufgabe oder Alternative genügt, wie in der Kachel „Gestern war Türchen N – hier bewerten“). Bewertet er, meldet der Editor die Liste seiner bewerteten Türchen still an den Worker (`pstate`, nach jeder Änderung mit kurzer Verzögerung).
-- **Text:** „Bewertung – Türchen N wartet noch auf deine Bewertung.“ Weil Kalender und Editor dieselbe Adresse und denselben Service Worker nutzen, schickt der Worker diesen Text **verschlüsselt** mit (Web Push, RFC 8291, aes128gcm). Der Service Worker zeigt ihn an; ohne Text zeigt er den festen Kalender-Text.
+- **Text:** „Bewertung – Vergiss nicht zu bewerten.“ Weil Kalender und Editor dieselbe Adresse und denselben Service Worker nutzen, schickt der Worker diesen Text **verschlüsselt** mit (Web Push, RFC 8291, aes128gcm). Der Service Worker zeigt ihn an; ohne Text zeigt er den festen Kalender-Text.
 - **Kennung:** Der Editor nutzt die Kennung seines TEST-Speicherplatzes plus `-er` (`psub` mit `art: "er"`). Die Einträge von App und Editor sind getrennt (`push:<Kennung>`).
 - **Prüfung:** Die Verschlüsselung stimmt mit dem Testvektor aus RFC 8291 überein und lässt sich mit einer unabhängigen Entschlüsselung lesen. Die Zustellung auf einem echten iPhone ist nicht getestet.
 - **Hinweis:** Auf einem Gerät teilen Kalender-App und Editor dieselbe Push-Anmeldung. Schaltet man dort in der Kalender-App die Erinnerung aus, wird die Anmeldung beendet; der Editor erneuert sie beim nächsten Start still.
+
+
+**Health-Check (Editor, nur TEST)**
+
+- Im Editor gibt es unten den Kasten **„Health-Check“** (Adresse `er-editor.html#status`). Nach Eingabe des Passworts zeigt er je eine Karte für „Ihre App · LIVE“, „Ihre App · TEST“ und „Dein Gerät · Editor“: Push-Anmeldung (eingerichtet ja/nein, Uhrzeit, seit wann), **letzter Kontakt** der App mit dem Worker, **zuletzt geöffnetes Türchen** (nur die Nummer), **letzte gesendete Erinnerung** und eine Zeile **„Heute“** (z. B. „Heute schon geöffnet – keine Erinnerung nötig“, „Wird heute um 20:00 Uhr gesendet“, „Heute nicht gesendet“). Dazu eine Karte zur Sicherung (letzter Stand, Anzahl) und der Hinweis, ob die Push-Schlüssel im Worker vorhanden sind. „Aktualisieren“ lädt neu.
+- **Technik:** Der Worker speichert pro Anmeldung `kontakt`, `offenTs`, `tag` (1–24) und `gesendetTs`. Die Seite fragt den nur mit Passwort-Zugang (Kopfzeile `X-Admin`) erreichbaren Aufruf `GET /pstatus/<Kennung>` ab. Er liefert nur Status, **keine** Adressen, Schlüssel, Notizen oder Bewertungsinhalte. Die App meldet beim Öffnen eines Türchens `popen` mit der Nummer des Türchens.
+- Der „letzte Kontakt“ wird nur bei Anmeldung, Öffnen eines Türchens, Bewertungsänderung (Editor) und alle 10 Minuten bei erneuter Meldung aktualisiert; er zeigt also nicht jedes App-Öffnen.
 
 ---
 
@@ -669,7 +678,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795631549";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795679321";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -782,7 +791,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Notizen | `notizAlle`, `notizKey`, `notizSetzen`, `notizHtml`, `notizenKopieren` |
 | Auswertung | `auswertungRendern`, `gemeinsameAuswertung`, `AW_GRUPPEN`, `auswKarte`, `awPunkte`, `awGehe`, `awSwipeInit`, `awEnthuellen`, `giftHtml`, `erLaden`, `erDaten`, `kartenLaden`, `kartenDaten` |
 | Erinnerung/Export | `erinnerungSpeichern`, `erinnerungDaten`, `erinnerungBildRueckblick`, `erinnerungBildFavoriten` |
-| Animationen | `portalDurch`, `wirbelUebergang`, `finaleDurch` (Zeiten in `bildB`), `awEnthuellen`, `wmAn`, `bildEinblenden` |
+| Animationen | `portalDurch`, `portalZurueck`, `wirbelUebergang`, `finaleDurch` (Zeiten in `bildB`), `awEnthuellen`, `wmAn`, `bildEinblenden` |
 | Töne | `tonSpielen`, `tonWirbel`, `tonAuspacken`, `tonFinale`, `tonHerzschlag`, `tonHerzBereit`, `tonHerzStopp`, `tonAusblenden` |
 | Startseite | `rulesAktualisieren`, `rulesUmschalten`, `vorabUmschalten`, `ladeErinnerung`, Countdown |
 | Übersicht | `begruessungWaehlen`, `begruessungZeigen`, `teaserAktualisieren` |
@@ -820,6 +829,9 @@ Grob in der Reihenfolge der Entstehung:
 19. **Push-Erinnerung** (Abschnitt 15): Schalter und Uhrzeit in der installierten App, tägliche Nachricht nur bei noch nicht geöffnetem Türchen, Cron im Cloudflare-Worker. Töne offline und in der Lautstärke angeglichen (Abschnitt 7.8).
 20. **Notizen getrennt** (Abschnitt 13.2): eigenes Notizfeld je Aufgabe und Alternative; Auswertung, Kopieren, Textdatei und Editor zeigen sie getrennt.
 21. **Erinnerung für ihn** (Abschnitt 15): Push um 20:00 Uhr, wenn das Türchen von gestern im Editor noch nicht bewertet ist; Text verschlüsselt vom Worker.
+22. **Tür rückwärts und Umschlag** (Abschnitte 7.4, 8.1): „Zurück zur Türchen-Auswahl“ spielt die Tür-Animation rückwärts mit `zuklappen.mp3`; der Umschlag auf der Geschichtenseite öffnet sich in Kategorie-Farbe mit `umschlag.mp3`. Push-Text für sie mit Tag, für ihn „Vergiss nicht zu bewerten“. Reste des Herzschlag-Ladens entfernt.
+23. **Aufschließton** bei richtigem Code (Abschnitt 7.8).
+24. **Health-Check** im Editor (nur TEST): Status von Push-Anmeldungen, letzten Kontakten und Erinnerungen (Abschnitt 15).
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 

@@ -378,6 +378,34 @@
         #portal.an .portal-fluegel.r { transform: rotateY(105deg); }
         #portal.bild.an .portal-wrap { transform: scale(var(--pzb, 6)); opacity: 0; transition: transform 0.95s cubic-bezier(0.55, 0, 0.85, 0.45) 1.6s, opacity 0.5s ease-in 2.05s; }
         #portal .portal-bild { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 12px; display: block; }
+        /* Tuer rueckwaerts: heraus aus dem Bild, Fluegel schliessen, an den Platz in der Uebersicht */
+        #portal.zu { background: rgba(0,0,0,0); transition: background 0.25s ease; cursor: default; }
+        #portal.zu.an { background: rgba(0,0,0,1); }
+        #portal.zu.frei { background: rgba(0,0,0,0); transition: background 0.6s ease; }
+        #portal.zu .portal-wrap { transform: scale(var(--zs, 6)); opacity: 0; transition: none; }
+        #portal.zu.zoom .portal-wrap { transform: scale(1); opacity: 1; transition: transform 0.95s cubic-bezier(0.2, 0.6, 0.35, 1), opacity 0.3s ease-out; }
+        #portal.zu .portal-fluegel { transition: none; }
+        #portal.zu .portal-fluegel.l { transform: rotateY(-105deg); }
+        #portal.zu .portal-fluegel.r { transform: rotateY(105deg); }
+        #portal.zu.zu2 .portal-fluegel { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        #portal.zu.zu2 .portal-fluegel.l, #portal.zu.zu2 .portal-fluegel.r { transform: none; }
+        #portal.zu .portal-bild { background-size: cover; background-position: center; }
+        /* Umschlag mit Karte (Farbe nach Kategorie) */
+        .umschlag { position: relative; display: block; width: min(260px, 78%); aspect-ratio: 13 / 8.2; margin: 96px auto 4px; padding: 0; border: 0; background: none; cursor: pointer; perspective: 700px; -webkit-tap-highlight-color: transparent; font-family: inherit; }
+        .umschlag > span { position: absolute; left: 0; right: 0; display: block; }
+        .um-hinten { top: 0; bottom: 0; background: var(--u3); border-radius: 6px; }
+        .um-karte { left: 6%; right: 6%; top: 14%; height: 78%; background: #fdf8ec; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.35); z-index: 2; padding-top: 10px; color: var(--u3); transition: transform 0.55s cubic-bezier(0.3, 0.7, 0.3, 1) 0.3s; }
+        .um-karte small { display: block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.75; }
+        .um-karte b { display: block; font-size: 2.4rem; line-height: 1.15; }
+        .um-vorn { top: 0; bottom: 0; background: var(--u2); border-radius: 6px; clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); z-index: 3; }
+        .um-klappe { top: 0; height: 58%; background: var(--u2); filter: brightness(0.86); clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: 50% 0; z-index: 4; transition: transform 0.38s ease-in, z-index 0s 0.19s; }
+        .umschlag.offen .um-klappe { transform: rotateX(180deg); z-index: 1; }
+        .umschlag.offen .um-karte { transform: translateY(-74%); }
+        .umschlag.offen { cursor: default; }
+        .umschlag.sofort * { transition: none !important; }
+        .umschlag:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 6px; }
+        .um-hinweis { font-size: 0.95rem; opacity: 0.85; margin-top: 18px; }
+        @media (prefers-reduced-motion: reduce) { .umschlag * { transition: none !important; } }
         .container { isolation: isolate; }
         .wm-anker { position: relative; height: 0; }
         .wm-img { position: absolute; left: -30px; right: -30px; top: -30px; height: 520px; z-index: -1; pointer-events: none; background-size: cover; background-position: center top; background-repeat: no-repeat; opacity: 0; filter: blur(1.5px); -webkit-mask-image: linear-gradient(#000 0%, rgba(0,0,0,0) 100%); mask-image: linear-gradient(#000 0%, rgba(0,0,0,0) 100%); border-radius: 12px 12px 0 0; transition: opacity 1.8s ease; }
@@ -683,6 +711,7 @@
     function verstecken() { ov.style.display = "none"; ov.classList.remove("weg", "offen"); aktiv = false; laeuft = false; const c = document.getElementById("appContainer"); if (c) c.removeAttribute("inert"); }
     function oeffnen() {
         laeuft = true; stempel();
+        try { if (window.tonAufschliessen) window.tonAufschliessen(); } catch (e) {}
         ov.classList.add("offen");
         const stufen = [6, 4, 2, 1]; let i = 0;
         const t = setInterval(function () {
@@ -902,7 +931,7 @@
             <p class="setup-hinweis" id="setupHinweis">Deine Wahl gilt für die Geschichte dieses Tages und kann nicht mehr verändert werden. Erst ab dem 25. Dezember kannst du auch andere Versionen anschauen.</p>
 
             <button class="btn-primary" onclick="startStory()">Tauche ein in die heutige Geschichte!</button>
-            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
+            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="portalZurueck()">Zurück zur Türchen-Auswahl</button>
         </div>
 
         <!-- STEP 2: Die Geschichte / Der Teaser -->
@@ -940,7 +969,7 @@
             </div>
 
             <button class="btn-primary" id="btnWeiter" style="margin-top: 25px;" onclick="nextDaySetup()">Weiter durch das nächste Türchen...</button>
-            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="zeigeTuerenUebersicht()">Zurück zur Türchen-Auswahl</button>
+            <button class="btn-primary" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color);" onclick="portalZurueck()">Zurück zur Türchen-Auswahl</button>
             <button class="btn-primary" id="btnStimmungNeu" style="margin-top: 10px; background: transparent; border: 1px solid var(--accent-color); color: var(--heading-color); display: none;" onclick="resetToSetup()">Eine andere Stimmung wählen...</button>
             <button type="button" id="leseBtn" aria-label="Lesen anpassen" onclick="leseUmschalten()">Aa</button>
             <div id="lesePanel">
@@ -1424,6 +1453,67 @@
             setTimeout(beenden, 2700);
             setTimeout(function () { if (document.body.contains(ov)) { ov.remove(); portalLaeuft = false; } }, 4000);
         }
+        // Tuer rueckwaerts: zurueck zur Tuerchen-Auswahl (Geschichte, Stimmungsauswahl)
+        function portalZurueck() {
+            const tag = currentDay;
+            const reduziert = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            if (window.PORTAL_AUS || portalLaeuft || reduziert || !tag || !calendarData[tag]) { zeigeTuerenUebersicht(); return; }
+            portalLaeuft = true;
+            const ov = document.createElement("div");
+            ov.id = "portal"; ov.className = "zu";
+            document.body.appendChild(ov);
+            let fertig = false, ts = [];
+            const spaeter = function (f, ms) { ts.push(setTimeout(f, ms)); };
+            function ende() {
+                if (fertig) return; fertig = true;
+                ts.forEach(clearTimeout);
+                try { tonAusblenden("zuklappen"); } catch (e) {}
+                window.__zuKeinScroll = false;
+                ov.classList.add("aus");
+                setTimeout(function () { ov.remove(); portalLaeuft = false; }, 700);
+            }
+            function uebersichtZeigen() {
+                window.__zuKeinScroll = true;
+                try { zeigeTuerenUebersicht(); } catch (e) {}
+                const kachel = document.querySelectorAll("#tuerenGridContainer .tuer-card")[tag - 1];
+                return kachel || null;
+            }
+            ov.addEventListener("click", ende);
+            requestAnimationFrame(function () { requestAnimationFrame(function () { ov.classList.add("an"); }); });
+            spaeter(function () {
+                const kachel = uebersichtZeigen();
+                if (!kachel) { ende(); return; }
+                requestAnimationFrame(function () {
+                    // erst nach dem Zuruecksetzen der Seite (Beobachter) die Kachel in die Mitte holen
+                    const r0 = kachel.getBoundingClientRect();
+                    window.scrollTo({ top: Math.max(0, window.scrollY + r0.top + r0.height / 2 - window.innerHeight / 2), behavior: "instant" });
+                    const r = kachel.getBoundingClientRect();
+                    const n = String(calendarData[tag].cardNum).padStart(2, "0");
+                    const PF = [["#e6e0ff", "#8b78e6", "#2f2680"], ["#dcf6e6", "#4fa874", "#17502f"], ["#ffebc8", "#d99b41", "#6e4210"], ["#ffdadf", "#c23b4c", "#5e1021"]][calendarData[tag].cat] || ["#fff6dc", "#f5d078", "#be8c28"];
+                    ov.style.setProperty("--p1", PF[0]); ov.style.setProperty("--p2", PF[1]); ov.style.setProperty("--p3", PF[2]); ov.style.setProperty("--pg", PF[1] + "99");
+                    ov.style.setProperty("--zs", String(Math.max(window.innerWidth / r.width, window.innerHeight / r.height) * 1.08));
+                    const wrap = document.createElement("div");
+                    wrap.className = "portal-wrap";
+                    wrap.style.left = r.left + "px"; wrap.style.top = r.top + "px"; wrap.style.width = r.width + "px"; wrap.style.height = r.height + "px";
+                    const innen = document.createElement("div"); innen.className = "portal-innen"; wrap.appendChild(innen);
+                    const bild = document.createElement("div"); bild.className = "portal-bild"; bild.style.backgroundImage = "url('" + bildUrl(tag) + "')"; wrap.appendChild(bild);
+                    ["l", "r"].forEach(function (seite) {
+                        const f = document.createElement("div");
+                        f.className = "portal-fluegel " + seite;
+                        f.style.backgroundImage = "linear-gradient(rgba(8,8,10,0.6), rgba(8,8,10,0.6)), url('" + bildUrl(tag) + "')";
+                        wrap.appendChild(f);
+                    });
+                    ov.appendChild(wrap);
+                    void ov.offsetWidth;
+                    spaeter(function () { ov.classList.add("zoom"); }, 80);
+                    spaeter(function () { try { tonZuklappen(); } catch (e) {} }, 330);
+                    spaeter(function () { ov.classList.add("zu2"); }, 730);
+                    spaeter(function () { ov.classList.add("frei"); }, 1380);
+                    spaeter(ende, 1900);
+                });
+            }, 260);
+            spaeter(function () { if (!fertig) ende(); }, 4000);
+        }
         function istErstesMal(tag) { return geoeffnetListe().indexOf(tag) < 0; }
 
         function nextDaySetup() {
@@ -1639,11 +1729,23 @@
                 setupAufbereiten();
             }
         }
+        // ---- Umschlag mit Karte (Nummer des heutigen Umschlags) ----
+        const UM_PAL = [["#e6e0ff", "#8b78e6", "#2f2680"], ["#dcf6e6", "#4fa874", "#17502f"], ["#ffebc8", "#d99b41", "#6e4210"], ["#ffdadf", "#c23b4c", "#5e1021"]];
+        function umschlagListe() { try { const l = JSON.parse(localStorage.getItem("adventUmschlag26") || "[]"); return Array.isArray(l) ? l : []; } catch (e) { return []; } }
+        function umschlagOeffnen(el, day) {
+            if (el.classList.contains("offen")) return;
+            el.classList.add("offen");
+            try { tonUmschlag(); } catch (e) {}
+            try { const l = umschlagListe(); if (l.indexOf(day) < 0) { l.push(day); localStorage.setItem("adventUmschlag26", JSON.stringify(l)); } } catch (e) {}
+            const h = document.getElementById("umHinweis"); if (h) h.textContent = "Das ist die Nummer dieses Umschlags.";
+        }
         function karteninfoSetzen(day, periodActive) {
             const box = document.getElementById("cardInstruction");
-            let html = `Der heutige Umschlag hat die Nummer:<br><br>
-                        <span class="karten-nr" style="font-size: 2.5rem; font-weight: bold; color: var(--accent-color);">#${calendarData[day].cardNum}</span>`;
-            box.innerHTML = html;
+            const pal = UM_PAL[calendarData[day].cat] || ["#fff6dc", "#f5d078", "#be8c28"];
+            const offen = umschlagListe().indexOf(day) >= 0;
+            box.innerHTML = '<button type="button" class="umschlag' + (offen ? " offen sofort" : "") + '" style="--u1:' + pal[0] + ';--u2:' + pal[1] + ';--u3:' + pal[2] + '" onclick="umschlagOeffnen(this, ' + day + ')" aria-label="Umschlag öffnen">' +
+                '<span class="um-hinten"></span><span class="um-karte"><small>Umschlag</small><b class="karten-nr">#' + calendarData[day].cardNum + '</b></span><span class="um-vorn"></span><span class="um-klappe"></span></button>' +
+                '<div class="um-hinweis" id="umHinweis">' + (offen ? "Das ist die Nummer dieses Umschlags." : "Tippe auf den Umschlag.") + '</div>';
         }
 
         // ---- Push-Erinnerung (nur in der installierten App, nur nach bewusstem Einschalten) ----
@@ -1729,7 +1831,7 @@
                 const tag = String(datumZahl());
                 if (!force && pushGemeldet === tag) return;
                 pushGemeldet = tag;
-                pushPost("popen").catch(function () { pushGemeldet = ""; });
+                pushPost("popen", { tag: h }).catch(function () { pushGemeldet = ""; });
             } catch (e) {}
         }
         // beim Start: Kasten zeigen (installierte App, Push moeglich), sonst bleibt der Kalender-Kasten
@@ -2641,7 +2743,7 @@
             window.addEventListener("popstate", function () {
                 gepusht = false;
                 if (typeof portalLaeuft !== "undefined" && (portalLaeuft || (typeof wirbelLaeuft !== "undefined" && wirbelLaeuft))) { try { history.pushState({ adv: 1 }, ""); gepusht = true; } catch (e) {} return; }
-                if (tiefOffen()) { const f = document.getElementById("finaleScreen"); zeigeTuerenUebersicht(); }
+                if (tiefOffen()) { const e1 = !document.getElementById("storyScreen").classList.contains("hidden") || !document.getElementById("setupScreen").classList.contains("hidden"); if (e1) portalZurueck(); else zeigeTuerenUebersicht(); }
             });
         })();
 
@@ -2910,7 +3012,7 @@
             setTimeout(function () {
                 const h = heuteTag();
                 const el = h ? document.querySelectorAll("#tuerenGridContainer .tuer-card")[h - 1] : null;
-                if (el && !ab25() && !document.getElementById("calendar-overview").classList.contains("hidden")) el.scrollIntoView({ block: "center", behavior: "smooth" });
+                if (el && !window.__zuKeinScroll && !ab25() && !document.getElementById("calendar-overview").classList.contains("hidden")) el.scrollIntoView({ block: "center", behavior: "smooth" });
             }, 160);
         }
         // Hinweis auf den 25.: nur am 24. Dezember, auf der Türchen-Übersicht und auf der Seite von Türchen 24
@@ -3457,6 +3559,8 @@
         if (!welche || welche === "knarren") tonFade(tonAudio);
         if (!welche || welche === "auspacken") tonFade(auspAudio);
         if (!welche || welche === "finale") tonFade(finaleAudio);
+        if (!welche || welche === "zuklappen") tonFade(zuAudio);
+        if (!welche || welche === "umschlag") tonFade(umAudio);
     };
     window.tonWirbel = function () {
         try {
@@ -3484,35 +3588,30 @@
             const p = finaleAudio.play(); if (p && p.catch) p.catch(function () {});
         } catch (e) {}
     };
-    let hzCtx = null, hzBuf = null, hzAktiv = [], hzEl = [], hzI = 0;
-    function herzInit() {
-        try {
-            const AC = window.AudioContext || window.webkitAudioContext;
-            if (AC) {
-                hzCtx = new AC();
-                fetch("ton/herzschlag.mp3").then(function (r) { return r.arrayBuffer(); })
-                    .then(function (b) { return new Promise(function (ok, no) { const p = hzCtx.decodeAudioData(b, ok, no); if (p && p.catch) p.catch(no); }); })
-                    .then(function (buf) { hzBuf = buf; }).catch(function () {});
-            }
-        } catch (e) { hzCtx = null; }
-        try { for (let i = 0; i < 2; i++) { const a = new Audio("ton/herzschlag.mp3"); a.preload = "auto"; hzEl.push(a); } } catch (e) {}
-    }
-    window.tonHerzBereit = function () { try { if (hzCtx && hzCtx.state === "suspended") hzCtx.resume(); } catch (e) {} };
-    window.tonHerzschlag = function () {
+    let zuAudio = null, umAudio = null, aufAudio = null;
+    window.tonAufschliessen = function () {
         if (!tonAn()) return;
         try {
-            if (hzCtx && hzBuf && hzCtx.state === "running") {
-                const q = hzCtx.createBufferSource(), g = hzCtx.createGain();
-                q.buffer = hzBuf; g.gain.value = 1.25; q.connect(g); g.connect(hzCtx.destination);
-                q.onended = function () { const i = hzAktiv.indexOf(q); if (i >= 0) hzAktiv.splice(i, 1); };
-                hzAktiv.push(q); q.start(); return;
-            }
+            if (!aufAudio) { aufAudio = new Audio("ton/aufschliessen.mp3"); aufAudio.volume = 0.8; }
+            tonFadeStop(aufAudio); aufAudio.volume = 0.8; aufAudio.currentTime = 0;
+            const p = aufAudio.play(); if (p && p.catch) p.catch(function () {});
         } catch (e) {}
-        try { const a = hzEl[hzI++ % hzEl.length]; if (a) { a.currentTime = 0; a.volume = 1; const p = a.play(); if (p && p.catch) p.catch(function () {}); } } catch (e) {}
     };
-    window.tonHerzStopp = function () {
-        hzAktiv.slice().forEach(function (q) { try { q.stop(); } catch (e) {} }); hzAktiv = [];
-        hzEl.forEach(function (a) { try { a.pause(); a.currentTime = 0; } catch (e) {} });
+    window.tonZuklappen = function () {
+        if (!tonAn()) return;
+        try {
+            if (!zuAudio) { zuAudio = new Audio("ton/zuklappen.mp3"); zuAudio.volume = 0.8; }
+            tonFadeStop(zuAudio); zuAudio.volume = 0.8; zuAudio.currentTime = 0;
+            const p = zuAudio.play(); if (p && p.catch) p.catch(function () {});
+        } catch (e) {}
+    };
+    window.tonUmschlag = function () {
+        if (!tonAn()) return;
+        try {
+            if (!umAudio) { umAudio = new Audio("ton/umschlag.mp3"); umAudio.volume = 0.8; }
+            tonFadeStop(umAudio); umAudio.volume = 0.8; umAudio.currentTime = 0;
+            const p = umAudio.play(); if (p && p.catch) p.catch(function () {});
+        } catch (e) {}
     };
     window.tonSpielen = function (vorschau) {
         if (!tonDa || (!vorschau && !tonAn())) return;
@@ -3527,7 +3626,9 @@
         leseAnwenden();
         try { tonAudio = new Audio(TON_URL); tonAudio.preload = "auto"; tonAudio.volume = 0.8; } catch (e) {}
         try { auspAudio = new Audio("ton/auspacken.mp3"); auspAudio.preload = "auto"; auspAudio.volume = 0.8; } catch (e) {}
-        herzInit();
+        try { zuAudio = new Audio("ton/zuklappen.mp3"); zuAudio.preload = "auto"; zuAudio.volume = 0.8; } catch (e) {}
+        try { umAudio = new Audio("ton/umschlag.mp3"); umAudio.preload = "auto"; umAudio.volume = 0.8; } catch (e) {}
+        try { aufAudio = new Audio("ton/aufschliessen.mp3"); aufAudio.preload = "auto"; aufAudio.volume = 0.8; } catch (e) {}
         try { finaleAudio = new Audio("ton/finale.mp3"); finaleAudio.preload = "auto"; finaleAudio.volume = 0.8; } catch (e) {}
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
