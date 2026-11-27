@@ -1874,7 +1874,13 @@
             if (typeof waehleTag !== "function" || !document.getElementById("tuerenGridContainer")) return;
             window.__deepLink = null;
             try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
-            const tag = w === "heute" ? heuteTag() : parseInt(w, 10);
+            let tag = w === "heute" ? heuteTag() : parseInt(w, 10);
+            // Nur Vortest (November als Dezember): ist "heute" kein Türchen (Tag > 24), das erste noch nicht geöffnete nehmen
+            if (w === "heute" && !tag && typeof VORTEST_NOVEMBER !== "undefined" && VORTEST_NOVEMBER) {
+                const off = geoeffnetListe().map(Number);
+                for (let i = 1; i <= 24; i++) { if (off.indexOf(i) < 0) { tag = i; break; } }
+                if (!tag) tag = 1 + Math.floor(Math.random() * 24);
+            }
             if (!(tag >= 1 && tag <= 24) || !(testModus || tagOffen(tag))) return;
             const sichtbar = function (id) { const e = document.getElementById(id); return e && !e.classList.contains("hidden"); };
             if (sichtbar("storyScreen") || sichtbar("setupScreen") || sichtbar("finaleScreen") || sichtbar("auswertungScreen")) return;
