@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795774160`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795775794`.
 
 ---
 
@@ -94,6 +94,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795774160`.
 ├── sw.js                 Service Worker: Offline-Speicher und Updates
 ├── manifest.json         App-Manifest (Name, Symbole, Startadresse)
 ├── icon-192.png, icon-512.png, apple-touch-icon.png   App-Symbole
+├── startup/                                         dunkle Startbilder (iPhone-Größen)
 ├── data.js               Aufgabentexte der 24 Karten (Base64, siehe Abschnitt 11)
 ├── er.js                 Seine Bewertungen (A/B/C je Aufgabe und Alternative)
 ├── wetter.js             Wetter-Modul (Abruf, Klassen, Platzhalter ersetzen)  [Wetter-Ergänzung, Abschnitt 7.9]
@@ -399,6 +400,12 @@ Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.
 - Bewertungskasten blendet sanft ein, wenn man ihn erreicht.
 - Sperre: Punkte wackeln bei falschem Code; beim richtigen Code **entpixelt sich das Hintergrundbild** (vier Stufen) und die Maske blendet aus.
 
+### 8.5 Haptik, Startbild, Tippflächen
+- **Haptik (`window.haptik`):** Beim richtigen Code (zwei kurze Impulse), beim falschen Code (drei), beim Öffnen einer Tür, beim Zuklappen, beim Umschlag, beim Umlegen des Erinnerungs-Schalters und beim Herz. Auf dem iPhone (ab iOS 17.4) über einen versteckten Schalter (`<input type="checkbox" switch>`), auf Android über `navigator.vibrate`. Bei „Bewegung reduzieren“ aus. Das ist ein Behelf; wo er nicht greift, bleibt es still.
+- **Töne und Stumm-Schalter:** Die Töne laufen als normale Audio-Wiedergabe und sind **unabhängig vom Stumm-Schalter** des iPhones (bewusste Entscheidung). Eine Mischung mit laufender Musik ist deshalb nicht eingestellt; ein Ton kann Musik oder Video kurz anhalten.
+- **Startbild:** Ordner `startup/` mit dunklen Startbildern (Symbol auf #060608) für gängige iPhone-Größen, eingebunden mit `apple-touch-startup-image`. iOS liest sie beim Hinzufügen zum Home-Bildschirm; bei einer schon installierten App greifen sie erst nach erneutem Hinzufügen.
+- **Tippflächen:** Schaltflächen sind mindestens 44 px hoch (`.btn-option`, `.herz-btn`, aufklappbare Titel).
+
 ---
 
 ## 9. Farbwelten und Kategorien
@@ -689,7 +696,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795774160";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795775794";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -844,6 +851,7 @@ Grob in der Reihenfolge der Entstehung:
 23. **Aufschließton** bei richtigem Code (Abschnitt 7.8).
 24. **Health-Check** im Editor (nur TEST): Status von Push-Anmeldungen, letzten Kontakten und Erinnerungen (Abschnitt 15).
 25. **Push-Klick führt direkt zum Türchen** (Code-Abfrage, dann Tür-Animation des heutigen Türchens; Abschnitt 15), Toggle-Schalter statt Häkchen für die Erinnerung.
+26. **Feinschliff:** Haptik, dunkle Startbilder, größere Tippflächen, kontrastreichere Signaturzeile (Abschnitt 8.5).
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 

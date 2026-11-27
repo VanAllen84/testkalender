@@ -15,6 +15,20 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Dez TEST">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-startup-image" href="startup/s-1320x2868.png" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1206x2622.png" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1260x2736.png" media="(device-width: 420px) and (device-height: 912px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1290x2796.png" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1179x2556.png" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1170x2532.png" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1284x2778.png" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1080x2340.png" media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1242x2688.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="startup/s-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
     <style>
         /* Standard-Farben für Landing-Page: Edles Schwarz & dunkles Rot */
         :root {
@@ -614,6 +628,11 @@
         .wunsch textarea:focus { outline: none; border-color: var(--accent-color); }
         .wunsch .w-ok { margin: 10px 0 0; font-size: 0.78rem; opacity: 0; transition: opacity 0.4s; text-align: right; }
         .wunsch .w-ok.an { opacity: 0.75; }
+        /* Tippflaechen mindestens 44 px (Apple-Richtlinie), Optik bleibt */
+        .btn-option { min-height: 44px; }
+        .herz-btn { min-height: 44px; }
+        .vorab-karte.zu .vorab-titel { min-height: 44px; display: flex; align-items: center; justify-content: center; }
+        .rules-box.zu .rules-kopf { display: block; padding: 13px 0; margin: -13px 0; }
 </style>
 <style>
         /* Code-Sperre (Startmaske) */
@@ -737,7 +756,7 @@
     function pruefen() {
         if (eingabe === CODE) { oeffnen(); return; }
         pBox.classList.add("falsch"); sub.textContent = "Das war nicht der richtige Code";
-        try { if (navigator.vibrate) navigator.vibrate(120); } catch (e) {}
+        try { window.haptik("fehler"); } catch (e) {}
         setTimeout(function () { pBox.classList.remove("falsch"); eingabe = ""; punkteZeigen(); sub.textContent = "Bitte versuche es noch einmal"; }, 520);
     }
     function taste(k) {
@@ -756,6 +775,22 @@
         if (/^[0-9]$/.test(e.key)) taste(e.key); else if (e.key === "Backspace") taste("x");
     });
     try { const m = /[?&]tuerchen=(heute|\d{1,2})(?:&|$)/.exec(location.search); if (m) window.__deepLink = m[1]; } catch (e) {}
+    // Haptik: Android per vibrate, iPhone (ab iOS 17.4) ueber einen versteckten Schalter; bei "Bewegung reduzieren" aus
+    window.haptik = function (art) {
+        try {
+            if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+            if (navigator.vibrate) { navigator.vibrate(art === "fehler" ? [40, 60, 40, 60, 40] : art === "ok" ? [25, 50, 25] : art === "tuer" ? 30 : 15); return; }
+            let l = document.getElementById("haptikL");
+            if (!l) {
+                l = document.createElement("label"); l.id = "haptikL"; l.setAttribute("aria-hidden", "true");
+                l.style.cssText = "position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none";
+                const i = document.createElement("input"); i.type = "checkbox"; i.setAttribute("switch", ""); i.tabIndex = -1; l.appendChild(i);
+                (document.body || document.documentElement).appendChild(l);
+            }
+            const muster = art === "fehler" ? [0, 80, 160] : art === "ok" ? [0, 90] : [0];
+            muster.forEach(function (ms) { setTimeout(function () { try { l.click(); } catch (e) {} }, ms); });
+        } catch (e) {}
+    };
     window.sperreAktiv = function () { return aktiv; };
     window.sperreZeigen = function () {
         if (testAus()) return;
@@ -807,7 +842,7 @@
         <!-- STEP 0: Landing-Page & Bedienungsanleitung (Schwarz-Rot) -->
         <div id="landingScreen">
             <h1>Dein ganz persönlicher Adventskalender</h1>
-            <p style="text-align: center; color: var(--accent-color); margin-top: -10px; margin-bottom: 25px;">Von deinem dich liebenden Ehemann, nur für dich ganz persönlich entwickelt!</p>
+            <p style="text-align: center; color: #e0566a; margin-top: -10px; margin-bottom: 25px;">Von deinem dich liebenden Ehemann, nur für dich ganz persönlich entwickelt!</p>
 
             <p class="landing-countdown" id="landingCountdown" style="display:none;"></p>
 
@@ -1790,6 +1825,7 @@
             if (st) pushText("Die Erinnerung ist an: täglich um " + st.zeit.slice(0, 2) + ":" + st.zeit.slice(2) + " Uhr, solange das heutige Türchen noch zu ist.");
         }
         async function pushUmschalten(an) {
+            try { window.haptik("tick"); } catch (e) {}
             const cb = document.getElementById("pushSchalter");
             try {
                 if (an) {
@@ -3479,6 +3515,7 @@
     function herzJa(d, v) { const h = herzAlle(); return !!(h[d] && h[d][v]); }
     function herzTag(d) { const h = herzAlle()[d]; return !!(h && Object.keys(h).some(function (k) { return h[k]; })); }
     window.herzUmschalten = function () {
+        try { window.haptik("tick"); } catch (e) {}
         const h = herzAlle(), d = currentDay, v = selectedVibe;
         h[d] = h[d] || {};
         if (h[d][v]) delete h[d][v]; else h[d][v] = 1;
@@ -3644,6 +3681,7 @@
     };
     let zuAudio = null, umAudio = null, aufAudio = null;
     window.tonAufschliessen = function () {
+        try { window.haptik("ok"); } catch (e) {}
         if (!tonAn()) return;
         try {
             if (!aufAudio) { aufAudio = new Audio("ton/aufschliessen.mp3"); aufAudio.volume = 0.8; }
@@ -3652,6 +3690,7 @@
         } catch (e) {}
     };
     window.tonZuklappen = function () {
+        try { window.haptik("tick"); } catch (e) {}
         if (!tonAn()) return;
         try {
             if (!zuAudio) { zuAudio = new Audio("ton/zuklappen.mp3"); zuAudio.volume = 0.8; }
@@ -3660,6 +3699,7 @@
         } catch (e) {}
     };
     window.tonUmschlag = function () {
+        try { window.haptik("tick"); } catch (e) {}
         if (!tonAn()) return;
         try {
             if (!umAudio) { umAudio = new Audio("ton/umschlag.mp3"); umAudio.volume = 0.8; }
@@ -3668,6 +3708,7 @@
         } catch (e) {}
     };
     window.tonSpielen = function (vorschau) {
+        if (!vorschau) { try { window.haptik("tuer"); } catch (e) {} }
         if (!tonDa || (!vorschau && !tonAn())) return;
         try {
             if (!tonAudio) { tonAudio = new Audio(TON_URL); tonAudio.volume = 0.8; }
