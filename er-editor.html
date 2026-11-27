@@ -729,7 +729,7 @@ function hcHeute(e, heute, er) {
   } else if (e.offen === heute.datum) return { ton: "ok", text: "Heute schon geöffnet – keine Erinnerung nötig" };
   if (e.gesendet === heute.datum) return { ton: "ok", text: "Heute um " + (e.gesendetTs ? hcZeit(e.gesendetTs).split(", ")[1] : hcUhr(e.zeit)) + " gesendet" };
   if (heute.min < ziel) return { ton: "ok", text: "Wird heute um " + hcUhr(e.zeit) + " Uhr gesendet" };
-  if (heute.min < ziel + 30) return { ton: "warn", text: "Wird beim nächsten Lauf gesendet (alle 15 Min.)" };
+  if (heute.min < ziel + 30) return { ton: "warn", text: "Wird gleich gesendet (der Worker läuft jede Minute)" };
   return { ton: "warn", text: "Heute nicht gesendet (Zeitfenster vorbei)" };
 }
 function hcKarte(titel, unter, e, jetzt, heute, er) {
