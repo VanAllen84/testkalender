@@ -25,6 +25,17 @@ pre{background:#1b1b1e;padding:10px;border-radius:10px;font-size:13px;white-spac
 <button id="b7"><b>7 · Verzögert nach 400 ms</b><small>wie nach einer Animation</small></button>
 <button id="b8"><b>8 · Android-Vibration (navigator.vibrate)</b><small>auf iPhone nicht vorhanden</small></button>
 
+
+<hr style="border:0;border-top:1px solid #333;margin:16px 0">
+<p><b>Runde 2</b> (weitere Varianten)</p>
+<button id="b9"><b>9 · Label display:none, neu erzeugt bei jedem Tipp</b><small>wie bekannte Bibliotheken</small></button>
+<button id="b10"><b>10 · dispatchEvent(MouseEvent click) auf Eingabe</b></button>
+<button id="b11"><b>11 · Auslösung bei pointerdown statt Klick</b><small>reagiert schon beim Aufsetzen des Fingers</small></button>
+<button id="b12"><b>12 · Auslösung bei touchend</b></button>
+<button id="b13" style="position:relative"><b>13 · Echter unsichtbarer Schalter über der Fläche</b><small>Deine Berührung trifft den Schalter wirklich</small>
+ <input type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0"></button>
+<button id="b14"><b>14 · Großer Schalter (44 px) sichtbar im Bild, fast durchsichtig</b></button>
+<button id="b15"><b>15 · Zwei Klicks hintereinander (an/aus)</b></button>
 <script>
 const info=document.getElementById("info");
 const ua=navigator.userAgent, m=/OS (\d+)[_.](\d+)/.exec(ua);
@@ -48,4 +59,12 @@ document.getElementById("b5").onclick=()=>{mk("h5","position:fixed;right:4px;bot
 document.getElementById("b6").onclick=()=>{mk("h6","position:fixed;right:4px;bottom:12px;width:1px;height:1px;opacity:.02",true,true).click()};
 document.getElementById("b7").onclick=()=>{const l=mk("h7","position:fixed;right:4px;bottom:16px;width:1px;height:1px;opacity:.02");setTimeout(()=>l.click(),400)};
 document.getElementById("b8").onclick=()=>{try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}};
+
+function neu(css,hide){const l=document.createElement("label");l.style.cssText=css;const i=document.createElement("input");i.type="checkbox";i.setAttribute("switch","");l.appendChild(i);document.body.appendChild(l);return l}
+document.getElementById("b9").addEventListener("click",()=>{const l=neu("display:none");l.click();setTimeout(()=>l.remove(),300)});
+document.getElementById("b10").addEventListener("click",()=>{const l=neu("position:fixed;right:4px;bottom:20px;opacity:.02");l.firstChild.dispatchEvent(new MouseEvent("click",{bubbles:true,cancelable:true,view:window}));setTimeout(()=>l.remove(),300)});
+document.getElementById("b11").addEventListener("pointerdown",()=>{const l=neu("position:fixed;right:4px;bottom:24px;opacity:.02");l.click();setTimeout(()=>l.remove(),300)});
+document.getElementById("b12").addEventListener("touchend",()=>{const l=neu("position:fixed;right:4px;bottom:28px;opacity:.02");l.click();setTimeout(()=>l.remove(),300)});
+document.getElementById("b14").addEventListener("click",()=>{const l=neu("position:fixed;right:20px;bottom:90px;width:60px;height:44px;opacity:.03");l.click();setTimeout(()=>l.remove(),300)});
+document.getElementById("b15").addEventListener("click",()=>{const l=neu("position:fixed;right:4px;bottom:32px;opacity:.02");l.click();setTimeout(()=>{l.click();l.remove()},120)});
 </script></body></html>
