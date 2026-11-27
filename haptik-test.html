@@ -36,6 +36,17 @@ pre{background:#1b1b1e;padding:10px;border-radius:10px;font-size:13px;white-spac
  <input type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0"></button>
 <button id="b14"><b>14 · Großer Schalter (44 px) sichtbar im Bild, fast durchsichtig</b></button>
 <button id="b15"><b>15 · Zwei Klicks hintereinander (an/aus)</b></button>
+
+<hr style="border:0;border-top:1px solid #333;margin:16px 0">
+<p><b>Runde 3</b> (für „dreimal vibrieren“): Spürst du nach dem ersten Impuls weitere?</p>
+<button id="b16" style="position:relative"><b>16 · Echter Schalter, danach 2 weitere per Skript (im change-Ereignis, 0/100/200 ms)</b>
+ <input id="r16" type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0"></button>
+<button id="b17" style="position:relative"><b>17 · Echter Schalter, danach 2 weitere Schalter-Klicks nach 150 und 300 ms</b>
+ <input id="r17" type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0"></button>
+<button id="b18" style="position:relative"><b>18 · Drei echte Schalter übereinander, ein Tipp</b><small>zählt nur, ob ein Tipp mehr als einen Impuls auslöst</small>
+ <input type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0">
+ <input type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0">
+ <input type="checkbox" switch style="position:absolute;inset:0;width:100%;height:100%;opacity:.02;margin:0"></button>
 <script>
 const info=document.getElementById("info");
 const ua=navigator.userAgent, m=/OS (\d+)[_.](\d+)/.exec(ua);
@@ -67,4 +78,8 @@ document.getElementById("b11").addEventListener("pointerdown",()=>{const l=neu("
 document.getElementById("b12").addEventListener("touchend",()=>{const l=neu("position:fixed;right:4px;bottom:28px;opacity:.02");l.click();setTimeout(()=>l.remove(),300)});
 document.getElementById("b14").addEventListener("click",()=>{const l=neu("position:fixed;right:20px;bottom:90px;width:60px;height:44px;opacity:.03");l.click();setTimeout(()=>l.remove(),300)});
 document.getElementById("b15").addEventListener("click",()=>{const l=neu("position:fixed;right:4px;bottom:32px;opacity:.02");l.click();setTimeout(()=>{l.click();l.remove()},120)});
+
+function nl(){const l=neu("position:fixed;right:4px;bottom:40px;opacity:.02");return l}
+document.getElementById("r16").addEventListener("change",()=>{[0,100,200].forEach(ms=>setTimeout(()=>{const l=nl();l.click();setTimeout(()=>l.remove(),200)},ms))});
+document.getElementById("r17").addEventListener("change",()=>{[150,300].forEach(ms=>setTimeout(()=>{const l=nl();l.click();setTimeout(()=>l.remove(),200)},ms))});
 </script></body></html>
