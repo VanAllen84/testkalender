@@ -784,13 +784,13 @@
         } catch (e) {}
     };
     (function () {
-        const HZ = ".cs-taste[data-k]:not(.leer), .tuer-card, .bew-btn, .herz-btn, .btn-primary";
+        const HZ = ".cs-taste[data-k]:not(.leer), .bew-btn, .herz-btn, .btn-primary";
         let aktiv = false;
         try { aktiv = !navigator.vibrate && matchMedia("(pointer: coarse)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
         if (!aktiv) return;
         function bestuecken() {
             document.querySelectorAll(HZ).forEach(function (h) {
-                if (h.__hz) return; h.__hz = 1;
+                if (h.querySelector(":scope > .hz-sw")) return;
                 if (getComputedStyle(h).position === "static") h.style.position = "relative";
                 const i = document.createElement("input");
                 i.type = "checkbox"; i.setAttribute("switch", ""); i.tabIndex = -1; i.setAttribute("aria-hidden", "true"); i.className = "hz-sw";

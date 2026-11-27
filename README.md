@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795778804`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795779188`.
 
 ---
 
@@ -410,7 +410,7 @@ Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.
 - Sperre: Punkte wackeln bei falschem Code; beim richtigen Code **entpixelt sich das Hintergrundbild** (vier Stufen) und die Maske blendet aus.
 
 ### 8.5 Haptik, Startbild, Tippflächen
-- **Haptik:** Auf dem **iPhone** löst nur eine **echte Berührung eines Schalters** (`<input type="checkbox" switch>`) Haptik aus. Per Skript ausgelöste Klicks bleiben stumm (auf einem iPhone mit Systemhaptik an in zehn Varianten geprüft: versteckt, mit/ohne Timeout, `dispatchEvent`, `pointerdown`, `touchend`, mehrere Klicks hintereinander). Deshalb legt ein kleines Skript (Block „Haptik“ im frühen Skript) über die Tippflächen einen fast durchsichtigen Schalter (`.hz-sw`, Deckkraft 0,02, `aria-hidden`): Sperr-Tasten, Türchen-Kacheln, Bewertungs-Knöpfe, Herz und große Knöpfe (`.btn-primary`). Eine Berührung trifft den Schalter, der gibt einen kurzen Impuls und reicht den Klick an den Knopf weiter (`host.click()`). Neu erzeugte Elemente werden per `MutationObserver` ergänzt. Aktiv nur auf Touch-Geräten ohne `navigator.vibrate` und nicht bei „Bewegung reduzieren“. **Grenzen:** je Berührung **ein** Impuls (mehrere hintereinander, etwa dreimal bei falschem Code, gehen auf dem iPhone nicht); Haptik ohne Berührung (z. B. nach einer Animation) geht nicht. Auf Android bleibt `window.haptik(art)` mit `navigator.vibrate` (falscher Code dreifach, richtiger zweifach). Fehlersignal beim falschen Code auf dem iPhone: Impuls der vierten Ziffer, Wackeln der Punkte und Hinweistext. Test: Diagnoseseite `haptik-test.html` (nur zum Probieren, nicht ins Repository).
+- **Haptik:** Auf dem **iPhone** löst nur eine **echte Berührung eines Schalters** (`<input type="checkbox" switch>`) Haptik aus. Per Skript ausgelöste Klicks bleiben stumm (auf einem iPhone mit Systemhaptik an in zehn Varianten geprüft: versteckt, mit/ohne Timeout, `dispatchEvent`, `pointerdown`, `touchend`, mehrere Klicks hintereinander). Deshalb legt ein kleines Skript (Block „Haptik“ im frühen Skript) über die Tippflächen einen fast durchsichtigen Schalter (`.hz-sw`, Deckkraft 0,02, `aria-hidden`): Sperr-Tasten, Bewertungs-Knöpfe, Herz und große Knöpfe (`.btn-primary`). **Nicht** auf den Türchen-Kacheln: Dort fängt der Schalter die Berührung beim Scrollen ab und öffnet das Türchen schon beim Wischen. Ein Tipp auf eine Kachel gibt deshalb keinen Impuls. Eine Berührung trifft den Schalter, der gibt einen kurzen Impuls und reicht den Klick an den Knopf weiter (`host.click()`). Neu erzeugte Elemente werden per `MutationObserver` ergänzt. Aktiv nur auf Touch-Geräten ohne `navigator.vibrate` und nicht bei „Bewegung reduzieren“. **Grenzen:** je Berührung **ein** Impuls (mehrere hintereinander, etwa dreimal bei falschem Code, gehen auf dem iPhone nicht); Haptik ohne Berührung (z. B. nach einer Animation) geht nicht. Auf Android bleibt `window.haptik(art)` mit `navigator.vibrate` (falscher Code dreifach, richtiger zweifach). Fehlersignal beim falschen Code auf dem iPhone: Impuls der vierten Ziffer, Wackeln der Punkte und Hinweistext. Test: Diagnoseseite `haptik-test.html` (nur zum Probieren, nicht ins Repository).
 - **Töne und Stumm-Schalter:** Die Töne laufen als normale Audio-Wiedergabe und sind **unabhängig vom Stumm-Schalter** des iPhones (bewusste Entscheidung). Eine Mischung mit laufender Musik ist deshalb nicht eingestellt; ein Ton kann Musik oder Video kurz anhalten.
 - **Startbild:** Ordner `startup/` mit dunklen Startbildern (Symbol auf #060608) für gängige iPhone-Größen, eingebunden mit `apple-touch-startup-image`. iOS liest sie beim Hinzufügen zum Home-Bildschirm; bei einer schon installierten App greifen sie erst nach erneutem Hinzufügen.
 - **Tippflächen:** Schaltflächen sind mindestens 44 px hoch (`.btn-option`, `.herz-btn`, aufklappbare Titel).
@@ -708,7 +708,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795778804";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795779188";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -831,7 +831,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Komfort (eigenes Skript am Dateiende) | `leseAnwenden`, `leseSchrift`, `leseWarmSetzen`, `herzUmschalten`, `herzOeffnen`, `erledigtUmschalten`, `erledigtRendern`, `offeneTage`, `cdAktualisieren`, `uebersichtErgaenzen`, `storyErgaenzen`, `tonSpielen`; Liste `VERSCHIEBBAR` |
 | Wolke | Skript mit `bossOeffnen`, `schliessen`, Wetterabruf |
 | Push und Deep-Link | früher Skript: `window.__deepLink` aus `?tuerchen=`; `deepLinkVersuch` (nach der Sperre), `pushMitteilungenWeg` (Benachrichtigung schließen, wenn heutiges Türchen geöffnet), `pushStand`, `pushStandSetzen`, `pushStart` |
-| Haptik | `window.haptik(art)` (nur Android, `navigator.vibrate`); iPhone: Block „Haptik“ im frühen Skript mit `bestuecken` (durchsichtige Schalter `.hz-sw` über `.cs-taste`, `.tuer-card`, `.bew-btn`, `.herz-btn`, `.btn-primary`) und `MutationObserver` |
+| Haptik | `window.haptik(art)` (nur Android, `navigator.vibrate`); iPhone: Block „Haptik“ im frühen Skript mit `bestuecken` (durchsichtige Schalter `.hz-sw` über `.cs-taste`, `.bew-btn`, `.herz-btn`, `.btn-primary`) und `MutationObserver` |
 | Sonstiges | `seiteAktualisieren` (Tab-Titel/Symbol), Lesefortschritt, Service-Worker-Registrierung |
 
 ---
