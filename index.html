@@ -1834,11 +1834,22 @@
         }
         // meldet dem Server, dass das heutige Tuerchen offen ist (dann kommt heute keine Erinnerung mehr)
         let pushGemeldet = "";
+        // Erinnerungen dieses Kalenders aus dem Sperrbildschirm entfernen (erst, wenn das heutige Türchen wirklich geöffnet ist)
+        function pushMitteilungenWeg() {
+            try {
+                if (!("serviceWorker" in navigator)) return;
+                navigator.serviceWorker.getRegistration().then(function (r) {
+                    if (!r || !r.getNotifications) return;
+                    return r.getNotifications({ tag: "tuerchen" }).then(function (l) { l.forEach(function (n) { n.close(); }); });
+                }).catch(function () {});
+            } catch (e) {}
+        }
         function pushOffenSync(force) {
             try {
                 if (!pushStand() || !pushConf()) return;
                 const h = (typeof heuteTag === "function") ? heuteTag() : 0;
                 if (!h || geoeffnetListe().indexOf(h) < 0) return;
+                pushMitteilungenWeg();   // heutiges Tuerchen ist geoeffnet: Erinnerung im Sperrbildschirm wegraeumen
                 const tag = String(datumZahl());
                 if (!force && pushGemeldet === tag) return;
                 pushGemeldet = tag;

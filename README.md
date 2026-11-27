@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795700501`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795774160`.
 
 ---
 
@@ -575,7 +575,7 @@ window.ER_BEWERTUNG = {
 - **Wer sieht was:** Im normalen Browser (nicht auf dem Home-Bildschirm installiert) bleibt der Kasten „Erinnerung“ mit den Kalender-Terminen. In der installierten App ersetzt ihn ein Kasten mit Schalter „Erinnerung einschalten“, Uhrzeit (15-Minuten-Schritte, 06:00 bis 23:45, Voreinstellung 20:00) und „Testnachricht senden“. Er erscheint nur, wenn zusätzlich die Sicherung konfiguriert ist (`sicherung-config.js`, dieselbe Worker-Adresse und Kennung) und der Browser Push kann (`pushStart`).
 - **Bewusste Zustimmung:** Der Schalter steht auf Aus. Die Systemfrage „Mitteilungen erlauben?“ kommt erst, wenn sie ihn selbst einschaltet. Lehnt sie ab, springt er zurück, ein Hinweis nennt die Handy-Einstellungen, und der Kalender-Kasten erscheint wieder.
 - **Bedingung:** Gesendet wird täglich vom 1. bis 24. Dezember (Berliner Zeit) zu ihrer Uhrzeit, aber nur, wenn das heutige Türchen noch nicht geöffnet ist. Öffnet sie es, meldet die App das still an den Worker (`popen`, ausgelöst in `merkeGeoeffnet`, beim Start und beim Zurückkehren in die App). Pro Tag höchstens eine Nachricht.
-- **Worker:** `worker.js` hat vier Aktionen (`psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht) und einen Cron-Lauf (`laufePush`, alle 15 Minuten). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet innerhalb von 30 Minuten ab ihrer Uhrzeit; ungültige Anmeldungen (404, 410) werden gelöscht.
+- **Worker:** `worker.js` hat vier Aktionen (`psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht) und einen Cron-Lauf (`laufePush`, jede Minute; liest dafür nur einen kleinen Index `pushidx`, der bei An- und Abmeldung gepflegt und nachts neu aufgebaut wird). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet zur Minute ihrer Uhrzeit, ein verpasster Lauf wird innerhalb von 30 Minuten nachgeholt; ungültige Anmeldungen (404, 410) werden gelöscht.
 - **Nachricht:** Der Worker sendet den Text verschlüsselt mit (Web Push, RFC 8291), signiert mit VAPID (ES256): Titel „Adventskalender“, Text **„Türchen N wartet ✨“** (N = heutiger Tag). Fehlt die Verschlüsselung (ungültige Schlüssel), sendet er einen leeren Push, und der Service Worker zeigt den festen Text „Dein Türchen für heute wartet ✨“. Ein Tipp öffnet die App.
 - **Schlüssel:** Der öffentliche VAPID-Schlüssel steht in `index.html` (`PUSH_PUB`) und im Worker (Variable `VAPID_PUBLIC`). Der private Schlüssel ist ein Secret im Worker (`VAPID_PRIVATE`) und steht nirgends im Repository.
 - **TEST:** Die TEST-App meldet sich im Modus „test“ an; der Worker sendet dann auch außerhalb des Dezembers (zum Ausprobieren).
@@ -597,13 +597,15 @@ window.ER_BEWERTUNG = {
 
 - Tippt sie auf die Push-Nachricht, öffnet sich die App mit der Adresse `./?tuerchen=heute` (oder `?tuerchen=N`, wenn der Worker die Nummer mitschickt). Es erscheint zuerst die Code-Abfrage; nach dem richtigen Code läuft sofort die Tür-Animation des heutigen Türchens, danach geht es wie gewohnt weiter (Stimmungsauswahl oder Geschichte).
 - Ist die App schon geöffnet, wird dieses Fenster genutzt und auf die neue Adresse gesetzt. Läuft der Code-Schutz noch nicht (z. B. innerhalb der 3 Minuten Pause), geht es ohne Code-Abfrage direkt weiter.
+- Nur in der TEST-Fassung während des Vortests (November als Dezember): Ist „heute“ kein Türchen (25.–30. November), öffnet der Direktsprung das erste noch nicht geöffnete Türchen (sind alle geöffnet, ein zufälliges), damit sich die Funktion jederzeit ausprobieren lässt.
+- **Aufräumen:** Sobald das heutige Türchen geöffnet ist, entfernt die App die Erinnerung aus dem Sperrbildschirm. Nur das Öffnen des Türchens zählt; ein bloßes Starten der App lässt die Mitteilung stehen.
 - Es passiert nichts Besonderes, wenn das Türchen noch nicht erreicht ist, wenn sie gerade in einer Geschichte ist oder wenn „Bewegung reduzieren“ aktiv ist (dann ohne Animation, aber ebenfalls direkt zum Türchen). Die Adresse wird nach dem Auslesen aus der Browserzeile entfernt, ein Neuladen wiederholt das nicht.
 - Für dich im Editor: Die Bewertungs-Erinnerung öffnet `er-editor.html#t=N` mit der Nummer des gestrigen Türchens.
 - Sicherheit: Der Service Worker akzeptiert als Ziel nur diese festen Adressformen, nie fremde Adressen.
 
 **Health-Check (Editor, nur TEST)**
 
-- Im Editor gibt es unten den Kasten **„Health-Check“** (Adresse `er-editor.html#status`). Nach Eingabe des Passworts zeigt er je eine Karte für „Ihre App · LIVE“, „Ihre App · TEST“ und „Dein Gerät · Editor“: Push-Anmeldung (eingerichtet ja/nein, Uhrzeit, seit wann), **letzter Kontakt** der App mit dem Worker, **zuletzt geöffnetes Türchen** (nur die Nummer), **letzte gesendete Erinnerung** und eine Zeile **„Heute“** (z. B. „Heute schon geöffnet – keine Erinnerung nötig“, „Wird heute um 20:00 Uhr gesendet“, „Heute nicht gesendet“). Dazu eine Karte zur Sicherung (letzter Stand, Anzahl) und der Hinweis, ob die Push-Schlüssel im Worker vorhanden sind. „Aktualisieren“ lädt neu.
+- Im Editor gibt es unten den Kasten **„Health-Check“** (Adresse `er-editor.html#status`). Nach Eingabe des Passworts zeigt er je eine Karte für „Ihre App · LIVE“, „Ihre App · TEST“ und „Dein Gerät · Editor“: Push-Anmeldung (eingerichtet ja/nein, Uhrzeit, seit wann), **letzter Kontakt** der App mit dem Worker, **zuletzt geöffnetes Türchen** (nur die Nummer), **letzte gesendete Erinnerung** und eine Zeile **„Heute“** (z. B. „Heute schon geöffnet – keine Erinnerung nötig“, „Wird heute um 20:00 Uhr gesendet“, „Heute nicht gesendet“). Oben steht eine **Gesamtampel** (grün „Alles in Ordnung“, gelb „Bitte kurz ansehen“, rot „Hier ist Handeln nötig“, mit Begründung), und jede Karte hat zusätzlich ihre eigene Ampel mit Wort. Gelb bedeutet z. B. Erinnerung nicht eingeschaltet, Erinnerung überfällig, seit mehr als 3 Tagen kein Kontakt oder letzte Sicherung älter als 3 Tage; rot bedeutet „heute nicht gesendet“ oder fehlende Push-Schlüssel im Worker. Die TEST-App hat eine eigene Ampel, zählt aber nicht zur Gesamtampel. Dazu eine Karte zur Sicherung (letzter Stand, Anzahl) und der Hinweis, ob die Push-Schlüssel im Worker vorhanden sind. „Aktualisieren“ lädt neu.
 - **Technik:** Der Worker speichert pro Anmeldung `kontakt`, `offenTs`, `tag` (1–24) und `gesendetTs`. Die Seite fragt den nur mit Passwort-Zugang (Kopfzeile `X-Admin`) erreichbaren Aufruf `GET /pstatus/<Kennung>` ab. Er liefert nur Status, **keine** Adressen, Schlüssel, Notizen oder Bewertungsinhalte. Die App meldet beim Öffnen eines Türchens `popen` mit der Nummer des Türchens.
 - Der „letzte Kontakt“ wird nur bei Anmeldung, Öffnen eines Türchens, Bewertungsänderung (Editor) und alle 10 Minuten bei erneuter Meldung aktualisiert; er zeigt also nicht jedes App-Öffnen.
 
@@ -687,7 +689,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795700501";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795774160";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
