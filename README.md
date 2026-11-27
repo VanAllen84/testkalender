@@ -1,7 +1,7 @@
 # Erotischer Adventskalender 2026 – TEST-Version
 
 Persönlicher, erotischer Adventskalender für die Partnerin („Schatz“), geschrieben und gebaut vom Partner. Alles auf Deutsch.
-Eine statische Web-App aus HTML, CSS und JavaScript, **ohne Server-Logik, ohne Datenbank, ohne Anmeldung**. Alles, was sie eingibt oder auswählt, bleibt im Browser ihres Geräts.
+Eine statische Web-App aus HTML, CSS und JavaScript, **ohne eigenen Server, ohne Datenbank, ohne Anmeldung**. Alles, was sie eingibt oder auswählt, liegt im Browser ihres Geräts. Zwei Dinge laufen **zusätzlich und freiwillig** über einen kleinen Cloudflare-Worker (liegt nicht im Repository, [Abschnitt 14](#14-seine-bewertung-erjs-und-er-editorhtml) und [15](#15-kalender-erinnerungen-ics)): eine verschlüsselte Sicherung ihrer Angaben und die Push-Erinnerung. Fällt der Worker aus, funktioniert der Kalender weiter, nur Sicherung und Erinnerung ruhen.
 
 Vom 1. bis 24. Dezember öffnet sich jeden Tag ein Türchen. Dahinter steckt:
 
@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795775794`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795776017`.
 
 ---
 
@@ -59,6 +59,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795775794`.
 30. [Entscheidungen und Begründungen](#30-entscheidungen-und-begründungen)
 31. [Glossar](#31-glossar)
 32. [Offene Punkte und Ideen](#32-offene-punkte-und-ideen)
+33. [Neuaufbau-Anleitung (für ein neues Jahr oder einen neuen Chat)](#33-neuaufbau-anleitung)
 
 ---
 
@@ -72,6 +73,10 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795775794`.
 5. Ihr Handy ggf. auf Datum und Uhrzeit „automatisch“ stellen lassen (Freischaltung hängt an der Geräteuhr).
 6. **Sicherung (Cloudflare) einrichten:** Worker und Speicher (KV) anlegen, im Editor „Sicherung einrichten“ durchgehen (Passwort, Zugangs-Hash, Worker-Adresse) und die Konfiguration über „An TEST und LIVE senden“ übertragen. `sicherung-config.js` im Repository ist nur ein Platzhalter (`aktiv: false`); die echte Konfiguration schreibt der Editor. Diese Datei **nicht** durch ein Update überschreiben. Danach in TEST ausprobieren (bewerten, im Editor „Ihre Antworten ansehen“).
 7. **Töne hochladen:** Den Ordner `ton/` in **beiden** Repositories anlegen und die Dateien `knarren.mp3`, `wirbel.mp3`, `auspacken.mp3`, `finale.mp3`, `zuklappen.mp3`, `umschlag.mp3` und `aufschliessen.mp3` hineinlegen (`finale.mp3` enthält den Herzschlag bereits eingemischt) (Abschnitt 7.8). Ohne die Dateien läuft alles lautlos. Danach in TEST einmal die Enthüllung der Auswertung und das Finale mit Ton ansehen (Tipp: in TEST ist der November wie der Dezember).
+8. **Push-Erinnerung einrichten (Cloudflare, optional):** im Worker die Variable `VAPID_PUBLIC` (Text), das Secret `VAPID_PRIVATE` und den Cron-Trigger `* * * * *` (jede Minute, einen alten `*/15` löschen) eintragen und den Worker neu veröffentlichen. Dann in der installierten App den Schalter „Erinnerung“ einschalten und „Testnachricht senden“ drücken (Abschnitt 15, Schlüssel erzeugen siehe Abschnitt 33).
+9. **Health-Check ansehen** (Editor `er-editor.html#status`, nur TEST): Ampel oben soll grün sein (Abschnitt 15).
+10. **Startbilder:** Ordner `startup/` (14 PNGs) in beide Repositories hochladen. iOS liest sie nur beim Anlegen der Startbildschirm-App; wer die App schon angelegt hat, muss sie löschen und neu anlegen, um sie zu sehen (Abschnitt 8.5).
+11. **Ab dem 1. Dezember gilt Code-Freeze:** Es kommt nichts Neues mehr hinzu, nur noch Fehlerbehebung (jede Änderung mit `VERSION`-Erhöhung, erst TEST, dann LIVE).
 
 ### Nach einer Änderung (LIVE oder TEST)
 1. `index.html` bzw. die betroffenen Dateien ändern.
@@ -105,7 +110,7 @@ Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795775794`.
 ├── wiederherstellung.html  nicht verlinkte Seite für den Handywechsel
 ├── manifest-er.json      App-Manifest des Editors „His Rating“ (nur in TEST)
 ├── icon-er-180/192/512.png  Icons des Editors (nur in TEST)
-├── ton/                  Optionale Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung der Auswertung), finale.mp3 (Melodie zur Finale-Animation), zuklappen.mp3 (Tür schließt sich), umschlag.mp3 (Umschlag öffnet sich), aufschliessen.mp3 (Code-Sperre geht auf) (Melodie inklusive eingemischtem Herzschlag)
+├── ton/                  Töne: knarren.mp3 (Tür), wirbel.mp3 (Wind beim Wirbel), auspacken.mp3 (Enthüllung), finale.mp3 (Finale-Melodie mit Herzschlag), zuklappen.mp3 (Tür rückwärts), umschlag.mp3 (Umschlag), aufschliessen.mp3 (richtiger Code); ohne die Dateien läuft alles lautlos
 ├── story-day1.js … story-day24.js   Die 24 Geschichten (je drei Stimmungen)
 ├── bilder/
 │   ├── landing.jpg           Bild der Startseite und der Sperre
@@ -148,7 +153,9 @@ Beide Versionen sind **getrennte Repositories mit getrennten Adressen** und (bis
 |---|---|---|
 | Adresse | https://kalender2026.tkagel.de | https://vanallen84.github.io/testkalender/ |
 | Datum | echtes Datum (`new Date()`) | **November 2026 wird wie Dezember behandelt** (1. Nov = Türchen 1 … 24. Nov = Türchen 24, **25. Nov = „25. Dezember“**) über `VORTEST_NOVEMBER` und `jetzt()` |
-| `er-editor.html` | nicht vorhanden | vorhanden |
+| `er-editor.html` | nicht vorhanden | vorhanden (inkl. Health-Check mit Ampel) |
+| Push-Modus | Anmeldung mit `modus: live` (nur 1.–24.12.) | `modus: test` (Worker sendet auch im November, zum Ausprobieren) |
+| „Heute“ ohne Türchen (25.–30.11.) | – | Deep-Link und Test-Auswahl nehmen das erste ungeöffnete, sonst ein zufälliges Türchen (nur zum Testen) |
 | App-Name auf dem Startbildschirm | „Dezember“ | „Dez TEST“ (Manifest: „Dezember TEST“) |
 | App-Symbol | Tür mit goldenem Licht | dasselbe mit rotem Band „TEST“ |
 | Finale | läuft einmal von selbst | läuft in TEST immer wieder (wegen `VORTEST_NOVEMBER`) |
@@ -205,6 +212,8 @@ Sperre (Code) ──▶ Startseite ──„Tauche ein in den Advent!“──�
 4. Am **nächsten Tag** fragt das Türchen, wie die Aufgabe war (Bewertung mit Daumen). Der Originaltext der Aufgabe und der Alternative wird dabei noch einmal angezeigt.
 5. Ab dem **25. Dezember** gibt es Auswertung, Rückblick, andere Stimmungen und Finale.
 
+**Einstieg über die Push-Nachricht:** Tippt sie auf die Erinnerung, öffnet sich die App, es folgt die Code-Abfrage und danach läuft direkt die Tür-Animation des heutigen Türchens (Abschnitt 15). Öffnet sie das Türchen, verschwindet die Benachrichtigung wieder.
+
 Päckchen: Kleine Extras liegen in Päckchen, die am Umschlag hängen. **Erst die Aufgabe lesen, dann auspacken** (steht im Beipackzettel und auf einzelnen Zetteln).
 
 ---
@@ -230,7 +239,7 @@ Alle Seiten sind `<div>`-Bereiche in `index.html`; ein- und ausgeblendet wird ü
 - **Countdown** („Noch N Tage, dann öffnet sich das erste Türchen.“) nur kurz vor dem Start.
 - **Bild** `bilder/landing.jpg`, blendet bei jedem Besuch erneut ein.
 - **Einleitung** („Willkommen zu deinem ganz persönlichen und intimen Adventskalender …“).
-- Karte **„Bevor es losgeht“** mit zwei Schritten: Auf den Startbildschirm legen (Anleitung für iPhone/Safari und Android/Chrome) und **Erinnerung** (Uhrzeit wählen, „Termine hinzufügen“ lädt eine `.ics`-Datei).
+- Karte **„Bevor es losgeht“** mit zwei Schritten: Auf den Startbildschirm legen (Anleitung für iPhone/Safari und Android/Chrome) und **Erinnerung** (Uhrzeit wählen, „Termine hinzufügen“ lädt eine `.ics`-Datei). In der **installierten App** ersetzt ein Kasten mit **Toggle-Schalter** („Erinnerung einschalten“, Uhrzeit, „Testnachricht senden“) diese Kalender-Termine; das ist die Push-Erinnerung (Abschnitt 15). Ein Tipp auf die Nachricht öffnet nach der Code-Abfrage direkt das heutige Türchen.
 - Kasten **„Und so funktioniert das Ganze“** mit sieben Punkten: 1 Stimmung wählen, 2 Geschichte, 3 Umschlag aus dem Beutel, 4 Bewerten, 5 Notizen, 6 Nachholen und Wiederfinden, 7 Ab dem 25. Dezember (Auswertung, Abgleich mit seinen Bewertungen auf eigener Oberfläche, Favoritenliste, Erinnerung speichern).
 - Hinweis zum Datum auf dem Handy und der Knopf **„Tauche ein in den Advent!“**.
 - Ab dem 25.12.: Knopf „Zur Auswertung der Favoriten“.
@@ -299,7 +308,7 @@ Titel und Symbol wechseln mit der Seite („Intro“, „Die Türchen“, „N. 
 - **Countdown:** Auf der Türchen-Übersicht steht „Das nächste Türchen öffnet sich in 5 Std 12 Min“. Vor dem 1. Dezember bezieht er sich auf Türchen 1. Er erscheint nur, wenn das heutige Türchen schon geöffnet wurde; am 24.12. übernimmt der bekannte Hinweis „Morgen wartet noch etwas“, ab dem 25.12. gibt es keinen Countdown mehr. Aktualisierung alle 30 Sekunden.
 - **Offene Aufgaben (nur verschiebbare Karten):** Verschiebbar sind nur die Karten 3, 4, 8, 15, 17, 19 und 23 (das sind die Türchen 7, 15, 1, 24, 8, 16 und 2). Nur dort steht unter der Bewertung der Knopf „Aufgabe erledigt?“ mit dem Hinweis, dass sie bis zum 31. Dezember nachgeholt werden darf. Wird bewertet, gilt die Aufgabe automatisch als erledigt. Offene Türchen erhalten ein Sanduhr-Zeichen auf der Kachel und eine Zeile „Noch offen bis 31. Dezember: Türchen …“ mit direkten Sprungknöpfen. Nach dem 31.12. verschwindet alles.
 - **Lieblingsgeschichten (Herz):** Unter jeder Geschichte ein Herz-Knopf „Diese Geschichte gefällt mir“. Ein Herz je Türchen und Stimmung; weitere Stimmungen kann sie erst ab dem 25.12. lesen und dann auch dort ein Herz vergeben (dieselbe Geschichte kann also mehrfach in der Liste stehen). Herzchen erscheinen auf der Kachel; ab dem 25.12. zeigt die Übersicht den Bereich „Meine Lieblingsgeschichten“ (Sprungknöpfe zu Türchen und Stimmung).
-- **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; Lautstärke über das Gerät). Fehlt die Datei, passiert nichts (kein Fehler). Die vier Tondateien stehen in der Vorab-Liste des Service Workers (`TON`) und werden einzeln mit Fehlertoleranz abgelegt, fehlt eine Datei, scheitert nicht die Installation. Damit laufen die Töne auch offline; der Service Worker beantwortet dabei auch die Bereichsanfragen (Range) der Audio-Elemente aus dem Speicher (nötig für iPhone). Nach dem Hochladen neuer Töne muss `VERSION` in `sw.js` erhöht werden. Hinweis: Normales Audio-Abspielen wird vom iPhone-Stumm-Schalter meist nicht unterdrückt (nicht auf einem echten Gerät geprüft).
+- **Tür-Knarren:** Liegt die Datei `ton/knarren.mp3` im Repository, spielt sie beim Öffnen eines Türchens (immer aktiv, kein Schalter; Lautstärke über das Gerät). Fehlt die Datei, passiert nichts (kein Fehler). Die sieben Tondateien stehen in der Vorab-Liste des Service Workers (`TON`) und werden einzeln mit Fehlertoleranz abgelegt, fehlt eine Datei, scheitert nicht die Installation. Damit laufen die Töne auch offline; der Service Worker beantwortet dabei auch die Bereichsanfragen (Range) der Audio-Elemente aus dem Speicher (nötig für iPhone). Nach dem Hochladen neuer Töne muss `VERSION` in `sw.js` erhöht werden. Die Töne laufen bewusst unabhängig vom Stumm-Schalter (Abschnitt 8.5 und 30).
 - **Enthüllung (optional):** Liegt `ton/auspacken.mp3` im Repository (ca. 14 s, nur die ersten fünf Sekunden sind hörbar), spielt sie beim Tipp auf „Enthüllen“ in der Auswertung und wird am Ende der Animation ausgeblendet. Fehlt die Datei, läuft die Animation lautlos (siehe Abschnitt 13.3).
 - **Finale-Melodie (optional):** Liegt `ton/finale.mp3` (ca. 26 s) im Repository, startet sie mit der Finale-Animation und klingt unter der Finale-Seite aus; beim Überspringen wird sie ausgeblendet (`tonFinale`). Fehlt die Datei, läuft die Animation lautlos.
 - **Herzschlag:** Die sechs Herzschläge (Lub-Dub, Abstand 1,1 s, ab 16,57 s, der Lub fällt jeweils auf 16,85 s + n·1,1 s) sind fest in `ton/finale.mp3` eingemischt, damit sie auf allen Geräten gleichzeitig mit der Melodie laufen (iPhone: Web Audio wird vom Stumm-Schalter gedämpft, normale Audio-Elemente nicht). Das Original `herzschlag.mp3` liegt fast nur im Tiefbass (unter 120 Hz), den Handy-Lautsprecher kaum wiedergeben; für die Mischung wurde es mit Obertönen im Bereich 120–500 Hz angereichert. Die Pulse des Herzens im Bild laufen weiter über die Animationsschleife. `herzschlag.mp3` wird nicht mehr gebraucht.
@@ -514,7 +523,7 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 - Speicherung: `adventBewertung26` (Werte 1, 0, -1) und `adventBewDatum26` (wann bewertet).
 
 ### 13.2 Notizen
-- Pro Türchen **zwei getrennte Textfelder** (je max. 600 Zeichen): „Meine Notiz zur Aufgabe“ und „Meine Notiz zur Alternative“, jeweils direkt unter der Bewertung der Version. Nur im Browser.
+- Pro Türchen **zwei getrennte Textfelder** (je max. 600 Zeichen): „Meine Notiz zur Aufgabe“ und „Meine Notiz zur Alternative“, jeweils direkt unter der Bewertung der Version. Sie liegen im Browser und werden mit der Sicherung (Abschnitt 14) verschlüsselt mitgesichert; er sieht sie im Editor unter „Ihre Antworten“ (bekannt und gewollt).
 - Die Notizen erscheinen in der Auswertung („Alle meine Notizen kopieren“) und in der Textdatei von „Erinnerung speichern“.
 - Speicherung: `adventNotiz26`, Schlüssel `"5"` = Aufgabe, `"5b"` = Alternative (`notizKey`). Frühere gemeinsame Notizen gelten als Notiz zur Aufgabe. In der Auswertung zeigt jede Karte die Notiz ihrer Version; Kopieren und die Textdatei führen beide getrennt auf.
 
@@ -537,7 +546,7 @@ Die Kurzbeschreibungen selbst stehen bewusst nicht in dieser Beschreibung (siehe
 
 ### 13.4 Rückblick und „Erinnerung speichern“
 - **Rückblick** (Finale-Seite): Zähler für geöffnete Türchen, gewählte Stimmungen, Bewertungen und Notizen.
-- **„Meine Erinnerung speichern (Bilder + Text)“** erzeugt Bilder (Rückblick und Favoriten) und eine Textdatei mit Bewertungen und Notizen als Download (Dateinamen `Advent2026_…`). Die Daten bleiben auf dem Gerät.
+- **„Meine Erinnerung speichern (Bilder + Text)“** erzeugt Bilder (Rückblick und Favoriten) und eine Textdatei mit Bewertungen und Notizen als Download (Dateinamen `Advent2026_…`). Die Dateien entstehen auf dem Gerät und gehen nicht an den Worker.
 
 ---
 
@@ -582,7 +591,7 @@ window.ER_BEWERTUNG = {
 - **Wer sieht was:** Im normalen Browser (nicht auf dem Home-Bildschirm installiert) bleibt der Kasten „Erinnerung“ mit den Kalender-Terminen. In der installierten App ersetzt ihn ein Kasten mit Schalter „Erinnerung einschalten“, Uhrzeit (15-Minuten-Schritte, 06:00 bis 23:45, Voreinstellung 20:00) und „Testnachricht senden“. Er erscheint nur, wenn zusätzlich die Sicherung konfiguriert ist (`sicherung-config.js`, dieselbe Worker-Adresse und Kennung) und der Browser Push kann (`pushStart`).
 - **Bewusste Zustimmung:** Der Schalter steht auf Aus. Die Systemfrage „Mitteilungen erlauben?“ kommt erst, wenn sie ihn selbst einschaltet. Lehnt sie ab, springt er zurück, ein Hinweis nennt die Handy-Einstellungen, und der Kalender-Kasten erscheint wieder.
 - **Bedingung:** Gesendet wird täglich vom 1. bis 24. Dezember (Berliner Zeit) zu ihrer Uhrzeit, aber nur, wenn das heutige Türchen noch nicht geöffnet ist. Öffnet sie es, meldet die App das still an den Worker (`popen`, ausgelöst in `merkeGeoeffnet`, beim Start und beim Zurückkehren in die App). Pro Tag höchstens eine Nachricht.
-- **Worker:** `worker.js` hat vier Aktionen (`psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht) und einen Cron-Lauf (`laufePush`, jede Minute; liest dafür nur einen kleinen Index `pushidx`, der bei An- und Abmeldung gepflegt und nachts neu aufgebaut wird). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet zur Minute ihrer Uhrzeit, ein verpasster Lauf wird innerhalb von 30 Minuten nachgeholt; ungültige Anmeldungen (404, 410) werden gelöscht.
+- **Worker:** `worker.js` hat für Push diese Aktionen (POST): `psub` anmelden oder Uhrzeit ändern, `poff` abmelden, `popen` heute geöffnet, `ptest` Testnachricht, `pstate` eigenen Stand abfragen; dazu `GET /pstatus/<Kennung>` (nur mit Passwort-Zugang, für den Health-Check). Für die Sicherung: `put`, `list`, `get` (Kopfzeile `X-Admin`) und einen Cron-Lauf (`laufePush`, jede Minute; liest dafür nur einen kleinen Index `pushidx`, der bei An- und Abmeldung gepflegt und nachts neu aufgebaut wird). Je Kennung liegt ein Eintrag `push:<Kennung>` im KV (Anmeldung, Uhrzeit, Modus, zuletzt geöffnet, zuletzt gesendet). Der Lauf sendet zur Minute ihrer Uhrzeit, ein verpasster Lauf wird innerhalb von 30 Minuten nachgeholt; ungültige Anmeldungen (404, 410) werden gelöscht.
 - **Nachricht:** Der Worker sendet den Text verschlüsselt mit (Web Push, RFC 8291), signiert mit VAPID (ES256): Titel „Adventskalender“, Text **„Türchen N wartet ✨“** (N = heutiger Tag). Fehlt die Verschlüsselung (ungültige Schlüssel), sendet er einen leeren Push, und der Service Worker zeigt den festen Text „Dein Türchen für heute wartet ✨“. Ein Tipp öffnet die App.
 - **Schlüssel:** Der öffentliche VAPID-Schlüssel steht in `index.html` (`PUSH_PUB`) und im Worker (Variable `VAPID_PUBLIC`). Der private Schlüssel ist ein Secret im Worker (`VAPID_PRIVATE`) und steht nirgends im Repository.
 - **TEST:** Die TEST-App meldet sich im Modus „test“ an; der Worker sendet dann auch außerhalb des Dezembers (zum Ausprobieren).
@@ -620,7 +629,7 @@ window.ER_BEWERTUNG = {
 
 ## 16. Was im Browser gespeichert wird
 
-Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server.** Jedes Gerät und jeder Browser (auch Safari und installierte App) hat seinen eigenen Stand.
+Alles liegt im Browser des Geräts. Eine **verschlüsselte Sicherung** (Schlüssel `adventSich26`, Abschnitt 14) und die **Push-Anmeldung** (`adventPush26`) gehen an den Cloudflare-Worker; sonst findet keine Übertragung statt. Jedes Gerät und jeder Browser (auch Safari und installierte App) hat seinen eigenen Stand.
 
 | Schlüssel | Speicher | Inhalt |
 |---|---|---|
@@ -645,6 +654,9 @@ Alles liegt im Browser des Geräts. **Es gibt keine Übertragung an einen Server
 | `adventWetter26` | localStorage | zuletzt abgerufene Stundenwerte des Wetters (Wettercode, Temperatur) |
 | `adventErEditor26` | localStorage | Zwischenstand von `er-editor.html` (nur TEST) |
 | `adventErGhToken26`, `adventErGhAuswahl26` | localStorage | GitHub-Token und Auswahl TEST/LIVE für den Upload im Editor (nur TEST) |
+| `adventPush26` | localStorage | Zustand der Push-Erinnerung (an/aus, Uhrzeit, Anmeldung) |
+| `adventUmschlag26` | localStorage | Türchen, deren Umschlag-Animation schon lief |
+| `adventErPush26` | localStorage | Push-Zustand des Editors (nur TEST) |
 | `adventSich26` | localStorage | Merker, welcher Stand zuletzt gesichert wurde (App) |
 | `adventWunsch26` | localStorage | ihre Wünsche für ein nächstes Mal (App, wird mitgesichert) |
 | `adventErKey26`, `adventErSich26`, `adventErVerb26`, `adventErNotizSehen26`, `adventErGesehen26` | localStorage | geschützter Schlüssel, Einstellungen, eigene Notizen, Schalter und Prüfsummen für „Neu“ im Editor (nur TEST) |
@@ -696,12 +708,14 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795775794";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795776017";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
 - GitHub Pages hält Dateien einige Minuten im Zwischenspeicher.
-- **Töne im Offline-Speicher:** Die Dateien in `ton/` stehen bewusst **nicht** in der Liste des Service Workers (fehlt eine Datei, würde sonst das ganze Zwischenspeichern scheitern). Sie werden vom Browser normal zwischengespeichert und spielen offline nur, wenn sie schon einmal geladen waren.
+- **Töne im Offline-Speicher:** Die Dateien in `ton/` stehen in der Liste `TON` und werden einzeln mit Fehlertoleranz abgelegt (eine fehlende Datei bricht die Installation nicht ab). Anfragen an `/ton/` beantwortet der Service Worker aus dem Speicher, auch Bereichsanfragen (`Range`, Antwort 206), die iPhones für Audio stellen. Neue Töne: `TON` ergänzen und `VERSION` erhöhen.
+- **Push im Service Worker:** Der `push`-Handler zeigt die (verschlüsselt gesendete) Nachricht an; fehlt sie, erscheint ein neutraler Standardtext mit Ziel `./?tuerchen=heute`. Der `notificationclick`-Handler öffnet oder fokussiert die App (bzw. den Editor) und navigiert zum Ziel. Erlaubt sind nur die Adressformen `./?tuerchen=N` und `er-editor.html(#t=N)` (Prüfung per festem regulären Ausdruck).
+- **Startbilder** (`startup/`) stehen **nicht** in der Liste; iOS liest sie ohnehin nur beim Anlegen der App.
 - **Nicht im Repository:** `worker.js` (Cloudflare-Worker) und `ANLEITUNG_Cloudflare.md` liegen nur bei dir und werden nicht hochgeladen. Der Worker läuft bei Cloudflare, nicht auf GitHub Pages.
 - Hängt ein Handy fest: Seite neu laden, App ganz schließen und neu öffnen, im Notfall Website-Daten löschen.
 
@@ -816,6 +830,8 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Wetter (`wetter.js`) | `wetterErsetzen`, `wetterAktualisieren`, `wetterLaden`, `klasseVon`, `aktuell`, `tempWort`; Texte in `window.WETTER_TEXTE` |
 | Komfort (eigenes Skript am Dateiende) | `leseAnwenden`, `leseSchrift`, `leseWarmSetzen`, `herzUmschalten`, `herzOeffnen`, `erledigtUmschalten`, `erledigtRendern`, `offeneTage`, `cdAktualisieren`, `uebersichtErgaenzen`, `storyErgaenzen`, `tonSpielen`; Liste `VERSCHIEBBAR` |
 | Wolke | Skript mit `bossOeffnen`, `schliessen`, Wetterabruf |
+| Push und Deep-Link | früher Skript: `window.__deepLink` aus `?tuerchen=`; `deepLinkVersuch` (nach der Sperre), `pushMitteilungenWeg` (Benachrichtigung schließen, wenn heutiges Türchen geöffnet), `pushStand`, `pushStandSetzen`, `pushStart` |
+| Haptik | `window.haptik(art)` mit `tick`, `ok`, `fehler`, `tuer` (iOS ≥ 17.4 über verstecktes Schalter-Element, Android `navigator.vibrate`, aus bei „Bewegung reduzieren“) |
 | Sonstiges | `seiteAktualisieren` (Tab-Titel/Symbol), Lesefortschritt, Service-Worker-Registrierung |
 
 ---
@@ -881,7 +897,7 @@ Die kleinen Extras je Türchen stehen in der Röhren-Packliste. Die Zettel liege
 
 ## 28. Datenschutz und Hinweise
 
-- Die Seite sammelt keine Daten und hat keine Analyse. Alles bleibt im Browser.
+- Die Seite hat keine Analyse und keine Werbung. Ihre Angaben liegen im Browser. **Zusätzlich** (nur mit eingerichtetem Worker): eine **Ende-zu-Ende-verschlüsselte Sicherung** (der Worker kann sie nicht lesen; Schlüssel nur im Editor und im Passwortmanager) und die **Push-Anmeldung** (Push-Adresse des Geräts, Uhrzeit, Modus, Zeitpunkt der letzten Öffnung und des letzten Versands, Türchen-Nummer). Beides liegt in Cloudflare KV; der Health-Check zeigt nur Status, nie Adressen oder Schlüssel.
 - **Einzige externe Anfrage:** die Wolke ruft Wetterdaten von `api.open-meteo.com` ab (Koordinaten für Grevenbroich, bei Freigabe des Standorts die auf 0,1 Grad gerundeten Koordinaten; ohne Referrer). Dabei wird die IP-Adresse des Geräts übermittelt. Der Abruf passiert auch ohne Öffnen der Wolke im Hintergrund (nach wenigen Sekunden).
 - Die Seite ist privat, nicht in Suchmaschinen gelistet; trotzdem ist sie kein Geheimnis, wenn die Adresse bekannt ist. Die Code-Sperre schützt vor zufälligem Öffnen.
 - Alle Inhalte sind nur für Erwachsene.
@@ -909,26 +925,32 @@ Wichtig: Die Skripte haben **feste Pfade** aus der Chat-Umgebung (`/home/claude/
 
 Warum es so gebaut ist, wie es ist:
 
-- **Statische Seite ohne Server:** Keine Wartung, keine Kosten, nichts, was ausfallen oder Daten sammeln kann. Alles bleibt im Browser. Preis: kein Abgleich zwischen Geräten, falsche Handy-Uhr wirkt sich aus.
+- **Statische Seite, Worker nur als Beiwerk:** Der Kalender selbst braucht keinen Server (keine Wartung, nichts fällt aus). Nur Sicherung und Push brauchen den kleinen Worker; ohne ihn läuft alles weiter. Preis: kein Abgleich zwischen Geräten, falsche Handy-Uhr wirkt sich aus.
 - **Eine einzige `index.html`:** Einfach zu sichern, zu patchen und hochzuladen, ohne Build-Schritt.
 - **Stimmung wird pro Tag festgeschrieben:** Die Geschichte soll ein Ereignis sein, kein Durchklicken. Erst ab dem 25.12. dürfen die anderen Versionen gelesen werden.
 - **Erst Geschichte, dann Umschlag:** Die Stimmung soll da sein, bevor es ernst wird. Der Umschlag wird erst nach der Geschichte gezogen; Päckchen erst nach dem Lesen der Aufgabe.
 - **Bewertung erst am Folgetag und änderbar:** Sie soll es wirken lassen können. Der Aufgabentext wird beim Bewerten wiederholt, weil man nach Stunden oder am nächsten Morgen nicht mehr genau weiß, was gemeint war. Am Tag der ersten Öffnung wird er nicht gezeigt, um nichts vorwegzunehmen.
 - **Seine Bewertung in `er.js`:** Sie wird erst ab dem 25.12. geladen und läuft über eine eigene Oberfläche (`er-editor.html`), damit weder er ihre noch sie seine Bewertung vorher sieht. Das ist kein technischer Schutz (die Datei liegt im Repository), sondern eine Vereinbarung.
-- **Notizen nur lokal:** Persönlich und nur für sie. Sie wandern nur dann in eine Datei, wenn sie „Erinnerung speichern“ drückt.
+- **Notizen:** Persönlich, im Browser; sie werden verschlüsselt mitgesichert und sind für ihn im Editor sichtbar (ihr bekannt und gewollt). In eine Datei wandern sie nur bei „Erinnerung speichern“.
 - **Code-Sperre statt Face ID:** Face ID über WebAuthn wäre aufwendig, für die Erstnutzung ungewohnt und ohne Server ohnehin nur ein Sichtschutz. Die iOS-eigene App-Sperre wird für Web-Apps nicht angeboten. Ein fester vierstelliger Code reicht gegen zufälliges Öffnen (Kinder) und kann nicht verloren gehen (kein Aussperren, anders als bei einem selbst vergebenen Code).
 - **Wolke als Chef-Taste:** Schnelles Verstecken, wenn jemand ins Zimmer kommt. Nach der Wolke kommt die Sperre.
 - **Zettel dürfen nichts verraten:** Sie liest diese ggf. morgens, bevor sie die Geschichte kennt. Deshalb sind sie neutral formuliert.
 - **TEST als eigene Instanz:** So kann nichts versehentlich auf LIVE landen; Speicher und Adresse sind getrennt. `VORTEST_NOVEMBER` macht den November testbar.
 - **Kurzbeschreibungen unter den Kacheln:** Damit sie nach Tagen noch weiß, was sie bewerten möchte.
 - **Weiter-Knopf nur bei freigeschaltetem Folgetürchen:** Ein Knopf, der nur „noch nicht“ sagt, wirkt kaputt.
-- **Kein Backend für seine Bewertung und keine Statistik:** Bewusst einfach gehalten.
+- **Seine Bewertung ohne Backend, keine Statistik:** `er.js` liegt als Datei im Repository. Der Worker kennt keine Bewertungen.
 - **Nachholen nur bei sieben Karten:** Nur Aufgaben, die sich sinnvoll verschieben lassen (Karten 3, 4, 8, 15, 17, 19, 23), bekommen die Erledigt-Funktion; bei allen anderen gilt „heute“.
 - **Ein Herz je Geschichte und Stimmung:** Keine Mehrfachvergabe pro Türchen, dafür darf nach dem 25.12. jede gelesene Stimmung ein eigenes Herz bekommen.
-- **Ton immer aktiv, ohne Schalter:** Gewollter Überraschungseffekt; leiser machen geht über die Handy-Lautstärke. Ohne Audiodatei im Repository passiert nichts.
+- **Ton immer aktiv, ohne Schalter, unabhängig vom Stumm-Schalter:** Gewollter Überraschungseffekt; leiser machen geht über die Handy-Lautstärke. `audioSession` „ambient“ wurde ausprobiert und **verworfen** (es würde die Töne beim Stummschalten verstummen lassen). Ohne Audiodatei passiert nichts.
 - **Wetter folgt der Realität, Handlung bleibt fest:** Nur Nebenbei-Wetter wird angepasst. Wo das Wetter die Szene trägt (Sternenhimmel, Schneetag, Sturm, Regentag), gibt es eigene Fassungen mit gleichem Ablauf und gleichen Gesprächen; Höhepunkte und Beziehung bleiben unverändert.
 - **Wetter der Lesestunde für Nebenbei-Sätze, Tageswetter für ganze Szenen:** Ein einzelner Satz soll zu dem passen, was sie gerade draußen sieht. Eine ganze Szene (Schneetag, Sternenhimmel) beschreibt dagegen den Tag, deshalb zählt dort das vorherrschende Wetter von 8 bis 18 Uhr. Open-Meteo stündlich, kein Abruf am Vortag (der würde nur bei geöffneter App klappen und ist ungenauer).
-- **Kein Übertragen des Stands zwischen Geräten:** Ein Export/Import wurde erwogen und verworfen (nicht nötig).
+- **Stand zwischen Geräten:** Ein manueller Export/Import wurde verworfen; stattdessen gibt es die verschlüsselte Sicherung mit Wiederherstellungs-Link.
+- **Push pro Minute statt alle 15 Minuten:** Bei `*/15` kam die Nachricht bis zu 29 Minuten nach der gewählten Zeit. Der Cron läuft jetzt jede Minute und liest nur einen kleinen Index (`pushidx`), damit die KV-Zugriffe gering bleiben.
+- **Benachrichtigung verschwindet nur, wenn sie das Türchen geöffnet hat:** Nicht schon beim bloßen Öffnen der App.
+- **Kein Mehrmandanten-Betrieb, keine „Prüfinstanz“ für Fernhilfe:** Getestet wird im selben Code in TEST; eine zweite Instanz pro Person wurde verworfen.
+- **Kein zusätzlicher Freiheits-Hinweistext in der App:** „Nichts ist Pflicht“ steht im Beipackzettel, nicht in der App. Der Beipackzettel regelt auch, welche Aufgaben bewusst nicht verschoben werden.
+- **Code-Freeze ab 1. Dezember:** Was dann nicht da ist, kommt nicht mehr neu; nur Fehlerbehebung.
+- **Tippflächen, Haptik, dunkle Startbilder:** Mindestens 44 px, feine Vibration/Haptik an Schlüsselstellen, dunkle Startbilder gegen weißes Aufblitzen beim Start der installierten App.
 
 ---
 
@@ -951,15 +973,101 @@ Warum es so gebaut ist, wie es ist:
 | Her/His Pleasure | Kennzeichnung der Karten (mehr für Sie / mehr für Ihn) |
 | Joker, Stempel | Regeln und Hinweise auf den gedruckten Karten (siehe Beipackzettel) |
 | `er.js` | Seine Bewertungen |
+| Worker | Kleiner Cloudflare-Dienst für Sicherung, Push und Health-Check (nicht im Repository) |
+| KV | Cloudflare-Speicher des Workers (Namespace `BACKUP`) |
+| VAPID | Schlüsselpaar, mit dem der Worker Push-Nachrichten signiert |
+| Kennung (Slot) | Name einer Sicherung/Push-Gruppe im Worker (je Version, z. B. für LIVE und TEST, plus `-er` für den Editor) |
+| Health-Check | Statusseite mit Ampel im Editor (nur TEST) |
+| Deep-Link | `./?tuerchen=N` oder `=heute`, Ziel des Klicks auf die Push-Nachricht |
 
 ---
 
 ## 32. Offene Punkte und Ideen
 
-- Probelauf und Erinnerungen wurden angeboten, aber nicht umgesetzt.
-- Erinnerung per Push-Nachricht an ein neues Türchen (über den Worker): zurückgestellt, wird bei Bedarf gesondert besprochen.
 - Ton und Bild laufen auf manchen iPhones minimal versetzt (Startverzögerung der Audiodatei). Bei Bedarf lässt sich der Takt in `bildB` und `finaleDurch` verschieben.
 - Face ID / Passkey wurde bewusst verworfen (Abschnitt 30).
 - Das LIVE-Backup `advent26-LIVE_komplett.zip` wird nur auf Wunsch aktualisiert.
 - Vor dem 1. Dezember prüfen: `er.js` in LIVE mit echten Bewertungen, Code bekannt, ihr Handy mit automatischer Zeit, Erinnerungs-Termine eingerichtet.
-- Push-Erinnerung: Zustellung auf einem echten iPhone noch zu prüfen (erst in TEST ausprobieren); Cron-Trigger und Secrets in Cloudflare müssen eingerichtet sein (`ANLEITUNG_Cloudflare.md`, Abschnitt Push).
+- Push-Erinnerung: In TEST ist die Zustellung auf dem eigenen Gerät bestätigt (mit Minuten-Cron). Für ihr Gerät erst im Dezember sichtbar: Health-Check beobachten.
+- Nur auf echten Geräten prüfbar: Haptik, Aussehen der Startbilder, Lautstärke und Takt der Animationen.
+- Die ZIP-Sicherungen (Repo TEST/LIVE, außerhalb des Repos) vor dem 1. Dezember einmal neu erzeugen lassen.
+
+---
+
+## 33. Neuaufbau-Anleitung
+
+Dieser Abschnitt ist für den Fall gedacht, dass der Kalender in einem neuen Chat (oder in einem neuen Jahr) **verstanden, geändert oder neu gebaut** werden soll. Wer diese Datei plus die Repository-Dateien kennt, hat alles, was für den Betrieb nötig ist. Die Kartentexte, der Code und die Namen stehen aus Absicht nicht hier.
+
+### 33.1 Was der Kalender ist (in sechs Sätzen)
+1. Eine statische Web-App (`index.html`, eine Datei mit CSS, HTML und JavaScript) auf GitHub Pages, in **zwei Repositories**: LIVE (Echtbetrieb, eigene Domain) und TEST (Vorab-Instanz mit „November = Dezember“).
+2. 24 Türchen, je drei Geschichten (`story-dayN.js`), je eine Karte mit Aufgabe und Alternative (`data.js`, Base64), Freischaltung nach Gerätedatum.
+3. Eine Code-Sperre am Start, eine Chef-Taste (Wolke) mit Wetteransicht, Tür-, Wirbel-, Umschlag- und Finale-Animationen mit Tönen.
+4. Bewertung mit Daumen am Folgetag, Notizen, ab 25.12. Auswertung gegen seine Bewertungen (`er.js`, gepflegt über `er-editor.html` nur in TEST).
+5. Ein kleiner **Cloudflare-Worker** (nicht im Repository): verschlüsselte Sicherung ihrer Angaben, Web-Push-Erinnerungen (für sie täglich, für ihn „Vergiss nicht zu bewerten“), Statusabfrage für den Health-Check.
+6. Gedrucktes Begleitmaterial (Faltkarten, Beipackzettel, Gimmick-Zettel, Packliste, Abschnitt 27).
+
+### 33.2 Datenmodell in Kürze
+- **`calendarData`** (in `index.html`): je Türchen `cardNum` (Kartennummer, die Tabelle steht in Abschnitt 11), Kategorie, Bild, Kurztexte. Bildnamen folgen der **Kartennummer**, nicht dem Türchen.
+- **`data.js`:** Aufgabentexte der 24 Karten als Base64 (`KARTEN_B64`). **`story-dayN.js`:** die drei Geschichten je Türchen (Stimmungen intern `hingabe`, `naehe`, `feuer`). **`er.js`:** seine Bewertungen je Karte.
+- **Speicher:** nur `localStorage`/`sessionStorage`, alle Schlüssel enden auf `26` (Abschnitt 16). Für ein neues Jahr Endung ändern.
+- **Worker-Speicher (KV `BACKUP`):** `<Kennung>:last`, `<Kennung>:v:*` (verschlüsselte Sicherungen), `push:<Kennung>` und `push:<Kennung>-er` (Push-Anmeldungen), `pushidx` (Index der fälligen Anmeldungen).
+
+### 33.3 Bauen in sinnvoller Reihenfolge
+1. **Inhalt:** Geschichten (24 × 3), Karten (24 × Aufgabe + Alternative), Zuordnung Türchen ↔ Karte, Kategorien/Farbwelten, Bilder (Tagesbild je Karte, verpixelte Varianten `pix-mid`/`pix-lock`, `landing.jpg`, `finale.jpg`).
+2. **Grundgerüst:** Sperre, Startseite, Übersicht mit Freischaltung (`jetzt()`, `tagOffen`), Stimmungsauswahl, Geschichte, Weiter-Knopf, Finale.
+3. **Bewertung und Auswertung** (Daumen, Notizen, `er.js`, Rückblick, „Erinnerung speichern“), danach Komfort (Lesen anpassen, Herzen, Erledigt, Countdown) und Wetter (`wetter.js`, `wetter-texte.js`).
+4. **Animationen und Töne** (Portal, Wirbel, Umschlag, Enthüllung, Finale mit eingemischtem Herzschlag, Haptik).
+5. **Service Worker** (`sw.js`: Kernliste, Bilder, Töne mit Range, Push- und Klick-Handler, `VERSION`) und Manifest/Symbole/Startbilder.
+6. **Worker und Editor:** Sicherung (`sicherung.js`, `sicherung-config.js` vom Editor erzeugt), Push, Health-Check.
+7. **Begleitmaterial** (Skripte in `tools_*.zip`, Abschnitt 29).
+8. **TEST zuerst, dann LIVE** (siehe 33.5).
+
+### 33.4 Cloudflare-Worker neu einrichten (Kurzfassung; Langfassung `ANLEITUNG_Cloudflare.md`)
+1. Worker anlegen, Inhalt von `worker.js` einfügen, **KV-Namespace** anlegen und als Binding **`BACKUP`** verbinden.
+2. **Secret `ADMIN_HASH`:** Zugangs-Hash aus dem Editor („Sicherung einrichten“, Schritt 2; Passwort wird nirgends gespeichert).
+3. **Push:** VAPID-Schlüsselpaar (P-256) erzeugen, z. B. mit Node:
+   ```js
+   const c = require("crypto");
+   const k = c.generateKeyPairSync("ec", { namedCurve: "prime256v1" });
+   const j = k.privateKey.export({ format: "jwk" });
+   const pub = Buffer.concat([Buffer.from([4]), Buffer.from(j.x, "base64url"), Buffer.from(j.y, "base64url")]).toString("base64url");
+   console.log("VAPID_PUBLIC:", pub);   // 87 Zeichen
+   console.log("VAPID_PRIVATE:", j.d); // 43 Zeichen
+   ```
+   `VAPID_PUBLIC` als **Variable (Text)**, `VAPID_PRIVATE` als **Secret** eintragen. Den öffentlichen Schlüssel zusätzlich in `index.html` (`PUSH_PUB`) eintragen, beide Pakete.
+4. **Cron-Trigger** `* * * * *` (jede Minute). Optional Variable `ALLOWED_ORIGINS` (erlaubte Herkünfte für Aufrufe aus dem Browser).
+5. Im Editor Worker-Adresse eintragen und die Konfiguration „An TEST und LIVE senden“.
+6. Prüfen mit Testnachricht und Health-Check (Abschnitt 15).
+
+### 33.5 Arbeitsweise bei Änderungen
+- Erst in TEST bauen und prüfen, dann **dieselbe Änderung** in LIVE einbauen (nie die TEST-`index.html` kopieren: `VORTEST_NOVEMBER`, andere Symbole und App-Namen gehören nur in TEST).
+- Bei **jeder** Änderung an einer gecachten Datei `VERSION` in `sw.js` erhöhen. README-Änderungen brauchen keine Erhöhung.
+- Geänderte Dateien unter eindeutigen Namen ausliefern (Hinweis zum Umbenennen, z. B. `index_TEST.html` wird `index.html`).
+- Hochgeladen wird per GitHub-Weboberfläche; Cloudflare wird vom Besitzer selbst bedient.
+- **Nie** nach GitHub-Token, Cloudflare-Passwort oder Admin-Hash fragen.
+
+### 33.6 Testwerkzeuge
+- **Playwright** (Chromium, iPhone-Emulation 390×844), Uhrzeit mit `page.clock.install({ time })`, Speicherstand per `localStorage` vorgeben. Typische Prüfungen: Sperre, Portal und Wirbel (Screenshots), Bewertung am Folgetag, Auswertung (60 von 60 Kombinationen), Deep-Link, Offline-Verhalten des Service Workers, Konsole ohne Fehler.
+- **Lokale Server:** zwei `python3 -m http.server` auf getrennten Ports, z. B. 8231 (TEST) und 8232 (LIVE), je aus dem Paketordner.
+- **Worker-Tests:** `worker.js` als Modul laden mit simuliertem KV (`BACKUP`) und simulierten Push-Diensten; geprüft werden `psub`/`poff`/`popen`, Fälligkeit, Nachholfenster (30 Minuten), ein Versand pro Tag, Index, `pstatus`, 410-Bereinigung.
+- Was nur auf echten Geräten geht: Haptik, Startbild-Optik, Lautstärke/Takt, Push auf ihrem iPhone.
+
+### 33.7 Was **nicht** ins Repository gehört (und gesichert werden muss)
+| Datei | Warum |
+|---|---|
+| `worker.js`, `ANLEITUNG_Cloudflare.md` | läuft bei Cloudflare, nicht auf GitHub Pages |
+| Push-Schlüsseldatei (`PUSH_SCHLUESSEL_…`) | enthält den **privaten** Schlüssel |
+| echte `sicherung-config.js` | vom Editor erzeugt; im Repository liegt nur ein Platzhalter. In keinem Update-Paket mitliefern |
+| echte `er.js` | seine Bewertungen; ein Paket enthält nur eine Vorlage |
+| `CNAME` (LIVE) | wird von GitHub angelegt; nicht löschen |
+| `tools_*.zip`, Druck- und Testskripte | private Werkzeuge (Abschnitt 29) |
+
+### 33.8 Inhaltliche Regeln für diese README
+Diese Datei enthält **keinen Zugangscode, keine Kartentexte, keine Erklärung des Safewords und keine Namen** (weder ihren noch seinen). In der LIVE-Datei steht außerdem nichts über die Testinstanz-Adresse oder deren Repository. Beim Pflegen darauf achten.
+
+### 33.9 Checkliste für ein neues Jahr
+1. Neue Schlüssel-Endung statt `26` (Abschnitt 16), Jahreszahl in `jetzt()`/`tagOffen`, `.ics`-Dateien, Dateinamen „Advent2026_…“, Wochentage in den Geschichten prüfen.
+2. `er.js` neu befüllen; Code neu festlegen (Konstante `CODE`, Base64) und auf Beipackzettel und Code-Zettel ändern.
+3. Neue Kennung (Slot) in `sicherung-config.js`, neue VAPID-Schlüssel (oder bestehende weiter nutzen), Worker-KV leeren oder neuen Namespace anlegen.
+4. TEST-Instanz neu aufsetzen, `VORTEST_NOVEMBER` im Auge behalten; Texte, Bilder und Begleitmaterial anpassen.
+5. Alle Abschnitte dieser README gegen den Code prüfen (diese Datei wird mit `build_readme.py` erzeugt; er liegt in der „außerhalb des Repos“-Sicherung).
