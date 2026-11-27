@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795776017`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795778804`.
 
 ---
 
@@ -410,7 +410,7 @@ Variante B „Die 24 Lichter“ (ca. 22,8 Sekunden, auf die Melodie `ton/finale.
 - Sperre: Punkte wackeln bei falschem Code; beim richtigen Code **entpixelt sich das Hintergrundbild** (vier Stufen) und die Maske blendet aus.
 
 ### 8.5 Haptik, Startbild, Tippflächen
-- **Haptik (`window.haptik`):** Beim richtigen Code (zwei kurze Impulse), beim falschen Code (drei), beim Öffnen einer Tür, beim Zuklappen, beim Umschlag, beim Umlegen des Erinnerungs-Schalters und beim Herz. Auf dem iPhone (ab iOS 17.4) über einen versteckten Schalter (`<input type="checkbox" switch>`), auf Android über `navigator.vibrate`. Bei „Bewegung reduzieren“ aus. Das ist ein Behelf; wo er nicht greift, bleibt es still.
+- **Haptik:** Auf dem **iPhone** löst nur eine **echte Berührung eines Schalters** (`<input type="checkbox" switch>`) Haptik aus. Per Skript ausgelöste Klicks bleiben stumm (auf einem iPhone mit Systemhaptik an in zehn Varianten geprüft: versteckt, mit/ohne Timeout, `dispatchEvent`, `pointerdown`, `touchend`, mehrere Klicks hintereinander). Deshalb legt ein kleines Skript (Block „Haptik“ im frühen Skript) über die Tippflächen einen fast durchsichtigen Schalter (`.hz-sw`, Deckkraft 0,02, `aria-hidden`): Sperr-Tasten, Türchen-Kacheln, Bewertungs-Knöpfe, Herz und große Knöpfe (`.btn-primary`). Eine Berührung trifft den Schalter, der gibt einen kurzen Impuls und reicht den Klick an den Knopf weiter (`host.click()`). Neu erzeugte Elemente werden per `MutationObserver` ergänzt. Aktiv nur auf Touch-Geräten ohne `navigator.vibrate` und nicht bei „Bewegung reduzieren“. **Grenzen:** je Berührung **ein** Impuls (mehrere hintereinander, etwa dreimal bei falschem Code, gehen auf dem iPhone nicht); Haptik ohne Berührung (z. B. nach einer Animation) geht nicht. Auf Android bleibt `window.haptik(art)` mit `navigator.vibrate` (falscher Code dreifach, richtiger zweifach). Fehlersignal beim falschen Code auf dem iPhone: Impuls der vierten Ziffer, Wackeln der Punkte und Hinweistext. Test: Diagnoseseite `haptik-test.html` (nur zum Probieren, nicht ins Repository).
 - **Töne und Stumm-Schalter:** Die Töne laufen als normale Audio-Wiedergabe und sind **unabhängig vom Stumm-Schalter** des iPhones (bewusste Entscheidung). Eine Mischung mit laufender Musik ist deshalb nicht eingestellt; ein Ton kann Musik oder Video kurz anhalten.
 - **Startbild:** Ordner `startup/` mit dunklen Startbildern (Symbol auf #060608) für gängige iPhone-Größen, eingebunden mit `apple-touch-startup-image`. iOS liest sie beim Hinzufügen zum Home-Bildschirm; bei einer schon installierten App greifen sie erst nach erneutem Hinzufügen.
 - **Tippflächen:** Schaltflächen sind mindestens 44 px hoch (`.btn-option`, `.herz-btn`, aufklappbare Titel).
@@ -708,7 +708,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795776017";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795778804";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -831,7 +831,7 @@ Entwickelt und geprüft wurde mit Playwright in der Handy-Ansicht (390×844): Uh
 | Komfort (eigenes Skript am Dateiende) | `leseAnwenden`, `leseSchrift`, `leseWarmSetzen`, `herzUmschalten`, `herzOeffnen`, `erledigtUmschalten`, `erledigtRendern`, `offeneTage`, `cdAktualisieren`, `uebersichtErgaenzen`, `storyErgaenzen`, `tonSpielen`; Liste `VERSCHIEBBAR` |
 | Wolke | Skript mit `bossOeffnen`, `schliessen`, Wetterabruf |
 | Push und Deep-Link | früher Skript: `window.__deepLink` aus `?tuerchen=`; `deepLinkVersuch` (nach der Sperre), `pushMitteilungenWeg` (Benachrichtigung schließen, wenn heutiges Türchen geöffnet), `pushStand`, `pushStandSetzen`, `pushStart` |
-| Haptik | `window.haptik(art)` mit `tick`, `ok`, `fehler`, `tuer` (iOS ≥ 17.4 über verstecktes Schalter-Element, Android `navigator.vibrate`, aus bei „Bewegung reduzieren“) |
+| Haptik | `window.haptik(art)` (nur Android, `navigator.vibrate`); iPhone: Block „Haptik“ im frühen Skript mit `bestuecken` (durchsichtige Schalter `.hz-sw` über `.cs-taste`, `.tuer-card`, `.bew-btn`, `.herz-btn`, `.btn-primary`) und `MutationObserver` |
 | Sonstiges | `seiteAktualisieren` (Tab-Titel/Symbol), Lesefortschritt, Service-Worker-Registrierung |
 
 ---
@@ -868,6 +868,7 @@ Grob in der Reihenfolge der Entstehung:
 24. **Health-Check** im Editor (nur TEST): Status von Push-Anmeldungen, letzten Kontakten und Erinnerungen (Abschnitt 15).
 25. **Push-Klick führt direkt zum Türchen** (Code-Abfrage, dann Tür-Animation des heutigen Türchens; Abschnitt 15), Toggle-Schalter statt Häkchen für die Erinnerung.
 26. **Feinschliff:** Haptik, dunkle Startbilder, größere Tippflächen, kontrastreichere Signaturzeile (Abschnitt 8.5).
+27. **Haptik auf dem iPhone korrigiert:** Skript-Klicks erzeugten dort keine Haptik; jetzt durchsichtige echte Schalter über den Tippflächen (Abschnitt 8.5).
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 
@@ -950,7 +951,8 @@ Warum es so gebaut ist, wie es ist:
 - **Kein Mehrmandanten-Betrieb, keine „Prüfinstanz“ für Fernhilfe:** Getestet wird im selben Code in TEST; eine zweite Instanz pro Person wurde verworfen.
 - **Kein zusätzlicher Freiheits-Hinweistext in der App:** „Nichts ist Pflicht“ steht im Beipackzettel, nicht in der App. Der Beipackzettel regelt auch, welche Aufgaben bewusst nicht verschoben werden.
 - **Code-Freeze ab 1. Dezember:** Was dann nicht da ist, kommt nicht mehr neu; nur Fehlerbehebung.
-- **Tippflächen, Haptik, dunkle Startbilder:** Mindestens 44 px, feine Vibration/Haptik an Schlüsselstellen, dunkle Startbilder gegen weißes Aufblitzen beim Start der installierten App.
+- **Haptik über echte Schalter:** Auf dem iPhone geht Haptik nur bei echter Berührung eines `switch`-Elements, nicht per Skript. Darum durchsichtige Schalter über den Tippflächen; dreifaches Vibrieren bei falschem Code ist dort nicht möglich (siehe 8.5).
+- **Tippflächen, dunkle Startbilder:** Mindestens 44 px, dunkle Startbilder gegen weißes Aufblitzen beim Start der installierten App.
 
 ---
 

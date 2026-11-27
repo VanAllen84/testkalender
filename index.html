@@ -775,22 +775,35 @@
         if (/^[0-9]$/.test(e.key)) taste(e.key); else if (e.key === "Backspace") taste("x");
     });
     try { const m = /[?&]tuerchen=(heute|\d{1,2})(?:&|$)/.exec(location.search); if (m) window.__deepLink = m[1]; } catch (e) {}
-    // Haptik: Android per vibrate, iPhone (ab iOS 17.4) ueber einen versteckten Schalter; bei "Bewegung reduzieren" aus
+    // Haptik: Android per vibrate. iPhone: nur eine ECHTE Beruehrung eines Schalters (input switch) loest Haptik aus,
+    // per Skript ausgeloeste Klicks bleiben stumm. Deshalb liegt ueber den Tippflaechen ein fast durchsichtiger Schalter.
     window.haptik = function (art) {
         try {
             if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-            if (navigator.vibrate) { navigator.vibrate(art === "fehler" ? [40, 60, 40, 60, 40] : art === "ok" ? [25, 50, 25] : art === "tuer" ? 30 : 15); return; }
-            let l = document.getElementById("haptikL");
-            if (!l) {
-                l = document.createElement("label"); l.id = "haptikL"; l.setAttribute("aria-hidden", "true");
-                l.style.cssText = "position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none";
-                const i = document.createElement("input"); i.type = "checkbox"; i.setAttribute("switch", ""); i.tabIndex = -1; l.appendChild(i);
-                (document.body || document.documentElement).appendChild(l);
-            }
-            const muster = art === "fehler" ? [0, 80, 160] : art === "ok" ? [0, 90] : [0];
-            muster.forEach(function (ms) { setTimeout(function () { try { l.click(); } catch (e) {} }, ms); });
+            if (navigator.vibrate) navigator.vibrate(art === "fehler" ? [40, 60, 40, 60, 40] : art === "ok" ? [25, 50, 25] : art === "tuer" ? 30 : 15);
         } catch (e) {}
     };
+    (function () {
+        const HZ = ".cs-taste[data-k]:not(.leer), .tuer-card, .bew-btn, .herz-btn, .btn-primary";
+        let aktiv = false;
+        try { aktiv = !navigator.vibrate && matchMedia("(pointer: coarse)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+        if (!aktiv) return;
+        function bestuecken() {
+            document.querySelectorAll(HZ).forEach(function (h) {
+                if (h.__hz) return; h.__hz = 1;
+                if (getComputedStyle(h).position === "static") h.style.position = "relative";
+                const i = document.createElement("input");
+                i.type = "checkbox"; i.setAttribute("switch", ""); i.tabIndex = -1; i.setAttribute("aria-hidden", "true"); i.className = "hz-sw";
+                i.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;margin:0;opacity:.02;z-index:6;-webkit-tap-highlight-color:transparent";
+                i.addEventListener("click", function (e) { e.stopPropagation(); h.click(); });
+                h.appendChild(i);
+            });
+        }
+        let t = 0;
+        function plan() { if (t) return; t = requestAnimationFrame(function () { t = 0; try { bestuecken(); } catch (e) {} }); }
+        document.addEventListener("DOMContentLoaded", function () { bestuecken(); new MutationObserver(plan).observe(document.body, { childList: true, subtree: true }); });
+        window.addEventListener("load", plan);
+    })();
     window.sperreAktiv = function () { return aktiv; };
     window.sperreZeigen = function () {
         if (testAus()) return;
