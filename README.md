@@ -21,7 +21,7 @@ Dazu gehören gedruckte Teile (24 Faltkarten, Beipackzettel, Röllchen, Päckche
 | GitHub-Repository TEST | `vanallen84/testkalender` |
 | LIVE (eigene Instanz) | https://kalender2026.tkagel.de |
 
-Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795679321`.
+Stand dieser Beschreibung: November 2026, Service-Worker-Version `v1795700501`.
 
 ---
 
@@ -592,6 +592,15 @@ window.ER_BEWERTUNG = {
 - **Hinweis:** Auf einem Gerät teilen Kalender-App und Editor dieselbe Push-Anmeldung. Schaltet man dort in der Kalender-App die Erinnerung aus, wird die Anmeldung beendet; der Editor erneuert sie beim nächsten Start still.
 
 
+
+**Klick auf die Erinnerung führt direkt zum Türchen**
+
+- Tippt sie auf die Push-Nachricht, öffnet sich die App mit der Adresse `./?tuerchen=heute` (oder `?tuerchen=N`, wenn der Worker die Nummer mitschickt). Es erscheint zuerst die Code-Abfrage; nach dem richtigen Code läuft sofort die Tür-Animation des heutigen Türchens, danach geht es wie gewohnt weiter (Stimmungsauswahl oder Geschichte).
+- Ist die App schon geöffnet, wird dieses Fenster genutzt und auf die neue Adresse gesetzt. Läuft der Code-Schutz noch nicht (z. B. innerhalb der 3 Minuten Pause), geht es ohne Code-Abfrage direkt weiter.
+- Es passiert nichts Besonderes, wenn das Türchen noch nicht erreicht ist, wenn sie gerade in einer Geschichte ist oder wenn „Bewegung reduzieren“ aktiv ist (dann ohne Animation, aber ebenfalls direkt zum Türchen). Die Adresse wird nach dem Auslesen aus der Browserzeile entfernt, ein Neuladen wiederholt das nicht.
+- Für dich im Editor: Die Bewertungs-Erinnerung öffnet `er-editor.html#t=N` mit der Nummer des gestrigen Türchens.
+- Sicherheit: Der Service Worker akzeptiert als Ziel nur diese festen Adressformen, nie fremde Adressen.
+
 **Health-Check (Editor, nur TEST)**
 
 - Im Editor gibt es unten den Kasten **„Health-Check“** (Adresse `er-editor.html#status`). Nach Eingabe des Passworts zeigt er je eine Karte für „Ihre App · LIVE“, „Ihre App · TEST“ und „Dein Gerät · Editor“: Push-Anmeldung (eingerichtet ja/nein, Uhrzeit, seit wann), **letzter Kontakt** der App mit dem Worker, **zuletzt geöffnetes Türchen** (nur die Nummer), **letzte gesendete Erinnerung** und eine Zeile **„Heute“** (z. B. „Heute schon geöffnet – keine Erinnerung nötig“, „Wird heute um 20:00 Uhr gesendet“, „Heute nicht gesendet“). Dazu eine Karte zur Sicherung (letzter Stand, Anzahl) und der Hinweis, ob die Push-Schlüssel im Worker vorhanden sind. „Aktualisieren“ lädt neu.
@@ -678,7 +687,7 @@ Schutz gegen zufälliges Öffnen (z. B. durch die Kinder), kein echter Schutz ge
 - **Bilder (`/bilder/`):** zuerst aus dem Speicher.
 - Nur Anfragen an die eigene Adresse werden bearbeitet (die Wetter-Anfrage nicht).
 
-> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795679321";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
+> **Bei jeder Änderung `VERSION` in `sw.js` erhöhen** (z. B. `const VERSION = "v1795700501";`). Ohne neue Version können Handys alte Bilder oder Seiten behalten.
 
 - Eine neue Version löscht beim Aktivieren den alten Speicher.
 - **Jedes Repository hat seine eigene `sw.js`**, in beiden die Version erhöhen.
@@ -832,6 +841,7 @@ Grob in der Reihenfolge der Entstehung:
 22. **Tür rückwärts und Umschlag** (Abschnitte 7.4, 8.1): „Zurück zur Türchen-Auswahl“ spielt die Tür-Animation rückwärts mit `zuklappen.mp3`; der Umschlag auf der Geschichtenseite öffnet sich in Kategorie-Farbe mit `umschlag.mp3`. Push-Text für sie mit Tag, für ihn „Vergiss nicht zu bewerten“. Reste des Herzschlag-Ladens entfernt.
 23. **Aufschließton** bei richtigem Code (Abschnitt 7.8).
 24. **Health-Check** im Editor (nur TEST): Status von Push-Anmeldungen, letzten Kontakten und Erinnerungen (Abschnitt 15).
+25. **Push-Klick führt direkt zum Türchen** (Code-Abfrage, dann Tür-Animation des heutigen Türchens; Abschnitt 15), Toggle-Schalter statt Häkchen für die Erinnerung.
 
 ## 27. Begleitmaterial (gedruckt und gebastelt)
 

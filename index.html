@@ -729,7 +729,7 @@
                 clearInterval(t);
                 setTimeout(function () {
                     ov.classList.add("weg");
-                    setTimeout(function () { verstecken(); try { seiteAktualisieren(); } catch (e) {} }, 520);
+                    setTimeout(function () { verstecken(); try { seiteAktualisieren(); } catch (e) {} try { if (window.deepLinkVersuch) window.deepLinkVersuch(); } catch (e) {} }, 520);
                 }, 180);
             }
         }, 120);
@@ -755,6 +755,8 @@
         if (!aktiv) return;
         if (/^[0-9]$/.test(e.key)) taste(e.key); else if (e.key === "Backspace") taste("x");
     });
+    try { const m = /[?&]tuerchen=(heute|\d{1,2})(?:&|$)/.exec(location.search); if (m) window.__deepLink = m[1]; } catch (e) {}
+    window.sperreAktiv = function () { return aktiv; };
     window.sperreZeigen = function () {
         if (testAus()) return;
         eingabe = ""; punkteZeigen(); pBox.classList.remove("falsch"); sub.textContent = "Bitte gib deinen Code ein";
@@ -1864,6 +1866,32 @@
             } catch (e) {}
         }
         window.addEventListener("load", pushStart);
+        // ---- Direkt zum Türchen (Klick auf die Push-Erinnerung: ./?tuerchen=heute oder ?tuerchen=N) ----
+        function deepLinkVersuch() {
+            const w = window.__deepLink;
+            if (!w) return;
+            if (window.sperreAktiv && window.sperreAktiv()) return;
+            if (typeof waehleTag !== "function" || !document.getElementById("tuerenGridContainer")) return;
+            window.__deepLink = null;
+            try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+            const tag = w === "heute" ? heuteTag() : parseInt(w, 10);
+            if (!(tag >= 1 && tag <= 24) || !(testModus || tagOffen(tag))) return;
+            const sichtbar = function (id) { const e = document.getElementById(id); return e && !e.classList.contains("hidden"); };
+            if (sichtbar("storyScreen") || sichtbar("setupScreen") || sichtbar("finaleScreen") || sichtbar("auswertungScreen")) return;
+            window.__zuKeinScroll = true;
+            try { zeigeTuerenUebersicht(); } catch (e) { window.__zuKeinScroll = false; return; }
+            setTimeout(function () {
+                const el = document.querySelectorAll("#tuerenGridContainer .tuer-card")[tag - 1];
+                if (!el) { window.__zuKeinScroll = false; return; }
+                try { el.scrollIntoView({ block: "center", behavior: "instant" }); } catch (e) { el.scrollIntoView({ block: "center" }); }
+                requestAnimationFrame(function () {
+                    waehleTag(tag, el);
+                    setTimeout(function () { window.__zuKeinScroll = false; }, 800);
+                });
+            }, 260);
+        }
+        window.deepLinkVersuch = deepLinkVersuch;
+        window.addEventListener("load", function () { setTimeout(deepLinkVersuch, 350); });
 
         function ladeErinnerung() {
             const sel = document.getElementById("erinnerungZeit");
