@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><title>Haptik-Test</title>
+<style>
+body{font:16px -apple-system,system-ui,sans-serif;margin:0;padding:16px;background:#111;color:#eee}
+h1{font-size:20px;margin:0 0 8px} p{color:#bbb;margin:6px 0 12px;line-height:1.35}
+button{display:block;width:100%;min-height:48px;margin:8px 0;font-size:16px;border:0;border-radius:12px;background:#2a2a2e;color:#fff;text-align:left;padding:10px 14px}
+button b{display:block} button small{color:#aaa}
+pre{background:#1b1b1e;padding:10px;border-radius:10px;font-size:13px;white-space:pre-wrap}
+.v{position:relative;display:inline-block}
+.sw0{margin:8px 0}
+</style></head><body>
+<h1>Haptik-Test</h1>
+<p>Tippe nacheinander auf jede Zeile und achte, ob du ein kurzes Klopfen spürst. Notiere, welche Nummern funktionieren (z. B. „1 ja, 2 nein …“). Teste einmal in Safari und einmal in der installierten App.</p>
+<pre id="info"></pre>
+
+<button id="b1"><b>1 · Nativer Schalter (echtes Antippen)</b><small>Referenz: Spürst du hier etwas, ist Systemhaptik an.</small>
+ <label style="display:block;margin-top:8px"><input type="checkbox" switch id="nat"> Schalter antippen</label></button>
+
+<button id="b2"><b>2 · Wie in der App (versteckt außerhalb, Timeout 0)</b><small>aktuelle Methode</small></button>
+<button id="b3"><b>3 · Sofort, ohne Timeout</b><small>Klick direkt im Tipp-Handler</small></button>
+<button id="b4"><b>4 · Schalter 1 px im sichtbaren Bereich, kaum sichtbar</b><small>statt außerhalb des Bildschirms</small></button>
+<button id="b5"><b>5 · input.click() direkt</b><small>ohne Label</small></button>
+<button id="b6"><b>6 · Label mit for= und display:none-Eingabe</b><small>Variante mit versteckter Eingabe</small></button>
+<button id="b7"><b>7 · Verzögert nach 400 ms</b><small>wie nach einer Animation</small></button>
+<button id="b8"><b>8 · Android-Vibration (navigator.vibrate)</b><small>auf iPhone nicht vorhanden</small></button>
+
+<script>
+const info=document.getElementById("info");
+const ua=navigator.userAgent, m=/OS (\d+)[_.](\d+)/.exec(ua);
+info.textContent=["iOS: "+(m?m[1]+"."+m[2]:"unbekannt"),
+ "Installierte App: "+((navigator.standalone||matchMedia("(display-mode: standalone)").matches)?"ja":"nein (Safari)"),
+ "navigator.vibrate: "+(navigator.vibrate?"ja":"nein"),
+ "Bewegung reduzieren: "+(matchMedia("(prefers-reduced-motion: reduce)").matches?"AN (blockiert Haptik der App!)":"aus"),
+ "Schalter-Haptik erwartet ab iOS 17.4: "+((m&&(+m[1]>17||(+m[1]==17&&+m[2]>=4)))?"ja":"nein / unklar")].join("\n");
+function mk(id,css,viaFor,hideInput){
+  let l=document.getElementById(id); if(l) return l;
+  l=document.createElement("label"); l.id=id; l.style.cssText=css;
+  const i=document.createElement("input"); i.type="checkbox"; i.setAttribute("switch",""); i.id=id+"i"; i.tabIndex=-1;
+  if(hideInput) i.style.display="none";
+  if(viaFor){ l.setAttribute("for",i.id); document.body.appendChild(l); document.body.appendChild(i);} else { l.appendChild(i); document.body.appendChild(l);}
+  return l;
+}
+document.getElementById("b2").onclick=()=>{const l=mk("h2","position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none");setTimeout(()=>l.click(),0)};
+document.getElementById("b3").onclick=()=>{mk("h3","position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none").click()};
+document.getElementById("b4").onclick=()=>{mk("h4","position:fixed;right:4px;bottom:4px;width:1px;height:1px;opacity:.02;overflow:hidden").click()};
+document.getElementById("b5").onclick=()=>{mk("h5","position:fixed;right:4px;bottom:8px;opacity:.02");document.getElementById("h5i").click()};
+document.getElementById("b6").onclick=()=>{mk("h6","position:fixed;right:4px;bottom:12px;width:1px;height:1px;opacity:.02",true,true).click()};
+document.getElementById("b7").onclick=()=>{const l=mk("h7","position:fixed;right:4px;bottom:16px;width:1px;height:1px;opacity:.02");setTimeout(()=>l.click(),400)};
+document.getElementById("b8").onclick=()=>{try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}};
+</script></body></html>
