@@ -141,6 +141,25 @@
   .hc-v small { opacity:.6; margin-left:4px; }
   .hc-v.ok { color:#7fd6a0; }
   .hc-leer { opacity:.5; }
+  .hc-punkt.gelb { background:#e8c14a; box-shadow:0 0 0 4px rgba(232,193,74,.18), 0 0 12px rgba(232,193,74,.55); }
+  .hc-punkt.rot { background:#ef5b5b; box-shadow:0 0 0 4px rgba(239,91,91,.2), 0 0 12px rgba(239,91,91,.6); }
+  .hc-punkt.gross { width:20px; height:20px; }
+  .hc-pille { margin-left:auto; flex:none; font-size:.7rem; letter-spacing:.8px; text-transform:uppercase; padding:3px 9px; border-radius:20px; background:rgba(255,255,255,.07); }
+  .hc-pille.ok { color:#7fd6a0; background:rgba(79,209,139,.13); }
+  .hc-pille.gelb { color:#ecd27a; background:rgba(232,193,74,.15); }
+  .hc-pille.rot { color:#ff9c9c; background:rgba(239,91,91,.17); }
+  .hc-grund { margin:0 0 6px; font-size:.82rem; }
+  .hc-grund.gelb { color:#ecd27a; } .hc-grund.rot { color:#ff9c9c; }
+  .hc-gesamt { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.04); }
+  .hc-gesamt.ok { background:rgba(79,209,139,.1); border-color:rgba(79,209,139,.35); }
+  .hc-gesamt.gelb { background:rgba(232,193,74,.1); border-color:rgba(232,193,74,.35); }
+  .hc-gesamt.rot { background:rgba(239,91,91,.1); border-color:rgba(239,91,91,.4); }
+  .hc-gesamt > div > b { display:block; font-size:1.05rem; color:var(--head); }
+  .hc-gesamt li b { font-weight:600; }
+  .hc-gesamt small { display:block; opacity:.7; margin-top:2px; }
+  .hc-gesamt ul { margin:6px 0 0; padding-left:18px; font-size:.84rem; }
+  .hc-gesamt .hc-punkt { margin-top:3px; }
+  @media (prefers-reduced-motion: no-preference) { .hc-punkt.rot { animation:hcPuls 1.8s ease-in-out infinite; } @keyframes hcPuls { 50% { box-shadow:0 0 0 7px rgba(239,91,91,.1), 0 0 16px rgba(239,91,91,.7); } } }
   .hc-heute { margin-top:6px; padding:9px 12px; border-radius:10px; font-size:.84rem; background:rgba(255,255,255,.05); }
   .hc-heute span { display:inline-block; margin-right:8px; font-size:.68rem; letter-spacing:1.4px; text-transform:uppercase; opacity:.65; }
   .hc-heute.ok { background:rgba(79,209,139,.12); color:#a6e8c3; }
@@ -732,11 +751,34 @@ function hcHeute(e, heute, er) {
   if (heute.min < ziel + 30) return { ton: "warn", text: "Wird gleich gesendet (der Worker läuft jede Minute)" };
   return { ton: "warn", text: "Heute nicht gesendet (Zeitfenster vorbei)" };
 }
-function hcKarte(titel, unter, e, jetzt, heute, er) {
+const HC_STUFE = ["ok", "gelb", "rot"], HC_WORT = ["In Ordnung", "Aufpassen", "Handeln"];
+function hcTage(ms, jetzt) { return Math.floor((jetzt - ms) / 86400e3); }
+function hcImDezember(heute, e) { return (heute.monat === 12 && heute.tag >= 1 && heute.tag <= 25) || (e && e.modus === "test"); }
+// Ampel je Gerät: 0 grün, 1 gelb, 2 rot
+function hcAmpel(e, jetzt, heute, er) {
+  if (!e || !e.angemeldet) return { s: 1, g: "Erinnerung nicht eingeschaltet" };
+  const hu = hcHeute(e, heute, er);
+  if (/nicht gesendet/.test(hu.text)) return { s: 2, g: "Heute nicht gesendet" };
+  if (hu.ton === "warn") {
+    const ziel = (Number(String(e.zeit).slice(0, 2)) || 20) * 60 + (Number(String(e.zeit).slice(2, 4)) || 0);
+    if (heute.min - ziel >= 3) return { s: 1, g: "Erinnerung überfällig" };
+  }
+  const grenze = er ? 5 : 3;
+  if (hcImDezember(heute, e) && e.kontakt && hcTage(e.kontakt, jetzt) > grenze) return { s: 1, g: "Seit " + hcTage(e.kontakt, jetzt) + " Tagen kein Kontakt" };
+  return { s: 0, g: "In Ordnung" };
+}
+function hcAmpelSich(si, jetzt, heute) {
+  if (!si || !si.zuletzt) return { s: 1, g: "Noch keine Sicherung" };
+  if (hcImDezember(heute, null) && hcTage(si.zuletzt, jetzt) > 3) return { s: 1, g: "Letzte Sicherung vor " + hcTage(si.zuletzt, jetzt) + " Tagen" };
+  return { s: 0, g: "In Ordnung" };
+}
+function hcPille(a) { return '<span class="hc-pille ' + HC_STUFE[a.s] + '">' + HC_WORT[a.s] + '</span>'; }
+function hcKarte(titel, unter, e, jetzt, heute, er, amp) {
   const reg = e && e.angemeldet;
   const zeile = (k, v, ton) => '<div class="hc-z"><span class="hc-k">' + k + '</span><span class="hc-v' + (ton ? " " + ton : "") + '">' + v + '</span></div>';
   const mitVor = ms => ms ? ve(hcZeit(ms)) + ' <small>' + ve(hcVor(ms, jetzt)) + '</small>' : '<span class="hc-leer">noch nie</span>';
-  let h = '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + (reg ? "an" : "aus") + '"></span><div><b>' + ve(titel) + '</b><small>' + ve(unter) + '</small></div></div>';
+  let h = '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + HC_STUFE[amp.s] + '"></span><div><b>' + ve(titel) + '</b><small>' + ve(unter) + '</small></div>' + hcPille(amp) + '</div>';
+  if (amp.s) h += '<div class="hc-grund ' + HC_STUFE[amp.s] + '">' + ve(amp.g) + '</div>';
   h += zeile("Push-Anmeldung", reg ? "eingerichtet · täglich " + hcUhr(e.zeit) + " Uhr" : '<span class="hc-leer">nicht eingerichtet</span>', reg ? "ok" : "");
   if (reg) h += zeile("Angemeldet seit", mitVor(e.angemeldetSeit));
   if (reg) h += zeile("Letzter Kontakt", mitVor(e.kontakt));
@@ -757,13 +799,26 @@ function htmlHealth() {
   if (HC.test || HC.live) {
     const d = HC.test || HC.live, jetzt = d.jetzt, heute = d.heute;
     const c = cfg();
-    h += '<div class="hc">';
-    h += '<div class="hc-stand">Stand: ' + ve(hcZeit(jetzt)) + ' · Worker-Schlüssel für Push: <b class="' + (d.schluessel ? "ok" : "fehler") + '">' + (d.schluessel ? "vorhanden" : "fehlt") + '</b></div>';
-    if (c.aktivLive !== false && HC.live) h += hcKarte("Ihre App · LIVE", "Kalender, den sie benutzt", HC.live.app, HC.live.jetzt, HC.live.heute, false);
-    if (HC.test) h += hcKarte("Ihre App · TEST", "Zum Ausprobieren", HC.test.app, jetzt, heute, false);
-    if (HC.test) h += hcKarte("Dein Gerät · Editor", "Erinnerung zum Bewerten", HC.test.er, jetzt, heute, true);
+    const liveDa = c.aktivLive !== false && HC.live;
+    const aLive = liveDa ? hcAmpel(HC.live.app, HC.live.jetzt, HC.live.heute, false) : null;
+    const aTest = HC.test ? hcAmpel(HC.test.app, jetzt, heute, false) : null;
+    const aEr = HC.test ? hcAmpel(HC.test.er, jetzt, heute, true) : null;
     const sl = HC.live && HC.live.sicherung, st = HC.test && HC.test.sicherung;
-    h += '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + (((sl && sl.zuletzt) || (st && st.zuletzt)) ? "an" : "aus") + '"></span><div><b>Sicherung der Antworten</b><small>Verschlüsselt im Worker</small></div></div>' +
+    const aSich = hcAmpelSich(sl || st, jetzt, heute);
+    const aKey = d.schluessel ? { s: 0, g: "In Ordnung" } : { s: 2, g: "Push-Schlüssel im Worker fehlen" };
+    // Gesamtampel: TEST-Instanz zählt nicht mit
+    const teile = [["Worker-Schlüssel", aKey], ["Ihre App · LIVE", aLive], ["Dein Gerät · Editor", aEr], ["Sicherung", aSich]].filter(x => x[1]);
+    const gesamt = Math.max.apply(null, teile.map(x => x[1].s));
+    const probleme = teile.filter(x => x[1].s > 0).map(x => '<li><b>' + ve(x[0]) + ':</b> ' + ve(x[1].g) + '</li>').join("");
+    h += '<div class="hc">';
+    h += '<div class="hc-gesamt ' + HC_STUFE[gesamt] + '"><span class="hc-punkt gross ' + HC_STUFE[gesamt] + '"></span><div><b>' + (gesamt === 0 ? "Alles in Ordnung" : gesamt === 1 ? "Bitte kurz ansehen" : "Hier ist Handeln nötig") + '</b>' +
+      (probleme ? '<ul>' + probleme + '</ul>' : '<small>Push, Kontakte und Sicherung sehen gut aus.</small>') + '</div></div>';
+    h += '<div class="hc-stand">Stand: ' + ve(hcZeit(jetzt)) + ' · Worker-Schlüssel für Push: <b class="' + (d.schluessel ? "ok" : "fehler") + '">' + (d.schluessel ? "vorhanden" : "fehlt") + '</b> · die TEST-App zählt für die Gesamtampel nicht mit</div>';
+    if (liveDa) h += hcKarte("Ihre App · LIVE", "Kalender, den sie benutzt", HC.live.app, HC.live.jetzt, HC.live.heute, false, aLive);
+    if (HC.test) h += hcKarte("Ihre App · TEST", "Zum Ausprobieren", HC.test.app, jetzt, heute, false, aTest);
+    if (HC.test) h += hcKarte("Dein Gerät · Editor", "Erinnerung zum Bewerten", HC.test.er, jetzt, heute, true, aEr);
+    h += '<div class="hc-karte"><div class="hc-kopf"><span class="hc-punkt ' + HC_STUFE[aSich.s] + '"></span><div><b>Sicherung der Antworten</b><small>Verschlüsselt im Worker</small></div>' + hcPille(aSich) + '</div>' +
+      (aSich.s ? '<div class="hc-grund ' + HC_STUFE[aSich.s] + '">' + ve(aSich.g) + '</div>' : '') +
       (sl ? '<div class="hc-z"><span class="hc-k">LIVE zuletzt</span><span class="hc-v">' + (sl.zuletzt ? ve(hcZeit(sl.zuletzt)) + ' <small>' + ve(hcVor(sl.zuletzt, jetzt)) + '</small> · ' + sl.anzahl + ' Stände' : '<span class="hc-leer">noch keine</span>') + '</span></div>' : '') +
       (st ? '<div class="hc-z"><span class="hc-k">TEST zuletzt</span><span class="hc-v">' + (st.zuletzt ? ve(hcZeit(st.zuletzt)) + ' <small>' + ve(hcVor(st.zuletzt, jetzt)) + '</small> · ' + st.anzahl + ' Stände' : '<span class="hc-leer">noch keine</span>') + '</span></div>' : '') +
       '</div></div>';
